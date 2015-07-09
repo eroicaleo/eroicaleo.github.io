@@ -19,12 +19,14 @@ Lecture 1
 ---------------------
 
 Why we need graphs?
+
 1. We want to understand the data
 2. We want to find patterns
 3. To suggest modeling strategies
 4. To debug analysis
 
 Characteristics of exploratory graphs
+
 1. made quickly
 2. made in large numbers
 3. goal is for personal understandings
