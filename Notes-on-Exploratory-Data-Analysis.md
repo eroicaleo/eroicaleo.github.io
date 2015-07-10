@@ -34,31 +34,35 @@ Characteristics of exploratory graphs
 Simple Summary of data
 
 1. Five number of summary
-```R
-summary(pollution$pm25)
-```
+
+    ```python
+    summary(pollution$pm25)
+    ```
 
 2. boxplot
-```R
-boxplot(pollution$pm25, col = "blue")
-# We can also overlay features
-# This will draw a line y = 12
-abline(h = 12)
-```
+
+    ```python
+    boxplot(pollution$pm25, col = "blue")
+    # We can also overlay features
+    # This will draw a line y = 12
+    abline(h = 12)
+    ```
 
 3. histogram
-```R
-hist(pollution$pm25, col = "green")
-hist(pollution$pm25, col = "green", breaks = 100)
-# density plot, add a strip under the histogram indicating location of each data point
-rug(pollution$pm25)
-# This will draw a line x = 12, with width 2.
-abline(v = 12, lwd = 2)
-# This will draw a line cross the median data point.
-abline(v = median(pollution$pm25), col = "magenta", lwd = 4)
-```
+
+    ```python
+    hist(pollution$pm25, col = "green")
+    hist(pollution$pm25, col = "green", breaks = 100)
+    # density plot, add a strip under the histogram indicating location of each data point
+    rug(pollution$pm25)
+    # This will draw a line x = 12, with width 2.
+    abline(v = 12, lwd = 2)
+    # This will draw a line cross the median data point.
+    abline(v = median(pollution$pm25), col = "magenta", lwd = 4)
+    ```
 
 4. barplot: it is for categorical data.
-```R
-barplot(table(pollution$region), col = "wheat", main = "Number of Counties in Each Region")
-```
+
+    ```python
+    barplot(table(pollution$region), col = "wheat", main = "Number of Counties in Each Region")
+    ```
