@@ -66,3 +66,71 @@ Simple Summary of data
     ```python
     barplot(table(pollution$region), col = "wheat", main = "Number of Counties in Each Region")
     ```
+
+5. boxplot for 2 dimensional data
+
+    ```python
+    boxplot(pm25 ~ region, data = pollution, col = "red")
+    ```
+
+6. histogram for 2 dimensional data
+
+    ```python
+    par(mfrow = c(1, 2), mar = c(4, 4, 2, 1))
+    hist(subset(pollution, region == "east")$pm25, col = "green")
+    hist(subset(pollution, region == "west")$pm25, col = "green")
+    ```
+
+    mar is for margin, see the man page of par.
+
+7. scatterplot
+
+    ```python
+    with(pollution, plot(latitude, pm25))
+    with(pollution, plot(latitude, pm25, col = region))
+    ```
+
+From the above examples, we can see there is two ways to refer to
+the data in a dataframe.
+1. plot(y ~ x, data = pollution)
+    The ~ is called formula notation.
+2. with(pollution, plot(y, x))
+
+Further resource
+
+[R graph gallery](gallery.r-enthusiasts.com)
+[R Bloggers](http://www.r-bloggers.com/)
+
+04 Plotting system in R
+-----------------------
+
+1. base plot system
+    "Artist's palette" model, add pieces one by one.
+    generation, plot or like function.
+    Then annotation, add labels, axis etc.
+
+2. Lattice plot system
+    plots are create at once.
+    Good for condition plot, panel plot.
+    Good for putting many many plots on a screen.
+
+3. ggplot system
+    It mixes the ideas of both
+
+05 Base Plotting system
+-----------------------
+
+### The Process of Making a plot
+
+Some questions to think about?
+1. The plot will be on a paper? Screen?
+2. Will the plot be used in screen? web browser? presentation?
+3. Large data go into the plot?
+4. Need to dynamically resize the plot?
+5. Which plotting system we will use?
+
+### Base Graphics
+
+plot and hist will launch a graphics device, if there is no one open.
+plot has lots of arguments, letting you set title, labels.
+Most of them are documented in the `par` function man pages.
