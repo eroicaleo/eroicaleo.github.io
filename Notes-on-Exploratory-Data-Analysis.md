@@ -145,12 +145,12 @@ Most of them are documented in the `par` function man pages.
 
 3 base graph commands: `plot, hist, boxplot`.
 
-#### Important parameters:
+### Important parameters:
 
 * `pch`: plotting character (see the man page for function `points` for details)
 * `lty`: line type
 * `lwd`: line width
-* `col`: color, can be number, string, hex format, `colors` function gives a
+* `col`: color, can be number, string, hex format, `colors()` function gives a
 vector of color by name
 * `xlab`: x-axis label
 * `ylab`: y-axis label
@@ -166,7 +166,7 @@ text.
 * `mfrow`: number of plots per row and per column, filled row-wise.
 * `mfcol`: number of plots per column and per row, filled column-wise.
 
-#### Base plotting functions
+### Base plotting functions
 
 * `plot`: make a scatterplot, or other plot depending on the class of the
 objects being plotted.
@@ -174,5 +174,30 @@ objects being plotted.
 * `points`: add points to a plot.
 * `text`: add text labels to a plot.
 * `title`: add titles.
-* 'mtext': m means margin, add text to margins.
+* `mtext`: m means margin, add text to margins.
 * `axis`: add axis ticks and labels.
+* `legend`: add legend. If they are the line, specify `lty`. If they are
+character, specify `pch`.
+
+### Summary
+
+Very flexible and offers high degree of control, but maybe tedious.
+
+Base Plotting Demonstration
+---------------------------
+
+We can use the `examples` function to see the examples of a function like
+`examples(points)`
+
+`pch` 21 ~ 25 are similar to 1 ~ 6, but they have boundaries (with `col` parameters)
+and fills (with `bg` parameters).
+
+We could make the plot, but don't put the data in it by doing
+`plot(x, y, type = "n")`
+
+```python
+g <- gl(2, 50, labels = c("Male", "Female"))
+plot(x, y, type = "n")
+plot(x[g == "Male"], y[g == "Male"], col = "blue")
+plot(x[g == "Female"], y[g == "Female"], col = "green")
+```
