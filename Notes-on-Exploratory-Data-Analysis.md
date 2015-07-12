@@ -92,6 +92,7 @@ Simple Summary of data
 
 From the above examples, we can see there is two ways to refer to
 the data in a dataframe.
+
 1. plot(y ~ x, data = pollution)
     The ~ is called formula notation.
 2. with(pollution, plot(y, x))
@@ -99,6 +100,7 @@ the data in a dataframe.
 Further resource
 
 [R graph gallery](gallery.r-enthusiasts.com)
+
 [R Bloggers](http://www.r-bloggers.com/)
 
 04 Plotting system in R
@@ -123,6 +125,7 @@ Further resource
 ### The Process of Making a plot
 
 Some questions to think about?
+
 1. The plot will be on a paper? Screen?
 2. Will the plot be used in screen? web browser? presentation?
 3. Large data go into the plot?
@@ -131,6 +134,33 @@ Some questions to think about?
 
 ### Base Graphics
 
+There are 2 steps:
+
+1. Initializing a plot
+2. Annotating the plot
+
 plot and hist will launch a graphics device, if there is no one open.
 plot has lots of arguments, letting you set title, labels.
 Most of them are documented in the `par` function man pages.
+
+3 base graph commands: `plot, hist, boxplot`.
+
+Important parameters:
+
+* pch: plotting character ()
+* lty: line type
+* lwd: line width
+* col: color, can be number, string, hex format, `colors` function gives a
+vector of color by name
+* xlab: x-axis label
+* ylab: y-axis label
+
+Use `par()` function to specify these parameters and also to read the current
+value of them, like `par("col")`. Don't forget the double quote.
+
+* las: the orientation of axis labels on the plot
+* bg: background color
+* mar: margin
+* oma: the outer margin
+* mfrow: number of plots per row and per column, filled row-wise.
+* mfcol: number of plots per column and per row, filled column-wise.
