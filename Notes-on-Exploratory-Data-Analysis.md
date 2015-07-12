@@ -145,22 +145,34 @@ Most of them are documented in the `par` function man pages.
 
 3 base graph commands: `plot, hist, boxplot`.
 
-Important parameters:
+#### Important parameters:
 
-* pch: plotting character ()
-* lty: line type
-* lwd: line width
-* col: color, can be number, string, hex format, `colors` function gives a
+* `pch`: plotting character (see the man page for function `points` for details)
+* `lty`: line type
+* `lwd`: line width
+* `col`: color, can be number, string, hex format, `colors` function gives a
 vector of color by name
-* xlab: x-axis label
-* ylab: y-axis label
+* `xlab`: x-axis label
+* `ylab`: y-axis label
 
 Use `par()` function to specify these parameters and also to read the current
 value of them, like `par("col")`. Don't forget the double quote.
 
-* las: the orientation of axis labels on the plot
-* bg: background color
-* mar: margin
-* oma: the outer margin
-* mfrow: number of plots per row and per column, filled row-wise.
-* mfcol: number of plots per column and per row, filled column-wise.
+* `las`: the orientation of axis labels on the plot
+* `bg`: background color
+* `mar`: margin, start from the bottom and clockwise turn. The unit is line of
+text.
+* `oma`: the outer margin
+* `mfrow`: number of plots per row and per column, filled row-wise.
+* `mfcol`: number of plots per column and per row, filled column-wise.
+
+#### Base plotting functions
+
+* `plot`: make a scatterplot, or other plot depending on the class of the
+objects being plotted.
+* `lines`: add lines to a plot.
+* `points`: add points to a plot.
+* `text`: add text labels to a plot.
+* `title`: add titles.
+* 'mtext': m means margin, add text to margins.
+* `axis`: add axis ticks and labels.
