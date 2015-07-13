@@ -1,3 +1,7 @@
+---
+title: Notes on Introduction to Computer Science and Programming Using Python
+---
+
 # Lecture 07 DEBUGGING
 
 black box testing: exercise path through specification.
