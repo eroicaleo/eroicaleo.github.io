@@ -268,3 +268,44 @@ except:
     anoter error or execute a `break`, `continue` or `return`.
     * Useful for clean-up code which should be run no matter what else happened
     , like close a file.
+
+## EXCEPTION AS CONTROL FLOW
+
+### Exception as flow of control
+
+* In traditional languages, one deals with errors by having functions return
+special values
+* Any other functions has to check 'error value' was returned.
+* In python, just raise an exception
+
+## ASSERTIONS
+
+### Assertions
+
+* We want to make sure the assumptions on state of computation are as expected,
+we can use `assert` statement.
+* We can't control the response, but will raise an `AssertionError` exception.
+* Good for defensive programming.
+
+```python
+def avg(grades, weights):
+  assert not len(grades) == 0, 'not grades data'
+  newgr = [convertLetter(elt) for elt in grades]
+  return dotProduct(newgr, weights) / len(newgr)
+```
+
+### Assertions as defensive programming
+
+* Assertions don't allow a programmer to control response, they guarantee execution halts whenever an expected condition is not met
+* Typically used to check input
+* Make easier to locate a bug
+
+### Where to use assertions?
+
+* Goal is to spot bugs early
+* Not to be used in place of testing, but as a supplement to testing.
+* If users supply bad data input:
+    * Check types of arguments
+    * Check invariants on data structures are met
+    * Check constraints on return values
+    * Check for violations of constraints on procedure
