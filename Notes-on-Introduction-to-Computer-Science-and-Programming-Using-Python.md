@@ -138,7 +138,7 @@ Allow you to test units that depend on software not yet written
     * meaning go back to check the program still passes the tests it used to
     pass
 
-## TIME
+## DEBUGGING
 
 ### Runtime bugs
 
@@ -176,4 +176,95 @@ Treat as a search problem: looking for explanation for incorrect behaviour.
 * Explain the problem to someone else
 * Don't believe the documentation
 * Take a break and come back later
- 
+
+# Lecture 08 Assertion and Exceptions
+
+## EXCEPTIONS
+
+### What is an exception?
+
+What if the code hits an unexpected condition? These are called exceptions.
+
+* IndexError:
+
+```python
+Test = [1, 2, 3]
+Test[4]
+```
+
+* TypeError:
+
+```python
+int(Test)
+'a' / 4
+```
+
+* NameError:
+
+```python
+noThisName += 1
+```
+
+### What to do with exceptions?
+
+* Fail sliently? Really bad idea! User gets no indication that results might be
+suspect.
+* Return a "error" value
+    * What to return? `None`?
+    * The caller must have code to check the error value and deal with this
+    error.
+    * Stop execution, signal error condition.
+    ```python
+    raise Exception('descriptive string')
+    ```
+
+### Dealing with exceptions
+
+```python
+try:
+  f = open('grade.txt')
+  # Code to process
+except:
+  raise Exception('Cannot find file!')
+```
+
+### Handling specific exceptions
+
+Usually handler is only meant to deal with a particular type of exception.
+
+```python
+try:
+  f = open('grade.txt')
+  # Code to process
+except IOError, e:
+  raise Exception('Cannot find file!')
+  sys.exit(0)
+except ArithmeticError, e:
+  raise ValueError('Bug in grade calculation ' + str(e))
+```
+
+### Types of exceptions
+
+* SyntaxError
+* NameError
+* TypeError
+* IndexError
+* IOError
+* ValueError
+* AttributeError
+
+### Other extensions to `try`
+
+* `else`: Try block with no exceptions.
+
+```python
+try:
+else:
+except:
+```
+
+* `finally`
+    * always gets executed no after `try`, `else`, `except` even if they raise
+    anoter error or execute a `break`, `continue` or `return`.
+    * Useful for clean-up code which should be run no matter what else happened
+    , like close a file.
