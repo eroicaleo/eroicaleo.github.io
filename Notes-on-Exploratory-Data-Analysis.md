@@ -183,7 +183,7 @@ character, specify `pch`.
 
 Very flexible and offers high degree of control, but maybe tedious.
 
-Base Plotting Demonstration
+06 Base Plotting Demonstration
 ---------------------------
 
 We can use the `examples` function to see the examples of a function like
@@ -201,3 +201,71 @@ plot(x, y, type = "n")
 plot(x[g == "Male"], y[g == "Male"], col = "blue")
 plot(x[g == "Female"], y[g == "Female"], col = "green")
 ```
+
+## 07 Graphic devices
+
+### What is a graphic device
+
+* A graphic device is something we can make plot apprear
+    * a window, it's a screen device
+    * A PDF file
+    * A PNG, JPEG file
+    * A SVG file (scalable vector graphic)
+* When making a plot, it has to be sent to a graphic device
+* To open screen device
+    * `quatz()` on Mac, `X11()` on Linux, `windows()` on Windows
+    * `?Device` to find all devices
+* `plot`, `xyplot`, `qplot` will send plot to screen device. And there is only
+one screen device for all the 3 platforms
+* file devices are appropriate for paper/slide/presentation
+
+### How does a plot get created?
+
+* Explicitly launch a graphic device
+
+```python
+pdf(file = "myplot.pdf")
+```
+
+* Call a plot function to make a plot
+* Annotate the plot
+* **_Explicitly close the graphic device by calling_** `dev.off()`
+
+### Graphic file devices
+
+Vector formats:
+
+* Pros: useful for line graphics, resize well, won't distort.
+* Cons: not good for plot with lots of points/objects
+* pdf
+* svg, useful for animation and web-based plot
+* windows metafile: windows only
+* postscript: not use very often
+
+Bitmap formats:
+
+* Pros: good for plot with lots of points
+* Cons: doesn't resize well
+* png
+* jpeg: good for natural scenes, very small, not good for line drawing
+* tiff
+* bmp
+
+### Multiple open graphic devices
+
+* can launch multiple devices
+* only one is active at a time
+* each one gets a integer nubmer >= 2
+* find the current device by `dev.cur()`
+* set active device by `dev.set(integer)`
+
+### Copy plots
+
+```python
+dev.copy(png, file = "myfile.png")
+dev.off()
+# if want PDF
+dev.copy2pdf
+```
+
+**Warning: the plot may not be exactly the same as seen in screen**
