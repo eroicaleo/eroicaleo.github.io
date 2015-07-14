@@ -137,3 +137,43 @@ Allow you to test units that depend on software not yet written
 * Be sure to do regression test
     * meaning go back to check the program still passes the tests it used to
     pass
+
+## TIME
+
+### Runtime bugs
+
+* overt v.s. covert:
+    * overt has an obvious manifestation - crashes an runs forever
+    * covert has no obvious manifestation, returns a value which may be
+    incorrect but hard to determine
+* Persistent vs. intermittent:
+    * Persistent occurs everytime
+    * intermittent occurs some times, even with same input
+
+### Categories of bugs
+
+* Overt and persistent:
+    * defensive programming, if an error is made it will fall into this categrory
+* Overt and intermittent:
+    * can be hard to debug, if the conditions that promote the bug can be
+    reproduced, can be handled
+* Covert bugs:
+    * highly dangerous, might run a long time before being catched.
+
+## DEBUGGING AS SEARCH
+
+### Debugging skills
+
+Treat as a search problem: looking for explanation for incorrect behaviour.
+
+* study both correct and incorrect testcases.
+
+### Some pragmatic hints
+
+* Look for usual suspects
+* Ask why the code is doing what it is, not why it is not doing what you want
+* The bug is probably not where you think it is - eliminate the locations
+* Explain the problem to someone else
+* Don't believe the documentation
+* Take a break and come back later
+ 
