@@ -10,3 +10,6 @@ title: Blogging Like a Hacker
 
 [Notes on Scalable Machine Learning](./Notes-on-Scalable-Machine-Learning.html)
 ======================================================================
+
+[Notes on Notes on Introduction to Interactive Programming in Python](./Notes-on-IIPP.html)
+======================================================================
