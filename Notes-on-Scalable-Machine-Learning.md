@@ -147,3 +147,63 @@ Cons:
 
 * Slow convergence
 * require communication across nodes.
+
+## COMMUNICATION HIERARCHY
+
+* Memory is about 50GB/s
+* Disk is about 100M/s
+* Network is about 10GB/s within the same rack, 0.3 GB/s for different racks
+
+## DISTRIBUTED MACHINE LEARNING: COMMUNICATION PRINCIPLES
+
+2nd rule of thumb: Perform parallel and in-memory computation
+Persistent in memory reduces communication.
+* Especially for iterative algorithms, e.g. gradient descent
+* Scale up to powerful multi-core machine
+    * No network communication
+    * Expensive
+* Scale out, e.g. distributed, cloud based
+    * Need to deal with network
+    * Commodity HW, scales to massive problems
+
+```python
+# We can cache the training set
+train.cache()
+
+for i in range(numIters):
+  alpha_i = alpha / (n * np.sqrt(i+1))
+  gradient = train.map(lambda lp: gradientSummand(w, lp)).sum()
+  w -= alpha_i * gradient
+return w
+```
+
+3rd rule of thumb: Minimize the Network Communication
+First observation: We need to store and potentially communicate data, model and
+intermediate objects
+* Keep large objects local
+
+Second observation: ML methods are typically iterative
+* Reduce the number of interactions
+
+Extreme: Divide and Conqure
+* Fully process each partition locally, communicate the final results
+* Single iteration and minimal communication
+* Approximate results
+
+```python
+train.mapPartitions(localLinearRegression).reduce(combineLocal)
+```
+
+Less extreme: Mini batch
+
+```python
+for i in range(fewerIters):
+  update = train.mapPartitions(doSomeLocalGradientUpdates).reduce(combineLocalUpdates)
+  w += update
+return w
+```
+
+We can amortize latency
+* send large message
+* Batch their communication
+* Train multiple models
