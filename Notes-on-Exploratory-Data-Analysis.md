@@ -269,3 +269,103 @@ dev.copy2pdf
 ```
 
 **Warning: the plot may not be exactly the same as seen in screen**
+
+# Lecture 02
+
+## Lattice plotting system
+
+### Introduction
+
+* Lattice contains function to produce trellis graphics, including:
+    * `xyplot`
+    * `bwplot`
+    * `levelplot`
+* It builds on `grid` package, which we seldom use directly
+* Doesn't have two phases: plotting and annotation
+* All plotting/annotation is done at once with a single function call
+
+### Important functions
+
+* `xyplot`: scatterplot
+* `bwplot`: boxplot
+* `histogram`: histograms
+* `stripplot`: boxplot with actual points
+* `dotplot`：plot dots like "violin strings"
+* `splom`：scatterplot matrix; like the `paris` in base system
+* `levelplot`, `contourplot`: for plotting image data
+
+### `xyplot` function
+
+```python
+xyplot(y ~ x | f * g, data)
+```
+
+* Again, we use formula notation, left of ~ is y-axis, right of ~ is x-axis.
+* f and g are called conditioning variables, which are optional
+    * they are categorical variables that we condition on
+    * it means we want to look at the scatterplot of y and x at every level of f
+    and g
+    * Don't have to use 2 categorical variables, * indicates interaction.
+* data is the dataframe
+    * if no dataframe passed, it will look into parent frame.
+
+### Simple lattice plot
+
+* Basic one
+
+```python
+library(lattice)
+library(datasets)
+xyplot(Ozone ~ Wind, data = airquality)
+```
+
+* Better one, pay attention how we use `transform` to change the variable in a
+dataframe
+
+```python
+library(lattice)
+library(datasets)
+xyplot(Ozone ~ Wind, data = airquality)
+airquality <- transform(airquality, Month = factor(Month))
+xyplot(Ozone ~ Wind | Month, data = airquality, layout = c(5, 1))
+```
+
+### Lattice behaviour
+
+Fundamental difference between base plot system
+
+* Base system plot to graphic devices.
+* Lattice system returns a `trellis` object.
+* print methods for lattice functions do the plotting work
+* It's better to keep the data and code
+* On the command line, trellis objects are auto-printed.
+
+### Lattice panel functions
+
+* Lattice functions have **_panel functions_** which controls what happens inside each panel
+* Can supply our own to customize the panel
+* panel functions receive the x/y coordinates of the data points in their panel
+* You cannot use the annotation function in base plotting system, you cannot
+mix the two plotting systems.
+
+```python
+# Panel functions
+xyplot(y ~ x | f, panel = function(x, y, ...) {
+  panel.xyplot(x, y, ...)
+  panel.abline(h = median(y), lty = 2)
+})
+
+xyplot(y ~ x | f, panel = function(x, y, ...) {
+  panel.xyplot(x, y, ...)
+  panel.lmline(x, y, col = 2)
+})
+```
+
+### Summary
+
+* Lattice functions are constructed with one single function call
+* margins and spacing are handled automatically
+* ideal for creating conditional plots where you examine the same kind of plot
+under many different conditions
+* panel functions can be specified and customized to modify what is plotted in
+each of the plot panels
