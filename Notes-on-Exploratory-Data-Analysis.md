@@ -396,3 +396,88 @@ transformation of data and is drawn on a specific coordinate system
 * Factors are indicating subsets of data. They should be labeled.
 * `qplot` hides underneath
 * `ggplot` is core function and very flexible
+
+## ggplot2 part2
+
+```python
+# installation
+install.packages("ggplot2")
+```
+
+### Hello word for ggplot2
+
+```python
+library(ggplot2)
+str(mpg)
+qplot(displ, hwy, data = mpg)
+```
+
+### Aesthetic
+
+We map the drv variable to different colors, and the plot is automatically labeled.
+
+```python
+qplot(displ, hwy, data = mpg, color = drv)
+```
+
+### Adding geoms
+
+We can add a smooth line here, note that we want 2 geometric objects here, the
+data points themselves and the a smooth line.
+
+```python
+qplot(displ, hwy, data = mpg, geom = c("point", "smooth"))
+```
+
+### Histogram
+
+Make histogram by just specify single variable. Note that here, we need to use
+`fill` argument to specify colors.
+
+```python
+qplot(hwy, data = mpg, fill = drv)
+```
+
+### Facets
+
+* Like panels in lattice. We want distinguish different subsets of a dataframe. One
+option is use different color code, another is to use different panels.
+* The facets argument takes such format, a variable on the left side and a variable
+on the right side and they are separated by a `~`.
+* The left side is the row of facets and the right side is the column of the facets.
+If there is nothing to specify, just use `.`
+
+```python
+qplot(displ, hwy, data = mpg, facets = . ~ drv)
+qplot(hwy, data = mpg, facets = drv ~ ., binwidth = 2)
+```
+
+### Density smooth
+
+```python
+qplot(log(eno), data = maacs, geom = "density", color = mopos)
+```
+
+### Scatterplot
+
+* In addition to separate subset by color code, we can also use `shape` argument
+* We can also add smooth line, the default smooth fitting method is "loose", we
+can specify by changing the argument `method`
+
+```python
+# separate by shape
+qplot(log(eno), log(pm25), data = maacs, shape = mopos)
+# separate by color
+qplot(log(eno), log(pm25), data = maacs, color = mopos)
+# Adding linear regression model smooth line
+qplot(log(eno), log(pm25), data = maacs, color = mopos, geom = c("point", "smooth"), method = "lm")
+# separate by facets argument
+qplot(log(eno), log(pm25), data = maacs, facets = . ~ mopos, geom = c("point", "smooth"), method = "lm")
+```
+
+### Summary of qplot
+
+* Anolog to plot but with many built-in features
+* Syntax between base and lattice system
+* Nice graphics
+* Don't bother to customize it, use `ggplot2` full power
