@@ -481,3 +481,104 @@ qplot(log(eno), log(pm25), data = maacs, facets = . ~ mopos, geom = c("point", "
 * Syntax between base and lattice system
 * Nice graphics
 * Don't bother to customize it, use `ggplot2` full power
+
+## `ggplot` part3
+
+### Basic components
+
+* dataframe: the data source
+* aesthetic mappings: color, size
+* geometric objects: points, lines, bars, tiles
+* facets: for conditional graph
+* stats: statistical transformation: binning, quantiles, smoothing
+* scales: scale aesthetic mapping uses, e.g. male = red, female = blue
+* coordinate system
+
+### Building Plots with ggplot2
+
+* Artist's palette model
+* Plots are built in layers
+    * plot the data
+    * Overlay a summary
+    * Metadata and annotation
+
+```python
+qplot(logpm25, NocturnalSympt, data = maacs, facets = . ~ bmicat, geom = c("point", "smooth"), method = "lm")
+
+# Initial call to ggplot, specify dataframe, x, y
+g <- ggplot(maacs, aes(logpm25, NocturnalSympt))
+# Add objects to plot using +
+p <- g + geom_point()
+print(p)
+
+# Can add smooth line
+p <- g + geom_point() + geom_smooth()
+p <- g + geom_point() + geom_smooth(method = "lm")
+# Then add facets
+# The labels are from the variable
+# It's better to make sure to label data properly
+p <- p + facet_grid(. ~ bmicat)
+```
+### Annotation
+* Labels: `xlab`, `ylab`, `lab`, `ggtitle`
+* Each geom function has options to modify
+* For things that make sense globally, use theme()
+    * `theme(legend.position = "none")`
+* Two standard appearance: `theme_gray()`, `theme_bw()`
+
+```python
+geom_point(color = "steelblue", alpha = 1/2, size = 4)
+# Note that if I want to assign color to different data, I have to wrap it in
+# aes() function, thus subsetting it with different colors based on factor variable values
+geom_point(aes(color = bmicat), alpha = 1/2, size = 4)
+# Add labels and title
++labs(title = "MAACS Cohort")
++labs(x = expression("log " * PM[2.5]), y = "Nocturnal Symptoms")
+# Modify smooth line, se turns off confidence interval
++ geom_smooth(size = 4, linetype = 3, method = "lm", se = FALSE)
+# Change the background and font
++ theme_bw(base_family = "Times")
+```
+
+## `ggplot2` part 5
+
+### A note about axis limit
+
+Sometimes we may not want to look at the outlier and only focus the typical data
+
+```python
+# if we do this, ggplot will subset the data within the range, outlier is excluded
+g <- ggplot(testdat, aes(x, y))
+g + geom_line() + ylim(-3, 3)
+# We might want do
+g + geom_line() + coord_cartesian(ylim(-3, 3))
+```
+
+### More complex example
+
+We want to see the NO2 and BMI, but NO2 is continous variables. We could use `cut()`
+function to make it categorical variable.
+
+### Making NO2 Tertile
+
+```python
+# Calculate the deciles of the data
+cutpoints <- quantile(maacs$logno2_new, seq(0, 1, length = 4), na.rm = TRUE)
+# Cut the data at the deciles and create new
+maacs$no2dec <- cut(maacs$logno2_new, cutpoints)
+# See the levels of new factor variable
+levels(maacs$no2dec)
+
+# The real plotting
+g <- ggplot(maacs, aes(logpm25, NocturnalSympt))
+g + geom_point(alpha = 1/3)
+  + facet_wrap(bmicat ~ no2dec, nrow = 3, ncol = 4)
+  + geom_smooth(method = "lm", col = "steelblue", se = FALSE)
+  + theme_bw(base_family = "Avenir", base_size = 10)
+  + labs(x = expression("log " * PM[2.5]))
+  + labs(y = "Nocturnal Symptoms")
+  + lebs(title = "MAACS Cohort")
+```
+### Summary of `ggplot`
+
+* Very powerful and flexible
