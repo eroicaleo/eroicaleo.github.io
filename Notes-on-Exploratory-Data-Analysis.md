@@ -369,3 +369,30 @@ xyplot(y ~ x | f, panel = function(x, y, ...) {
 under many different conditions
 * panel functions can be specified and customized to modify what is plotted in
 each of the plot panels
+
+## ggplot2
+
+### What is ggplot2?
+
+* An implementation of grammar of graphics.
+* Written by Hadley Wickham
+* A 3rd graphics system in R
+* grammar of graphics represents abstraction of graphic ideas and objects
+* Think "verb", "noun", "adjective" for graphics
+* Allow theory of graphics to build new graph and graphic objects
+* Shorten the distance from mind to page
+
+### Grammar of Graphics
+
+* Statistic graph is a mapping from data to aesthetic attributes (color, shape,
+size) and geometric objects (points, lines, bars). The plot may contain statistic
+transformation of data and is drawn on a specific coordinate system
+
+### The basics `qplot`
+
+* much like the plot in base system
+* must look for a dataframe, if cannot find, look in parent environment.
+* Plots are made up of aesthetic and geoms
+* Factors are indicating subsets of data. They should be labeled.
+* `qplot` hides underneath
+* `ggplot` is core function and very flexible
