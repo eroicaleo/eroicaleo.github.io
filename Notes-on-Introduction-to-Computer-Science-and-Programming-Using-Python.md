@@ -120,7 +120,7 @@ least once.
 
 Driver are code that:
 
-* set up environement (binding global variables, data structures)
+* set up environment (binding global variables, data structures)
 * invoke code on predefined sequences of inputs
 * Save results
 * report
@@ -309,3 +309,86 @@ def avg(grades, weights):
     * Check invariants on data structures are met
     * Check constraints on return values
     * Check for violations of constraints on procedure
+
+# Lecture 11 Classes
+
+## Advantages of OOP
+
+## A CLASS EXAMPLE
+
+### Creating an instance
+
+```python
+class Coordinate(object):
+  def __init__(self, x, y):
+    self.x = x
+    self.y = y
+```
+
+## AN ENVIRONMENT VIEW OF CLASS
+
+This section is interesting, needs more notes.
+
+## ADDING METHODS TO A CLASS
+
+```python
+isinstance(c, Coordinate)
+type(c)
+```
+
+# Lecture 12 Object Oriented Programming
+
+## INHERITANCE
+
+python `list.sort()` will use the __lt__ method in the class
+
+## USING INHERITANCE SUBCLASSES TO EXTEND BEHAVIOR
+
+```python
+class MITPerson(Person):
+  # Bind to the class, not instance
+  # Like the static variable in C++/JAVA
+  nextIdNum = 0
+
+  def __init__(self, name):
+    Person.__init__(self, name)
+    self.idNum = MITPerson.nextIdNum
+    MITPerson.nextIdNum += 1
+
+  def __lt__(self, other):
+    return self.idNum < other.idNum
+```
+
+Note here the `MITPerson` 's `__init__` and `__lt__` will shadow the same method
+defined in `Person` class.
+
+```python
+# One consequence is like this:
+p1 = MITPerson('Eric')
+p2 = Person('John')
+# This is OK
+p2 < p1
+# This is not
+p1 < p2
+```
+
+## USING INHERITANCE: DESIGNING A CLASS HIERARCHY
+
+## EXAMPLE: A GRADEBOOK
+
+## GENERATORS
+
+Any procedure with `yield` statement is a generator.
+generator has `next()` methods.
+When `next()` is called, it will execute until it hits `yield`, which suspend execution
+and returns a value.
+Until it raises a `StopIteration` exception
+
+* A generator separates the concept of computing
+a very long sequence of objects, from the actual
+process of computing them explicitly
+* Allows one to generate each new objects as
+needed as part of another computation (rather
+than computing a very long sequence, only to
+throw most of it away while you do something on
+an element, then repeating the process)
