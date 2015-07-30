@@ -207,3 +207,45 @@ We can amortize latency
 * send large message
 * Batch their communication
 * Train multiple models
+
+# Lecture 04 Logistic Regression and Click-through Rate Pipeline
+
+## ONLINE ADVERTISING
+
+$43B in 2013
+
+### The players
+
+* Publishers
+    * Google, NY times, ESPN
+
+* Advertisers
+    * Fossil, Macy
+
+* Matchmakers
+    * Google, Yahoo, MS
+    * Match publishers with advertisers in real time (when user visits a website)
+
+### Efficient Matchmaking
+
+* Predict probability that user will click each ad and choose ads that maximize
+probability
+    * Estimate conditional probability: given predictive features
+
+* Predictive features
+    * Ad's historical performance
+    * advertiser and ad content info
+    * Publisher info
+    * User info (search/click history)
+
+### Publishers Get Billions of Impressions Per Day
+
+* Data is high dimensional, sparse and skewed (heavily bias)
+    * Hundreds of millions of users
+    * Millions of publisher pages
+    * Millions of ads
+    * Very few ads get clicked by users
+
+* Problem definition
+    * Given massive data to estimate the conditional probability that a user will
+    click a ad given features about the user, the ad and the publisher.
