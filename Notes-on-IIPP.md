@@ -43,3 +43,36 @@ The keys have to immutable.
 We need a state machine to record current state.
 At state 2, when 2 cards are open, we need to check if we will leave the card
 open.
+
+# Lecture 06
+
+## Object-oriented programming
+
+```python
+# Constructor
+__init__
+# String method
+__str__
+```
+
+## Working with object
+When you see an type error, use `type` to check the object type.
+
+## Classes for BlackJack
+
+Card - rand and suit
+
+Hand - collection of cards
+method: hit, score
+
+Deck - collection of cards
+method: shuffle, deal
+
+## Tile Images
+
+canvas.draw_image(tiled_image, ...)
+Use dropbox, Add dl=1 at the end of address.
+Always test on a different computer, because image will be cached.
+
+## Visualizing object
+## Programming tips
