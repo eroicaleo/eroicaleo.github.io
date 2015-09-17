@@ -1,3 +1,7 @@
+---
+title: Notes on Reproducible Research
+---
+
 # Week2
 
 ## Markdown syntax
