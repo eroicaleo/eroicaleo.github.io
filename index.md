@@ -15,4 +15,4 @@ title: Blogging Like a Hacker
 ======================================================================
 
 # [Notes on Reproducible Research][1]
-[1]: ./Notes-on-Reproducible-Research
+[1]: ./Notes-on-Reproducible-Research.html
