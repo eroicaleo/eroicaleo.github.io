@@ -14,5 +14,4 @@ title: Blogging Like a Hacker
 [Notes on Notes on Introduction to Interactive Programming in Python](./Notes-on-IIPP.html)
 ======================================================================
 
-# [Notes on Reproducible Research][1]
-[1]: ./Notes-on-Reproducible-Research.html
+# [Notes on Reproducible Research](./Notes-on-Reproducible-Research.html)
