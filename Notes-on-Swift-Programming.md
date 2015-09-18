@@ -12,3 +12,13 @@ To get the help on something, there are 3 ways:
 
 The most interest part is "font and color"
 Another important is "account"
+
+## Debug
+
+In the (lldb) command line, `po` to print object.
+`nil` means null.
+
+The bug is because the image is not there. We drag the image to the Asset folder.
+We can also view the variable by move the mouse on it.
+
+Debug view hierarchy is cool.
