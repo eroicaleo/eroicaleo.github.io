@@ -32,3 +32,44 @@ second line
 [2]: https://help.github.com/articles/github-flavored-markdown
 
 ## R Markdown
+
+`knitr` to convert R markdown to markdown, `markdown` to convert markdown to
+HTML
+
+The course slides are converted by `slidify` package
+
+## knitr package
+
+Complex/script way to use knitr
+```{r}
+library(knitr)
+setwd(<working dir>)
+knit2html("doc.Rmd")
+browseURL("doc.html")
+```
+
+Code chunk can have names
+```
+```{r firstchunk}
+## R code goes here
+```
+
+If we have some plots, the figure in the generated HTML is base64 encoded.
+We can easily pass the HTML to others.
+
+If we want to convert table to HTML table, we can use the `xtable` package.
+
+### Global options
+
+```
+```{r setoptions, echo=FALSE}
+opt_chunk$set(echo = FALSE, results = "hide")
+```
+
+`results = "hide"` or `asis`, which means it original format and not compiled into HTML.
+
+`echo = TRUE` or `FALSE`
+
+`figure.height = 4.0`
+
+`figure.width  = 4.0`
