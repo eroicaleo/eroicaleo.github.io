@@ -73,3 +73,11 @@ opt_chunk$set(echo = FALSE, results = "hide")
 `figure.height = 4.0`
 
 `figure.width  = 4.0`
+
+## Week3
+
+DOs:
+Start with something interesting to you, something good science, garbage in garbage out.
+
+Donts:
+Do things by hand.
