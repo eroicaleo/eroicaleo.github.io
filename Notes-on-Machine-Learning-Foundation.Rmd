@@ -1,0 +1,39 @@
+# Week 2
+
+## 1. When can machine learn?
+
+### Hypothesis: 'perceptron'
+
+Each "tall" **w** represents a hypothesis _h_ & multiply the "tall" **x**.
+
+Perceptron is equivalent to linear (binary) classifier.
+
+### Perceptron Learning Algorithm
+
+want g is close to f (hard when _f_ unknow)
+
+Ideally, g(xn) = f(xn) = yn
+
+Difficulty: H is infinite space.
+
+Idea: start from some g0, and correct its mistakes on D.
+
+Algorithm:
+1. Find a mistakes xn(t)
+2. Updates w(t+1) <- w(t) + yn(t)\*xn(t)
+Geometric explaination: if the angle between w and x is too big, we make it
+smaller, otherwise, make it bigger.
+
+A fault confessed is half redressed.
+
+## Guarantee of PLA
+
+The normalized inner product of w_f and w_t will increase monotonously.
+It will stop at certain iteration.
+
+## Non separable data
+
+Pros: simple to implement, fast, work for any dimension d.
+Cons:
+* Assume linearly separable.
+* not fully sure how long halting takes (rho depends on wf)
