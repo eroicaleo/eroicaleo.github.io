@@ -37,3 +37,28 @@ Pros: simple to implement, fast, work for any dimension d.
 Cons:
 * Assume linearly separable.
 * not fully sure how long halting takes (rho depends on wf)
+
+PLA Algorithm
+
+Run enough iteration.
+
+# Types of Learning
+
+## Learning with different output space
+
+Binary classification
+* Credit card approval
+* Email spam/not spam
+* Patient sick/not sick
+* ad profitable/not profitable
+* answer correct/incorrect
+
+## Learning with different labels
+## Learning with different protocols
+## Learning with different input space
+
+# Feasible of Learning
+
+## Learning is impossible?
+
+## Probability to the Rescue
