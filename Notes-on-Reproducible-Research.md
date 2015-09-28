@@ -78,6 +78,9 @@ opt_chunk$set(echo = FALSE, results = "hide")
 
 DOs:
 Start with something interesting to you, something good science, garbage in garbage out.
+Set Random number
+Think about the entire pipeline.
 
 Donts:
 Do things by hand.
+Save output

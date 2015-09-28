@@ -76,3 +76,73 @@ Always test on a different computer, because image will be cached.
 
 ## Visualizing object
 ## Programming tips
+
+# Lecture 07
+
+## Acceleration and friction
+
+```python
+self.angle      # ship orientation
+self.angle_vec  # ship's angular speed
+```
+
+Position - point
+velocity - vector
+acceleration - vector
+
+```python
+position += velocity
+velocity += acceleration
+```
+
+```python
+self.pos[0] += self.vel[0]
+self.pos[1] += self.vel[1]
+forward = [math.cos(self.angle), math.sin(self.angle)]
+if self.thrust:
+  self.vel[0] += forward[0]
+  self.vel[1] += forward[1]
+```
+
+With friction
+
+```python
+self.pos[0] += self.vel[0]
+self.pos[1] += self.vel[1]
+self.vel[0] *= 1-c
+self.vel[1] *= 1-c
+forward = [math.cos(self.angle), math.sin(self.angle)]
+if self.thrust:
+  self.vel[0] += forward[0]
+  self.vel[1] += forward[1]
+```
+
+## space class demo
+[space class demo](www.codeskulptor.org/#examples-spaceship.py)
+
+## Load sound
+[play sound demo](www.codeskulptor.org/#examples-sound.py)
+```python
+simplegui.load_sound
+```
+
+## Sprite class
+
+Set color transparancy
+[demo](http://www.codeskulptor.org/#examples-sprite_example.py)
+```python
+rgba(255, 0, 0, 0.5)
+```
+
+Basically idea is first to draw the image and update it, and next time it will
+draw the updated image.
+
+```python
+def draw(canvas):
+  a_rock.draw()
+  a_rock.updates()
+```
+
+## Programming tips
+
+code reuse, use dictionary, avoid magic constants.
