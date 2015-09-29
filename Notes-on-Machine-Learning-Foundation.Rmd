@@ -62,3 +62,44 @@ Binary classification
 ## Learning is impossible?
 
 ## Probability to the Rescue
+
+Bin model.
+
+in sample nu is likely close to unknow mu
+
+Hoeffding's Inequality:
+
+probably approximately correct (PAC).
+
+## Connection to Learning
+
+Learning.
+
+Unknown **f**
+target f(x)
+
+h is wrong/orange equivalent h(x) not equals to f(x)
+h is right/green
+Check h on D = {(xn, yn)}
+
+### Added components
+
+Ein: in sample
+Eout: out sample
+
+### The Formal Guarantee
+
+* Valid for all N and epsilon.
+* Doesn't depend on Eout(h), f and P can stay unknown.
+* Ein(h) = Eout(h) is PAC.
+
+## Connection to real learning
+
+### BAD Data for Many h
+
+no 'freedom of choice' by A, 踩到雷。
+
+### Bound of BAD data
+
+|H| = M is finite, N large enough, for whatever g picked by A, Eout(g) = Ein(g)
+if A finds one g with Ein(g) = 0, PAC guarantee for Eout(g) = 0.
