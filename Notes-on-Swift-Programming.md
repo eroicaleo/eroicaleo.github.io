@@ -69,3 +69,96 @@ For function call, from the 2nd argument, we have to provide the name of that pa
 ```
 transmogrify("duck", weight: 500)
 ```
+
+## 2-D array
+
+```python
+# Define a 2-D array
+var beautifulImage = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
+
+# Loop over the 2-D array
+for i in 0..<beautifulImage.count {
+    for j in 0..<beautifulImage[i].count {
+        print(beautifulImage[i][j])
+        if beautifulImage[i][j] < 5 {
+            beautifulImage[i][j] = 5
+        }
+    }
+}
+
+```
+
+Pass the 2-D array to function is tricky, here is an example. Note we have to
+declare the argument as `inout`. And when passing it, we need to use `&` to
+indicate we are passing address.
+
+```python
+func raiseLowerNumbers(inout inImage image: [[Int]], to number: Int) {
+    for i in 0..<image.count {
+        for j in 0..<image[i].count {
+            if image[i][j] < number {
+                image[i][j] = number
+            }
+        }
+    }
+
+}
+raiseLowerNumbers(inImage: &beautifulImage, to: 6)
+```
+
+# Week 3
+
+# optionals
+
+```swift
+var maybeString: String? = nil
+// If we need to force it to non optional string, we need to do
+maybeString!.characters.count
+```
+
+But if `maybeString` is `nil`, then we got an error.
+And we want to avoid `!` mark.
+```swift
+if maybeString != nil {
+    maybeString!.characters.count
+}
+```
+
+But Swift has cooler syntax:
+
+```swift
+if let definitelyString = maybeString {
+    definitelyString.characters.count
+} else {
+    print("It's nil")
+}
+```
+
+Use `guard` and optional together make your code more elegant.
+
+```swift
+func processString(ss: String?) -> Int {
+    guard let tt = ss else { return 0 }
+
+    print(tt)
+    return tt.characters.count
+}
+
+processString(maybeString) # returns 0
+processString("haha") # returns 4
+```
+
+Another type of optional
+
+```
+var mostLiklyString: String! = nil
+mostLiklyString.characters.count // Gives an error
+```
+But why we need this kind variable? We can have objective-c code, which returns
+something optional, but you don't want to use it as optional.
+In objective-c, every pointer is optional. When implement interface, this is
+important.
