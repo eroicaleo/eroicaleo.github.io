@@ -112,7 +112,7 @@ raiseLowerNumbers(inImage: &beautifulImage, to: 6)
 
 # Week 3
 
-# optionals
+## optionals
 
 ```swift
 var maybeString: String? = nil
@@ -162,3 +162,16 @@ But why we need this kind variable? We can have objective-c code, which returns
 something optional, but you don't want to use it as optional.
 In objective-c, every pointer is optional. When implement interface, this is
 important.
+
+### optional chaining
+
+```swift
+let niceCar = Car()
+niceCar.cupHolder = CupHolder()
+niceCar.cupHolder?.cups = []
+niceCar.cupHolder?.cups? = ["Sprite"]
+let firstCup = niceCar.cupHolder?.cups?[0]
+```
+
+difference between arrays and dictionaries, access array of strings always
+returns a string. Access dictionaries always return optionals.
