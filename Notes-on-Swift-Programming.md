@@ -266,3 +266,9 @@ dog.uppercaseName = "GoldenHunter"
 print(dog.uppercaseName) // GOLDENHUNTER
 print(dog.name) // GoldenHunter
 ```
+
+## Value Types
+
+`struct` and `class` is different in swift in the sense that struct is value
+type and class is reference type.
+Class is copied by reference and struct is copied by value.
