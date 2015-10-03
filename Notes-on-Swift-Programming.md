@@ -175,3 +175,94 @@ let firstCup = niceCar.cupHolder?.cups?[0]
 
 difference between arrays and dictionaries, access array of strings always
 returns a string. Access dictionaries always return optionals.
+
+## Closure
+
+* How to define it?
+```swift
+# normal function:
+func performMagic(thingy: String) -> String {
+    return thingy
+}
+# closure
+var newMagicFunction = {
+    (thingy: String) -> String in
+    return thingy
+}
+```
+
+In the above example, the newMagicFunction is anonymous function.
+
+* Why closure is useful?
+
+A more complex example:
+```swift
+func doComplicatedStuff(complete: () -> ()) {
+    // do crazy stuff
+    complete()
+}
+func doMoreComplicatedStuff() {
+    print("lala")
+}
+doComplicatedStuff { doMoreComplicatedStuff() }
+```
+
+Another cool thing about closure is that it can capture variable in the scope,
+e.g.
+```
+var b = 3
+var addFunction2: (Int) -> Int  = {
+    (a: Int) -> Int in
+    return a + b
+}
+addFunction2(3) # gives 6
+b = 4
+addFunction2(3) # gives 7
+```
+
+## Properties
+
+Strong Properties and weak properties, in the following example, if dog is
+deallocated, the `vet.legs` will be nil.
+
+```
+class Legs {
+    var length: Int = 0
+}
+
+class Animal {
+    var name: String = ""
+    var legs: Legs = Legs()
+}
+
+class LegVet {
+    weak var legs: Legs? = nil
+}
+
+let dog = Animal()
+let vet = LegVet()
+vet.legs = dog.legs
+```
+
+Properties can have public, private and protected (default) access control.
+
+Computed properties, which depends on other properties.
+
+```
+class Animal {
+    var name: String = ""
+    var legs: Legs = Legs()
+
+    var uppercaseName: String {
+        get {
+            return name.uppercaseString
+        }
+        set {
+            name = newValue
+        }
+    }
+}
+dog.uppercaseName = "GoldenHunter"
+print(dog.uppercaseName) // GOLDENHUNTER
+print(dog.name) // GoldenHunter
+```
