@@ -272,3 +272,90 @@ print(dog.name) // GoldenHunter
 `struct` and `class` is different in swift in the sense that struct is value
 type and class is reference type.
 Class is copied by reference and struct is copied by value.
+
+## Cheat Sheet
+
+* supercalss and extend classes.
+
+```swift
+class SuperNumber: NSNumber {
+    override func getValue(value: UnsafeMutablePointer<Void>) {
+        super.getValue(value)
+    }
+}
+
+extension NSNumber {
+    func superCoolGetter() -> Int {
+        return 5
+    }
+}
+
+let n = NSNumber(int: 4)
+n.superCoolGetter()
+
+```
+
+* protocol, which is just like the interface in java
+
+```swift
+protocol dancable {
+    func dance()
+}
+
+class Person: NSNumber, dancable {
+    func dance() {
+        print("dance!")
+    }
+}
+```
+
+* enum
+
+The `enum` object in Swift can be strings, it makes program more type safe.
+Note that carrot and randVeggie are different types.
+
+```swift
+enum TypesofVeggies: String {
+    case Carrots
+    case Tomatoes
+    case Celery
+}
+
+let carrot = TypesofVeggies.Carrots // type is TypesofVeggies
+print(carrot.rawValue)
+
+func eatVeggies(veggie: TypesofVeggies) -> String {
+    return veggie.rawValue
+}
+
+eatVeggies(TypesofVeggies.Carrots)
+eatVeggies(carrot)
+let randVeggie = TypesofVeggies(rawValue: "Lead") // type is TypesofVeggies?
+```
+
+* Initializer
+
+require Initializer and convenience initializer cannot have same signature.
+
+```swift
+class Car {
+    var cupholder: String = "two holder"
+
+    required init(cupholder: String) {
+        print("I am in required init")
+        self.cupholder = cupholder
+    }
+
+    convenience init() {
+        self.init(cupholder: "Cool")
+    }
+}
+
+let car = Car(cupholder: "cool")
+
+let newCar = Car()
+```
+
+* More expert topic
+    * generic
+    * operator overload
