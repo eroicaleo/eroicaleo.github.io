@@ -1,10 +1,20 @@
+---
+title: "Notes on Machine Learning Foundations"
+author: "Yang Ge"
+date: "September 28, 2015"
+output: 
+  html_document:
+    keep_md: true
+    toc: true
+---
+
 # Week 2
 
 ## 1. When can machine learn?
 
 ### Hypothesis: 'perceptron'
 
-Each "tall" **w** represents a hypothesis _h_ & multiply the "tall" **x**.
+Each "tall" $w$ represents a hypothesis $h$ and multiply the "tall" $x$.
 
 Perceptron is equivalent to linear (binary) classifier.
 
@@ -12,7 +22,10 @@ Perceptron is equivalent to linear (binary) classifier.
 
 want g is close to f (hard when _f_ unknow)
 
-Ideally, g(xn) = f(xn) = yn
+Ideally,
+$$
+g(x_n) = f(x_n) = y_n
+$$
 
 Difficulty: H is infinite space.
 
@@ -57,19 +70,25 @@ Binary classification
 ## Learning with different protocols
 ## Learning with different input space
 
-# Feasible of Learning
+# Lecture 4, Feasible of Learning
 
 ## Learning is impossible?
+
+No free launch!
 
 ## Probability to the Rescue
 
 Bin model.
 
-in sample nu is likely close to unknow mu
+in sample $\nu$ is likely close to unknow $\mu$.
 
 Hoeffding's Inequality:
 
-probably approximately correct (PAC).
+$$
+Pr(|\mu-\nu| \geq \epsilon) \leq exp(-2\epsilon^{2}N)
+$$
+
+**_Probably Approximately Correct_** (PAC).
 
 ## Connection to Learning
 
@@ -84,22 +103,281 @@ Check h on D = {(xn, yn)}
 
 ### Added components
 
-Ein: in sample
-Eout: out sample
+$E_{in}$: in sample
+
+$E_{out}$: out sample
 
 ### The Formal Guarantee
 
-* Valid for all N and epsilon.
-* Doesn't depend on Eout(h), f and P can stay unknown.
-* Ein(h) = Eout(h) is PAC.
+* Valid for all $N$ and $\epsilon$.
+* Doesn't depend on $E_{out}(h)$, $f$ and $P$ can stay unknown.
+* $E_{in}(h) = E_{out}(h)$ is PAC.
 
 ## Connection to real learning
 
-### BAD Data for Many h
+### BAD Data for Many $h$
 
 no 'freedom of choice' by A, 踩到雷。
 
 ### Bound of BAD data
 
-|H| = M is finite, N large enough, for whatever g picked by A, Eout(g) = Ein(g)
-if A finds one g with Ein(g) = 0, PAC guarantee for Eout(g) = 0.
+If $|\mathcal{H}| = M$ is finite, $N$ large enough, for whatever $g$ picked by $\mathcal{A}$, $E_{out}(g) \approx E_{in}(g)$.
+
+If $\mathcal{A}$ finds one $g$ with $E_{in}(g) \approx 0$, PAC guarantees for $E_{out}(g) \approx 0$.
+
+# Lecture 5 Training v.s. Testing
+
+## Recap and Preview
+
+If $|\mathcal{H}| = M$ is finite, $N$ large enough, for whatever $g$ picked by $\mathcal{A}$, $E_{out}(g) \approx E_{in}(g)$.
+
+If $\mathcal{A}$ finds one $g$ with $E_{in}(g) \approx 0$, PAC guarantees for $E_{out}(g) \approx 0$.
+
+$$
+E_{out}(h) \underbrace{\approx}_{test} E_{in}(h) \underbrace{\approx}_{train} 0
+$$
+
+**Two Central Questions:**
+
+1. Can we make sure that $E_{out}(h)$ is close enough to $E_{in}(g)$?
+
+2. Can we make $E_{in}(g)$ small enough?
+
+What role does $\underbrace{|\mathcal{H}|}_{M}$ play for these two questions?
+
+**Trade-off on $M$**
+
+* small $M$
+
+    1. Yes! $Pr(BAD) \leq 2 \cdot M \cdot exp(\dots)$
+    2. No! too few choices!
+
+* large $M$
+
+    1. No! $Pr(BAD) \leq 2 \cdot M \cdot exp(\dots)$ is big.
+    2. Yes! many choices
+
+* What if $M = \infty$
+
+**Todo:**
+
+* establish a finite quantity that replaces $M$
+$$
+Pr(|E_{in}(g)-E_{out}(g)| > \epsilon) \leq 2 m_{\mathcal{H}} exp(-2 \epsilon^2 N)
+$$
+* justify the feasiblity of learning for infinite $M$
+* study $m_{\mathcal{H}}$ to understand its trade-off for 'right' $\mathcal{H}$
+
+These will be covered in next 3 lectures :-)
+
+## Effective Number of Lines
+
+**Where did M come from**
+
+* *BAD events $B_m$*: $|E_{in}(B_m) - E_{out}(B_m)| > \epsilon$
+* To give $\mathcal{A}$ freedom choice, need to bound $Pr(B_1 \cup B_2 \cup \dots B_M)$
+* Worse case: all $B_m$ non-overlapping. It fails when M is infinite.
+$$
+Pr(B_1 \cup B_2 \cup \dots B_M) \leq Pr(B_1) + \dots + Pr(B_M)
+$$
+
+**Where did uniform bound fail?**
+
+* *BAD events $B_m$*: $|E_{in}(B_m) - E_{out}(B_m)| > \epsilon$ overlapping for similar hypothesis $h_1 \approx h_2$
+* Why?
+    * $E_{out}(h_1) \approx E_{out}(h_2)$
+    * for most $D$, $E_{in}(h_1) \approx E_{in}(h_2)$
+* union bound *over-estimation*
+* Solution: group similar hypothesis by kind.
+
+**How Many lines Are There?**
+
+$\mathcal{H} = {all\ lines\ in\ R^2}$
+
+* how many lines? $\infty$
+* how many kinds of lines from $\mathbf{x_1}$ point of view? 2 kinds:
+    * $h_1(x_1) = +1$ and $h_2(x_1) = -1$
+* how many kinds of lines for 4 points? At most 14.
+
+**Effective Number of Lines**
+
+It means max number of lines w.r.t N inputs $x_1, \dots, x_N$
+
+* must be $\leq 2^N$
+* finite 'grouping' of infinitely-many lines $\in \mathcal{H}$
+* wish:
+
+$$
+Pr(|E_{in}(g)-E_{out}(g)| > \epsilon) \leq 2\ eff(N)\ exp(-2 \epsilon^2 N)
+$$
+
+If
+
+1. eff(N) can replace $M$ and 
+2. eff(N) << $2^N$
+
+Then learning is possbile for infinite lines :-)
+
+## Effective Number of Hypothesis
+
+**Dichotomy: mini hypothesis**
+
+* Definition: hypothesis 'limited' to the eyes of $x_1, \dots, x_n$, i.e.
+$$
+h(x_1, \dots, x_n) = (h(x_1), \dots, h(x_n)) \in \{\times, \circ\}^N
+$$
+
+* Dichotomy set: $\mathcal{H}(x_1, \dots, x_n)$: all dichotomies implemented by $\mathcal{H}$ on $x_1, \dots, x_n$.
+* Dichotomy set is bounded by $2^N$, $\mathcal{H}$ can be infinite.
+* $|\mathcal{H}(x_1, \dots, x_n)|$ is a candidate for replacing $M$.
+
+**Growth Function**
+
+In order to remove the dependance between the size of dichotomy set and the inputs,
+define $m_H(N) = max|\mathcal{H}(x_1, \dots, x_n)|$. For example, for PLA,
+$m_H(1) = 2, m_H(2) = 4, m_H(3) = 8, m_H(4) = 14$.
+
+It is called growth function and bounded by $2^N$.
+
+**Growth Function for Positive Rays**
+
+* $\mathcal{X} = \mathbb{R}$
+* $\mathcal{H}$ contains $h$, where each $h(x) = sign(x-1)$ for threshold $a$.
+* positive half of 1D perceptrons.
+* $m_{\mathcal{H}}(N)=N+1 \ll 2^N$
+
+**Growth Function for Positive Intervals**
+
+* $\mathcal{X} = \mathbb{R}$
+* $\mathcal{H}$ contains $h$, where each $h(x) = sign(x-1)$ iff $x \in [l,r)$, -1 otherwise.
+$$
+m_{\mathcal{H}}(N) = \binom{N+1}{2} + 1 = \frac{N^2}{2} + \frac{N}{2} + 1 \ll 2^N
+$$
+
+**Growth Function for convex set**
+
+* If $x_1, \dots, x_n$ on a big circle, then every dichotomy can be implemented.
+$$
+m_{\mathcal{H}}(N) = 2^N
+$$
+* call those $N$ inputs 'shattered' by $\mathcal{H}$.
+
+## Break Point
+
+**The 4 growth functions**
+
+* positive ray, $m_{\mathcal{H}}(N)=N+1$
+* postitive intervals, $\frac{N^2}{2} + \frac{N}{2} + 1$
+* convex set, $2^N$
+* 2D perceptrons: $m_{\mathcal{H}}(N) < 2^N$ in some cases
+
+Can we replace $M$ by $\mathcal{H}$? Polynomial good, exponential bad...
+
+$$
+Pr(|E_{in}(g)-E_{out}(g)| > \epsilon) \overset{?}{\leq} 2\ m_{\mathcal{H}}(N) \ exp(-2 \epsilon^2 N)
+$$
+
+**Break point of \mathcal{H}**
+
+* three inputs: 'exists' shatter; for inputs, 'for all' no shatter
+* if no $k$ inputs can be shattered by $\mathcal{H}$, the $k$ is a break point.
+* Any $k+i$ is break points.
+* conjecture: break point $k$, $m_{\mathcal{H}}(N) = O(N^{k-1})$
+
+## Conclusion
+
+* Recap and Preview:
+    * two questions, $E_{out} \approx E_{in}$ and $E_{in}(g) \approx 0$
+* Effective No. of lines
+* Effective No. of Hypothesis
+* Break point
+    * When $m_{\mathcal{H}}$ becomes non-exponential
+
+# Lecture 6 Theory of Generalization
+
+## Restriction of Break Point
+
+* max possible $m_{\mathcal{H}}$ when $N=3$ and $k=2$
+    * 4 dichotomies, shatter two points, no, but 5 yes.
+
+* break point $k$ restricts maximum possible $m_{\mathcal{H}}$ a lot for $N > k$
+
+* idea:
+$$
+m_{\mathcal{H}} \leq m_{\mathcal{H}}\ given\ k \leq ploy(N)
+$$
+
+## Bounding Function: Basic Cases
+
+* bounding function $B(N, k)$: max possible $m_{\mathcal{H}}$ when break point $= k$
+* combinatorial quantity: max No. of length-N vectors with $(\circ, \times)$
+while 'no shatter' any length-$k$ subvectors.
+* new goal $B(N, K) \leq poly(N)$
+
+## Bounding Function: Inductive Cases
+
+* Estimating $B(4, 3)$, after exhaustively searching the $2^{2^4}$, the winner is 11.
+For 4 points, there are 16 possible $(\circ, \times)$ combinations, each of them
+can either be in or not in the dichotomy set, so there are $2^{16}$ possible
+dichotomy sets.
+
+* Estimating $B(4, 3)$, $B(4, 3) = 11 = 2\alpha + \beta$. $\alpha+\beta$: dichotomies on $(x_1, x_2, x_3)$.
+$\alpha+\beta \leq B(3, 3)$
+
+* If we only look at the orange part, no any two points can be shattered. So $\alpha \leq B(3, 2)$.
+
+* We have $B(4, 3) \leq B(3, 3) + B(3, 2)$. And $B(N, k) \leq B(N-1, k) + B(N-1, k-1)$.
+
+**Bounding Function: The Theorem**
+
+$$
+B(N,k) \leq \sum_{i=0}^{k-1} \binom{N}{i}
+$$
+
+The bottom line is $m_{\mathcal{H}}$ is poly(N) if break point exists.
+
+**Three Break Points**
+
+2D perceptrons: $m_{\mathcal{H}}(4) = 14 < 2^4$: break point at 4.
+
+## A pictorial Proof
+
+**want**
+
+$$
+Pr(\exists h \in \mathcal{H}\ s.t. |E_{in}(g)-E_{out}(g)| > \epsilon) \leq 2\ m_{\mathcal{H}}(N) \ exp(-2 \epsilon^2 N)
+$$
+
+**we can get**
+$$
+Pr(\exists h \in \mathcal{H}\ s.t. |E_{in}(g)-E_{out}(g)| > \epsilon) \leq 2\cdot 2\ m_{\mathcal{H}}(2N) \ exp(-2 \frac{1}{16} \epsilon^2 N)
+$$
+
+**Step1: Replace $E_{out}$ by $E_{in}'$**
+
+* How? sample verification set $D'$ of size N to calculate $E_{in}'$
+* Bad $h$ of $E_{in}-E_{out}$ can probably infer bad $h$ of $E_{in}-E_{in}'$
+
+**Step2: Decompose $\mathcal{H}$ by kind**
+
+$$
+BAD \leq 2Pr(\exists h \in \mathcal{H}\ s.t. |E_{in}(h)-E_{in}'(h)| > \epsilon/2)
+\leq 2m_{\mathcal{H}}(2N)Pr(fixed\ h \in \mathcal{H}\ s.t. |E_{in}(h)-E_{in}'(h)| > \epsilon/2)
+$$
+
+**Step3: Use Hoeffding without Replacement**
+
+VC bound:
+
+$$
+BAD
+\leq 2m_{\mathcal{H}}(2N)Pr(fixed\ h \in \mathcal{H}\ s.t. |E_{in}(h)-E_{in}'(h)| > \epsilon/2)
+\leq 4m_{\mathcal{H}}(2N)exp(-\frac{1}{8}\epsilon^2N)
+$$
+
+## Conclusion
+
+* Restriction of Break Point: breaks consequent points
+* Bounding Function: Basic Cases, $B(N,k)$ bounds $m_{\mathcal{H}}(N)$
+* Bounding Function: Inductive Cases, $B(N,k)$ is poly(N)
+* A pictorial Proof: $m_{\mathcal{H}}(N)$ can replace $M$ with a few changes.
