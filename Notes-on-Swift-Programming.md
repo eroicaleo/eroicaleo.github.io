@@ -69,3 +69,293 @@ For function call, from the 2nd argument, we have to provide the name of that pa
 ```
 transmogrify("duck", weight: 500)
 ```
+
+## 2-D array
+
+```python
+# Define a 2-D array
+var beautifulImage = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
+
+# Loop over the 2-D array
+for i in 0..<beautifulImage.count {
+    for j in 0..<beautifulImage[i].count {
+        print(beautifulImage[i][j])
+        if beautifulImage[i][j] < 5 {
+            beautifulImage[i][j] = 5
+        }
+    }
+}
+
+```
+
+Pass the 2-D array to function is tricky, here is an example. Note we have to
+declare the argument as `inout`. And when passing it, we need to use `&` to
+indicate we are passing address.
+
+```python
+func raiseLowerNumbers(inout inImage image: [[Int]], to number: Int) {
+    for i in 0..<image.count {
+        for j in 0..<image[i].count {
+            if image[i][j] < number {
+                image[i][j] = number
+            }
+        }
+    }
+
+}
+raiseLowerNumbers(inImage: &beautifulImage, to: 6)
+```
+
+# Week 3
+
+## optionals
+
+```swift
+var maybeString: String? = nil
+// If we need to force it to non optional string, we need to do
+maybeString!.characters.count
+```
+
+But if `maybeString` is `nil`, then we got an error.
+And we want to avoid `!` mark.
+```swift
+if maybeString != nil {
+    maybeString!.characters.count
+}
+```
+
+But Swift has cooler syntax:
+
+```swift
+if let definitelyString = maybeString {
+    definitelyString.characters.count
+} else {
+    print("It's nil")
+}
+```
+
+Use `guard` and optional together make your code more elegant.
+
+```swift
+func processString(ss: String?) -> Int {
+    guard let tt = ss else { return 0 }
+
+    print(tt)
+    return tt.characters.count
+}
+
+processString(maybeString) # returns 0
+processString("haha") # returns 4
+```
+
+Another type of optional
+
+```
+var mostLiklyString: String! = nil
+mostLiklyString.characters.count // Gives an error
+```
+But why we need this kind variable? We can have objective-c code, which returns
+something optional, but you don't want to use it as optional.
+In objective-c, every pointer is optional. When implement interface, this is
+important.
+
+### optional chaining
+
+```swift
+let niceCar = Car()
+niceCar.cupHolder = CupHolder()
+niceCar.cupHolder?.cups = []
+niceCar.cupHolder?.cups? = ["Sprite"]
+let firstCup = niceCar.cupHolder?.cups?[0]
+```
+
+difference between arrays and dictionaries, access array of strings always
+returns a string. Access dictionaries always return optionals.
+
+## Closure
+
+* How to define it?
+```swift
+# normal function:
+func performMagic(thingy: String) -> String {
+    return thingy
+}
+# closure
+var newMagicFunction = {
+    (thingy: String) -> String in
+    return thingy
+}
+```
+
+In the above example, the newMagicFunction is anonymous function.
+
+* Why closure is useful?
+
+A more complex example:
+```swift
+func doComplicatedStuff(complete: () -> ()) {
+    // do crazy stuff
+    complete()
+}
+func doMoreComplicatedStuff() {
+    print("lala")
+}
+doComplicatedStuff { doMoreComplicatedStuff() }
+```
+
+Another cool thing about closure is that it can capture variable in the scope,
+e.g.
+```
+var b = 3
+var addFunction2: (Int) -> Int  = {
+    (a: Int) -> Int in
+    return a + b
+}
+addFunction2(3) # gives 6
+b = 4
+addFunction2(3) # gives 7
+```
+
+## Properties
+
+Strong Properties and weak properties, in the following example, if dog is
+deallocated, the `vet.legs` will be nil.
+
+```
+class Legs {
+    var length: Int = 0
+}
+
+class Animal {
+    var name: String = ""
+    var legs: Legs = Legs()
+}
+
+class LegVet {
+    weak var legs: Legs? = nil
+}
+
+let dog = Animal()
+let vet = LegVet()
+vet.legs = dog.legs
+```
+
+Properties can have public, private and protected (default) access control.
+
+Computed properties, which depends on other properties.
+
+```
+class Animal {
+    var name: String = ""
+    var legs: Legs = Legs()
+
+    var uppercaseName: String {
+        get {
+            return name.uppercaseString
+        }
+        set {
+            name = newValue
+        }
+    }
+}
+dog.uppercaseName = "GoldenHunter"
+print(dog.uppercaseName) // GOLDENHUNTER
+print(dog.name) // GoldenHunter
+```
+
+## Value Types
+
+`struct` and `class` is different in swift in the sense that struct is value
+type and class is reference type.
+Class is copied by reference and struct is copied by value.
+
+## Cheat Sheet
+
+* supercalss and extend classes.
+
+```swift
+class SuperNumber: NSNumber {
+    override func getValue(value: UnsafeMutablePointer<Void>) {
+        super.getValue(value)
+    }
+}
+
+extension NSNumber {
+    func superCoolGetter() -> Int {
+        return 5
+    }
+}
+
+let n = NSNumber(int: 4)
+n.superCoolGetter()
+
+```
+
+* protocol, which is just like the interface in java
+
+```swift
+protocol dancable {
+    func dance()
+}
+
+class Person: NSNumber, dancable {
+    func dance() {
+        print("dance!")
+    }
+}
+```
+
+* enum
+
+The `enum` object in Swift can be strings, it makes program more type safe.
+Note that carrot and randVeggie are different types.
+
+```swift
+enum TypesofVeggies: String {
+    case Carrots
+    case Tomatoes
+    case Celery
+}
+
+let carrot = TypesofVeggies.Carrots // type is TypesofVeggies
+print(carrot.rawValue)
+
+func eatVeggies(veggie: TypesofVeggies) -> String {
+    return veggie.rawValue
+}
+
+eatVeggies(TypesofVeggies.Carrots)
+eatVeggies(carrot)
+let randVeggie = TypesofVeggies(rawValue: "Lead") // type is TypesofVeggies?
+```
+
+* Initializer
+
+require Initializer and convenience initializer cannot have same signature.
+
+```swift
+class Car {
+    var cupholder: String = "two holder"
+
+    required init(cupholder: String) {
+        print("I am in required init")
+        self.cupholder = cupholder
+    }
+
+    convenience init() {
+        self.init(cupholder: "Cool")
+    }
+}
+
+let car = Car(cupholder: "cool")
+
+let newCar = Car()
+```
+
+* More expert topic
+    * generic
+    * operator overload
