@@ -533,3 +533,53 @@ is called model complexity penalty.
 * Physical Intuition of VC Dimenson: $\approx$ # free parameters
 * Interpreting VC Dimension: model and sample complexity
 
+# Lecture 8 Noise and Error
+
+## Noise and Probabilistic Target
+
+What if there is noise?
+
+**Noise**
+
+* noise in y: good customer mislabeled as bad
+* noise in y: same customer different labels
+* noise in x: inaccurate information
+
+Does VC bound work under noise?
+
+**Probabilistic Marbels**
+
+* Probabilistic (noise) marbles
+    * marble $x \sim P(x)$
+    * probabilistic color, $y \ne h(x)$ with $y \sim P(y|x)$
+
+* VC holds for
+    * $x \overset{i.i.d}{\sim} P(x)$
+    * $y \overset{i.i.d}{\sim} P(y|x)$
+    * $(x, y) \overset{i.i.d}{\sim} P(x, y)$
+
+**Target Distribution $P(y|x)$**
+
+* can be viewed as 'idea mini target' + noise, e.g.
+    * $P(\circ|x) = 0.7, P(\times|x) = 0.3$
+    * idea mini target $f(x) = \circ$
+    * 'flipping' noise level = 0.3
+* deterministic target $f$: *special case of target distribution*
+    * $P(y|x) = 1$ for $y = f(x)$
+    * $P(y|x) = 0$ for $y \ne f(x)$
+    
+* goal of learning: predict idea mini target (w.r.t $P(y|x)$)
+on often-seen inputs (w.r.t $P(x)$)
+
+**New Learning flow**
+VC still works, pocket algorithm explained :)
+
+## Error Measure
+## Algorithmic Error Measure
+## Weighted Classification
+
+## Conclusions
+* Noise and Probabilistic Target
+* Error Measure
+* Algorithmic Error Measure
+* Weighted Classification
