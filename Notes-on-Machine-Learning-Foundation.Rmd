@@ -381,3 +381,155 @@ $$
 * Bounding Function: Basic Cases, $B(N,k)$ bounds $m_{\mathcal{H}}(N)$
 * Bounding Function: Inductive Cases, $B(N,k)$ is poly(N)
 * A pictorial Proof: $m_{\mathcal{H}}(N)$ can replace $M$ with a few changes.
+
+# Lecture 7 The VC Dimension
+
+## Definition of VC Dimension
+
+**Recap: More on Growth Function**
+
+$m_{\mathcal{H}}(N)$ of break point $k \leq B(N,k)=\sum_{i=0}^{k-1} \binom{N}{i} \sim O(N^{k-1})$
+
+**Recap: More on VC bound**
+
+For any $g=\mathcal{A}(\mathcal{D}) \in \mathcal{H}$ and 'statistival' large $\mathcal{D}$
+
+$$
+\begin{split}
+\mathbb{P}_{\mathcal{D}}(|E_{in}(g)-E_{out}(g)| > \epsilon) \\
+\leq \mathbb{P}_{\mathcal{D}}(\exists h \in \mathcal{H}\ s.t. |E_{in}(h)-E_{in}'(h)| > \epsilon) \\
+\leq 4m_{\mathcal{H}}(2N)exp(-\frac{1}{8}\epsilon^2N) \\
+\leq 4(2N)^{k-1}exp(-\frac{1}{8}\epsilon^2N)
+\end{split}
+$$
+
+If:
+
+1. $m_{\mathcal{H}}$ breaks at $k$, (good $\mathcal{H}$)
+2. $N$ large enough, (good $\mathcal{D}$)
+3. $\mathcal{A}$ picks good $g$ with small $E_{in}$, good $\mathcal{A}$
+
+
+**VC Dimension**
+
+Definition:
+
+* $d_{VC}(\mathcal{H})$, VC dimesion of $\mathcal{H}$: largest $N$ $m_{\mathcal{H}}(N) = 2^N$
+* the most input $\mathcal{H}$ that can shatter
+* $N \leq d_{vc} \Longrightarrow \mathcal{H}$ can shatter some $N$ inputs
+* $k \geq d_{vc} \Longrightarrow k$ is a break point
+
+$$
+m_{\mathcal{H}}(N) \leq N^{d_{VC}}, if N \geq 2, d_{VC} \geq 2
+$$
+
+**The Four VC Dimensions**
+
+* positive ray, $d_{VC} = 1$
+* positive intervals, $d_{VC} = 2$
+* convex set, $d_{VC} = \infty$
+* 2D perceptrons, $d_{VC} = 3$
+
+**VC Dimension and Learning**
+
+* regardless of learning algorithm
+* regardless of input distribution $P$
+* regardless of target function $f$
+
+**FUn time**
+No conclusion
+
+## VC Dimension of Perceptrons
+
+**2D PLA revisited**
+
+* linearly separable $\mathcal{D}$ -> PLA can converge -> $T$ iterations -> $E_{in}(g) = 0$
+* with $x_n \sim P$ and $y_n = f(x_n)$ -> $\mathbb{P}_{\mathcal{D}}(|E_{in}(g)-E_{out}(g)| > \epsilon) \leq \dots$
+because $d_{VC} = 3$ -> $N$ is large -> $E_{in}(g) \approx E_{out}(g) \approx 0$
+
+**VC Dimension of Perceptrons**
+
+* 1D (pos/neg rays): $d_{VC}=2$
+* 2D: $d_{VC}=3$
+* d-D: : $d_{VC} \overset{?}{=} d+1$
+    * $d_{VC} \geq d+1$
+    * $d_{VC} \leq d+1$
+
+**$d_{VC} \geq d+1$**
+
+* A special matrix
+
+**$d_{VC} \leq d+1$**
+
+* linear dependency restricts dichotomy
+$$
+w^Tx_4 = w^Tx_2 + w^Tx_3 - w^Tx_1 > 0
+$$
+
+## Physical Intuition of VC Dimenson
+
+**Degrees of Freedom**
+
+**Two Old Friends**
+
+* Positive Rays, free parameters: $a$
+* Positive Intervals, free parameters: $l, r$
+* practical rule of thumb: $d_{VC} \approx$ # of free parameters(but not always).
+
+**$M$ and $d_{VC}$**
+
+* small $d_{VC}$
+* large $d_{VC}$
+* using the right $d_{VC}$ (or $\mathcal{H})
+
+## Interpreting VC Dimension
+
+**VC Bound Rephrase: Penalty for Model Complexity**
+
+For any $g=\mathcal{A}(\mathcal{D}) \in \mathcal{H}$ and 'statistival' large $\mathcal{D}$
+
+$$
+\mathbb{P}_{\mathcal{D}}(|E_{in}(g)-E_{out}(g)| > \epsilon) \leq
+4(2N)^{d_{VC}}exp(-\frac{1}{8}\epsilon^2N)
+= \delta
+$$
+$$
+\epsilon = \sqrt{\frac{8}{N}ln(\frac{4(2N)^{d_{VC}}}{\delta})}
+$$
+with probablity $1-\delta$, :
+Generalization error $|E_{in}(g)-E_{out}(g)| \leq \sqrt{\frac{8}{N}ln(\frac{4(2N)^{d_{VC}}}{\delta})}$
+$$
+E_{out}(g) \leq E_{in}(g)+\sqrt{\frac{8}{N}ln(\frac{4(2N)^{d_{VC}}}{\delta})}
+$$
+
+**THE VC message**
+
+$\Omega(N, \mathcal{H}, \delta) = \sqrt{\frac{8}{N}ln(\frac{4(2N)^{d_{VC}}}{\delta})}$
+is called model complexity penalty.
+
+* $d_{VC} \uparrow$, $E_{in} \downarrow$ but $\Omega \uparrow$
+* $d_{VC} \downarrow$, $E_{in} \uparrow$ but $\Omega \downarrow$
+* best $d_{VC}$ is in the middle
+* powerful $\mathcal{H}$ not always good!
+
+**VC Bound Rephrase: Sample Complexity**
+
+* Need $10000d_{VC}$ in theory
+* Practical rule of thumb: $10d_{VC}$
+
+**Looseness of VC Bound**
+
+* Hoeffding for unknown $E_out$, any distribution any target.
+* $m_{\mathcal{H}}$ instead of $|\mathcal{H}(x_1, \dots, x_n)|$, any data
+* $N^{d_{VC}}$ instead of $m_{\mathcal{H}}$, any $\mathcal{H}$ of same $d_{VC}$
+* union bound on worst cases, any choice made by $\mathcal{A}$
+* But hardly better, and similar loose for all models
+* Philosophical message of VC bound is important for improving ML
+
+## Conclusions
+
+* Definition VC Dimension: max non-break point
+* VC Dimension of Perceptrons: $d+1$
+* Physical Intuition of VC Dimenson: $\approx$ # free parameters
+* Interpreting VC Dimension: model and sample complexity
+
