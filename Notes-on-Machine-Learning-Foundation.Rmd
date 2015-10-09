@@ -572,14 +572,180 @@ Does VC bound work under noise?
 on often-seen inputs (w.r.t $P(x)$)
 
 **New Learning flow**
+
 VC still works, pocket algorithm explained :)
 
 ## Error Measure
+
+final hypothesis $g \approx f$
+
+* how well? previously, considered out-of-sample measure
+$$
+E_{out}(g) = \underset{X \sim P}{\epsilon}(g(x) \ne f(x))
+$$
+
+* more generally, error measure $E(g, f)$
+* natrually considered
+    * out-of-sample: averaged over unknow $x$
+    * pointwise: evaluated on one $x$
+    * classification: [prediction $\ne$ target], often also called '0/1 error'
+
+**Point Error Measure**
+
+$$
+E_{out}(g) = \underset{X \sim P}{\mathcal{E}} \underbrace{[g(x) \ne f(x)]}_{error(g(x), f(x))}
+$$
+
+* in-sample
+
+$$
+E_{in}(g) = \frac{1}{N} \sum_{n=1}^{N}err(g(x_n), f(x_n))
+$$
+
+* out-of-sample
+
+$$
+E_{out}(g) = \underset{X \sim P}{\mathcal{E}} err(g(x), f(x))
+$$
+
+will mainly consider pointwise err for simplicity
+
+**Two Important Pointwise Error Measures**
+
+* 0/1 error
+    * $err(\tilde{y}, y) = [\hat{y} \ne y]$
+    * correct or not
+    * often for classification
+    
+* squared error
+    * $err(\tilde{y}, y) = (\hat{y}-y)^2$
+    * how far $\hat{y}$ from $y$
+    * often for regression
+
+How does err 'guide' learning?
+
+*Ideal Mini-Target*
+
+$$
+P(y=1|x) = 0.2, P(y=2|x) = 0.7, P(y=3|x) = 0.1
+$$
+
+* 0/1 error, $err(\tilde{y}, y) = [\tilde{y} \ne y]$
+    * $\tilde{y} = 1$, avg. err 0.8
+    * $\tilde{y} = 2$, avg. err 0.3
+    * $\tilde{y} = 3$, avg. err 0.9
+    * $\tilde{y} = 1.9$, avg. err 1
+    * $f(x) = \underset{y\in\mathcal{y}}{argmax}(P(y|x))$
+    
+* squared error, $err(\tilde{y}, y) = (\tilde{y}-y)^2$
+    * $\tilde{y} = 1$, avg. err 1.1
+    * $\tilde{y} = 2$, avg. err 0.3
+    * $\tilde{y} = 3$, avg. err 1.5
+    * $\tilde{y} = 1.9$, avg. err 0.29
+    * $f(x) = \sum_{y\in\mathcal{y}} y \cdot P(y|x)$
+
+**Learning Flow with Error Measure**
+
+Extended VC theory/'Philosophy' works for most $\mathcal{H}$ and err.
+
 ## Algorithmic Error Measure
+
+**Choice of Error Measure**
+
+two types of error: false accept and false reject
+
+0/1 error penalizes both types equally.
+
+* supermarket: fingerprint for discount
+    * false reject: very unhappy customer, lose future business, (penalty 10)
+    * false accept: give away a minor discount, intruder left fingerprint (penalty 1)
+* CIA: fingerprint for entrance
+    * false accept: very serious consequences! (penalty 1000)
+    * false reject: unhappy employee, but so what? :) (penalty 1)
+
+**Take-home Message for Now**
+
+err is application/user-dependent
+
+Algorithm Error Measures $\widehat{error}$
+
+* true: just err
+* plausible:
+    * 0/1 minimum 'flipping noise' - NP-hard to optimize 
+    * squared: minimum Gaussian noise
+* friendly: easy to optimize for $\mathcal{A}$
+    * closed-form solution
+    * convex objective function
+
+err: application goal
+
+$\widehat{err}$: a key part of many $mathcal{A}$
+
 ## Weighted Classification
 
+$$
+\begin{array}{c|c}
+  &
+    \begin{matrix}
+    h(x) \\
+    1 \qquad -1
+    \end{matrix}
+  \\
+  \hline
+    \begin{matrix}
+    f(x) & 1 \\
+         & -1
+    \end{matrix}
+  &
+    \begin{matrix}
+    0 & 1 \\
+    1000 & 0
+    \end{matrix}  
+\end{array}
+$$
+
+out-of-sample $E_out(h)$ = 
+
+* 1, if $y_n = +1$
+* 1000, if $y_n = -1$
+
+in-sample is similar
+
+**Minimizing $E_{in}$ for weighted Classification**
+
+Naive Thoughts:
+
+* PLA: doesn't matter if linear separable.
+* pocket: modify pocket-replacement rule
+    * if $w_{t+1}$ reaches smaller $E_{in}^{w}$ than $\hat{w}$
+
+**Systematic Route: Connect $E_{in}^w$ and $E_{in}^{0/1}$**
+
+* idea: duplicate the data point with -1 label 1000 times.
+
+**weighted pocket algorithm**
+
+using 'virtual copying', weighted pocket algorithm include:
+
+* weighted PLA: randomly check -1 example mistakes with 1000 times more probability
+* weighted pocket replacement: if $w_{t+1}$ reaches smaller $E_{in}^{w}$ than $\hat{w}$, replace $\hat{w}$ by $w_{t+1}$
+
+systematic route (called reduction): can be applied to many other algorithm
+
+**Fun time**
+
+Unbalanced data
+
 ## Conclusions
+
 * Noise and Probabilistic Target
+    * can replace $f(x)$ with $P(y|x)$
 * Error Measure
+    * affect 'ideal' target
 * Algorithmic Error Measure
+    * user-dependent => plausible or friendly
 * Weighted Classification
+    * easily done by virtual 'example copying'
+    
+# Lecture 9
+# Lecture 10
