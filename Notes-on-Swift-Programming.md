@@ -359,3 +359,27 @@ let newCar = Car()
 * More expert topic
     * generic
     * operator overload
+
+# Week 3
+
+```
+let image = UIImage(named: "scenery.jpeg")!
+```
+
+Swift uses 1-D array to represents the image.
+Each green/red/blue is stored as an 8-bit integer UInt8.
+
+```
+public var red: UInt8 {
+    get {
+        return UInt8(value & 0xFF)
+    }
+    set {
+        value = UInt32(newValue) | (value & 0xFFFFFF00)
+    }
+}
+```
+
+code can be downloaded from week5 assignment.
+
+## Creating Filters
