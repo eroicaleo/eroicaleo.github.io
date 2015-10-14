@@ -360,7 +360,7 @@ let newCar = Car()
     * generic
     * operator overload
 
-# Week 3
+# Week 4
 
 ```
 let image = UIImage(named: "scenery.jpeg")!
@@ -383,3 +383,37 @@ public var red: UInt8 {
 code can be downloaded from week5 assignment.
 
 ## Creating Filters
+
+# Week 5 objective-c
+
+In objective-c, we don't want multiple classes have the same name.
+In objective-c, no name space built-in. Traditionally, we add capital letters at
+the beginning indicating which classes belong to me.
+Just in case, there is some class called 'city' in Cocoa, so we don't overwrite
+that class. Convention is to capitalize two letters.
+
+In swift, we don't have to do this. Even the system has the 'city' class, we
+don't overwrite that class.
+
+```swift
+class City {
+
+}
+```
+
+But in objective-c, we have to say `UTCity` is subclass of NSObject
+
+```objective-c
+// *.h file
+@interface UTCity : NSObject
+
+@end
+// *.m file
+#import "UTCity.h"
+@implementation UTCity
+@end
+```
+
+In objective-c, if we want to make method available to other parts of the program,
+we have to put them in the .h file. swift by default, everything is public.
+.h file doesn't include any implementation, definition.
