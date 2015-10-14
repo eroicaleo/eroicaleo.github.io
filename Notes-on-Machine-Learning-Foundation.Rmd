@@ -747,5 +747,269 @@ Unbalanced data
 * Weighted Classification
     * easily done by virtual 'example copying'
     
-# Lecture 9
+# Lecture 9 Linear Regression
+
+## Linear Regression Problem
+
+**Credit Limit Problem**
+
+credit limit? $100,000
+
+**Linear Regression Hypothesis**
+
+* For $x = (x_0, x_1, \dots, x_d)$ 'features of customer',
+approximate the desired credit limit with a weighted sum:
+
+$$
+y \approx \sum_{i = 0}^{d} w_i x_i
+$$
+
+* linear regression hypothesis: $h(x) = w^T x$
+
+* $h(x)$: like _perceptron_, but without the _sign_
+
+**The Error Measure** 
+
+square error $err(\hat{y}, y) = (\hat{y}^2 - y)^2$
+
+* in sample
+
+$$
+E_{in}(w) = \frac{1}{N} \sum_{n=1}^{N} (\underbrace{h(x_n)}_{w^T x_n} - y_n)^2
+$$
+
+* out-of-sample
+
+$$
+E_{out}(w) = \underset{(x, y) \sim P}{\mathcal{E}} (w^T x - y)
+$$
+
+## Linear Regression Algorithm
+
+**Matrix from of $E_{in}(w)$**
+
+$$
+E_{in}(w) = \frac{1}{N} \sum_{n=1}^{N} (w^T x_n - y_n)^2
+= \frac{1}{N}
+\begin{Vmatrix}
+x_1^T w - y_1 \\
+x_2^T w - y_2 \\
+\dots \\
+x_N^T w - y_N \\
+\end{Vmatrix}^2
+= \frac{1}{N}
+\begin{Vmatrix}
+Xw-y
+\end{Vmatrix}^2
+$$
+
+* $E_{in}(w)$: continuous, differentiable, **convex**
+* necessary condition of 'best' $w$ - not possible to 'roll down'
+* task: find $w_{LIN}$ such that $\nabla E_{in}(w_{LIN}) = 0$
+
+**The Gradient $\nabla E_{in}(w)$**
+
+$$
+E_{in}(w) =
+= \frac{1}{N}
+\begin{Vmatrix}
+Xw-y
+\end{Vmatrix}^2
+= \frac{1}{N}
+(w^T X^T X w - 2 w^T X^T y + y^Ty)
+= \frac{1}{N}
+(w^T A w - 2 w^T b + c)
+$$
+
+For vector $w$, we have
+
+$$
+\nabla E_{in}(w) =
+\frac{1}{N} (2Aw - 2b)
+= 
+\frac{2}{N} (X^TXw - X^Ty)
+= 0
+$$
+
+**Optimal Linear Regression Weights**
+
+* invertible $X^T X$
+    * easy! unique solution $w_{LIN} = \underbrace{(X^T X)^{-1}X^T}_{pseudo-inverse X^T} y$
+    * often the case because $N >> d+1$
+* singular $X^T X$
+    * many optimal solutions
+* practical suggestion:
+    * use well-implemented routine to solve $X^+$ instead of $(X^T X)^{-1}X^T$ for numerical stability.
+
+**Linear Regression Algorithm**
+
+1. from $\mathcal{D}$, construct input matrix $X$ and output vector $y$ by
+
+$$
+X = 
+\underbrace{
+\begin{bmatrix}
+--x_1^T-- \\
+--x_2^T-- \\
+\dots \\
+--x_N^T-- \\
+\end{bmatrix}
+}_{N\times(d+1)}
+y = 
+\underbrace{
+\begin{bmatrix}
+--y_1^T-- \\
+--y_2^T-- \\
+\dots \\
+--y_N^T-- \\
+\end{bmatrix}
+}_{N\times1}
+$$
+
+2. calculate pseudo-inverse $\underbrace{X^+}_{(d+1)\times N}$
+3. return $\underbrace{w_{LIN}}_{(d+1) \times 1} = X^+y$
+
+## Generalization Issue
+
+$$
+\underbrace{w_{LIN}}_{(d+1) \times 1} = X^+y
+$$
+
+* No!
+    * analytic (closed-form) solution, 'instantaneous'
+    * not improving $E_{in}$
+* Yes!
+    * good $E_{in}$? Yes, optimal
+    * good $E_{out}$? yes, finite $d_{vc}$ like perceptrons
+    * improving iteratively? somewhat, whithin an iterative pseudo-inverse routine
+* if $E_{out}(w_{LIN})$ is good, learning 'happened'!
+
+**Benefit of analytic solution: 'simpler-than-VC' Guarantee**
+
+$$
+\overline{E_{in}} = \underset{\mathcal{D} \sim P^N}{\mathcal{E}}{E_{in}(w_{LIN} w.r.t. \mathcal{D})}
+\overset{\text{to be shown}}{=} \text{noise level} \cdot (1 - \frac{d+1}{N})
+$$
+
+We have:
+
+$$
+E_{in}(w_{LIN})
+= \frac{1}{N}
+\begin{Vmatrix}
+y - \hat{y}
+\end{Vmatrix}^2
+= \frac{1}{N}
+\begin{Vmatrix}
+y - XX^{+}y
+\end{Vmatrix}^2
+= \frac{1}{N}
+\begin{Vmatrix}
+(I - XX^{+})y
+\end{Vmatrix}^2
+$$
+
+We call $XX^+$ hat matrix $H$ because it puts $\wedge$ on $y$
+
+**Geometric View of Hat Matrix**
+
+* in $\mathbb{R}^N$
+    * $\hat{y} = Xw_{LIN}$ within the span of $X$ columns
+    * $y-\hat{y}$ smallest: $y-\hat{y} \bot$ span
+    * $H$: project $y$ to $\hat{y} \in$ span
+    * $I-H$: transform $y$ to $y-\hat{y} \bot$ span 
+
+* claim: trace($I-H$) = $N-(d+1)$
+
+**An Illustrative 'Proof'**
+
+* if $y$ comes from some ideal $f(X) \in$ span plus noise
+* _noise_ transfromed by $I-H$ to be $y-\hat{y}$
+
+$$
+E_{in}(w_{LIN})
+= \frac{1}{N}
+\begin{Vmatrix}
+y - \hat{y}
+\end{Vmatrix}^2
+= \frac{1}{N}
+\begin{Vmatrix}
+(I-H)\text{noise}
+\end{Vmatrix}^2
+= \frac{1}{N}(N-(d+1))
+\begin{Vmatrix}
+\text{noise}
+\end{Vmatrix}^2
+$$
+
+We have:
+
+$$
+\overline{E_{in}} = 
+\text{noise level} \cdot (1 - \frac{d+1}{N})
+$$
+
+$$
+\overline{E_{out}} = 
+\text{noise level} \cdot (1 + \frac{d+1}{N})
+$$
+
+**The Learning Curve**
+
+* Both converge to $\sigma^2$ (noise level) for $N \rightarrow \infty$
+* expected generalization error: $\frac{2(d+1)}{N}$ 
+    * similar to worst-case guarantee from VC
+* linear regression (LinReg): learning happened!
+
+## Linear Regression for Binary Classification
+
+**Linear Classification v.s. Linear Regression**
+
+* Linear Classification:
+    * $\mathcal{Y} = {-1, +1}$
+    * $h(x) = \text{sign}(w^Tx)$
+    * $\text{err}(\hat{y}, y) = [\hat{y} \ne y]$
+    * NP-hard to solve in general
+* Linear Regression
+    * $\mathcal{Y} = \mathbb{R}$
+    * $h(x) = (w^Tx)$
+    * $\text{err}(\hat{y}, y) = (\hat{y} - y)^2$
+    * efficient analytic solution
+* ${-1, 1} \in \mathbb{R}$: linear regression for classification?
+    * run LinReg on binary classification data $\mathcal{D}$ (efficient)
+    * return $g(x) = \text{sign}(w_{LIN}^Tx)$
+* explanation of this heuristic?
+
+**Relation of Two Errors**
+
+* $\text{err}_{0/1} = [sign(w^Tx) \ne y]$
+* $\text{err}_{sqr} = (w^Tx-y)^2$
+* $\text{err}_{0/1} \leq \text{err}_{sqr}$
+
+**Linear Regression for Binary Classification**
+
+* $\text{err}_{0/1} \leq \text{err}_{sqr}$
+
+$$
+\text{classification} E_{out}(w) \overset{VC}{\leq}
+\text{classification} E_{in}(w) + \sqrt{\dots\dots} \leq
+\text{regression} E_{in}(w) + \sqrt{\dots\dots}
+$$
+
+* (loose) upper bound $err_{sqr}$ as $\widehat{err}$ to approximate $\text{err}_{0/1}$
+    * if we have small enough $err_{sqr}$, the $\text{classification} E_{out}$ will also be small
+* trade bound tightness for efficiency
+* $w_{LIN}$: useful baseline classifer, or as initial PLA/pocket vector
+
+## Conclusions
+
+* Linear Regression Problem
+    * use hyperplane to approximate real values
+* Linear Regression Algorithm
+    * analytic solution with pseudo-inverse
+* Generalization Issue
+    * $E_{out} - E_{in} \approx \frac{2(d+1)}{N}$ on average
+* Linear Regression for Binary Classification
+    * 0/1 error $\leq$ squared error
+
 # Lecture 10
