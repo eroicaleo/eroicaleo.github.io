@@ -209,7 +209,7 @@ doComplicatedStuff { doMoreComplicatedStuff() }
 
 Another cool thing about closure is that it can capture variable in the scope,
 e.g.
-```
+```swift
 var b = 3
 var addFunction2: (Int) -> Int  = {
     (a: Int) -> Int in
@@ -225,7 +225,7 @@ addFunction2(3) # gives 7
 Strong Properties and weak properties, in the following example, if dog is
 deallocated, the `vet.legs` will be nil.
 
-```
+```swift
 class Legs {
     var length: Int = 0
 }
@@ -362,14 +362,14 @@ let newCar = Car()
 
 # Week 4
 
-```
+```swift
 let image = UIImage(named: "scenery.jpeg")!
 ```
 
 Swift uses 1-D array to represents the image.
 Each green/red/blue is stored as an 8-bit integer UInt8.
 
-```
+```swift
 public var red: UInt8 {
     get {
         return UInt8(value & 0xFF)
@@ -417,3 +417,75 @@ But in objective-c, we have to say `UTCity` is subclass of NSObject
 In objective-c, if we want to make method available to other parts of the program,
 we have to put them in the .h file. swift by default, everything is public.
 .h file doesn't include any implementation, definition.
+
+## Types and Initializers Difference
+
+Swift is static typing while objective-c is dynamic typing.
+
+Define properties inside the class.
+
+```swift
+class City {
+    let name: String
+    let population: Int
+}
+```
+
+```objective-c
+// UTCity.h
+#import <Foundation/Foundation.h>
+
+@interface UTCity : NSObject
+
+@property (strong, nonatomic) NSString * name;
+@property (assign, nonatomic) NSInteger population;
+
+@end
+```
+
+Some comments:
+
+* `* name` is because string is not a value type, it's a pointer type. that name
+doesn't store a string, just store a reference to that string. `population`
+stores the value, so it doesn't have a `*`.
+* `strong` means it's not optional, like in swift. Somebody has to own that
+string, otherwise it will become deallocated.
+* objective-c retains compatibility with C.
+* swift more implicitly about everything is reference type or value type.
+
+**Initializer**
+
+Swift:
+
+```swift
+class City {
+    let name: String
+    let population: Int
+
+    required init(name: String, pop: Int) {
+        self.name = name
+        self.population = pop
+    }
+}
+```
+
+objective-c:
+
+```objective-c
+- (instancetype)initWithName: (NSString *)name population: (NSInteger) population
+{
+    self = [super init];
+    if (self) {
+        self.name = name;
+        self.population = population;
+    }
+    return self;
+}
+```
+
+Some comments:
+
+* In objective-c, has to explicitly call the initializer of super calss, it can
+return `nil`, so we have to check before we can use it.
+* In swift, don't need to do this.
+* The initializer in swift is special, but not in objective-c.
