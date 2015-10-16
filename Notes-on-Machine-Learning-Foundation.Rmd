@@ -1012,4 +1012,327 @@ $$
 * Linear Regression for Binary Classification
     * 0/1 error $\leq$ squared error
 
-# Lecture 10
+# Lecture 10 Logistic Regression
+
+## Logistic Regression Problem
+
+**Heart Attack Prediction Problem**
+
+binary classification: heart disease? yes or no ?
+
+* ideal $f(x) = \text{sign}(P(+1|x) - 0.5) \in {-1, +1}$
+
+'Soft' binary classification: Similer problem heart attack? 80% risk
+
+* $f(x) = P(+1|x) \in [0, 1]$
+
+**Soft Binary Classification**
+
+* target function $f(x) = P(+1|x) \in [0, 1] $
+
+* ideal (noiseless) data
+    * $(x_1, y_1' = 0.9 = P(+1|x_1))$
+    * $(x_2, y_2' = 0.2 = P(+1|x_2))$
+    * ...
+    * $(x_N, y_N' = 0.6 = P(+1|x_N))$
+* actual (noisy) data
+    * $(x_1, y_1' = 1 = [\circ \overset{?}{\sim} P(y|x_1)]$
+    * $(x_2, y_2' = 0 = [\circ \overset{?}{\sim} P(y|x_2)]$
+    * ...
+    * $(x_N, y_N' = 0 = [\circ \overset{?}{\sim} P(y|x_N)]$
+* We have same data as hard binary Classification, but different _target function_
+
+**Logistic Hypothesis**
+
+* For $x = (x_0, x_1, \dots, x_d)$ 'features of patient', calculate a weighted
+  'risk score':
+
+$$
+s = \sum_{i=0}^{d} w_i x_i
+$$
+
+* convert the score to estimated probability by logistic function $\theta(s)$
+* logistic hypothesis: $h(x) = \theta(w^T x)$
+
+**Logistic Function**
+
+```{r logisticfunction, echo=FALSE}
+s <- seq(-5, 5, 0.1)
+y <- plogis(s)
+plot(s, y, type = 'l', col = 'blue', ylab = 'theta(s)')
+abline(h = 1, lty = "dashed")
+```
+
+$$
+\theta(s) = \frac{e^s}{1+ e^s} = \frac{1}{1+e^{-s}}
+$$
+
+* It's smooth, monotonic sigmoid function of $s$
+* logistic regression: use the following to approximate target function $f(x) = P(y|x)$
+
+$$
+h(x) \frac{1}{1+ exp(-w^T x)}
+$$
+
+## Logistic Regression Error
+
+**Three Linear Models**
+
+* Linear Classification
+    * $h(x) = \text{sign}(s)$
+    * plausible err = 0/1 (small flipping noise)
+* Linear Regression
+    * $h(x) = s$
+    * friendly err = squared (easy to minimize)
+* Logistic Regression
+    * $h(x) = \theta(s)$
+    * err = ?
+
+**Likelihood**
+
+$$
+f(x) = P(+1|x) \iff
+P(y|x) =
+\begin{cases}
+f(x)   & \quad \text{for } y = +1 \\
+1-f(x) & \quad \text{for } y = -1 \\
+\end{cases}
+$$
+
+* Consider $\mathcal{D} = {(x_1, \circ), (x_2, \times), \dots, (x_N, \times)}$
+* probability that $f$ generates $\mathcal{D}$ is
+
+$$
+P(x_1)P(\circ | x_1) \times
+P(x_2)P(\times | x_2) \times
+\dots
+\times P(x_N)P(\times | x_N)
+$$
+
+* replace the above equation with $f(x)$
+
+$$
+P(x_1) \times f(x_1)
+P(x_2) (1 - f(x_2)) \times
+\dots
+\times P(x_N) (1 - f(x_N))
+$$
+
+* Likelihood that $h$ generates $\mathcal{D}$ is
+
+$$
+P(x_1) \times h(x_1)
+P(x_2) (1 - h(x_2)) \times
+\dots
+\times P(x_N) (1 - h(x_N))
+$$
+
+* if $h \approx f$, then likelihood($h$) $\approx$ probability using $f$
+* probability using $f$ usually large
+
+**Likelihood of Logistic Hypothesis**
+
+* likelihood($h$) $\approx$ probability using $f \approx$ large
+* $g = \underset{h}{\text{argmax}} \text{likelihood}(h)$
+* when logistic: $h(x) = \theta(w^Tx)$
+    * $1-h(x) = h(-x)$
+
+$$
+\text{likelihood}(h) = P(x_1) h(+x_1) P(x_2) h(-x_2) \cdots P(x_N) h(-X_N)
+$$
+
+So we have
+
+$$
+\text{likelihood}(\text{logistic } h) \propto \prod_{n=1}^{N} h(y_n x_n)
+$$
+
+**Cross-Entropy Error**
+
+$$
+\underset{w}{\text{max}}\ \text{likelihood } (w) \propto \prod_{n=1}^{N} \theta(y_n w^T x_n)
+$$
+
+$$
+\underset{w}{\text{max}}\  \text{ln } \prod_{n=1}^{N} \theta(y_n w^T x_n)
+$$
+
+$$
+\underset{w}{\text{min}}\  \frac{1}{N} \sum_{n=1}^{N} - \text{ln } \theta(y_n w^T x_n)
+$$
+
+$$
+\underset{w}{\text{min}}\  \frac{1}{N} \sum_{n=1}^{N} \text{ln } (1 + exp(-y_n w^T x_n))
+$$
+
+$$
+\underset{w}{\text{min}}\  \frac{1}{N} \underbrace{\sum_{n=1}^{N} \text{err}(w, x_n, y_n)}_{E_{in}(w)}
+$$
+
+* cross-entropy error: $\text{err}(w, x_n, y_n) = \text{ln } (1 + exp(-y_n w^T x_n))$
+
+## Gradient of Logistic Regression Error
+
+**Minimizing $E_{in}(w)$**
+
+* $E_{in}(w)$: continuous, differentiable, twice-differentiable, **convex**
+* how to minimize? locate valley, want $\nabla E_{in}(w) = 0$
+* first: derive $\nabla E_{in}(w) = 0$
+
+**The Gradient $\nabla E_{in}(w)$**
+
+$$
+E_{in}(w) = \frac{1}{N} \sum_{n=1}^{N} \text{ln } (1 + exp(-y_n w^T x_n))
+$$
+
+$$
+\nabla E_{in}(w) = 1 / N \sum_{n=1}^{N} \theta(-y_n w^T x_n) (-y_n x_n)
+$$
+
+**Minimizing $E_{in}(w)$**
+
+$$
+\nabla E_{in}(w) = 1 / N \sum_{n=1}^{N} \theta(-y_n w^T x_n) (-y_n x_n) = 0
+$$
+
+* scaled $\theta$-weighted sum of $-y_n x_n$
+    * all $\theta(i) = 0$, only if $y_n w^T x_n \gg 0$ --- Linear separable $\mathcal{D}$
+    * weighted sum = 0: non-linear equation of $w$
+
+**PLA revisited: iterative optimization**
+
+PLA: start from some $w_0$, and correct its mistakes on $\mathcal{D}$
+
+For $t = 0, 1, \dots$
+
+1. find a mistake of $w_t$ called $(x_{n(t)}, y_{n(t)})$
+
+$$
+\text{sign}(w_t^Tx_{n(t)}) \ne y_{n(t)}
+$$
+
+2. try to correct the mistake by
+
+$$
+w_{t+1} \leftarrow w_t + y_{n(t)}x_{n(t)}
+$$
+
+when stop, return last $w$ as $g$
+
+For $t = 0, 1, \dots$
+
+1. (equivalently) pick some $n$, and update $w_t$ by
+
+$$
+w_{t+1} \leftarrow w_t + \underbrace{1}_{\eta} \cdot \underbrace{[\text{sign}(w_t^Tx_n) \ne y_n]y_{n(t)}x_{n(t)}}_{v}
+$$
+
+when stop, return last $w$ as $g$
+
+* $v$ is the updates direction
+* $\eta$ how big is the step in the direction
+* choice of $(\eta, v)$ and stopping condition defines **_iterative optimization approach_**
+
+## Gradient Descent
+
+**Iterative Optimization**
+
+For $t = 0, 1, \dots$
+
+$$
+w_{t+1} \leftarrow w_t + \eta v
+$$
+
+when stop, return last $w$ as $g$
+
+* PLA: $v$ comes from mistake correction
+* smooth $E_{in}(w)$ for logistic regression: choose $v$ to get the ball roll 'downhill'
+    * direction $v$: (assumed) of unit length
+* a greedy approach for some given $\eta > 0$:
+
+$$
+\underset{|v| = 1}{\text{min}} E_{in} (\underbrace{w_t + \eta v}_{w_{t+1}})
+$$
+
+**Linear Approximation**
+
+* still non-linear optimization, now with constraints
+    * not any easier than $\text{min}_w E_{in} (w)$
+* local approximation by linear formula makes problem easier.
+
+$$
+E_{in} (w_t + \eta v) \approx E_{in}(w_t) + \eta v^T \nabla E_{in}(w_t)
+$$
+
+* if $\eta$ really small (Taylor expansion)
+
+an approximate greedy approach for some given small $\eta$:
+
+$$
+\underset{|v| = 1}{\text{min}} E_{in} (w_t) + \eta v^T \nabla E_{in}(w_t)
+$$
+
+**Gradient Descent**
+
+* optimal $v$:
+
+$$
+v = - \frac{\nabla E_{in}(w_t)}{|\nabla E_{in}(w_t)|}
+$$
+
+* gradient descent: for small $\eta$
+
+$$
+w_{t+1} \leftarrow w_t - \eta \frac{\nabla E_{in}(w_t)}{|\nabla E_{in}(w_t)|}
+$$
+
+* a simple and popular optimization
+
+**Choice of $\eta$**
+
+* too small: too slow
+* too large: too unstable
+* just right: use changing $\eta$
+
+$\eta$ better be monotonic of $\begin{Vmatrix}\nabla E_{in}(w_t)\end{Vmatrix}$
+
+**Simple heuristic for changing $\eta$**
+
+$$
+w_{t+1} \leftarrow w_t - \eta \nabla E_{in}(w_t)
+$$
+
+* called the fixed learning rate
+
+**Putting Everything Together**
+
+Initialize $w_0$
+
+For $t = 0, 1, \dots$
+
+1. compute
+
+$$
+\nabla E_{in}(w_t) = 1 / N \sum_{n=1}^{N} \theta(-y_n w_t^T x_n) (-y_n x_n)
+$$
+
+2. update by
+
+$$
+w_{t+1} \leftarrow w_t - \eta \nabla E_{in}(w_t)
+$$
+
+... until $\nabla E_{in}(w_t) \approx 0$ or for enough iterations.
+
+* Similer time complexity to pocket per iteration
+
+## Conclusions
+
+* Logistic Regression Problem
+    * $P(+1|x)$ as target and $\theta(w^Tx)$ as hypothesis
+* Logistic Regression Error
+    * cross-entropy (negative log likelihood)
+* Gradient of Logistic Regression Error
+    * $\theta$-weighted sum of data vectors
+* Gradient Descent
+    * roll downhill by $-\nabla E_{in}(w_t)$

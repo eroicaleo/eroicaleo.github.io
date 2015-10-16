@@ -130,7 +130,13 @@ img {
 <li><a href="#linear-regression-for-binary-classification">Linear Regression for Binary Classification</a></li>
 <li><a href="#conclusions-2">Conclusions</a></li>
 </ul></li>
-<li><a href="#lecture-10">Lecture 10</a></li>
+<li><a href="#lecture-10-logistic-regression">Lecture 10 Logistic Regression</a><ul>
+<li><a href="#logistic-regression-problem">Logistic Regression Problem</a></li>
+<li><a href="#logistic-regression-error">Logistic Regression Error</a></li>
+<li><a href="#gradient-of-logistic-regression-error">Gradient of Logistic Regression Error</a></li>
+<li><a href="#gradient-descent">Gradient Descent</a></li>
+<li><a href="#conclusions-3">Conclusions</a></li>
+</ul></li>
 </ul>
 </div>
 
@@ -1111,8 +1117,323 @@ y - \hat{y}
 </ul>
 </div>
 </div>
-<div id="lecture-10" class="section level1">
-<h1>Lecture 10</h1>
+<div id="lecture-10-logistic-regression" class="section level1">
+<h1>Lecture 10 Logistic Regression</h1>
+<div id="logistic-regression-problem" class="section level2">
+<h2>Logistic Regression Problem</h2>
+<p><strong>Heart Attack Prediction Problem</strong></p>
+<p>binary classification: heart disease? yes or no ?</p>
+<ul>
+<li>ideal <span class="math">\(f(x) = \text{sign}(P(+1|x) - 0.5) \in {-1, +1}\)</span></li>
+</ul>
+<p>‘Soft’ binary classification: Similer problem heart attack? 80% risk</p>
+<ul>
+<li><span class="math">\(f(x) = P(+1|x) \in [0, 1]\)</span></li>
+</ul>
+<p><strong>Soft Binary Classification</strong></p>
+<ul>
+<li><p>target function $f(x) = P(+1|x) $</p></li>
+<li>ideal (noiseless) data
+<ul>
+<li><span class="math">\((x_1, y_1' = 0.9 = P(+1|x_1))\)</span></li>
+<li><span class="math">\((x_2, y_2' = 0.2 = P(+1|x_2))\)</span></li>
+<li>…</li>
+<li><span class="math">\((x_N, y_N' = 0.6 = P(+1|x_N))\)</span></li>
+</ul></li>
+<li>actual (noisy) data
+<ul>
+<li><span class="math">\((x_1, y_1' = 1 = [\circ \overset{?}{\sim} P(y|x_1)]\)</span></li>
+<li><span class="math">\((x_2, y_2' = 0 = [\circ \overset{?}{\sim} P(y|x_2)]\)</span></li>
+<li>…</li>
+<li><span class="math">\((x_N, y_N' = 0 = [\circ \overset{?}{\sim} P(y|x_N)]\)</span></li>
+</ul></li>
+<li><p>We have same data as hard binary Classification, but different <em>target function</em></p></li>
+</ul>
+<p><strong>Logistic Hypothesis</strong></p>
+<ul>
+<li>For <span class="math">\(x = (x_0, x_1, \dots, x_d)\)</span> ‘features of patient’, calculate a weighted ‘risk score’:</li>
+</ul>
+<p><span class="math">\[
+s = \sum_{i=0}^{d} w_i x_i
+\]</span></p>
+<ul>
+<li>convert the score to estimated probability by logistic function <span class="math">\(\theta(s)\)</span></li>
+<li>logistic hypothesis: <span class="math">\(h(x) = \theta(w^T x)\)</span></li>
+</ul>
+<p><strong>Logistic Function</strong></p>
+<p><img src="data:image/png;base64,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+aYDAihk48crOVlvvmk6B2Bflij4119//dlnn61du7ak11577Y033hg8eHB0dPTixYvvu+++8PDwJUuWmM4IoNDExur99/XFF3J1NR0FsC9LLLKbMWPGkCFDJk6cKGn69Oljx459+eWX83Z16dKlbNmy48eP79Kli8mIAArJ4cPq3Vtz5+rGG01HAWzNEiP4zMzMZs2aScrJyUlNTW35vzeJfOCBB/bu3WsoGoDClJWlHj00fLjatDEdBbA7SxT8XXfdtWTJkpycnNKlS7ds2XLNmjV/3Pvdd98Fs8oWsIXRo+Xnp5EjTecASgBLTNGPHz++VatW999//+OPPz548OCIiIjs7OyQkJBz5859+umnn3322bx580xnBHC9li/XkiXaskUuLqajACWAJQq+YcOGGzZsmDx58uDBgzMyMiRNmTJlypQpkho1ajR//vxHHnnEdEYA1+XQIQ0cqH/9S35+pqMAJYMlCl5SUFDQ9OnTp06devjw4eTk5PT09MqVK1etWjUgIMCFf+0DTu78eXXtqrFjdccdpqMAJYZVCj5PuXLlAgMDAwMD/7gxMzMzOzvb29vbVCoA12nECNWpo2HDTOcAShJrFfxlderUKSYm5kouaRcXF/fPf/4zNzf3snvPnz9/+vTpwk4H4G98/rm+/VabN5vOAZQwTlDwISEhtWrVupJXVqhQoUmTJgXtnT17dpkyTvDnBewkPl7Dhunbb7mdDFDcnKDwRowYcYWvrFat2qBBg/7i9ylXrlwhhQLw986fV1iYXnpJt95qOgpQ8vz9efAOhyMjIyMjI6N47vvicDhOnTp14sQJbjMDOLvISNWurSFDTOcASqTLF7zD4Vi9evXw4cObNm1avnz5ihUrVqxYsXz58s2aNRs+fPjq1asLvX3j4+PHjBlTr149d3d3Ly8vPz8/Nze3wMDA0aNHJyQkFO57ASgGy5crOlrTp5vOAZRU+afoc3Nz58yZ8+abb546dapVq1bh4eF16tTx9fWVlJqaeuDAgc2bN/fu3dvLy2vMmDF9+vQpVaoQroW3adOmNm3aeHp6tmvXLjg42NfX1+FwpKenx8XFLVy4MCoqKjY2tmnTptf/RgCKR2LixbPefX1NRwFKqvwFf88991SvXn3atGn33HNP6dKlL/trcnJy1q1bN23atI8++mj9+vXXH2LUqFFNmjRZvny5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AMuZP18zZ2rDBnl5mY4CwGlR8IC1fP21Ro7UmjW64QbTUQA4MwoesJDNm/XYY1q6VEFBpqMAcHIssgOsIj5eHTtq1izdeafpKACcHwUPWEJSktq21auvKjTUdBQAtkDBA+YdP662bfXEE+rf33QUAHZBwQOGnTqlkBB17arISNNRANgIBQ+YdPasOnRQixbc5R1AIaPgAWOystS9u6pX19SppqMAsB0KHjAjO1u9e6tsWc2apVL8RQRQ2DgPHjAgJ0f9+unkSS1bxsVoARQJvlqA4pabq379lJKiZcvk5mY6DQCbouCBYuVw6IkndPCgvv5a7u6m0wCwLwsd+svOzj5w4MCZM2fybT99+nRycrKRSEDhcjg0ZIh279aKFSpf3nQaALZmiYLPyckZN25cxYoV69Sp4+Pj88wzz2RlZV3a++GHH1atWtVgPKBQ5OZq8GD98ou++UaenqbTALA7S0zRv//++y+//PKwYcPuueeeDRs2TJ069dixY/PmzTOdCyg0OTkaMEAHD+qrrxi7AygOlij4qKioIUOGvPPOO5K6devWuHHjfv36de3atXPnzqajAYUgb818YqKWL2fsDqCYWGKK/sCBA3ffffeln/bt27dr164jR448d+6cwVRAobhwQT166MQJff017Q6g+Fii4GvUqPHTTz/9ccs///nPEydODB061OFwmEoFXL/z59W9u0qX1r/+xRlxAIqVJaboIyIiIiMjz5w58/DDD7dt29bd3T0gICAqKiosLMzFxcXV1dV0QOBanDqljh1VvbpmzVLp0qbTAChhLFHwTz/9dFZW1oQJE6ZPn75nz5769etL6tGjh4uLy5NPPnn06FHTAYGrlpKikBDdeafefZcr0QIwwBJfPGXKlBkzZsyJEycOHz5cq1atS9u7d++emJi4atWq6dOnm0sHXLUDB3TPPWrbVu+9R7sDMMMSI/g8Li4uN954Y76Nrq6uLVu2bNasmZFIwDXYtUsPP6znntPgwaajACjBLFTwBenUqVNMTMyVrLbbtm3b+PHjC9p77ty5kydPFmo0IL81axQWpqlT1aOH6SgASjYnKPiQkJA/ztv/hTp16vTo0aOgfwosX77ck7OUUJQ+/VTDh2vhQrVqZToKgBLPCQp+xIgRV/hKLy+vbt26FbS3f//+pVnKjKLhcOittzR9umJjFRxsOg0AWLDg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" /></p>
+<p><span class="math">\[
+\theta(s) = \frac{e^s}{1+ e^s} = \frac{1}{1+e^{-s}}
+\]</span></p>
+<ul>
+<li>It’s smooth, monotonic sigmoid function of <span class="math">\(s\)</span></li>
+<li>logistic regression: use the following to approximate target function <span class="math">\(f(x) = P(y|x)\)</span></li>
+</ul>
+<p><span class="math">\[
+h(x) \frac{1}{1+ exp(-w^T x)}
+\]</span></p>
+</div>
+<div id="logistic-regression-error" class="section level2">
+<h2>Logistic Regression Error</h2>
+<p><strong>Three Linear Models</strong></p>
+<ul>
+<li>Linear Classification
+<ul>
+<li><span class="math">\(h(x) = \text{sign}(s)\)</span></li>
+<li>plausible err = 0/1 (small flipping noise)</li>
+</ul></li>
+<li>Linear Regression
+<ul>
+<li><span class="math">\(h(x) = s\)</span></li>
+<li>friendly err = squared (easy to minimize)</li>
+</ul></li>
+<li>Logistic Regression
+<ul>
+<li><span class="math">\(h(x) = \theta(s)\)</span></li>
+<li>err = ?</li>
+</ul></li>
+</ul>
+<p><strong>Likelihood</strong></p>
+<p><span class="math">\[
+f(x) = P(+1|x) \iff
+P(y|x) =
+\begin{cases}
+f(x)   &amp; \quad \text{for } y = +1 \\
+1-f(x) &amp; \quad \text{for } y = -1 \\
+\end{cases}
+\]</span></p>
+<ul>
+<li>Consider <span class="math">\(\mathcal{D} = {(x_1, \circ), (x_2, \times), \dots, (x_N, \times)}\)</span></li>
+<li>probability that <span class="math">\(f\)</span> generates <span class="math">\(\mathcal{D}\)</span> is</li>
+</ul>
+<p><span class="math">\[
+P(x_1)P(\circ | x_1) \times
+P(x_2)P(\times | x_2) \times
+\dots
+\times P(x_N)P(\times | x_N)
+\]</span></p>
+<ul>
+<li>replace the above equation with <span class="math">\(f(x)\)</span></li>
+</ul>
+<p><span class="math">\[
+P(x_1) \times f(x_1)
+P(x_2) (1 - f(x_2)) \times
+\dots
+\times P(x_N) (1 - f(x_N))
+\]</span></p>
+<ul>
+<li>Likelihood that <span class="math">\(h\)</span> generates <span class="math">\(\mathcal{D}\)</span> is</li>
+</ul>
+<p><span class="math">\[
+P(x_1) \times h(x_1)
+P(x_2) (1 - h(x_2)) \times
+\dots
+\times P(x_N) (1 - h(x_N))
+\]</span></p>
+<ul>
+<li>if <span class="math">\(h \approx f\)</span>, then likelihood(<span class="math">\(h\)</span>) <span class="math">\(\approx\)</span> probability using <span class="math">\(f\)</span></li>
+<li>probability using <span class="math">\(f\)</span> usually large</li>
+</ul>
+<p><strong>Likelihood of Logistic Hypothesis</strong></p>
+<ul>
+<li>likelihood(<span class="math">\(h\)</span>) <span class="math">\(\approx\)</span> probability using <span class="math">\(f \approx\)</span> large</li>
+<li><span class="math">\(g = \underset{h}{\text{argmax}} \text{likelihood}(h)\)</span></li>
+<li>when logistic: <span class="math">\(h(x) = \theta(w^Tx)\)</span>
+<ul>
+<li><span class="math">\(1-h(x) = h(-x)\)</span></li>
+</ul></li>
+</ul>
+<p><span class="math">\[
+\text{likelihood}(h) = P(x_1) h(+x_1) P(x_2) h(-x_2) \cdots P(x_N) h(-X_N)
+\]</span></p>
+<p>So we have</p>
+<p><span class="math">\[
+\text{likelihood}(\text{logistic } h) \propto \prod_{n=1}^{N} h(y_n x_n)
+\]</span></p>
+<p><strong>Cross-Entropy Error</strong></p>
+<p><span class="math">\[
+\underset{w}{\text{max}}\ \text{likelihood } (w) \propto \prod_{n=1}^{N} \theta(y_n w^T x_n)
+\]</span></p>
+<p><span class="math">\[
+\underset{w}{\text{max}}\  \text{ln } \prod_{n=1}^{N} \theta(y_n w^T x_n)
+\]</span></p>
+<p><span class="math">\[
+\underset{w}{\text{min}}\  \frac{1}{N} \sum_{n=1}^{N} - \text{ln } \theta(y_n w^T x_n)
+\]</span></p>
+<p><span class="math">\[
+\underset{w}{\text{min}}\  \frac{1}{N} \sum_{n=1}^{N} \text{ln } (1 + exp(-y_n w^T x_n))
+\]</span></p>
+<p><span class="math">\[
+\underset{w}{\text{min}}\  \frac{1}{N} \underbrace{\sum_{n=1}^{N} \text{err}(w, x_n, y_n)}_{E_{in}(w)}
+\]</span></p>
+<ul>
+<li>cross-entropy error: <span class="math">\(\text{err}(w, x_n, y_n) = \text{ln } (1 + exp(-y_n w^T x_n))\)</span></li>
+</ul>
+</div>
+<div id="gradient-of-logistic-regression-error" class="section level2">
+<h2>Gradient of Logistic Regression Error</h2>
+<p><strong>Minimizing <span class="math">\(E_{in}(w)\)</span></strong></p>
+<ul>
+<li><span class="math">\(E_{in}(w)\)</span>: continuous, differentiable, twice-differentiable, <strong>convex</strong></li>
+<li>how to minimize? locate valley, want <span class="math">\(\nabla E_{in}(w) = 0\)</span></li>
+<li>first: derive <span class="math">\(\nabla E_{in}(w) = 0\)</span></li>
+</ul>
+<p><strong>The Gradient <span class="math">\(\nabla E_{in}(w)\)</span></strong></p>
+<p><span class="math">\[
+E_{in}(w) = \frac{1}{N} \sum_{n=1}^{N} \text{ln } (1 + exp(-y_n w^T x_n))
+\]</span></p>
+<p><span class="math">\[
+\nabla E_{in}(w) = 1 / N \sum_{n=1}^{N} \theta(-y_n w^T x_n) (-y_n x_n)
+\]</span></p>
+<p><strong>Minimizing <span class="math">\(E_{in}(w)\)</span></strong></p>
+<p><span class="math">\[
+\nabla E_{in}(w) = 1 / N \sum_{n=1}^{N} \theta(-y_n w^T x_n) (-y_n x_n) = 0
+\]</span></p>
+<ul>
+<li>scaled <span class="math">\(\theta\)</span>-weighted sum of <span class="math">\(-y_n x_n\)</span>
+<ul>
+<li>all <span class="math">\(\theta(i) = 0\)</span>, only if <span class="math">\(y_n w^T x_n \gg 0\)</span> — Linear separable <span class="math">\(\mathcal{D}\)</span></li>
+<li>weighted sum = 0: non-linear equation of <span class="math">\(w\)</span></li>
+</ul></li>
+</ul>
+<p><strong>PLA revisited: iterative optimization</strong></p>
+<p>PLA: start from some <span class="math">\(w_0\)</span>, and correct its mistakes on <span class="math">\(\mathcal{D}\)</span></p>
+<p>For <span class="math">\(t = 0, 1, \dots\)</span></p>
+<ol style="list-style-type: decimal">
+<li>find a mistake of <span class="math">\(w_t\)</span> called <span class="math">\((x_{n(t)}, y_{n(t)})\)</span></li>
+</ol>
+<p><span class="math">\[
+\text{sign}(w_t^Tx_{n(t)}) \ne y_{n(t)}
+\]</span></p>
+<ol start="2" style="list-style-type: decimal">
+<li>try to correct the mistake by</li>
+</ol>
+<p><span class="math">\[
+w_{t+1} \leftarrow w_t + y_{n(t)}x_{n(t)}
+\]</span></p>
+<p>when stop, return last <span class="math">\(w\)</span> as <span class="math">\(g\)</span></p>
+<p>For <span class="math">\(t = 0, 1, \dots\)</span></p>
+<ol style="list-style-type: decimal">
+<li>(equivalently) pick some <span class="math">\(n\)</span>, and update <span class="math">\(w_t\)</span> by</li>
+</ol>
+<p><span class="math">\[
+w_{t+1} \leftarrow w_t + \underbrace{1}_{\eta} \cdot \underbrace{[\text{sign}(w_t^Tx_n) \ne y_n]y_{n(t)}x_{n(t)}}_{v}
+\]</span></p>
+<p>when stop, return last <span class="math">\(w\)</span> as <span class="math">\(g\)</span></p>
+<ul>
+<li><span class="math">\(v\)</span> is the updates direction</li>
+<li><span class="math">\(\eta\)</span> how big is the step in the direction</li>
+<li>choice of <span class="math">\((\eta, v)\)</span> and stopping condition defines <strong><em>iterative optimization approach</em></strong></li>
+</ul>
+</div>
+<div id="gradient-descent" class="section level2">
+<h2>Gradient Descent</h2>
+<p><strong>Iterative Optimization</strong></p>
+<p>For <span class="math">\(t = 0, 1, \dots\)</span></p>
+<p><span class="math">\[
+w_{t+1} \leftarrow w_t + \eta v
+\]</span></p>
+<p>when stop, return last <span class="math">\(w\)</span> as <span class="math">\(g\)</span></p>
+<ul>
+<li>PLA: <span class="math">\(v\)</span> comes from mistake correction</li>
+<li>smooth <span class="math">\(E_{in}(w)\)</span> for logistic regression: choose <span class="math">\(v\)</span> to get the ball roll ‘downhill’
+<ul>
+<li>direction <span class="math">\(v\)</span>: (assumed) of unit length</li>
+</ul></li>
+<li>a greedy approach for some given <span class="math">\(\eta &gt; 0\)</span>:</li>
+</ul>
+<p><span class="math">\[
+\underset{|v| = 1}{\text{min}} E_{in} (\underbrace{w_t + \eta v}_{w_{t+1}})
+\]</span></p>
+<p><strong>Linear Approximation</strong></p>
+<ul>
+<li>still non-linear optimization, now with constraints
+<ul>
+<li>not any easier than <span class="math">\(\text{min}_w E_{in} (w)\)</span></li>
+</ul></li>
+<li>local approximation by linear formula makes problem easier.</li>
+</ul>
+<p><span class="math">\[
+E_{in} (w_t + \eta v) \approx E_{in}(w_t) + \eta v^T \nabla E_{in}(w_t)
+\]</span></p>
+<ul>
+<li>if <span class="math">\(\eta\)</span> really small (Taylor expansion)</li>
+</ul>
+<p>an approximate greedy approach for some given small <span class="math">\(\eta\)</span>:</p>
+<p><span class="math">\[
+\underset{|v| = 1}{\text{min}} E_{in} (w_t) + \eta v^T \nabla E_{in}(w_t)
+\]</span></p>
+<p><strong>Gradient Descent</strong></p>
+<ul>
+<li>optimal <span class="math">\(v\)</span>:</li>
+</ul>
+<p><span class="math">\[
+v = - \frac{\nabla E_{in}(w_t)}{|\nabla E_{in}(w_t)|}
+\]</span></p>
+<ul>
+<li>gradient descent: for small <span class="math">\(\eta\)</span></li>
+</ul>
+<p><span class="math">\[
+w_{t+1} \leftarrow w_t - \eta \frac{\nabla E_{in}(w_t)}{|\nabla E_{in}(w_t)|}
+\]</span></p>
+<ul>
+<li>a simple and popular optimization</li>
+</ul>
+<p><strong>Choice of <span class="math">\(\eta\)</span></strong></p>
+<ul>
+<li>too small: too slow</li>
+<li>too large: too unstable</li>
+<li>just right: use changing <span class="math">\(\eta\)</span></li>
+</ul>
+<p><span class="math">\(\eta\)</span> better be monotonic of <span class="math">\(\begin{Vmatrix}\nabla E_{in}(w_t)\end{Vmatrix}\)</span></p>
+<p><strong>Simple heuristic for changing <span class="math">\(\eta\)</span></strong></p>
+<p><span class="math">\[
+w_{t+1} \leftarrow w_t - \eta \nabla E_{in}(w_t)
+\]</span></p>
+<ul>
+<li>called the fixed learning rate</li>
+</ul>
+<p><strong>Putting Everything Together</strong></p>
+<p>Initialize <span class="math">\(w_0\)</span></p>
+<p>For <span class="math">\(t = 0, 1, \dots\)</span></p>
+<ol style="list-style-type: decimal">
+<li>compute</li>
+</ol>
+<p><span class="math">\[
+\nabla E_{in}(w_t) = 1 / N \sum_{n=1}^{N} \theta(-y_n w_t^T x_n) (-y_n x_n)
+\]</span></p>
+<ol start="2" style="list-style-type: decimal">
+<li>update by</li>
+</ol>
+<p><span class="math">\[
+w_{t+1} \leftarrow w_t - \eta \nabla E_{in}(w_t)
+\]</span></p>
+<p>… until <span class="math">\(\nabla E_{in}(w_t) \approx 0\)</span> or for enough iterations.</p>
+<ul>
+<li>Similer time complexity to pocket per iteration</li>
+</ul>
+</div>
+<div id="conclusions-3" class="section level2">
+<h2>Conclusions</h2>
+<ul>
+<li>Logistic Regression Problem
+<ul>
+<li><span class="math">\(P(+1|x)\)</span> as target and <span class="math">\(\theta(w^Tx)\)</span> as hypothesis</li>
+</ul></li>
+<li>Logistic Regression Error
+<ul>
+<li>cross-entropy (negative log likelihood)</li>
+</ul></li>
+<li>Gradient of Logistic Regression Error
+<ul>
+<li><span class="math">\(\theta\)</span>-weighted sum of data vectors</li>
+</ul></li>
+<li>Gradient Descent
+<ul>
+<li>roll downhill by <span class="math">\(-\nabla E_{in}(w_t)\)</span></li>
+</ul></li>
+</ul>
+</div>
 </div>
 
 
