@@ -1071,7 +1071,7 @@ $$
 * logistic regression: use the following to approximate target function $f(x) = P(y|x)$
 
 $$
-h(x) \frac{1}{1+ exp(-w^T x)}
+h(x) = \frac{1}{1+ exp(-w^T x)}
 $$
 
 ## Logistic Regression Error
@@ -1187,6 +1187,15 @@ $$
 
 $$
 \nabla E_{in}(w) = 1 / N \sum_{n=1}^{N} \theta(-y_n w^T x_n) (-y_n x_n)
+$$
+
+Note that in Andrew's cource, the $\nabla E_{in}(w)$ is as following.
+Which is actually the same as above if we replace $y_n = 1$ and $y_n = -1$, and
+use $h(-x) = 1 - h(x)$ property. But **_note_**, in Andrew's cource, $y_n$ can
+be 1 or 0, not $\pm 1$.
+
+$$
+\nabla E_{in}(w) = 1 / N \sum_{n=1}^{N} (h(x_n) - y_n) x_n
 $$
 
 **Minimizing $E_{in}(w)$**
@@ -1336,3 +1345,118 @@ $$
     * $\theta$-weighted sum of data vectors
 * Gradient Descent
     * roll downhill by $-\nabla E_{in}(w_t)$
+
+# Lecture 11 Linear Models for Classification
+
+## Linear Models for Binary Classification
+
+**Linear Models Revisited**
+
+linear scoring function: $s = w^Tx$
+
+* Linear Classification
+    * $h(x) = \text{sign}(s)$
+    * plausible err = 0/1 (discrete $E_{in}(w)$ NP hard to solve)
+* Linear Regression
+    * $h(x) = s$
+    * friendly err = squared (quadratic convex $E_{in}(w)$: closed form solution)
+* Logistic Regression
+    * $h(x) = \theta(s)$
+    * plausible err = cross-entropy (smooth convex $E_{in}(w)$: gradient descent)
+
+Can linear regression or logistic regression help linear classfication?
+    * linear classfication is hard to solve, but the other two are easy to solve
+    * Can we use the other two to replace the first one?
+
+**Error Functions Revisited**
+
+linear scoring function: $s = w^Tx$
+
+for binary classfication $\mathcal{y} \in {-1, +1}$
+
+* Linear Classification
+    * $h(x) = \text{sign}(s)$
+    * err$(h, x, y) = [h(x) \ne y]$
+    * $\text{err}_{0/1}(s, y) = [\text{sign}(s) \ne y] = [\text{sign}(ys) \ne 1]$
+
+* Linear Regression
+    * $h(x) = s$
+    * err$(h, x, y) = (h(x) - y)^2$
+    * $\text{err}_{SQR}(s, y) = (s - y)^2 = (ys-1)^2$
+
+* Logistic Regression
+    * $h(x) = \theta(s)$
+    * err$(h, x, y) = \text{ln } h(yx)$
+    * $\text{err}_{CE}(s, y) = \text{ln} (1+exp(-ys))$
+
+* $(ys)$: classfication correctness score
+
+**Visualizing Error Functions**
+
+* $0/1$: 1 if and only if $ys \leq 0$
+* sqr: large if $ys \ll 1$, but over-charge $ys \gg 1$, small $\text{err}_{SQR} \rightarrow \text{small } \text{err}_{0/1}$ 
+* ce: monotonic of $ys$ small err CE $\iff$ small error 0/1.
+* scaled ce: a proper upper bound of 0/1 small CE $\iff$ small error 0/1.
+* upper bound: useful for designing Algorithmic error $\widehat{err}$
+
+**Theoretical Implication of Upper Bound**
+
+* For any $ys$ where $s = W^T x$
+
+$$
+\begin{split}
+\text{err}_{0/1}(s, y) \leq \text{err}_{SCE}(s, y) = \frac{1}{ln2} \text{err}_{CE}(s, y) \\
+\iff \\
+E_{in}^{0/1}(w) \leq E_{in}^{SCE}(w) = \frac{1}{ln2} E_{in}^{CE}(w) \\
+E_{out}^{0/1}(w) \leq E_{out}^{SCE}(w) = \frac{1}{ln2} E_{out}^{CE}(w) \\
+\end{split}
+$$
+
+* VC on 0/1
+
+$$
+E_{out}^{0/1}(w) \leq E_{in}^{0/1}(w) + \Omega^{0/1}
+\leq \frac{1}{ln2} E_{in}^{CE}(w) + \Omega^{0/1}
+$$
+
+* VC on CE:
+
+$$
+E_{out}^{0/1}(w)  \leq \frac{1}{ln2} E_{out}^{CE}(w)
+\leq \frac{1}{ln2} E_{in}^{CE}(w) + \Omega^{0/1}
+$$
+
+* Either way, we have
+
+$$
+\text{small } E_{in}^{CE}(w) \Rightarrow \text{small } E_{out}^{0/1}(w)
+$$
+
+* logistic/linear reg. for linear classification.
+
+**Regression for Classification**
+
+1. run logistic/linear reg. on $\mathcal{D}$ with $y_n \in {-1, +1}$ to get $w_{reg}$
+2. return $g(x) = \text{sign}(w_{reg}^T x)$
+
+* linear regression
+    * pros: 'easiest' optimization
+    * cons: loose bound of err 0/1 for large $|ys|$
+* logistic regression
+    * pros: 'easy' optimization
+    * cons: loose bound of err 0/1 for very negative $-ys$
+* PLA
+    * pros: efficient + strong guarantee if linear separable
+    * cons: works only if linear separable, otherwise needing pocket heuristic
+* linear regression sometimes used to set $w_0$ for PLA/pocket/logistic regression.
+* logistic regression often preferred over pocket.
+
+## Stochastic Gradient Descent
+## Multiclass via Logistic Regression
+## Multiclass via Binary Classification
+## Conclusions
+
+* Linear Models for Binary Classification
+* Stochastic Gradient Descent
+* Multiclass via Logistic Regression
+* Multiclass via Binary Classification
