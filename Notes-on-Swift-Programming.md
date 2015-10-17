@@ -110,6 +110,9 @@ func raiseLowerNumbers(inout inImage image: [[Int]], to number: Int) {
 raiseLowerNumbers(inImage: &beautifulImage, to: 6)
 ```
 
+Here is a [link](http://stackoverflow.com/questions/27364117/is-swift-pass-by-value-or-pass-by-reference)
+about passing value or reference in function.
+
 # Week 3
 
 ## optionals
@@ -381,6 +384,9 @@ public var red: UInt8 {
 ```
 
 code can be downloaded from week5 assignment.
+
+Here is the link for follow up reading by Jack Wu:
+[Image Processing in iOS Part 1: Raw Bitmap Modification](http://www.raywenderlich.com/69855/image-processing-in-ios-part-1-raw-bitmap-modification)
 
 ## Creating Filters
 
