@@ -1,6 +1,6 @@
 # Table of Contents
-    * [Week 5 objective-c](#week5)
-    
+* [Week 5 objective-c](#week5)
+
 # Week1
 
 ## Setting up playground
