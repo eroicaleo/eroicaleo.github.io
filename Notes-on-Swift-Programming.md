@@ -1,5 +1,7 @@
 # Table of Contents
 * [Week 5 objective-c](#week5)
+    * [Methods, Arrays and Control Flow Differences](#methods-arrays-and-control-flow-differences)
+    * [Properties, Getters and Computed Properties Differences](#properties-getters-and-computed-properties-differences)
 
 # Week1
 
@@ -481,6 +483,9 @@ class City {
 objective-c:
 
 ```objective-c
+// .h file
+- (instancetype)initWithName: (NSString *)name population: (NSInteger) population;
+// .m file
 - (instancetype)initWithName: (NSString *)name population: (NSInteger) population
 {
     self = [super init];
@@ -498,3 +503,126 @@ Some comments:
 return `nil`, so we have to check before we can use it.
 * In swift, don't need to do this.
 * The initializer in swift is special, but not in objective-c.
+
+## <a id="methods-arrays-and-control-flow-differences"></a>Methods, Arrays and Control Flow Differences
+
+Create new class `Country` in swift and objective-c
+
+```swift
+class Country {
+    let name: String
+    let cities: [City]
+
+    init(name: String, cities: [City]) {
+        self.name = name
+        self.cities = cities
+    }
+}
+```
+
+```objective-c
+// In the *.h file
+@interface UTCountry : NSObject
+
+@property (strong, nonatomic) NSString * name;
+@property (strong , nonatomic) NSArray * cities;
+
+- (instancetype)initWithName: (NSString *) name cities: (NSArray *) cities;
+
+@end
+//  In the .m file
+@implementation UTCountry
+
+- (instancetype)initWithName: (NSString *) name cities: (NSArray*) cities {
+    self = [super init];
+    if (self) {
+        self.name = name;
+        self.cities = cities;
+    }
+    return self;
+}
+
+@end
+```
+
+Some comments:
+
+* `NSArray` is objective-c's class for any kind of array, and it can store
+anything we want, as long as it's an object. You cannot just store integers in
+the array, have to be an object, so like `NSInteger`.
+* We are using `strong` here, 'cause it's a reference type, not value type.
+
+The implementation of findCityWithName in two languages.
+```swift
+func findCityWithName(name: String) -> City? {
+    for city in cities {
+        if city.name == name {
+            return city
+        }
+    }
+
+    return nil
+}
+```
+
+```objective-c
+// In .h file
+- (UTCity *)findCityWithName: (NSString *) name;
+// In .m file
+- (UTCity *)findCityWithName: (NSString *) name {
+    for (UTCity * city in self.cities) {
+        if ([city.name isEqualToString:name]) {
+            return city;
+        }
+    }
+    return nil;
+}
+```
+
+Some comments:
+
+* In swift implementation, we know it can return `nil` from its signature. But in
+objective-c, we cannot tell, any may get into trouble later in using it.
+* `isEqualToString` is the objective-c function to compare two strings.
+
+## <a id="properties-getters-and-computed-properties-differences"></a>Properties, Getters and Computed Properties Differences
+
+**Computed properties**
+
+```swift
+var cityWithLargestPopulation: City {
+    var maxPopulation = 0
+    var largestCity: City = cities[0]
+    for city in cities {
+        if city.population > maxPopulation {
+            largestCity = city
+            maxPopulation = city.population
+        }
+    }
+    return largestCity
+}
+```
+
+```objective-c
+// In .h file
+@property (strong, nonatomic, readonly) UTCity * cityWithLargestPopupation;
+// In .m file
+- (UTCity *)cityWithLargestPopupation {
+    NSInteger maxPopulation = 0;
+    UTCity * largestCity;
+
+    for (UTCity * city in self.cities) {
+        if (city.population > maxPopulation) {
+            largestCity = city;
+            maxPopulation = city.population;
+        }
+    }
+    return largestCity;
+}
+```
+Some comments:
+
+* When you define properties in objective-c, it already created setter and getter
+for you, like the ones with the same name.
+* In objective-c, if there is no cities, the `largestCity` will not be initialized,
+but objective-c allows us to return anyway, so swift is more safer.
