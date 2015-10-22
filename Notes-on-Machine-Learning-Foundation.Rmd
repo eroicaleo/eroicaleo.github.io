@@ -32,8 +32,10 @@ Difficulty: H is infinite space.
 Idea: start from some g0, and correct its mistakes on D.
 
 Algorithm:
-1. Find a mistakes xn(t)
-2. Updates w(t+1) <- w(t) + yn(t)\*xn(t)
+
+1. Find a mistakes $x_n(t)$
+2. Updates $w(t+1) <- w(t) + y_n(t)x_n(t)$
+
 Geometric explaination: if the angle between w and x is too big, we make it
 smaller, otherwise, make it bigger.
 
@@ -1452,11 +1454,170 @@ $$
 * logistic regression often preferred over pocket.
 
 ## Stochastic Gradient Descent
+
+**Two Iterative Optimization Schemes**
+
+For $t = 0, 1, \dots$
+
+$$
+w_{t+1} \leftarrow w_t + \eta v
+$$
+
+when stop, return last $w$ as $g$
+
+* PLA: pick $(x_n, y_n)$ and decide $w_{t+1}$ by one example
+    * $O(1)$ time per iteration.
+* Logistic regression (pocket)
+    * check $\mathcal{D}$ and decide $w_{t+1}$ by all examples
+    * $O(N)$ time per iteration.
+
+Is it possible to make logistic regression $O(1)$?
+
+**Logistic Regression Revisited**
+
+$$
+w_{t+1} \leftarrow w_t + \eta \frac{1}{N} \sum_{n=1}^{N} \underbrace{\theta(-y_n w_t^{T} x_n) (y_n x_n)}_{- \nabla E_{in}(w_t)}
+$$
+
+* want: update direction $v \approx - \nabla E_{in}(w_t)$ while computing
+$v$ by one single $(x_n, y_n)$
+
+* technique on removing $\frac{1}{N} \sum_{n=1}^{N}:$
+    * view as expectation $\mathcal{E}$ over uniform choice of $n$!
+    * Stochastic gradient: $\nabla_w \text{err}(w, x_n, y_n)$ with random $n$
+    * true gradient: $\nabla_w E_{in}(w) = \underset{\text{random } n}{\mathcal{E}} \text{err}(w, x_n, y_n)$
+
+**Stochastic Gradient Descent (SGD)**
+
+Stochastic gradient = true gradient + zero-mean 'noise' directions
+
+* idea: replace true gradient by stochastic gradient
+* after enough steps, average true gradient $\approx$ average stochastic gradient
+* pros: simple and cheaper computation
+    * useful for big data and online learning
+* cons: less stable in nature.
+
+SGD logistic regression looks familiar?
+
+$$
+w_{t+1} \leftarrow w_t + \eta \underbrace{\theta(-y_n w_t^{T} x_n) (y_n x_n)}_{- \nabla \text{err}(w, x_n, y_n)}
+$$
+
+**PLA Revisited**
+
+SGD logistic regression:
+
+$$
+w_{t+1} \leftarrow w_t + \eta \dot \theta (-y_n w_t^{T} x_n) (y_n x_n)
+$$
+
+PLA:
+
+$$
+w_{t+1} \leftarrow w_t + 1 \dot [y_n \ne \text{sign}(w_t^T x_n)] (y_n x_n)
+$$
+
+* SGD logistic regression $\approx$ 'soft' PLA
+    * more errors, updates more. less errors ,updates less
+* PLA $\approx$ SGD logistic regression with $\eta = 1$ when $w_t^T x_n$ large.
+
+Two practical rule of thumb:
+
+* stop condition? $t$ large enough
+* $\eta$? 0.1 when $x$ in proper range
+
 ## Multiclass via Logistic Regression
+
+**Multiclass Classification**
+
+* $\mathcal{y} = {\star, \diamond, \circ, \times}$ 4-class classfication.
+* many applications in practice, especially for 'recognition'.
+* Use tool for ${\times, \circ}$ for ${\star, \diamond, \circ, \times}$
+
+**One Class at a time**
+
+* $\square$ or not? ${\square = \circ, \diamond = \triangle = \star = \times}$
+* $\diamond$ or not? ${\diamond = \circ, \square = \triangle = \star = \times}$
+* $\triangle$ or not? ${\triangle = \circ, \square = \diamond = \star = \times}$
+* $\star$ or not? ${\star = \circ, \square = \triangle = \diamond = \times}$
+
+**Multiclass Prediction: Combine Binary Classifiers**
+
+* We are sure some area is definitely what shape
+* What about tie?
+
+**One Class at a time softly**
+
+* $P(\square|x)? \quad \{\square = \circ, \diamond = \triangle = \star = \times\}$
+* $P(\diamond|x)? \quad \{\diamond = \circ, \square = \triangle = \star = \times\}$
+* $P(\triangle|x)? \quad \{\triangle = \circ, \square = \diamond = \star = \times\}$
+* $P(\star|x)? \quad \{\star = \circ, \square = \triangle = \diamond = \times\}$
+
+**Multiclass Prediction: Combine Binary Classifiers**
+
+$$
+g(x) = \text{argmax}_{k \in \mathcal{Y}} \theta(w_{[k]}^Tx)
+$$
+
+OR, equivalently
+
+$$
+g(x) = \text{argmax}_{k \in \mathcal{Y}} w_{[k]}^Tx
+$$
+
+**One-Versus-All (OVA) Decomposition**
+
+1. for $k \in \mathcal{Y}$, obtain $w_{[k]}$ by running logistic regression on
+    * $\mathcal{D}_{[k]} = \{(x_n, y_n = 2[y_n = k] - 1)\}_{n=1}^N$
+2. return $g(x) = \text{argmax}_{k \in \mathcal{Y}} (w_{[k]}^T x)$
+
+* pros: efficient, can be coupled with any logistic regression-like approaches.
+* cons: often unbalanced $\mathcal{D}_{[k]}$ when $K$ large
+    * logistic regression will produce naive predictor: predict everything to be $\times$.
+* extension: multinomial ('coupled') logistic regression.
+
+OVA: a simple Multiclass meta-algorithm to keep in your toolbox.
+
 ## Multiclass via Binary Classification
+
+**Source of Unbalance: One Versus All**
+
+idea: make binary classification problems more balanced by one versus one.
+
+**One versus One at a Time**
+
+* $\square or \diamond$ ? {$\square = \circ, \diamond = \times, \star = \triangle = \text{nil}$}
+* ...
+
+**Multiclass Prediction: Combine Pairwise Classifiers**
+
+$$
+g(x) = \text{tournament champion } \{w_{[k, l]}^T x\}
+$$
+
+voting of classifiers.
+
+**One-versus-one OVO Decomposition**
+
+1. for $[k, l] \in \mathcal{Y} \times \mathcal{Y}$, obtain $w_{[k, l]}$ by running logistic regression on
+    * $\mathcal{D}_{[k, l]} = \{(x_n, y'_n = 2[y_n = k] - 1): y_n = k \text{or } y_n = l\}$
+2. return $g(x) = \text{tournament champion } \{w_{[k, l]}^T x\}$
+
+* pros: efficient ('smaller' Training problems), stable, can be coupled with any binary classification approaches.
+* cons: use $O(K^2)w_{[k, l]}$
+    * more space, slower prediction, more training.
+
+OVO: another simple Multiclass meta-algorithm to keep in your toolbox.
+
+* Very handy and stable!
+
 ## Conclusions
 
 * Linear Models for Binary Classification
+    * three models useful in different ways
 * Stochastic Gradient Descent
+    * follow negative stochastic gradient
 * Multiclass via Logistic Regression
+    * predict with maximum estimated P(k|x)
 * Multiclass via Binary Classification
+    * predict the tournament champion

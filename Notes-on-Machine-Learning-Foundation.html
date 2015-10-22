@@ -137,6 +137,13 @@ img {
 <li><a href="#gradient-descent">Gradient Descent</a></li>
 <li><a href="#conclusions-3">Conclusions</a></li>
 </ul></li>
+<li><a href="#lecture-11-linear-models-for-classification">Lecture 11 Linear Models for Classification</a><ul>
+<li><a href="#linear-models-for-binary-classification">Linear Models for Binary Classification</a></li>
+<li><a href="#stochastic-gradient-descent">Stochastic Gradient Descent</a></li>
+<li><a href="#multiclass-via-logistic-regression">Multiclass via Logistic Regression</a></li>
+<li><a href="#multiclass-via-binary-classification">Multiclass via Binary Classification</a></li>
+<li><a href="#conclusions-4">Conclusions</a></li>
+</ul></li>
 </ul>
 </div>
 
@@ -157,7 +164,12 @@ g(x_n) = f(x_n) = y_n
 \]</span></p>
 <p>Difficulty: H is infinite space.</p>
 <p>Idea: start from some g0, and correct its mistakes on D.</p>
-<p>Algorithm: 1. Find a mistakes xn(t) 2. Updates w(t+1) &lt;- w(t) + yn(t)*xn(t) Geometric explaination: if the angle between w and x is too big, we make it smaller, otherwise, make it bigger.</p>
+<p>Algorithm:</p>
+<ol style="list-style-type: decimal">
+<li>Find a mistakes <span class="math">\(x_n(t)\)</span></li>
+<li>Updates <span class="math">\(w(t+1) &lt;- w(t) + y_n(t)x_n(t)\)</span></li>
+</ol>
+<p>Geometric explaination: if the angle between w and x is too big, we make it smaller, otherwise, make it bigger.</p>
 <p>A fault confessed is half redressed.</p>
 </div>
 </div>
@@ -1170,7 +1182,7 @@ s = \sum_{i=0}^{d} w_i x_i
 <li>logistic regression: use the following to approximate target function <span class="math">\(f(x) = P(y|x)\)</span></li>
 </ul>
 <p><span class="math">\[
-h(x) \frac{1}{1+ exp(-w^T x)}
+h(x) = \frac{1}{1+ exp(-w^T x)}
 \]</span></p>
 </div>
 <div id="logistic-regression-error" class="section level2">
@@ -1284,6 +1296,10 @@ E_{in}(w) = \frac{1}{N} \sum_{n=1}^{N} \text{ln } (1 + exp(-y_n w^T x_n))
 \]</span></p>
 <p><span class="math">\[
 \nabla E_{in}(w) = 1 / N \sum_{n=1}^{N} \theta(-y_n w^T x_n) (-y_n x_n)
+\]</span></p>
+<p>Note that in Andrew’s cource, the <span class="math">\(\nabla E_{in}(w)\)</span> is as following. Which is actually the same as above if we replace <span class="math">\(y_n = 1\)</span> and <span class="math">\(y_n = -1\)</span>, and use <span class="math">\(h(-x) = 1 - h(x)\)</span> property. But <strong><em>note</em></strong>, in Andrew’s cource, <span class="math">\(y_n\)</span> can be 1 or 0, not <span class="math">\(\pm 1\)</span>.</p>
+<p><span class="math">\[
+\nabla E_{in}(w) = 1 / N \sum_{n=1}^{N} (h(x_n) - y_n) x_n
 \]</span></p>
 <p><strong>Minimizing <span class="math">\(E_{in}(w)\)</span></strong></p>
 <p><span class="math">\[
@@ -1431,6 +1447,301 @@ w_{t+1} \leftarrow w_t - \eta \nabla E_{in}(w_t)
 <li>Gradient Descent
 <ul>
 <li>roll downhill by <span class="math">\(-\nabla E_{in}(w_t)\)</span></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="lecture-11-linear-models-for-classification" class="section level1">
+<h1>Lecture 11 Linear Models for Classification</h1>
+<div id="linear-models-for-binary-classification" class="section level2">
+<h2>Linear Models for Binary Classification</h2>
+<p><strong>Linear Models Revisited</strong></p>
+<p>linear scoring function: <span class="math">\(s = w^Tx\)</span></p>
+<ul>
+<li>Linear Classification
+<ul>
+<li><span class="math">\(h(x) = \text{sign}(s)\)</span></li>
+<li>plausible err = 0/1 (discrete <span class="math">\(E_{in}(w)\)</span> NP hard to solve)</li>
+</ul></li>
+<li>Linear Regression
+<ul>
+<li><span class="math">\(h(x) = s\)</span></li>
+<li>friendly err = squared (quadratic convex <span class="math">\(E_{in}(w)\)</span>: closed form solution)</li>
+</ul></li>
+<li>Logistic Regression
+<ul>
+<li><span class="math">\(h(x) = \theta(s)\)</span></li>
+<li>plausible err = cross-entropy (smooth convex <span class="math">\(E_{in}(w)\)</span>: gradient descent)</li>
+</ul></li>
+</ul>
+<p>Can linear regression or logistic regression help linear classfication? * linear classfication is hard to solve, but the other two are easy to solve * Can we use the other two to replace the first one?</p>
+<p><strong>Error Functions Revisited</strong></p>
+<p>linear scoring function: <span class="math">\(s = w^Tx\)</span></p>
+<p>for binary classfication <span class="math">\(\mathcal{y} \in {-1, +1}\)</span></p>
+<ul>
+<li>Linear Classification
+<ul>
+<li><span class="math">\(h(x) = \text{sign}(s)\)</span></li>
+<li>err<span class="math">\((h, x, y) = [h(x) \ne y]\)</span></li>
+<li><span class="math">\(\text{err}_{0/1}(s, y) = [\text{sign}(s) \ne y] = [\text{sign}(ys) \ne 1]\)</span></li>
+</ul></li>
+<li>Linear Regression
+<ul>
+<li><span class="math">\(h(x) = s\)</span></li>
+<li>err<span class="math">\((h, x, y) = (h(x) - y)^2\)</span></li>
+<li><span class="math">\(\text{err}_{SQR}(s, y) = (s - y)^2 = (ys-1)^2\)</span></li>
+</ul></li>
+<li>Logistic Regression
+<ul>
+<li><span class="math">\(h(x) = \theta(s)\)</span></li>
+<li>err<span class="math">\((h, x, y) = \text{ln } h(yx)\)</span></li>
+<li><span class="math">\(\text{err}_{CE}(s, y) = \text{ln} (1+exp(-ys))\)</span></li>
+</ul></li>
+<li><span class="math">\((ys)\)</span>: classfication correctness score</li>
+</ul>
+<p><strong>Visualizing Error Functions</strong></p>
+<ul>
+<li><span class="math">\(0/1\)</span>: 1 if and only if <span class="math">\(ys \leq 0\)</span></li>
+<li>sqr: large if <span class="math">\(ys \ll 1\)</span>, but over-charge <span class="math">\(ys \gg 1\)</span>, small <span class="math">\(\text{err}_{SQR} \rightarrow \text{small } \text{err}_{0/1}\)</span></li>
+<li>ce: monotonic of <span class="math">\(ys\)</span> small err CE <span class="math">\(\iff\)</span> small error 0/1.</li>
+<li>scaled ce: a proper upper bound of 0/1 small CE <span class="math">\(\iff\)</span> small error 0/1.</li>
+<li>upper bound: useful for designing Algorithmic error <span class="math">\(\widehat{err}\)</span></li>
+</ul>
+<p><strong>Theoretical Implication of Upper Bound</strong></p>
+<ul>
+<li>For any <span class="math">\(ys\)</span> where <span class="math">\(s = W^T x\)</span></li>
+</ul>
+<p><span class="math">\[
+\begin{split}
+\text{err}_{0/1}(s, y) \leq \text{err}_{SCE}(s, y) = \frac{1}{ln2} \text{err}_{CE}(s, y) \\
+\iff \\
+E_{in}^{0/1}(w) \leq E_{in}^{SCE}(w) = \frac{1}{ln2} E_{in}^{CE}(w) \\
+E_{out}^{0/1}(w) \leq E_{out}^{SCE}(w) = \frac{1}{ln2} E_{out}^{CE}(w) \\
+\end{split}
+\]</span></p>
+<ul>
+<li>VC on 0/1</li>
+</ul>
+<p><span class="math">\[
+E_{out}^{0/1}(w) \leq E_{in}^{0/1}(w) + \Omega^{0/1}
+\leq \frac{1}{ln2} E_{in}^{CE}(w) + \Omega^{0/1}
+\]</span></p>
+<ul>
+<li>VC on CE:</li>
+</ul>
+<p><span class="math">\[
+E_{out}^{0/1}(w)  \leq \frac{1}{ln2} E_{out}^{CE}(w)
+\leq \frac{1}{ln2} E_{in}^{CE}(w) + \Omega^{0/1}
+\]</span></p>
+<ul>
+<li>Either way, we have</li>
+</ul>
+<p><span class="math">\[
+\text{small } E_{in}^{CE}(w) \Rightarrow \text{small } E_{out}^{0/1}(w)
+\]</span></p>
+<ul>
+<li>logistic/linear reg. for linear classification.</li>
+</ul>
+<p><strong>Regression for Classification</strong></p>
+<ol style="list-style-type: decimal">
+<li>run logistic/linear reg. on <span class="math">\(\mathcal{D}\)</span> with <span class="math">\(y_n \in {-1, +1}\)</span> to get <span class="math">\(w_{reg}\)</span></li>
+<li>return <span class="math">\(g(x) = \text{sign}(w_{reg}^T x)\)</span></li>
+</ol>
+<ul>
+<li>linear regression
+<ul>
+<li>pros: ‘easiest’ optimization</li>
+<li>cons: loose bound of err 0/1 for large <span class="math">\(|ys|\)</span></li>
+</ul></li>
+<li>logistic regression
+<ul>
+<li>pros: ‘easy’ optimization</li>
+<li>cons: loose bound of err 0/1 for very negative <span class="math">\(-ys\)</span></li>
+</ul></li>
+<li>PLA
+<ul>
+<li>pros: efficient + strong guarantee if linear separable</li>
+<li>cons: works only if linear separable, otherwise needing pocket heuristic</li>
+</ul></li>
+<li>linear regression sometimes used to set <span class="math">\(w_0\)</span> for PLA/pocket/logistic regression.</li>
+<li>logistic regression often preferred over pocket.</li>
+</ul>
+</div>
+<div id="stochastic-gradient-descent" class="section level2">
+<h2>Stochastic Gradient Descent</h2>
+<p><strong>Two Iterative Optimization Schemes</strong></p>
+<p>For <span class="math">\(t = 0, 1, \dots\)</span></p>
+<p><span class="math">\[
+w_{t+1} \leftarrow w_t + \eta v
+\]</span></p>
+<p>when stop, return last <span class="math">\(w\)</span> as <span class="math">\(g\)</span></p>
+<ul>
+<li>PLA: pick <span class="math">\((x_n, y_n)\)</span> and decide <span class="math">\(w_{t+1}\)</span> by one example
+<ul>
+<li><span class="math">\(O(1)\)</span> time per iteration.</li>
+</ul></li>
+<li>Logistic regression (pocket)
+<ul>
+<li>check <span class="math">\(\mathcal{D}\)</span> and decide <span class="math">\(w_{t+1}\)</span> by all examples</li>
+<li><span class="math">\(O(N)\)</span> time per iteration.</li>
+</ul></li>
+</ul>
+<p>Is it possible to make logistic regression <span class="math">\(O(1)\)</span>?</p>
+<p><strong>Logistic Regression Revisited</strong></p>
+<p><span class="math">\[
+w_{t+1} \leftarrow w_t + \eta \frac{1}{N} \sum_{n=1}^{N} \underbrace{\theta(-y_n w_t^{T} x_n) (y_n x_n)}_{- \nabla E_{in}(w_t)}
+\]</span></p>
+<ul>
+<li><p>want: update direction <span class="math">\(v \approx - \nabla E_{in}(w_t)\)</span> while computing <span class="math">\(v\)</span> by one single <span class="math">\((x_n, y_n)\)</span></p></li>
+<li>technique on removing <span class="math">\(\frac{1}{N} \sum_{n=1}^{N}:\)</span>
+<ul>
+<li>view as expectation <span class="math">\(\mathcal{E}\)</span> over uniform choice of <span class="math">\(n\)</span>!</li>
+<li>Stochastic gradient: <span class="math">\(\nabla_w \text{err}(w, x_n, y_n)\)</span> with random <span class="math">\(n\)</span></li>
+<li>true gradient: <span class="math">\(\nabla_w E_{in}(w) = \underset{\text{random } n}{\mathcal{E}} \text{err}(w, x_n, y_n)\)</span></li>
+</ul></li>
+</ul>
+<p><strong>Stochastic Gradient Descent (SGD)</strong></p>
+<p>Stochastic gradient = true gradient + zero-mean ‘noise’ directions</p>
+<ul>
+<li>idea: replace true gradient by stochastic gradient</li>
+<li>after enough steps, average true gradient <span class="math">\(\approx\)</span> average stochastic gradient</li>
+<li>pros: simple and cheaper computation
+<ul>
+<li>useful for big data and online learning</li>
+</ul></li>
+<li>cons: less stable in nature.</li>
+</ul>
+<p>SGD logistic regression looks familiar?</p>
+<p><span class="math">\[
+w_{t+1} \leftarrow w_t + \eta \underbrace{\theta(-y_n w_t^{T} x_n) (y_n x_n)}_{- \nabla \text{err}(w, x_n, y_n)}
+\]</span></p>
+<p><strong>PLA Revisited</strong></p>
+<p>SGD logistic regression:</p>
+<p><span class="math">\[
+w_{t+1} \leftarrow w_t + \eta \dot \theta (-y_n w_t^{T} x_n) (y_n x_n)
+\]</span></p>
+<p>PLA:</p>
+<p><span class="math">\[
+w_{t+1} \leftarrow w_t + 1 \dot [y_n \ne \text{sign}(w_t^T x_n)] (y_n x_n)
+\]</span></p>
+<ul>
+<li>SGD logistic regression <span class="math">\(\approx\)</span> ‘soft’ PLA
+<ul>
+<li>more errors, updates more. less errors ,updates less</li>
+</ul></li>
+<li>PLA <span class="math">\(\approx\)</span> SGD logistic regression with <span class="math">\(\eta = 1\)</span> when <span class="math">\(w_t^T x_n\)</span> large.</li>
+</ul>
+<p>Two practical rule of thumb:</p>
+<ul>
+<li>stop condition? <span class="math">\(t\)</span> large enough</li>
+<li><span class="math">\(\eta\)</span>? 0.1 when <span class="math">\(x\)</span> in proper range</li>
+</ul>
+</div>
+<div id="multiclass-via-logistic-regression" class="section level2">
+<h2>Multiclass via Logistic Regression</h2>
+<p><strong>Multiclass Classification</strong></p>
+<ul>
+<li><span class="math">\(\mathcal{y} = {\star, \diamond, \circ, \times}\)</span> 4-class classfication.</li>
+<li>many applications in practice, especially for ‘recognition’.</li>
+<li>Use tool for <span class="math">\({\times, \circ}\)</span> for <span class="math">\({\star, \diamond, \circ, \times}\)</span></li>
+</ul>
+<p><strong>One Class at a time</strong></p>
+<ul>
+<li><span class="math">\(\square\)</span> or not? <span class="math">\({\square = \circ, \diamond = \triangle = \star = \times}\)</span></li>
+<li><span class="math">\(\diamond\)</span> or not? <span class="math">\({\diamond = \circ, \square = \triangle = \star = \times}\)</span></li>
+<li><span class="math">\(\triangle\)</span> or not? <span class="math">\({\triangle = \circ, \square = \diamond = \star = \times}\)</span></li>
+<li><span class="math">\(\star\)</span> or not? <span class="math">\({\star = \circ, \square = \triangle = \diamond = \times}\)</span></li>
+</ul>
+<p><strong>Multiclass Prediction: Combine Binary Classifiers</strong></p>
+<ul>
+<li>We are sure some area is definitely what shape</li>
+<li>What about tie?</li>
+</ul>
+<p><strong>One Class at a time softly</strong></p>
+<ul>
+<li><span class="math">\(P(\square|x)? \quad \{\square = \circ, \diamond = \triangle = \star = \times\}\)</span></li>
+<li><span class="math">\(P(\diamond|x)? \quad \{\diamond = \circ, \square = \triangle = \star = \times\}\)</span></li>
+<li><span class="math">\(P(\triangle|x)? \quad \{\triangle = \circ, \square = \diamond = \star = \times\}\)</span></li>
+<li><span class="math">\(P(\star|x)? \quad \{\star = \circ, \square = \triangle = \diamond = \times\}\)</span></li>
+</ul>
+<p><strong>Multiclass Prediction: Combine Binary Classifiers</strong></p>
+<p><span class="math">\[
+g(x) = \text{argmax}_{k \in \mathcal{Y}} \theta(w_{[k]}^Tx)
+\]</span></p>
+<p>OR, equivalently</p>
+<p><span class="math">\[
+g(x) = \text{argmax}_{k \in \mathcal{Y}} w_{[k]}^Tx
+\]</span></p>
+<p><strong>One-Versus-All (OVA) Decomposition</strong></p>
+<ol style="list-style-type: decimal">
+<li>for <span class="math">\(k \in \mathcal{Y}\)</span>, obtain <span class="math">\(w_{[k]}\)</span> by running logistic regression on
+<ul>
+<li><span class="math">\(\mathcal{D}_{[k]} = \{(x_n, y_n = 2[y_n = k] - 1)\}_{n=1}^N\)</span></li>
+</ul></li>
+<li>return <span class="math">\(g(x) = \text{argmax}_{k \in \mathcal{Y}} (w_{[k]}^T x)\)</span></li>
+</ol>
+<ul>
+<li>pros: efficient, can be coupled with any logistic regression-like approaches.</li>
+<li>cons: often unbalanced <span class="math">\(\mathcal{D}_{[k]}\)</span> when <span class="math">\(K\)</span> large
+<ul>
+<li>logistic regression will produce naive predictor: predict everything to be <span class="math">\(\times\)</span>.</li>
+</ul></li>
+<li>extension: multinomial (‘coupled’) logistic regression.</li>
+</ul>
+<p>OVA: a simple Multiclass meta-algorithm to keep in your toolbox.</p>
+</div>
+<div id="multiclass-via-binary-classification" class="section level2">
+<h2>Multiclass via Binary Classification</h2>
+<p><strong>Source of Unbalance: One Versus All</strong></p>
+<p>idea: make binary classification problems more balanced by one versus one.</p>
+<p><strong>One versus One at a Time</strong></p>
+<ul>
+<li><span class="math">\(\square or \diamond\)</span> ? {<span class="math">\(\square = \circ, \diamond = \times, \star = \triangle = \text{nil}\)</span>}</li>
+<li>…</li>
+</ul>
+<p><strong>Multiclass Prediction: Combine Pairwise Classifiers</strong></p>
+<p><span class="math">\[
+g(x) = \text{tournament champion } \{w_{[k, l]}^T x\}
+\]</span></p>
+<p>voting of classifiers.</p>
+<p><strong>One-versus-one OVO Decomposition</strong></p>
+<ol style="list-style-type: decimal">
+<li>for <span class="math">\([k, l] \in \mathcal{Y} \times \mathcal{Y}\)</span>, obtain <span class="math">\(w_{[k, l]}\)</span> by running logistic regression on
+<ul>
+<li><span class="math">\(\mathcal{D}_{[k, l]} = \{(x_n, y'_n = 2[y_n = k] - 1): y_n = k \text{or } y_n = l\}\)</span></li>
+</ul></li>
+<li>return <span class="math">\(g(x) = \text{tournament champion } \{w_{[k, l]}^T x\}\)</span></li>
+</ol>
+<ul>
+<li>pros: efficient (‘smaller’ Training problems), stable, can be coupled with any binary classification approaches.</li>
+<li>cons: use <span class="math">\(O(K^2)w_{[k, l]}\)</span>
+<ul>
+<li>more space, slower prediction, more training.</li>
+</ul></li>
+</ul>
+<p>OVO: another simple Multiclass meta-algorithm to keep in your toolbox.</p>
+<ul>
+<li>Very handy and stable!</li>
+</ul>
+</div>
+<div id="conclusions-4" class="section level2">
+<h2>Conclusions</h2>
+<ul>
+<li>Linear Models for Binary Classification
+<ul>
+<li>three models useful in different ways</li>
+</ul></li>
+<li>Stochastic Gradient Descent
+<ul>
+<li>follow negative stochastic gradient</li>
+</ul></li>
+<li>Multiclass via Logistic Regression
+<ul>
+<li>predict with maximum estimated P(k|x)</li>
+</ul></li>
+<li>Multiclass via Binary Classification
+<ul>
+<li>predict the tournament champion</li>
 </ul></li>
 </ul>
 </div>
