@@ -1621,3 +1621,52 @@ OVO: another simple Multiclass meta-algorithm to keep in your toolbox.
     * predict with maximum estimated P(k|x)
 * Multiclass via Binary Classification
     * predict the tournament champion
+
+# Lecture 12
+
+## Quadratic Hypothesis
+
+**Linear Hypothesis**
+
+* visually: 'line'-like boundary
+* mathematically: linear scores $s = w^T x$
+
+limitations:
+
+* theoretically: $d_{vc}$ under control
+* practically: on some $\mathcal{D}$, large $E_{in}$ for every line.
+
+How to break the limit of linear hypothesis?
+
+**Circular Separable**
+
+* $\mathcal{D}$ not linear separable
+* but circular separable by a circle of radius $\sqrt{0.6}$ centered at origin:
+
+$$
+h_{SEP}(x) = \text{sign } (-x_1^2 - x_2^2 + 0.6)
+$$
+
+re-derive Circular-PLA, Circular-Regression, blahblah ... all over again?
+
+**Circular Separable and Linear Separable**
+
+$$
+h(x) =
+\text{sign } (
+\underbrace{0.6}_{\tilde{w_0}} \cdot \underbrace{1}_{\tilde{z_0}} +
+\underbrace{(-1)}_{\tilde{w_1}} \cdot \underbrace{x_1^2}_{\tilde{z_1}} +
+\underbrace{(-1)}_{\tilde{w_2}} \cdot \underbrace{x_2^2}_{\tilde{z_2}}
+)
+= \text{sign } ( \tilde{w}^T z )
+$$
+
+* $\{(x_n, y_n)\}$ cicular separable $\implies \{(x_n, y_n)\}$ linear separable.
+* $x \in \mathcal{X} \overset{\Phi}{\mapsto} z \in \mathcal{Z}$: nonlinear feature transform $\Phi$.
+* circular separable in $\mathcal{X} \mapsto$ linear separable in $\mathcal{Z}$
+* What about vice versa?
+
+## Nonlinear Transform
+## Price of Nonlinear Transform
+## Structured Hypothesis Sets
+## Conclusions
