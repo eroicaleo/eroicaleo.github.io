@@ -1666,6 +1666,42 @@ $$
 * circular separable in $\mathcal{X} \mapsto$ linear separable in $\mathcal{Z}$
 * What about vice versa?
 
+**Linear Hypothesis in Z space**
+
+$$
+(z_0, z_1, z_2) = z = \Phi(x) = (1, x_1^2, x_2^2)
+$$
+
+$$
+h(x) = \tilde{h}(z) = \text{sign}(\tilde{w}^T \Phi(x))
+= \text{sign} (\tilde{w_0} + \tilde{w_1}x_1^2 + \tilde{w_2}x_2^2)
+$$
+
+$(\tilde{w_0}, \tilde{w_1}, \tilde{w_2})$
+
+* $(0.6, -1, -1)$: circle ($\circ$ inside)
+* $(-0.6, +1, +1)$: circle ($\circ$ outside)
+* $(0.6, -1, -2)$: ellipse
+* $(0.6, -1, +2)$: hyperbola
+* $(0.6, +1, +2)$: constant $\circ$
+
+line in $\mathcal{Z} \iff$ special quadratic curves in $\mathcal{X}$ space.
+
+* E.g., the center of a circle must be the origin
+
+**General Quadratic Hypothesis set**
+
+a bigger $\mathcal{Z}$ with $\Phi_2(x) = (1, x_1, x_2, x_1^2, x_1x_2, x_2^2)$
+
+Perceptrons in $\mathcal{Z}$ space $\iff$ quadratic hypothesis in $\mathcal{X}$ space
+
+$$
+\mathcal{H}(\Phi_2) = {h(x): h(x) = \tilde{h}(\Phi_2(x)) \text{for some linear } \tilde{h} on \mathcal{Z}}
+$$
+
+Can implement all possible quadratic curve boundries:
+circle, ellipse, rotated ellipse, hyperbola, parabola
+
 ## Nonlinear Transform
 ## Price of Nonlinear Transform
 ## Structured Hypothesis Sets
