@@ -2,7 +2,7 @@
 title: "Notes on Machine Learning Foundations"
 author: "Yang Ge"
 date: "September 28, 2015"
-output: 
+output:
   html_document:
     keep_md: true
     toc: true
@@ -215,7 +215,7 @@ $$
 
 If
 
-1. eff(N) can replace $M$ and 
+1. eff(N) can replace $M$ and
 2. eff(N) << $2^N$
 
 Then learning is possbile for infinite lines :-)
@@ -569,7 +569,7 @@ Does VC bound work under noise?
 * deterministic target $f$: *special case of target distribution*
     * $P(y|x) = 1$ for $y = f(x)$
     * $P(y|x) = 0$ for $y \ne f(x)$
-    
+
 * goal of learning: predict idea mini target (w.r.t $P(y|x)$)
 on often-seen inputs (w.r.t $P(x)$)
 
@@ -618,7 +618,7 @@ will mainly consider pointwise err for simplicity
     * $err(\tilde{y}, y) = [\hat{y} \ne y]$
     * correct or not
     * often for classification
-    
+
 * squared error
     * $err(\tilde{y}, y) = (\hat{y}-y)^2$
     * how far $\hat{y}$ from $y$
@@ -638,7 +638,7 @@ $$
     * $\tilde{y} = 3$, avg. err 0.9
     * $\tilde{y} = 1.9$, avg. err 1
     * $f(x) = \underset{y\in\mathcal{y}}{argmax}(P(y|x))$
-    
+
 * squared error, $err(\tilde{y}, y) = (\tilde{y}-y)^2$
     * $\tilde{y} = 1$, avg. err 1.1
     * $\tilde{y} = 2$, avg. err 0.3
@@ -673,7 +673,7 @@ Algorithm Error Measures $\widehat{error}$
 
 * true: just err
 * plausible:
-    * 0/1 minimum 'flipping noise' - NP-hard to optimize 
+    * 0/1 minimum 'flipping noise' - NP-hard to optimize
     * squared: minimum Gaussian noise
 * friendly: easy to optimize for $\mathcal{A}$
     * closed-form solution
@@ -706,7 +706,7 @@ $$
 \end{array}
 $$
 
-out-of-sample $E_out(h)$ = 
+out-of-sample $E_out(h)$ =
 
 * 1, if $y_n = +1$
 * 1000, if $y_n = -1$
@@ -748,7 +748,7 @@ Unbalanced data
     * user-dependent => plausible or friendly
 * Weighted Classification
     * easily done by virtual 'example copying'
-    
+
 # Lecture 9 Linear Regression
 
 ## Linear Regression Problem
@@ -770,7 +770,7 @@ $$
 
 * $h(x)$: like _perceptron_, but without the _sign_
 
-**The Error Measure** 
+**The Error Measure**
 
 square error $err(\hat{y}, y) = (\hat{y}^2 - y)^2$
 
@@ -828,7 +828,7 @@ For vector $w$, we have
 $$
 \nabla E_{in}(w) =
 \frac{1}{N} (2Aw - 2b)
-= 
+=
 \frac{2}{N} (X^TXw - X^Ty)
 = 0
 $$
@@ -848,7 +848,7 @@ $$
 1. from $\mathcal{D}$, construct input matrix $X$ and output vector $y$ by
 
 $$
-X = 
+X =
 \underbrace{
 \begin{bmatrix}
 --x_1^T-- \\
@@ -857,7 +857,7 @@ X =
 --x_N^T-- \\
 \end{bmatrix}
 }_{N\times(d+1)}
-y = 
+y =
 \underbrace{
 \begin{bmatrix}
 --y_1^T-- \\
@@ -919,7 +919,7 @@ We call $XX^+$ hat matrix $H$ because it puts $\wedge$ on $y$
     * $\hat{y} = Xw_{LIN}$ within the span of $X$ columns
     * $y-\hat{y}$ smallest: $y-\hat{y} \bot$ span
     * $H$: project $y$ to $\hat{y} \in$ span
-    * $I-H$: transform $y$ to $y-\hat{y} \bot$ span 
+    * $I-H$: transform $y$ to $y-\hat{y} \bot$ span
 
 * claim: trace($I-H$) = $N-(d+1)$
 
@@ -947,19 +947,19 @@ $$
 We have:
 
 $$
-\overline{E_{in}} = 
+\overline{E_{in}} =
 \text{noise level} \cdot (1 - \frac{d+1}{N})
 $$
 
 $$
-\overline{E_{out}} = 
+\overline{E_{out}} =
 \text{noise level} \cdot (1 + \frac{d+1}{N})
 $$
 
 **The Learning Curve**
 
 * Both converge to $\sigma^2$ (noise level) for $N \rightarrow \infty$
-* expected generalization error: $\frac{2(d+1)}{N}$ 
+* expected generalization error: $\frac{2(d+1)}{N}$
     * similar to worst-case guarantee from VC
 * linear regression (LinReg): learning happened!
 
@@ -1396,7 +1396,7 @@ for binary classfication $\mathcal{y} \in {-1, +1}$
 **Visualizing Error Functions**
 
 * $0/1$: 1 if and only if $ys \leq 0$
-* sqr: large if $ys \ll 1$, but over-charge $ys \gg 1$, small $\text{err}_{SQR} \rightarrow \text{small } \text{err}_{0/1}$ 
+* sqr: large if $ys \ll 1$, but over-charge $ys \gg 1$, small $\text{err}_{SQR} \rightarrow \text{small } \text{err}_{0/1}$
 * ce: monotonic of $ys$ small err CE $\iff$ small error 0/1.
 * scaled ce: a proper upper bound of 0/1 small CE $\iff$ small error 0/1.
 * upper bound: useful for designing Algorithmic error $\widehat{err}$
@@ -1699,10 +1699,38 @@ $$
 \mathcal{H}(\Phi_2) = {h(x): h(x) = \tilde{h}(\Phi_2(x)) \text{for some linear } \tilde{h} on \mathcal{Z}}
 $$
 
-Can implement all possible quadratic curve boundries:
+* Can implement all possible quadratic curve boundries:
 circle, ellipse, rotated ellipse, hyperbola, parabola
 
+$$
+\text{ellipse } 2 (x_1 + x_2 - 3)^2 + (x_1 - x_2 - 4)^2 = 1
+$$
+
+$$
+\implies \tilde{w}^T = (33, -20, -4, 3, 2, 3)
+$$
+
+* Include lines and constants as degenerated cases
+* next: learn a good quadratic hypothesis $g$
+
 ## Nonlinear Transform
+
+**Good Quadratic Hypothesis**
+
+* $\mathcal{Z}$ space perceptrons $\iff$ $\mathcal{X}$ quadratic hypothesis
+* good perceptron $\iff$ good quadratic hypothesis
+* separating perceptron $\iff$ separating quadratic hypothesis
+* want: good perceptron in $\mathcal{Z}$ space
+* know: get good perceptron in $\mathcal{X}$ space with data $(x_n, y_n)$
+* todo: get good perceptron in $\mathcal{Z}$ space with data $(z_n = \Phi_2(x_n), y_n)$
+
+**Nonlinear Transform Steps**
+
+* transform original data $(x_n, y_n)$ to $(z_n = \Phi_2(x_n), y_n)$ by $\Phi$
+* Get a good perceptron $\tilde{w}$ using $(z_n, y_n)$ and your favorite linear
+classification algorithm $\mathcal{A}$
+* return $g(x) = sign(\tilde{w}^T \Phi(x))$
+
 ## Price of Nonlinear Transform
 ## Structured Hypothesis Sets
 ## Conclusions
