@@ -1622,7 +1622,7 @@ OVO: another simple Multiclass meta-algorithm to keep in your toolbox.
 * Multiclass via Binary Classification
     * predict the tournament champion
 
-# Lecture 12
+# Lecture 12 Nonlinear Transformation
 
 ## Quadratic Hypothesis
 
@@ -1729,8 +1729,66 @@ $$
 * transform original data $(x_n, y_n)$ to $(z_n = \Phi_2(x_n), y_n)$ by $\Phi$
 * Get a good perceptron $\tilde{w}$ using $(z_n, y_n)$ and your favorite linear
 classification algorithm $\mathcal{A}$
-* return $g(x) = sign(\tilde{w}^T \Phi(x))$
+* return $g(x) = \text{sign}(\tilde{w}^T \Phi(x))$
+
+**Nonlinear Model via Nonlinear $\Phi$ + Linear Models**
+
+* Two choices: feature transform $\Phi$
+* Linear model $\mathcal{A}$, not just binary classification
+* Pandora's box: can now freely do quadratic PLA, quadratic regression, cubic,
+..., polynomial regression.
+
+**Feature Transform**
+
+* not new, not just polynomial:
+* In digits recognition:
+    * raw (pixels) $\overset{\text{domain knowledge}}{\implies}$
+    concrete (intensity, symmetry)
+* the force: too good to be true?
 
 ## Price of Nonlinear Transform
+
+**Computation/Storage Price**
+
+$Q$-th order polynomial transform:
+
+$$
+\begin{split}
+( 1, \\
+  x_1, x_2, \dots, x_d, \\
+  x_1^2, x_1x_2, \dots, x_d^2, \\
+  \dots, \\
+  x_1^Q, x_1^{Q-1}x_2, \dots, x_d^Q)
+\end{split}
+$$
+
+* $\underbrace{1}_{\tilde{w_0}} + \underbrace{\tilde{d}}_{\text{others}}$ dimensions = # ways of $\leq Q$-combination for $d$ kinds with
+repetitions
+* = $\binom{Q+d}{Q} = \binom{Q+d}{d} = O(Q^d)$
+* = efforts needed for computing/storing $z = \Phi_{Q}(x)$ and $\tilde{x}$
+* $Q$ large $\implies$ difficult to compute/store
+
+**Model Complexity Price**
+
+* $\underbrace{1}_{\tilde{w_0}} + \underbrace{\tilde{d}}_{\text{others}}$ dimensions = $O(Q^d)$
+* number of free parameters $\tilde{w_i} = \tilde{d} + 1 \approx d_{VC}(\mathcal{H}_{\Phi_Q})$
+* $d_{VC}(\mathcal{H_{\Phi_{Q}}}) \leq \tilde{d} + 1$, why?
+    * any $\tilde{d} + 2$ inputs not shattered in $\mathcal{Z}$
+    * $\implies$ any $\tilde{d} + 2$ inputs not shattered in $\mathcal{X}$
+* $Q$ large $\implies$ large $d_{VC}$
+
+**Generalization Issue**
+
+* Which do you prefer?
+    * $\Phi_1$ (original $x$), visually preferable.
+    * $\Phi_4$, $E_{in}(g) = 0$ but overkill.
+
+1. Can we make sure that $E_{in}(g)$ is close enough to $E_{out}(g)$?
+2. Can we make $E_{in}(g)$ small enough?
+
+* Higher $\tilde{d}(Q)$, good for 2, bad for 1
+* Lower $\tilde{d}(Q)$, good for 1, bad for 2
+* how to pick $Q$. visually, maybe?
+
 ## Structured Hypothesis Sets
 ## Conclusions
