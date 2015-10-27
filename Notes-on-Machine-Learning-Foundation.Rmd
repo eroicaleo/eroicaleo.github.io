@@ -1790,5 +1790,77 @@ repetitions
 * Lower $\tilde{d}(Q)$, good for 1, bad for 2
 * how to pick $Q$. visually, maybe?
 
+**Danger of Visual Choices**
+
+* First of all, can you really 'visualize' when $\mathcal{X} = \mathbb{R}^10$?
+
+Visualize $\mathcal{X} = \mathbb{R}^2$
+
+* full $\Phi_2: z = (1, x_1, x_2, x_1^2, x_1x_2, x_2^2)$, $d_{VC} = 6$
+* or $z = (1, x_1^2, x_2^2)$, $d_{VC} = 2$?
+* of better $z = (1, x_1^2 + x_2^2)$, $d_{VC} = 2$?
+* or even better $z = \text{sign}(0.6 - x_1^2 - x_2^2)$?
+
+We use our own brain to make the transform. This is human learning not machine
+learning. 受到主观影响.
+
+careful about your brain's 'model complexity'
+看起来VC Dimenson很小，是因为没有把脑袋里的VC Dimenson算进去。
+The results are too optimistic.
+
+* For VC-safety, $\Phi$ shall be decided without 'peeking' data.
+
 ## Structured Hypothesis Sets
+
+**Polynomial Transform Revisited**
+
+$$
+\begin{split}
+\Phi_0(x) = 1 \\
+\Phi_1(x) = (\Phi_0(x), \quad x_1, x_2, \dots, x_d) \\
+\Phi_2(x) = (\Phi_1(x), x_1^2, x_1x_2, \dots, x_d^2) \\
+\dots \dots \\
+\Phi_Q(x) = (\Phi_{Q-1}(x), x_1^Q, x_1^{Q-1}, \dots, x_d^Q)
+\end{split}
+$$
+
+$$
+\mathcal{H}_{\Phi_0} \subset \mathcal{H}_{\Phi_1} \subset \mathcal{H}_{\Phi_2}
+\subset \cdots \subset \mathcal{H}_{\Phi_Q}
+$$
+
+**Structured Hypothesis Sets**
+
+$$
+\mathcal{H}_0 \subset \mathcal{H}_1 \subset \mathcal{H}_2 \subset
+$$
+
+$$
+d_{VC}(\mathcal{H}_0) \leq d_{VC}(\mathcal{H}_1) \subset d_{VC}(\mathcal{H}_2) \leq \cdots
+$$
+
+$$
+E_{in}(g_0) \leq E_{in}(g_1) \leq E_{in}(g_2) \leq
+$$
+
+* Use a high dimension from beginning is not a good idea.
+
+**Linear Model First**
+
+* tempting sin: use $\mathcal{H}_{1126}$, low $E_{in}(g_{1126})$ to fool your boss.
+    * really? :( a dangerous path of no return
+* safe route: $\mathcal{H}_1$ first
+    * if $E_{in}(g_1)$ good enough, live happily thereafter :)
+    * otherwise, move right of the curve with nothing lost except 'wasted' computation.
+* linear model first: simple, efficient, safe and workable.
+
 ## Conclusions
+
+* Quadratic Hypothesis
+    * linear hypothesis on quadratic-transformed data
+* Nonlinear Transform
+    * happy linear modeling after $\mathcal{Z} = \Phi(\mathcal{X})$
+* Price of Nonlinear Transform
+    * computation/storage/model complexity
+* Structured Hypothesis Sets
+    * linear/simple model first
