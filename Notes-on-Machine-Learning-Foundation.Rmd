@@ -1024,7 +1024,7 @@ binary classification: heart disease? yes or no ?
 
 * ideal $f(x) = \text{sign}(P(+1|x) - 0.5) \in {-1, +1}$
 
-'Soft' binary classification: Similer problem heart attack? 80% risk
+'Soft' binary classification: similar problem heart attack? 80% risk
 
 * $f(x) = P(+1|x) \in [0, 1]$
 
@@ -1864,3 +1864,62 @@ $$
     * computation/storage/model complexity
 * Structured Hypothesis Sets
     * linear/simple model first
+
+# Lecture 13 Hazard of Overfitting
+
+nonlinear (regression, classification) via nonlinear feature transform $\Phi$
+plus linear (regression, classification) with price of model complexity.
+However, it will causes overfitting. In this lecture:
+
+* How does it happen?
+* How to overcome it?
+
+## What is overfitting?
+
+**Bad Generalization**
+
+* regression for $x \in \mathbb{R}$ with $N = 5$ examples
+* target $f(x) = $ 2nd order polynomial
+* label $y_n = f(x_n) +$ very small noise
+* linear regression in $\mathcal{Z}$-space + $\Phi$ = 4th order polynomial
+* unique solution passing all examples $\implies E_{in}(g) = 0$
+* $E_{out}(g)$ huge
+
+bad generalization: low $E_{in}$, high $E_{out}$.
+
+**Bad Generalization and Overfitting**
+
+* take $d_{VC} = 1126$ for learning: bad generalization
+    * $E_{in} - E_{out}$ large
+* switch from $d_{VC} = d_{VC}^{\star}$ to $d_{VC} = 1126$: overfitting
+    * $E_{in}$ up, $E_{out}$ down.
+    * hard to fix
+* switch from $d_{VC} = d_{VC}^{\star}$ to $d_{VC} = 1$: underfitting
+    * $E_{in}$ down, $E_{out}$ up.
+    * easy to fix
+
+bad generalization: low $E_{in}$, high $E_{out}$.
+overfitting: lower $E_{in}$, higher $E_{out}$
+
+**Cause of Overfitting: A Driving Analogy**
+
+'good fit' $\implies$ 'overfit'
+
+| Learning | Driving |
+| :------------- | :------------- |
+| overfit | commit a car accident |
+| use excessive $d_{VC}$ | 'drive too fast' |
+| noise | bumpy road |
+| limited data size $N$ | limited observations about road condition |
+
+next: how does noise & data size affect overfitting?
+
+## The role of Noise and Data size
+## Deterministic Noise
+## Dealing with Overfitting
+## Conclusions
+
+* What is overfitting?
+* The role of Noise and Data size
+* Deterministic Noise
+* Dealing with Overfitting

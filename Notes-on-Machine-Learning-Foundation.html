@@ -144,6 +144,20 @@ img {
 <li><a href="#multiclass-via-binary-classification">Multiclass via Binary Classification</a></li>
 <li><a href="#conclusions-4">Conclusions</a></li>
 </ul></li>
+<li><a href="#lecture-12-nonlinear-transformation">Lecture 12 Nonlinear Transformation</a><ul>
+<li><a href="#quadratic-hypothesis">Quadratic Hypothesis</a></li>
+<li><a href="#nonlinear-transform">Nonlinear Transform</a></li>
+<li><a href="#price-of-nonlinear-transform">Price of Nonlinear Transform</a></li>
+<li><a href="#structured-hypothesis-sets">Structured Hypothesis Sets</a></li>
+<li><a href="#conclusions-5">Conclusions</a></li>
+</ul></li>
+<li><a href="#lecture-13-hazard-of-overfitting">Lecture 13 Hazard of Overfitting</a><ul>
+<li><a href="#what-is-overfitting">What is overfitting?</a></li>
+<li><a href="#the-role-of-noise-and-data-size">The role of Noise and Data size</a></li>
+<li><a href="#deterministic-noise">Deterministic Noise</a></li>
+<li><a href="#dealing-with-overfitting">Dealing with Overfitting</a></li>
+<li><a href="#conclusions-6">Conclusions</a></li>
+</ul></li>
 </ul>
 </div>
 
@@ -239,7 +253,7 @@ Pr(|\mu-\nu| \geq \epsilon) \leq exp(-2\epsilon^{2}N)
 <h2>Connection to real learning</h2>
 <div id="bad-data-for-many-h" class="section level3">
 <h3>BAD Data for Many <span class="math">\(h\)</span></h3>
-<p>no ‘freedom of choice’ by A, 踩到雷。</p>
+<p>no ‘freedom of choice’ by A, è¸©å°é·ã</p>
 </div>
 <div id="bound-of-bad-data" class="section level3">
 <h3>Bound of BAD data</h3>
@@ -918,7 +932,7 @@ Xw-y
 <p><span class="math">\[
 \nabla E_{in}(w) =
 \frac{1}{N} (2Aw - 2b)
-= 
+=
 \frac{2}{N} (X^TXw - X^Ty)
 = 0
 \]</span></p>
@@ -943,7 +957,7 @@ Xw-y
 <li>from <span class="math">\(\mathcal{D}\)</span>, construct input matrix <span class="math">\(X\)</span> and output vector <span class="math">\(y\)</span> by</li>
 </ol>
 <p><span class="math">\[
-X = 
+X =
 \underbrace{
 \begin{bmatrix}
 --x_1^T-- \\
@@ -952,7 +966,7 @@ X =
 --x_N^T-- \\
 \end{bmatrix}
 }_{N\times(d+1)}
-y = 
+y =
 \underbrace{
 \begin{bmatrix}
 --y_1^T-- \\
@@ -1041,11 +1055,11 @@ y - \hat{y}
 \]</span></p>
 <p>We have:</p>
 <p><span class="math">\[
-\overline{E_{in}} = 
+\overline{E_{in}} =
 \text{noise level} \cdot (1 - \frac{d+1}{N})
 \]</span></p>
 <p><span class="math">\[
-\overline{E_{out}} = 
+\overline{E_{out}} =
 \text{noise level} \cdot (1 + \frac{d+1}{N})
 \]</span></p>
 <p><strong>The Learning Curve</strong></p>
@@ -1138,7 +1152,7 @@ y - \hat{y}
 <ul>
 <li>ideal <span class="math">\(f(x) = \text{sign}(P(+1|x) - 0.5) \in {-1, +1}\)</span></li>
 </ul>
-<p>‘Soft’ binary classification: Similer problem heart attack? 80% risk</p>
+<p>‘Soft’ binary classification: similar problem heart attack? 80% risk</p>
 <ul>
 <li><span class="math">\(f(x) = P(+1|x) \in [0, 1]\)</span></li>
 </ul>
@@ -1173,7 +1187,7 @@ s = \sum_{i=0}^{d} w_i x_i
 <li>logistic hypothesis: <span class="math">\(h(x) = \theta(w^T x)\)</span></li>
 </ul>
 <p><strong>Logistic Function</strong></p>
-<p><img src="data:image/png;base64,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+aYDAihk48crOVlvvmk6B2Bflij4119//dlnn61du7ak11577Y033hg8eHB0dPTixYvvu+++8PDwJUuWmM4IoNDExur99/XFF3J1NR0FsC9LLLKbMWPGkCFDJk6cKGn69Oljx459+eWX83Z16dKlbNmy48eP79Kli8mIAArJ4cPq3Vtz5+rGG01HAWzNEiP4zMzMZs2aScrJyUlNTW35vzeJfOCBB/bu3WsoGoDClJWlHj00fLjatDEdBbA7SxT8XXfdtWTJkpycnNKlS7ds2XLNmjV/3Pvdd98Fs8oWsIXRo+Xnp5EjTecASgBLTNGPHz++VatW999//+OPPz548OCIiIjs7OyQkJBz5859+umnn3322bx580xnBHC9li/XkiXaskUuLqajACWAJQq+YcOGGzZsmDx58uDBgzMyMiRNmTJlypQpkho1ajR//vxHHnnEdEYA1+XQIQ0cqH/9S35+pqMAJYMlCl5SUFDQ9OnTp06devjw4eTk5PT09MqVK1etWjUgIMCFf+0DTu78eXXtqrFjdccdpqMAJYZVCj5PuXLlAgMDAwMD/7gxMzMzOzvb29vbVCoA12nECNWpo2HDTOcAShJrFfxlderUKSYm5kouaRcXF/fPf/4zNzf3snvPnz9/+vTpwk4H4G98/rm+/VabN5vOAZQwTlDwISEhtWrVupJXVqhQoUmTJgXtnT17dpkyTvDnBewkPl7Dhunbb7mdDFDcnKDwRowYcYWvrFat2qBBg/7i9ylXrlwhhQLw986fV1iYXnpJt95qOgpQ8vz9efAOhyMjIyMjI6N47vvicDhOnTp14sQJbjMDOLvISNWurSFDTOcASqTLF7zD4Vi9evXw4cObNm1avnz5ihUrVqxYsXz58s2aNRs+fPjq1asLvX3j4+PHjBlTr149d3d3Ly8vPz8/Nze3wMDA0aNHJyQkFO57ASgGy5crOlrTp5vOAZRU+afoc3Nz58yZ8+abb546dapVq1bh4eF16tTx9fWVlJqaeuDAgc2bN/fu3dvLy2vMmDF9+vQpVaoQroW3adOmNm3aeHp6tmvXLjg42NfX1+FwpKenx8XFLVy4MCoqKjY2tmnTptf/RgCKR2LixbPefX1NRwFKqvwFf88991SvXn3atGn33HNP6dKlL/trcnJy1q1bN23atI8++mj9+vXXH2LUqFFNmjRZvny5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AMuZP18zZ2rDBnl5mY4CwGlR8IC1fP21Ro7UmjW64QbTUQA4MwoesJDNm/XYY1q6VEFBpqMAcHIssgOsIj5eHTtq1izdeafpKACcHwUPWEJSktq21auvKjTUdBQAtkDBA+YdP662bfXEE+rf33QUAHZBwQOGnTqlkBB17arISNNRANgIBQ+YdPasOnRQixbc5R1AIaPgAWOystS9u6pX19SppqMAsB0KHjAjO1u9e6tsWc2apVL8RQRQ2DgPHjAgJ0f9+unkSS1bxsVoARQJvlqA4pabq379lJKiZcvk5mY6DQCbouCBYuVw6IkndPCgvv5a7u6m0wCwLwsd+svOzj5w4MCZM2fybT99+nRycrKRSEDhcjg0ZIh279aKFSpf3nQaALZmiYLPyckZN25cxYoV69Sp4+Pj88wzz2RlZV3a++GHH1atWtVgPKBQ5OZq8GD98ou++UaenqbTALA7S0zRv//++y+//PKwYcPuueeeDRs2TJ069dixY/PmzTOdCyg0OTkaMEAHD+qrrxi7AygOlij4qKioIUOGvPPOO5K6devWuHHjfv36de3atXPnzqajAYUgb818YqKWL2fsDqCYWGKK/sCBA3ffffeln/bt27dr164jR448d+6cwVRAobhwQT166MQJff017Q6g+Fii4GvUqPHTTz/9ccs///nPEydODB061OFwmEoFXL/z59W9u0qX1r/+xRlxAIqVJaboIyIiIiMjz5w58/DDD7dt29bd3T0gICAqKiosLMzFxcXV1dV0QOBanDqljh1VvbpmzVLp0qbTAChhLFHwTz/9dFZW1oQJE6ZPn75nz5769etL6tGjh4uLy5NPPnn06FHTAYGrlpKikBDdeafefZcr0QIwwBJfPGXKlBkzZsyJEycOHz5cq1atS9u7d++emJi4atWq6dOnm0sHXLUDB3TPPWrbVu+9R7sDMMMSI/g8Li4uN954Y76Nrq6uLVu2bNasmZFIwDXYtUsPP6znntPgwaajACjBLFTwBenUqVNMTMyVrLbbtm3b+PHjC9p77ty5kydPFmo0IL81axQWpqlT1aOH6SgASjYnKPiQkJA/ztv/hTp16vTo0aOgfwosX77ck7OUUJQ+/VTDh2vhQrVqZToKgBLPCQp+xIgRV/hKLy+vbt26FbS3f//+pVnKjKLhcOittzR9umJjFRxsOg0AWLDg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" /></p>
+<p><img src="data:image/png;base64,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" /></p>
 <p><span class="math">\[
 \theta(s) = \frac{e^s}{1+ e^s} = \frac{1}{1+e^{-s}}
 \]</span></p>
@@ -1743,6 +1757,334 @@ g(x) = \text{tournament champion } \{w_{[k, l]}^T x\}
 <ul>
 <li>predict the tournament champion</li>
 </ul></li>
+</ul>
+</div>
+</div>
+<div id="lecture-12-nonlinear-transformation" class="section level1">
+<h1>Lecture 12 Nonlinear Transformation</h1>
+<div id="quadratic-hypothesis" class="section level2">
+<h2>Quadratic Hypothesis</h2>
+<p><strong>Linear Hypothesis</strong></p>
+<ul>
+<li>visually: ‘line’-like boundary</li>
+<li>mathematically: linear scores <span class="math">\(s = w^T x\)</span></li>
+</ul>
+<p>limitations:</p>
+<ul>
+<li>theoretically: <span class="math">\(d_{vc}\)</span> under control</li>
+<li>practically: on some <span class="math">\(\mathcal{D}\)</span>, large <span class="math">\(E_{in}\)</span> for every line.</li>
+</ul>
+<p>How to break the limit of linear hypothesis?</p>
+<p><strong>Circular Separable</strong></p>
+<ul>
+<li><span class="math">\(\mathcal{D}\)</span> not linear separable</li>
+<li>but circular separable by a circle of radius <span class="math">\(\sqrt{0.6}\)</span> centered at origin:</li>
+</ul>
+<p><span class="math">\[
+h_{SEP}(x) = \text{sign } (-x_1^2 - x_2^2 + 0.6)
+\]</span></p>
+<p>re-derive Circular-PLA, Circular-Regression, blahblah … all over again?</p>
+<p><strong>Circular Separable and Linear Separable</strong></p>
+<p><span class="math">\[
+h(x) =
+\text{sign } (
+\underbrace{0.6}_{\tilde{w_0}} \cdot \underbrace{1}_{\tilde{z_0}} +
+\underbrace{(-1)}_{\tilde{w_1}} \cdot \underbrace{x_1^2}_{\tilde{z_1}} +
+\underbrace{(-1)}_{\tilde{w_2}} \cdot \underbrace{x_2^2}_{\tilde{z_2}}
+)
+= \text{sign } ( \tilde{w}^T z )
+\]</span></p>
+<ul>
+<li><span class="math">\(\{(x_n, y_n)\}\)</span> cicular separable <span class="math">\(\implies \{(x_n, y_n)\}\)</span> linear separable.</li>
+<li><span class="math">\(x \in \mathcal{X} \overset{\Phi}{\mapsto} z \in \mathcal{Z}\)</span>: nonlinear feature transform <span class="math">\(\Phi\)</span>.</li>
+<li>circular separable in <span class="math">\(\mathcal{X} \mapsto\)</span> linear separable in <span class="math">\(\mathcal{Z}\)</span></li>
+<li>What about vice versa?</li>
+</ul>
+<p><strong>Linear Hypothesis in Z space</strong></p>
+<p><span class="math">\[
+(z_0, z_1, z_2) = z = \Phi(x) = (1, x_1^2, x_2^2)
+\]</span></p>
+<p><span class="math">\[
+h(x) = \tilde{h}(z) = \text{sign}(\tilde{w}^T \Phi(x))
+= \text{sign} (\tilde{w_0} + \tilde{w_1}x_1^2 + \tilde{w_2}x_2^2)
+\]</span></p>
+<p><span class="math">\((\tilde{w_0}, \tilde{w_1}, \tilde{w_2})\)</span></p>
+<ul>
+<li><span class="math">\((0.6, -1, -1)\)</span>: circle (<span class="math">\(\circ\)</span> inside)</li>
+<li><span class="math">\((-0.6, +1, +1)\)</span>: circle (<span class="math">\(\circ\)</span> outside)</li>
+<li><span class="math">\((0.6, -1, -2)\)</span>: ellipse</li>
+<li><span class="math">\((0.6, -1, +2)\)</span>: hyperbola</li>
+<li><span class="math">\((0.6, +1, +2)\)</span>: constant <span class="math">\(\circ\)</span></li>
+</ul>
+<p>line in <span class="math">\(\mathcal{Z} \iff\)</span> special quadratic curves in <span class="math">\(\mathcal{X}\)</span> space.</p>
+<ul>
+<li>E.g., the center of a circle must be the origin</li>
+</ul>
+<p><strong>General Quadratic Hypothesis set</strong></p>
+<p>a bigger <span class="math">\(\mathcal{Z}\)</span> with <span class="math">\(\Phi_2(x) = (1, x_1, x_2, x_1^2, x_1x_2, x_2^2)\)</span></p>
+<p>Perceptrons in <span class="math">\(\mathcal{Z}\)</span> space <span class="math">\(\iff\)</span> quadratic hypothesis in <span class="math">\(\mathcal{X}\)</span> space</p>
+<p><span class="math">\[
+\mathcal{H}(\Phi_2) = {h(x): h(x) = \tilde{h}(\Phi_2(x)) \text{for some linear } \tilde{h} on \mathcal{Z}}
+\]</span></p>
+<ul>
+<li>Can implement all possible quadratic curve boundries: circle, ellipse, rotated ellipse, hyperbola, parabola</li>
+</ul>
+<p><span class="math">\[
+\text{ellipse } 2 (x_1 + x_2 - 3)^2 + (x_1 - x_2 - 4)^2 = 1
+\]</span></p>
+<p><span class="math">\[
+\implies \tilde{w}^T = (33, -20, -4, 3, 2, 3)
+\]</span></p>
+<ul>
+<li>Include lines and constants as degenerated cases</li>
+<li>next: learn a good quadratic hypothesis <span class="math">\(g\)</span></li>
+</ul>
+</div>
+<div id="nonlinear-transform" class="section level2">
+<h2>Nonlinear Transform</h2>
+<p><strong>Good Quadratic Hypothesis</strong></p>
+<ul>
+<li><span class="math">\(\mathcal{Z}\)</span> space perceptrons <span class="math">\(\iff\)</span> <span class="math">\(\mathcal{X}\)</span> quadratic hypothesis</li>
+<li>good perceptron <span class="math">\(\iff\)</span> good quadratic hypothesis</li>
+<li>separating perceptron <span class="math">\(\iff\)</span> separating quadratic hypothesis</li>
+<li>want: good perceptron in <span class="math">\(\mathcal{Z}\)</span> space</li>
+<li>know: get good perceptron in <span class="math">\(\mathcal{X}\)</span> space with data <span class="math">\((x_n, y_n)\)</span></li>
+<li>todo: get good perceptron in <span class="math">\(\mathcal{Z}\)</span> space with data <span class="math">\((z_n = \Phi_2(x_n), y_n)\)</span></li>
+</ul>
+<p><strong>Nonlinear Transform Steps</strong></p>
+<ul>
+<li>transform original data <span class="math">\((x_n, y_n)\)</span> to <span class="math">\((z_n = \Phi_2(x_n), y_n)\)</span> by <span class="math">\(\Phi\)</span></li>
+<li>Get a good perceptron <span class="math">\(\tilde{w}\)</span> using <span class="math">\((z_n, y_n)\)</span> and your favorite linear classification algorithm <span class="math">\(\mathcal{A}\)</span></li>
+<li>return <span class="math">\(g(x) = \text{sign}(\tilde{w}^T \Phi(x))\)</span></li>
+</ul>
+<p><strong>Nonlinear Model via Nonlinear <span class="math">\(\Phi\)</span> + Linear Models</strong></p>
+<ul>
+<li>Two choices: feature transform <span class="math">\(\Phi\)</span></li>
+<li>Linear model <span class="math">\(\mathcal{A}\)</span>, not just binary classification</li>
+<li>Pandora’s box: can now freely do quadratic PLA, quadratic regression, cubic, …, polynomial regression.</li>
+</ul>
+<p><strong>Feature Transform</strong></p>
+<ul>
+<li>not new, not just polynomial:</li>
+<li>In digits recognition:
+<ul>
+<li>raw (pixels) <span class="math">\(\overset{\text{domain knowledge}}{\implies}\)</span> concrete (intensity, symmetry)</li>
+</ul></li>
+<li>the force: too good to be true?</li>
+</ul>
+</div>
+<div id="price-of-nonlinear-transform" class="section level2">
+<h2>Price of Nonlinear Transform</h2>
+<p><strong>Computation/Storage Price</strong></p>
+<p><span class="math">\(Q\)</span>-th order polynomial transform:</p>
+<p><span class="math">\[
+\begin{split}
+( 1, \\
+  x_1, x_2, \dots, x_d, \\
+  x_1^2, x_1x_2, \dots, x_d^2, \\
+  \dots, \\
+  x_1^Q, x_1^{Q-1}x_2, \dots, x_d^Q)
+\end{split}
+\]</span></p>
+<ul>
+<li><span class="math">\(\underbrace{1}_{\tilde{w_0}} + \underbrace{\tilde{d}}_{\text{others}}\)</span> dimensions = # ways of <span class="math">\(\leq Q\)</span>-combination for <span class="math">\(d\)</span> kinds with repetitions</li>
+<li>= <span class="math">\(\binom{Q+d}{Q} = \binom{Q+d}{d} = O(Q^d)\)</span></li>
+<li>= efforts needed for computing/storing <span class="math">\(z = \Phi_{Q}(x)\)</span> and <span class="math">\(\tilde{x}\)</span></li>
+<li><span class="math">\(Q\)</span> large <span class="math">\(\implies\)</span> difficult to compute/store</li>
+</ul>
+<p><strong>Model Complexity Price</strong></p>
+<ul>
+<li><span class="math">\(\underbrace{1}_{\tilde{w_0}} + \underbrace{\tilde{d}}_{\text{others}}\)</span> dimensions = <span class="math">\(O(Q^d)\)</span></li>
+<li>number of free parameters <span class="math">\(\tilde{w_i} = \tilde{d} + 1 \approx d_{VC}(\mathcal{H}_{\Phi_Q})\)</span></li>
+<li><span class="math">\(d_{VC}(\mathcal{H_{\Phi_{Q}}}) \leq \tilde{d} + 1\)</span>, why?
+<ul>
+<li>any <span class="math">\(\tilde{d} + 2\)</span> inputs not shattered in <span class="math">\(\mathcal{Z}\)</span></li>
+<li><span class="math">\(\implies\)</span> any <span class="math">\(\tilde{d} + 2\)</span> inputs not shattered in <span class="math">\(\mathcal{X}\)</span></li>
+</ul></li>
+<li><span class="math">\(Q\)</span> large <span class="math">\(\implies\)</span> large <span class="math">\(d_{VC}\)</span></li>
+</ul>
+<p><strong>Generalization Issue</strong></p>
+<ul>
+<li>Which do you prefer?
+<ul>
+<li><span class="math">\(\Phi_1\)</span> (original <span class="math">\(x\)</span>), visually preferable.</li>
+<li><span class="math">\(\Phi_4\)</span>, <span class="math">\(E_{in}(g) = 0\)</span> but overkill.</li>
+</ul></li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>Can we make sure that <span class="math">\(E_{in}(g)\)</span> is close enough to <span class="math">\(E_{out}(g)\)</span>?</li>
+<li>Can we make <span class="math">\(E_{in}(g)\)</span> small enough?</li>
+</ol>
+<ul>
+<li>Higher <span class="math">\(\tilde{d}(Q)\)</span>, good for 2, bad for 1</li>
+<li>Lower <span class="math">\(\tilde{d}(Q)\)</span>, good for 1, bad for 2</li>
+<li>how to pick <span class="math">\(Q\)</span>. visually, maybe?</li>
+</ul>
+<p><strong>Danger of Visual Choices</strong></p>
+<ul>
+<li>First of all, can you really ‘visualize’ when <span class="math">\(\mathcal{X} = \mathbb{R}^10\)</span>?</li>
+</ul>
+<p>Visualize <span class="math">\(\mathcal{X} = \mathbb{R}^2\)</span></p>
+<ul>
+<li>full <span class="math">\(\Phi_2: z = (1, x_1, x_2, x_1^2, x_1x_2, x_2^2)\)</span>, <span class="math">\(d_{VC} = 6\)</span></li>
+<li>or <span class="math">\(z = (1, x_1^2, x_2^2)\)</span>, <span class="math">\(d_{VC} = 2\)</span>?</li>
+<li>of better <span class="math">\(z = (1, x_1^2 + x_2^2)\)</span>, <span class="math">\(d_{VC} = 2\)</span>?</li>
+<li>or even better <span class="math">\(z = \text{sign}(0.6 - x_1^2 - x_2^2)\)</span>?</li>
+</ul>
+<p>We use our own brain to make the transform. This is human learning not machine learning. åå°ä¸»è§å½±å“.</p>
+<p>careful about your brain’s ‘model complexity’ çèµ·æ¥VC Dimensonå¾å°ï¼æ¯å ä¸ºæ²¡ææèè¢éçVC Dimensonç®è¿å»ã The results are too optimistic.</p>
+<ul>
+<li>For VC-safety, <span class="math">\(\Phi\)</span> shall be decided without ‘peeking’ data.</li>
+</ul>
+</div>
+<div id="structured-hypothesis-sets" class="section level2">
+<h2>Structured Hypothesis Sets</h2>
+<p><strong>Polynomial Transform Revisited</strong></p>
+<p><span class="math">\[
+\begin{split}
+\Phi_0(x) = 1 \\
+\Phi_1(x) = (\Phi_0(x), \quad x_1, x_2, \dots, x_d) \\
+\Phi_2(x) = (\Phi_1(x), x_1^2, x_1x_2, \dots, x_d^2) \\
+\dots \dots \\
+\Phi_Q(x) = (\Phi_{Q-1}(x), x_1^Q, x_1^{Q-1}, \dots, x_d^Q)
+\end{split}
+\]</span></p>
+<p><span class="math">\[
+\mathcal{H}_{\Phi_0} \subset \mathcal{H}_{\Phi_1} \subset \mathcal{H}_{\Phi_2}
+\subset \cdots \subset \mathcal{H}_{\Phi_Q}
+\]</span></p>
+<p><strong>Structured Hypothesis Sets</strong></p>
+<p><span class="math">\[
+\mathcal{H}_0 \subset \mathcal{H}_1 \subset \mathcal{H}_2 \subset
+\]</span></p>
+<p><span class="math">\[
+d_{VC}(\mathcal{H}_0) \leq d_{VC}(\mathcal{H}_1) \subset d_{VC}(\mathcal{H}_2) \leq \cdots
+\]</span></p>
+<p><span class="math">\[
+E_{in}(g_0) \leq E_{in}(g_1) \leq E_{in}(g_2) \leq
+\]</span></p>
+<ul>
+<li>Use a high dimension from beginning is not a good idea.</li>
+</ul>
+<p><strong>Linear Model First</strong></p>
+<ul>
+<li>tempting sin: use <span class="math">\(\mathcal{H}_{1126}\)</span>, low <span class="math">\(E_{in}(g_{1126})\)</span> to fool your boss.
+<ul>
+<li>really? :( a dangerous path of no return</li>
+</ul></li>
+<li>safe route: <span class="math">\(\mathcal{H}_1\)</span> first
+<ul>
+<li>if <span class="math">\(E_{in}(g_1)\)</span> good enough, live happily thereafter :)</li>
+<li>otherwise, move right of the curve with nothing lost except ‘wasted’ computation.</li>
+</ul></li>
+<li>linear model first: simple, efficient, safe and workable.</li>
+</ul>
+</div>
+<div id="conclusions-5" class="section level2">
+<h2>Conclusions</h2>
+<ul>
+<li>Quadratic Hypothesis
+<ul>
+<li>linear hypothesis on quadratic-transformed data</li>
+</ul></li>
+<li>Nonlinear Transform
+<ul>
+<li>happy linear modeling after <span class="math">\(\mathcal{Z} = \Phi(\mathcal{X})\)</span></li>
+</ul></li>
+<li>Price of Nonlinear Transform
+<ul>
+<li>computation/storage/model complexity</li>
+</ul></li>
+<li>Structured Hypothesis Sets
+<ul>
+<li>linear/simple model first</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="lecture-13-hazard-of-overfitting" class="section level1">
+<h1>Lecture 13 Hazard of Overfitting</h1>
+<p>nonlinear (regression, classification) via nonlinear feature transform <span class="math">\(\Phi\)</span> plus linear (regression, classification) with price of model complexity. However, it will causes overfitting. In this lecture:</p>
+<ul>
+<li>How does it happen?</li>
+<li>How to overcome it?</li>
+</ul>
+<div id="what-is-overfitting" class="section level2">
+<h2>What is overfitting?</h2>
+<p><strong>Bad Generalization</strong></p>
+<ul>
+<li>regression for <span class="math">\(x \in \mathbb{R}\)</span> with <span class="math">\(N = 5\)</span> examples</li>
+<li>target $f(x) = $ 2nd order polynomial</li>
+<li>label <span class="math">\(y_n = f(x_n) +\)</span> very small noise</li>
+<li>linear regression in <span class="math">\(\mathcal{Z}\)</span>-space + <span class="math">\(\Phi\)</span> = 4th order polynomial</li>
+<li>unique solution passing all examples <span class="math">\(\implies E_{in}(g) = 0\)</span></li>
+<li><span class="math">\(E_{out}(g)\)</span> huge</li>
+</ul>
+<p>bad generalization: low <span class="math">\(E_{in}\)</span>, high <span class="math">\(E_{out}\)</span>.</p>
+<p><strong>Bad Generalization and Overfitting</strong></p>
+<ul>
+<li>take <span class="math">\(d_{VC} = 1126\)</span> for learning: bad generalization
+<ul>
+<li><span class="math">\(E_{in} - E_{out}\)</span> large</li>
+</ul></li>
+<li>switch from <span class="math">\(d_{VC} = d_{VC}^{\star}\)</span> to <span class="math">\(d_{VC} = 1126\)</span>: overfitting
+<ul>
+<li><span class="math">\(E_{in}\)</span> up, <span class="math">\(E_{out}\)</span> down.</li>
+<li>hard to fix</li>
+</ul></li>
+<li>switch from <span class="math">\(d_{VC} = d_{VC}^{\star}\)</span> to <span class="math">\(d_{VC} = 1\)</span>: underfitting
+<ul>
+<li><span class="math">\(E_{in}\)</span> down, <span class="math">\(E_{out}\)</span> up.</li>
+<li>easy to fix</li>
+</ul></li>
+</ul>
+<p>bad generalization: low <span class="math">\(E_{in}\)</span>, high <span class="math">\(E_{out}\)</span>. overfitting: lower <span class="math">\(E_{in}\)</span>, higher <span class="math">\(E_{out}\)</span></p>
+<p><strong>Cause of Overfitting: A Driving Analogy</strong></p>
+<p>‘good fit’ <span class="math">\(\implies\)</span> ‘overfit’</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Learning</th>
+<th align="left">Driving</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">overfit</td>
+<td align="left">commit a car accident</td>
+</tr>
+<tr class="even">
+<td align="left">use excessive <span class="math">\(d_{VC}\)</span></td>
+<td align="left">‘drive too fast’</td>
+</tr>
+<tr class="odd">
+<td align="left">noise</td>
+<td align="left">bumpy road</td>
+</tr>
+<tr class="even">
+<td align="left">limited data size <span class="math">\(N\)</span></td>
+<td align="left">limited observations about road condition</td>
+</tr>
+</tbody>
+</table>
+<p>next: how does noise &amp; data size affect overfitting?</p>
+</div>
+<div id="the-role-of-noise-and-data-size" class="section level2">
+<h2>The role of Noise and Data size</h2>
+</div>
+<div id="deterministic-noise" class="section level2">
+<h2>Deterministic Noise</h2>
+</div>
+<div id="dealing-with-overfitting" class="section level2">
+<h2>Dealing with Overfitting</h2>
+</div>
+<div id="conclusions-6" class="section level2">
+<h2>Conclusions</h2>
+<ul>
+<li>What is overfitting?</li>
+<li>The role of Noise and Data size</li>
+<li>Deterministic Noise</li>
+<li>Dealing with Overfitting</li>
 </ul>
 </div>
 </div>
