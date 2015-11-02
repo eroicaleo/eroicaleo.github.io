@@ -2071,20 +2071,214 @@ E_{in}(g_0) \leq E_{in}(g_1) \leq E_{in}(g_2) \leq
 </div>
 <div id="the-role-of-noise-and-data-size" class="section level2">
 <h2>The role of Noise and Data size</h2>
+<p><strong>Case Study</strong></p>
+<p>10-th order target function + noise 50-th order target function + noiseless</p>
+<p>overfitting from best <span class="math">\(g_2 \in \mathcal{H}_2\)</span> to best <span class="math">\(g_{10} \in \mathcal{H}_{10}\)</span> ?</p>
+<p>10-th order target function + noise</p>
+<p><span class="math">\[
+\begin{array}{c|c c}
+  &amp; g_2 \in \mathcal{H}_2 &amp; g_{10} \in \mathcal{H}_{10} \\
+  \hline
+ E_{in} &amp; 0.050 &amp; 0.034 \\
+ E_{out} &amp; 0.127 &amp; 9.0
+\end{array}
+\]</span></p>
+<p>50-th order target function + noiseless</p>
+<p><span class="math">\[
+\begin{array}{c|c c}
+  &amp; g_2 \in \mathcal{H}_2 &amp; g_{10} \in \mathcal{H}_{10} \\
+  \hline
+ E_{in} &amp; 0.029 &amp; 0.00001 \\
+ E_{out} &amp; 0.120 &amp; 7680
+\end{array}
+\]</span></p>
+<p><strong>Irony of Two learners</strong></p>
+<ul>
+<li>Learner <span class="math">\(O\)</span>verfit: pick <span class="math">\(g_{10} \in \mathcal{H}_{10}\)</span></li>
+<li>Learner <span class="math">\(R\)</span>estricted: pick <span class="math">\(g_{2} \in \mathcal{H}_{2}\)</span></li>
+<li>When both know that target = 10th
+<ul>
+<li>R ‘give up’ ability to fit</li>
+</ul></li>
+</ul>
+<p>But <span class="math">\(R\)</span> wins in <span class="math">\(E_{out}\)</span> a lot. Philosophy: concession for advantages? 以退为进！</p>
+<p><strong>Learning Curves Revisited</strong></p>
+<ul>
+<li>When <span class="math">\(\mathcal{H}_{2}\)</span>, <span class="math">\(E_{in}\)</span> is a little bit larger than <span class="math">\(E_{out}\)</span>.</li>
+<li><span class="math">\(\mathcal{H}_{10}\)</span>: lower <span class="math">\(E_{out}\)</span> when <span class="math">\(N \leftarrow \infty\)</span>, but much larger generalization error for small <span class="math">\(N\)</span>.</li>
+<li>Grey area: <span class="math">\(O\)</span> overfits! <span class="math">\(E_{in} \downarrow\)</span>, <span class="math">\(E_{out} \uparrow\)</span>. 聪明反被聪明误！</li>
+<li><span class="math">\(R\)</span> always wins in <span class="math">\(E_{out}\)</span> if <span class="math">\(N\)</span> small! 不要钻牛角尖，简单的hypothesis反而效果比较好。</li>
+</ul>
+<p><strong>No Noise Case</strong></p>
+<ul>
+<li>Learner <span class="math">\(O\)</span>verfit: pick <span class="math">\(g_{10} \in \mathcal{H}_{10}\)</span></li>
+<li>Learner <span class="math">\(R\)</span>estricted: pick <span class="math">\(g_{2} \in \mathcal{H}_{2}\)</span></li>
+<li>When both know that there is no noise
+<ul>
+<li><span class="math">\(R\)</span> still wins</li>
+</ul></li>
+</ul>
+<p>Is there really no noise? ‘Target complexity’ acts like noise.</p>
 </div>
 <div id="deterministic-noise" class="section level2">
 <h2>Deterministic Noise</h2>
+<p><strong>A Detailed Experiment</strong></p>
+<p><span class="math">\[
+y = f(x) + \epsilon \sim \text{Gaussian} (\sum_{q=0}^{Q_f} \alpha_{q} x^q, \sigma^2)
+\]</span></p>
+<ul>
+<li>Gaussian iid noise <span class="math">\(\epsilon\)</span> with noise <span class="math">\(\sigma^2\)</span>.</li>
+<li>Some ‘uniform’ distribution on <span class="math">\(f(x)\)</span> with complexity level <span class="math">\(Q_{f}\)</span></li>
+<li>data size <span class="math">\(N\)</span></li>
+</ul>
+<p><strong>The Overfit Measure</strong></p>
+<ul>
+<li><span class="math">\(g_{2} \in \mathcal{H}_{2}\)</span></li>
+<li><span class="math">\(g_{10} \in \mathcal{H}_{10}\)</span></li>
+<li><span class="math">\(E_{in}(g_{10}) \leq E_{in}(g_{2})\)</span> for sure.</li>
+</ul>
+<p>Overfit measure <span class="math">\(E_{out}(g_{10}) - E_{out}(g_{2})\)</span></p>
+<p><strong>The Results</strong></p>
+<ul>
+<li>impact of <span class="math">\(\sigma^2\)</span> versus <span class="math">\(N\)</span>
+<ul>
+<li>Less noise (small ), more data points <span class="math">\(N\)</span>, less overfit.</li>
+</ul></li>
+<li>impact of <span class="math">\(Q_{f}\)</span> versus <span class="math">\(N\)</span>
+<ul>
+<li>Less complex of objective function (smaller <span class="math">\(Q_{f}\)</span>), more data points <span class="math">\(N\)</span>, less overfit.</li>
+</ul></li>
+<li>The logo of this class
+<ul>
+<li>Middle two figures: overfit</li>
+<li>left: nonlinear transformation</li>
+<li>right: linear learning</li>
+</ul></li>
+</ul>
+<p><strong>Impact of Noise and Data Size</strong></p>
+<ul>
+<li>impact of <span class="math">\(\sigma^2\)</span> versus <span class="math">\(N\)</span>: stochastic noise</li>
+<li>impact of <span class="math">\(Q_{f}\)</span> versus <span class="math">\(N\)</span>: deterministic noise</li>
+<li>four reasons of serious overfitting:
+<ul>
+<li>data size <span class="math">\(N \downarrow\)</span></li>
+<li>stochastic noise <span class="math">\(\uparrow\)</span></li>
+<li>deterministic noise <span class="math">\(\uparrow\)</span></li>
+<li>excessive power <span class="math">\(\uparrow\)</span>, VC dimension is too high</li>
+</ul></li>
+</ul>
+<p>overfitting ‘easily’ happens.</p>
+<p><strong>Deterministic Noise</strong></p>
+<ul>
+<li>if <span class="math">\(f \notin \mathcal{H}\)</span>: something of <span class="math">\(f\)</span> cannot be captured by <span class="math">\(\mathcal{H}\)</span></li>
+<li>deterministic noise: difference between best <span class="math">\(h^* \in \mathcal{H}\)</span> and <span class="math">\(f\)</span></li>
+<li>acts like stochastic noise: not new, pseudo-random generator</li>
+<li>difference to stochastic noise:
+<ul>
+<li>depends on <span class="math">\(\mathcal{H}\)</span></li>
+<li>fixed for a given x</li>
+</ul></li>
+</ul>
+<p>Philosophy: when teaching a kid, perhaps better not to use examples from a complicated target function? :)</p>
 </div>
 <div id="dealing-with-overfitting" class="section level2">
 <h2>Dealing with Overfitting</h2>
+<p><strong>Driving Analogy Revisited</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Learning</th>
+<th align="left">Driving</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">overfit</td>
+<td align="left">commit a car accident</td>
+</tr>
+<tr class="even">
+<td align="left">use excessive <span class="math">\(d_{VC}\)</span></td>
+<td align="left">‘drive too fast’</td>
+</tr>
+<tr class="odd">
+<td align="left">noise</td>
+<td align="left">bumpy road</td>
+</tr>
+<tr class="even">
+<td align="left">limited data size <span class="math">\(N\)</span></td>
+<td align="left">limited observations about road condition</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Learning</th>
+<th align="left">Driving</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">start from simple model</td>
+<td align="left">drive slowly</td>
+</tr>
+<tr class="even">
+<td align="left">data cleaning/pruning</td>
+<td align="left">use more accurate road information</td>
+</tr>
+<tr class="odd">
+<td align="left">data hint</td>
+<td align="left">exploit more road information</td>
+</tr>
+<tr class="even">
+<td align="left">regularization</td>
+<td align="left">put the breaks</td>
+</tr>
+<tr class="odd">
+<td align="left">validation</td>
+<td align="left">monitor the dashboard</td>
+</tr>
+</tbody>
+</table>
+<p>All very practical techniques to combat overfitting.</p>
+<p><strong>Data Cleaning/Pruning</strong></p>
+<ul>
+<li>if ‘detects’ the outlier 5 at the top by
+<ul>
+<li>too close to other <span class="math">\(\circ\)</span>, or too far from other <span class="math">\(\times\)</span></li>
+<li>wrong by current classifer</li>
+<li>…</li>
+</ul></li>
+<li>possible action 1: correct the label (data cleaning)</li>
+<li>possible action 2: remove the example (data pruning)</li>
+</ul>
+<p>Possibly helps: but effect varies</p>
+<p><strong>Data Hinting</strong></p>
+<ul>
+<li>slightly shifted/rotated digits carry the same meaning</li>
+<li>possible action: add virtual examples by shifting/rotating the given digits (data hinting)</li>
+</ul>
+<p>Possibly helps: but watch out - virtual example not <span class="math">\(\overset{iid}{\sim} P(x, y)\)</span>!</p>
 </div>
 <div id="conclusions-6" class="section level2">
 <h2>Conclusions</h2>
 <ul>
-<li>What is overfitting?</li>
-<li>The role of Noise and Data size</li>
-<li>Deterministic Noise</li>
-<li>Dealing with Overfitting</li>
+<li>What is overfitting?
+<ul>
+<li>lower <span class="math">\(E_{in}\)</span>, but higher <span class="math">\(E_{out}\)</span></li>
+</ul></li>
+<li>The role of Noise and Data size
+<ul>
+<li>overfitting ‘easily’ happens</li>
+</ul></li>
+<li>Deterministic Noise
+<ul>
+<li>what <span class="math">\(\mathcal{H}\)</span> cannot capture acts like noise</li>
+</ul></li>
+<li>Dealing with Overfitting
+<ul>
+<li>data cleaning/pruning/hinting, and more</li>
+</ul></li>
 </ul>
 </div>
 </div>

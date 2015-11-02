@@ -119,7 +119,7 @@ $E_{out}$: out sample
 
 ### BAD Data for Many $h$
 
-no 'freedom of choice' by A, 踩到雷。
+no 'freedom of choice' by A, è¸©å°é·ã
 
 ### Bound of BAD data
 
@@ -1802,10 +1802,10 @@ Visualize $\mathcal{X} = \mathbb{R}^2$
 * or even better $z = \text{sign}(0.6 - x_1^2 - x_2^2)$?
 
 We use our own brain to make the transform. This is human learning not machine
-learning. 受到主观影响.
+learning. åå°ä¸»è§å½±å.
 
 careful about your brain's 'model complexity'
-看起来VC Dimenson很小，是因为没有把脑袋里的VC Dimenson算进去。
+çèµ·æ¥VC Dimensonå¾å°ï¼æ¯å ä¸ºæ²¡ææèè¢éçVC Dimensonç®è¿å»ã
 The results are too optimistic.
 
 * For VC-safety, $\Phi$ shall be decided without 'peeking' data.
@@ -1947,8 +1947,8 @@ $$
 
 **Irony of Two learners**
 
-* Learner Overfit: pick $g_{10} \in \mathcal{H}_{10}$
-* Learner Overfit: pick $g_{2} \in \mathcal{H}_{2}$
+* Learner $O$verfit: pick $g_{10} \in \mathcal{H}_{10}$
+* Learner $R$estricted: pick $g_{2} \in \mathcal{H}_{2}$
 * When both know that target = 10th
     * R 'give up' ability to fit
 
@@ -1961,15 +1961,14 @@ Philosophy: concession for advantages? 以退为进！
 * $\mathcal{H}_{10}$: lower $E_{out}$ when $N \leftarrow \infty$, but much larger
   generalization error for small $N$.
 * Grey area: $O$ overfits! $E_{in} \downarrow$, $E_{out} \uparrow$. 聪明反被聪明误！
-* $R$ always wins in $E_{out}$ if $N$ small! 资料不够多，不要钻牛角尖。简单的hypothesis
-更加好。
+* $R$ always wins in $E_{out}$ if $N$ small! 不要钻牛角尖，简单的hypothesis反而效果比较好。
 
 **No Noise Case**
 
-* Learner Overfit: pick $g_{10} \in \mathcal{H}_{10}$
-* Learner Overfit: pick $g_{2} \in \mathcal{H}_{2}$
+* Learner $O$verfit: pick $g_{10} \in \mathcal{H}_{10}$
+* Learner $R$estricted: pick $g_{2} \in \mathcal{H}_{2}$
 * When both know that there is no noise
-    * R still wins
+    * $R$ still wins
 
 Is there really no noise? 'Target complexity' acts like noise.
 
@@ -2019,7 +2018,7 @@ overfitting 'easily' happens.
 
 **Deterministic Noise**
 
-* if $f \not in \mathcal{H}$: something of $f$ cannot be captured by $\mathcal{H}$
+* if $f \notin \mathcal{H}$: something of $f$ cannot be captured by $\mathcal{H}$
 * deterministic noise: difference between best $h^* \in \mathcal{H}$ and $f$
 * acts like stochastic noise: not new, pseudo-random generator
 * difference to stochastic noise:
@@ -2039,6 +2038,8 @@ target function? :)
 | use excessive $d_{VC}$ | 'drive too fast' |
 | noise | bumpy road |
 | limited data size $N$ | limited observations about road condition |
+
+| Learning | Driving |
 | :------------- | :------------- |
 | start from simple model | drive slowly |
 | data cleaning/pruning | use more accurate road information |
@@ -2077,3 +2078,5 @@ Possibly helps: but watch out - virtual example not $\overset{iid}{\sim} P(x, y)
     * what $\mathcal{H}$ cannot capture acts like noise
 * Dealing with Overfitting
     * data cleaning/pruning/hinting, and more
+
+# Lecture 14 Regularization
