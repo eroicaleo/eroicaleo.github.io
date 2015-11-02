@@ -1915,11 +1915,165 @@ overfitting: lower $E_{in}$, higher $E_{out}$
 next: how does noise & data size affect overfitting?
 
 ## The role of Noise and Data size
+
+**Case Study**
+
+10-th order target function + noise
+50-th order target function + noiseless
+
+overfitting from best $g_2 \in \mathcal{H}_2$ to best $g_{10} \in \mathcal{H}_{10}$ ?
+
+10-th order target function + noise
+
+$$
+\begin{array}{c|c c}
+  & g_2 \in \mathcal{H}_2 & g_{10} \in \mathcal{H}_{10} \\
+  \hline
+ E_{in} & 0.050 & 0.034 \\
+ E_{out} & 0.127 & 9.0
+\end{array}
+$$
+
+50-th order target function + noiseless
+
+$$
+\begin{array}{c|c c}
+  & g_2 \in \mathcal{H}_2 & g_{10} \in \mathcal{H}_{10} \\
+  \hline
+ E_{in} & 0.029 & 0.00001 \\
+ E_{out} & 0.120 & 7680
+\end{array}
+$$
+
+**Irony of Two learners**
+
+* Learner Overfit: pick $g_{10} \in \mathcal{H}_{10}$
+* Learner Overfit: pick $g_{2} \in \mathcal{H}_{2}$
+* When both know that target = 10th
+    * R 'give up' ability to fit
+
+But $R$ wins in $E_{out}$ a lot.
+Philosophy: concession for advantages? 以退为进！
+
+**Learning Curves Revisited**
+
+* When $\mathcal{H}_{2}$, $E_{in}$ is a little bit larger than $E_{out}$.
+* $\mathcal{H}_{10}$: lower $E_{out}$ when $N \leftarrow \infty$, but much larger
+  generalization error for small $N$.
+* Grey area: $O$ overfits! $E_{in} \downarrow$, $E_{out} \uparrow$. 聪明反被聪明误！
+* $R$ always wins in $E_{out}$ if $N$ small! 资料不够多，不要钻牛角尖。简单的hypothesis
+更加好。
+
+**No Noise Case**
+
+* Learner Overfit: pick $g_{10} \in \mathcal{H}_{10}$
+* Learner Overfit: pick $g_{2} \in \mathcal{H}_{2}$
+* When both know that there is no noise
+    * R still wins
+
+Is there really no noise? 'Target complexity' acts like noise.
+
 ## Deterministic Noise
+
+**A Detailed  Experiment**
+
+$$
+y = f(x) + \epsilon \sim \text{Gaussian} (\sum_{q=0}^{Q_f} \alpha_{q} x^q, \sigma^2)
+$$
+
+* Gaussian iid noise $\epsilon$ with noise $\sigma^2$.
+* Some 'uniform' distribution on $f(x)$ with complexity level $Q_{f}$
+* data size $N$
+
+**The Overfit Measure**
+
+* $g_{2} \in \mathcal{H}_{2}$
+* $g_{10} \in \mathcal{H}_{10}$
+* $E_{in}(g_{10}) \leq E_{in}(g_{2})$ for sure.
+
+Overfit measure $E_{out}(g_{10}) - E_{out}(g_{2})$
+
+**The Results**
+
+* impact of $\sigma^2$ versus $N$
+    * Less noise (small \sigma), more data points $N$, less overfit.
+* impact of $Q_{f}$ versus $N$
+    * Less complex of objective function (smaller $Q_{f}$), more data points $N$,
+      less overfit.
+* The logo of this class
+    * Middle two figures: overfit
+    * left: nonlinear transformation
+    * right: linear learning
+
+**Impact of Noise and Data Size**
+
+* impact of $\sigma^2$ versus $N$: stochastic noise
+* impact of $Q_{f}$ versus $N$: deterministic noise
+* four reasons of serious overfitting:
+    * data size $N \downarrow$
+    * stochastic noise $\uparrow$
+    * deterministic noise $\uparrow$
+    * excessive power $\uparrow$, VC dimension is too high
+
+overfitting 'easily' happens.
+
+**Deterministic Noise**
+
+* if $f \not in \mathcal{H}$: something of $f$ cannot be captured by $\mathcal{H}$
+* deterministic noise: difference between best $h^* \in \mathcal{H}$ and $f$
+* acts like stochastic noise: not new, pseudo-random generator
+* difference to stochastic noise:
+    * depends on $\mathcal{H}$
+    * fixed for a given x
+
+Philosophy: when teaching a kid, perhaps better not to use examples from a complicated
+target function? :)
+
 ## Dealing with Overfitting
+
+**Driving Analogy Revisited**
+
+| Learning | Driving |
+| :------------- | :------------- |
+| overfit | commit a car accident |
+| use excessive $d_{VC}$ | 'drive too fast' |
+| noise | bumpy road |
+| limited data size $N$ | limited observations about road condition |
+| :------------- | :------------- |
+| start from simple model | drive slowly |
+| data cleaning/pruning | use more accurate road information |
+| data hint | exploit more road information |
+| regularization | put the breaks |
+| validation | monitor the dashboard |
+
+All very practical techniques to combat overfitting.
+
+**Data Cleaning/Pruning**
+
+* if 'detects' the outlier 5 at the top by
+    * too close to other $\circ$, or too far from other $\times$
+    * wrong by current classifer
+    * ...
+* possible action 1: correct the label (data cleaning)
+* possible action 2: remove the example (data pruning)
+
+Possibly helps: but effect varies
+
+**Data Hinting**
+
+* slightly shifted/rotated digits carry the same meaning
+* possible action: add virtual examples by shifting/rotating the given digits
+(data hinting)
+
+Possibly helps: but watch out - virtual example not $\overset{iid}{\sim} P(x, y)$!
+
 ## Conclusions
 
 * What is overfitting?
+    * lower $E_{in}$, but higher $E_{out}$
 * The role of Noise and Data size
+    * overfitting 'easily' happens
 * Deterministic Noise
+    * what $\mathcal{H}$ cannot capture acts like noise
 * Dealing with Overfitting
+    * data cleaning/pruning/hinting, and more
