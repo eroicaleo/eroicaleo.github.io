@@ -158,6 +158,14 @@ img {
 <li><a href="#dealing-with-overfitting">Dealing with Overfitting</a></li>
 <li><a href="#conclusions-6">Conclusions</a></li>
 </ul></li>
+<li><a href="#lecture-14-regularization-eaaeaa">Lecture 14 Regularization (è§åå/è§å¾å)</a><ul>
+<li><a href="#regularized-hypothesis-set">Regularized Hypothesis set</a></li>
+<li><a href="#weighted-decay-regularization">Weighted Decay Regularization</a></li>
+<li><a href="#regularization-and-vc-theory">Regularization and VC Theory</a></li>
+<li><a href="#general-regularizers">General Regularizers</a></li>
+<li><a href="#conclusions-7">Conclusions</a></li>
+</ul></li>
+<li><a href="#lecture-15-validation">Lecture 15 Validation</a></li>
 </ul>
 </div>
 
@@ -253,7 +261,7 @@ Pr(|\mu-\nu| \geq \epsilon) \leq exp(-2\epsilon^{2}N)
 <h2>Connection to real learning</h2>
 <div id="bad-data-for-many-h" class="section level3">
 <h3>BAD Data for Many <span class="math">\(h\)</span></h3>
-<p>no ‘freedom of choice’ by A, è¸©å°é·ã</p>
+<p>no ‘freedom of choice’ by A, Ã¨Â¸Â©Ã¥ÂÂ°Ã©ÂÂ·Ã£ÂÂ</p>
 </div>
 <div id="bound-of-bad-data" class="section level3">
 <h3>Bound of BAD data</h3>
@@ -1931,8 +1939,8 @@ h(x) = \tilde{h}(z) = \text{sign}(\tilde{w}^T \Phi(x))
 <li>of better <span class="math">\(z = (1, x_1^2 + x_2^2)\)</span>, <span class="math">\(d_{VC} = 2\)</span>?</li>
 <li>or even better <span class="math">\(z = \text{sign}(0.6 - x_1^2 - x_2^2)\)</span>?</li>
 </ul>
-<p>We use our own brain to make the transform. This is human learning not machine learning. åå°ä¸»è§å½±å“.</p>
-<p>careful about your brain’s ‘model complexity’ çèµ·æ¥VC Dimensonå¾å°ï¼æ¯å ä¸ºæ²¡ææèè¢éçVC Dimensonç®è¿å»ã The results are too optimistic.</p>
+<p>We use our own brain to make the transform. This is human learning not machine learning. Ã¥ÂÂÃ¥ÂÂ°Ã¤Â¸Â»Ã¨Â§ÂÃ¥Â½Â±Ã¥Â“Â.</p>
+<p>careful about your brain’s ‘model complexity’ Ã§ÂÂÃ¨ÂµÂ·Ã¦ÂÂ¥VC DimensonÃ¥Â¾ÂÃ¥Â°ÂÃ¯Â¼ÂÃ¦ÂÂ¯Ã¥ÂÂ Ã¤Â¸ÂºÃ¦Â²Â¡Ã¦ÂÂÃ¦ÂÂÃ¨ÂÂÃ¨Â¢ÂÃ©ÂÂÃ§ÂÂVC DimensonÃ§Â®ÂÃ¨Â¿ÂÃ¥ÂÂ»Ã£ÂÂ The results are too optimistic.</p>
 <ul>
 <li>For VC-safety, <span class="math">\(\Phi\)</span> shall be decided without ‘peeking’ data.</li>
 </ul>
@@ -2101,13 +2109,13 @@ E_{in}(g_0) \leq E_{in}(g_1) \leq E_{in}(g_2) \leq
 <li>R ‘give up’ ability to fit</li>
 </ul></li>
 </ul>
-<p>But <span class="math">\(R\)</span> wins in <span class="math">\(E_{out}\)</span> a lot. Philosophy: concession for advantages? 以退为进！</p>
+<p>But <span class="math">\(R\)</span> wins in <span class="math">\(E_{out}\)</span> a lot. Philosophy: concession for advantages? ä»¥éä¸ºè¿ï¼</p>
 <p><strong>Learning Curves Revisited</strong></p>
 <ul>
 <li>When <span class="math">\(\mathcal{H}_{2}\)</span>, <span class="math">\(E_{in}\)</span> is a little bit larger than <span class="math">\(E_{out}\)</span>.</li>
 <li><span class="math">\(\mathcal{H}_{10}\)</span>: lower <span class="math">\(E_{out}\)</span> when <span class="math">\(N \leftarrow \infty\)</span>, but much larger generalization error for small <span class="math">\(N\)</span>.</li>
-<li>Grey area: <span class="math">\(O\)</span> overfits! <span class="math">\(E_{in} \downarrow\)</span>, <span class="math">\(E_{out} \uparrow\)</span>. 聪明反被聪明误！</li>
-<li><span class="math">\(R\)</span> always wins in <span class="math">\(E_{out}\)</span> if <span class="math">\(N\)</span> small! 不要钻牛角尖，简单的hypothesis反而效果比较好。</li>
+<li>Grey area: <span class="math">\(O\)</span> overfits! <span class="math">\(E_{in} \downarrow\)</span>, <span class="math">\(E_{out} \uparrow\)</span>. èªæåè¢«èªæè¯¯ï¼</li>
+<li><span class="math">\(R\)</span> always wins in <span class="math">\(E_{out}\)</span> if <span class="math">\(N\)</span> small! ä¸è¦é»çè§å°ï¼ç®åçhypothesisåèæææ¯è¾å¥½ã</li>
 </ul>
 <p><strong>No Noise Case</strong></p>
 <ul>
@@ -2281,6 +2289,304 @@ y = f(x) + \epsilon \sim \text{Gaussian} (\sum_{q=0}^{Q_f} \alpha_{q} x^q, \sigm
 </ul></li>
 </ul>
 </div>
+</div>
+<div id="lecture-14-regularization-eaaeaa" class="section level1">
+<h1>Lecture 14 Regularization (è§åå/è§å¾å)</h1>
+<p>Overfitting happens with excessive power, stochastic/deterministic noise, and limited data.</p>
+<div id="regularized-hypothesis-set" class="section level2">
+<h2>Regularized Hypothesis set</h2>
+<p><strong>Regularization: The Magic</strong></p>
+<p>overfit <span class="math">\(\implies\)</span> ‘regularized fit’</p>
+<ul>
+<li>idea: ‘step back’ from <span class="math">\(\mathcal{H}_{10}\)</span> to <span class="math">\(\mathcal{H}_{2}\)</span></li>
+<li>name history: function approximation for ill-posed problems</li>
+</ul>
+<p>how to step back?</p>
+<p><strong>Stepping Back as Constraint</strong></p>
+<p><span class="math">\(Q\)</span>-th order polynomial transform for <span class="math">\(x \in \mathbb{R}\)</span>:</p>
+<p><span class="math">\[
+\Phi_{Q}(x) = (1, x, x^2, \dots, x^Q)
+\]</span></p>
+<p>+linear regression, denote <span class="math">\(\tilde{w}\)</span> by w</p>
+<ul>
+<li>hypothesis w in <span class="math">\(\mathcal{H}_{10}\)</span>: <span class="math">\(w_0 + w_1 x + w_2 x^2 + \dots + w_{10} x^{10}\)</span></li>
+<li>hypothesis w in <span class="math">\(\mathcal{H}_{2}\)</span>: <span class="math">\(w_0 + w_1 x + w_2 x^2\)</span></li>
+<li>that is, <span class="math">\(\mathcal{H}_{2} = \mathcal{H}_{10}\)</span> AND ‘Constraint that <span class="math">\(w_3 = \dots = w_{10} = 0\)</span>’</li>
+<li>step back = ‘constraints’</li>
+</ul>
+<p><strong>Regression with Constraint</strong></p>
+<ul>
+<li><span class="math">\(\mathcal{H}_{10} \equiv {w \in \mathbb{R}^{10+1}}\)</span>
+<ul>
+<li>regression with <span class="math">\(\mathcal{H}_{10}\)</span>: <span class="math">\(\underset{w\in\mathbb{R}^{10+1}}{\text{min}} E_{in}(w)\)</span></li>
+</ul></li>
+<li><span class="math">\(\mathcal{H}_{2} \equiv {w \in \mathbb{R}^{10+1} \text{while} w_3 = \dots = w_{10} = 0}\)</span>
+<ul>
+<li>regression with <span class="math">\(\mathcal{H}_{2}\)</span>:</li>
+<li><span class="math">\(\underset{w\in\mathbb{R}^{10+1}}{\text{min}} E_{in}(w)\)</span></li>
+<li><span class="math">\(s.t. w_3 = \dots = w_{10} = 0\)</span></li>
+</ul></li>
+</ul>
+<p>step back = constrained optimization of <span class="math">\(E_{in}\)</span></p>
+<p>Why don’t you just use <span class="math">\(w in \mathbb{R}^{2+1}\)</span></p>
+<p><strong>Regression with Looser Constraint</strong></p>
+<ul>
+<li><span class="math">\(\mathcal{H}_{2} \equiv {w \in \mathbb{R}^{10+1} \text{while} w_3 = \dots = w_{10} = 0}\)</span>
+<ul>
+<li>regression with <span class="math">\(\mathcal{H}_{2}\)</span>:</li>
+<li><span class="math">\(\underset{w\in\mathbb{R}^{10+1}}{\text{min}} E_{in}(w)\)</span></li>
+<li><span class="math">\(s.t. w_3 = \dots = w_{10} = 0\)</span></li>
+</ul></li>
+</ul>
+<p>Relax to:</p>
+<ul>
+<li><span class="math">\(\mathcal{H'}_{2} \equiv {w \in \mathbb{R}^{10+1} \text{while} \ge 8 \text{of } w_{q}= 0}\)</span>
+<ul>
+<li>regression with <span class="math">\(\mathcal{H'}_{2}\)</span>:</li>
+<li><span class="math">\(\underset{w\in\mathbb{R}^{10+1}}{\text{min}} E_{in}(w)\)</span></li>
+<li><span class="math">\(\text{s.t.} \sum_{q=0}^{10} [w_q \ne 0] \le 3\)</span></li>
+</ul></li>
+<li>more flexible than <span class="math">\(\mathcal{H}_2\)</span>: <span class="math">\(\mathcal{H}_{2} \in \mathcal{H'}_{2}\)</span></li>
+<li>less risky than <span class="math">\(\mathcal{H}_10\)</span>: <span class="math">\(\mathcal{H'}_{2} \in \mathcal{H'}_{10}\)</span></li>
+</ul>
+<p>Bad news for sparse hypothesis set <span class="math">\(\mathcal{H'}_{2}\)</span>: NP-hard to solve.</p>
+<ul>
+<li>Boolean operation, discrete.</li>
+</ul>
+<p><strong>Regression with Softer Constraint</strong></p>
+<p>Relax to:</p>
+<p><span class="math">\[
+\begin{split}
+\mathcal{H}(C) \equiv { w \in \mathbb{R}^{10+1} \text{while} |w|^2 \le C } \\
+\underset{w\in\mathbb{R}^{10+1}}{\text{min}} E_{in}(w) \text{s.t. } \sum_{q=0}^{10} w_q^2 \le C
+\end{split}
+\]</span></p>
+<ul>
+<li><span class="math">\(\mathcal{H}(C)\)</span>: overlaps but not exactly the same as <span class="math">\(\mathcal{H'}_2\)</span></li>
+<li>soft and smooth Structure over <span class="math">\(C \ge 0\)</span>:
+<ul>
+<li><span class="math">\(\mathcal{H}(0) \in \mathcal{H}(1.126) \in \dots \in \mathcal{H}(1126) \in \dots \in \mathcal{H}(\infty) = \mathcal{H}_{10}\)</span></li>
+</ul></li>
+</ul>
+<p>regularized hypothesis <span class="math">\(w_{REG}\)</span>: optimal solution from regularized hypothesis set <span class="math">\(\mathcal{H}(C)\)</span></p>
+</div>
+<div id="weighted-decay-regularization" class="section level2">
+<h2>Weighted Decay Regularization</h2>
+<p><strong>Matrix Form of Regularized Regression Problem</strong></p>
+<p><span class="math">\[
+\begin{split}
+\underset{w\in\mathbb{R}^{Q+1}}{\text{min}} E_{in}(w) = \frac{1}{N} \sum_{n=1}^{N} (w^T z_n - y_n)^2 \\
+\text{s.t. } \sum_{q=0}^{Q} w_q^2 \le C
+\end{split}
+\]</span></p>
+<ul>
+<li><span class="math">\(\sum_n = (Zw - y)^T(Zw - y)\)</span></li>
+<li><span class="math">\(w^Tw \le C\)</span>: feasible <span class="math">\(w\)</span> within a radius-<span class="math">\(\sqrt(C)\)</span> hypersphere</li>
+</ul>
+<p>How to solve the constrained optimization problem?</p>
+<p><strong>The Lagrange Multiplier</strong></p>
+<p><span class="math">\[
+\underset{w\in\mathbb{R}^{Q+1}}{\text{min}} E_{in}(w) = \frac{1}{N} (Zw - y)^T(Zw - y)
+\text{s.t. } w^Tw \le C
+\]</span></p>
+<ul>
+<li>decreasing direction: <span class="math">\(- \nabla E_{in}(w)\)</span></li>
+<li>normal vector of <span class="math">\(w^T w = C\)</span>: <span class="math">\(w\)</span></li>
+<li>if <span class="math">\(- \nabla E_{in}(w)\)</span> and <span class="math">\(w\)</span> not parallel: can decrease <span class="math">\(E_{in}(w)\)</span> without violating the constraint</li>
+<li>at optimal solution <span class="math">\(w_{REG}\)</span>, <span class="math">\(- \nabla E_{in}(w) \propto w_{REG}\)</span></li>
+<li>want: find Lagrange multiplier <span class="math">\(\lambda &gt; 0\)</span> and <span class="math">\(w_{REG}\)</span> such that <span class="math">\(\nabla E_{in}(w_{REG}) - \frac{2 \lambda}{N} w_{REG} = 0\)</span></li>
+</ul>
+<p><strong>Augmented Error</strong></p>
+<ul>
+<li>if oracle tells you <span class="math">\(\lambda &gt; 0\)</span>, then solving <span class="math">\(\nabla E_{in}(w_{REG}) + \frac{2 \lambda}{N} w_{REG} = 0\)</span></li>
+</ul>
+<p><span class="math">\[
+\frac{2}{N}(Z^T Z w_{REG} - Z^T y) + \frac{2 \lambda}{N} w_{REG} = 0
+\]</span></p>
+<ul>
+<li>optimal solution:</li>
+</ul>
+<p><span class="math">\[
+w_{REG} \leftarrow (Z^T Z + \lambda I)^{-1} Z^T y
+\]</span></p>
+<ul>
+<li><span class="math">\((Z^T Z + \lambda I)\)</span> always invertible.</li>
+<li>called ridge regression in Statistics.</li>
+</ul>
+<p>Another view, equivalent to minimizing augmented error <span class="math">\(E_{aug}(w)\)</span>:</p>
+<p><span class="math">\[
+E_{in}(w) + \frac{\lambda}{N} w^{T} w
+\]</span></p>
+<ul>
+<li>regularization with augmented error instead of constrained <span class="math">\(E_{in}\)</span></li>
+</ul>
+<p><span class="math">\[
+w_{REG} \leftarrow \underset{w}{\text{argmin}} E_{aug}(w) \text{for given} \lambda
+\text{ or } \lambda = 0
+\]</span></p>
+<ul>
+<li>minimizing unconstrained <span class="math">\(E_{aug}\)</span> effectively minimizes some <span class="math">\(C\)</span>-constrained <span class="math">\(E_{in}\)</span></li>
+</ul>
+<p><strong>The Results</strong></p>
+<ul>
+<li><span class="math">\(\lambda = 0\)</span>, overfitting</li>
+<li><span class="math">\(\lambda = 0.0001\)</span>, OK</li>
+<li><span class="math">\(\lambda = 0.01\)</span>, OK</li>
+<li><span class="math">\(\lambda = 1\)</span>, underfitting, complexity is not enough.</li>
+<li>Philosophy: a little <strong>regularization</strong> goes a long way.</li>
+</ul>
+<p>call ‘<span class="math">\(+\frac{\lambda}{N} w^T w\)</span>’ weight-decay regularization:</p>
+<ul>
+<li>larger <span class="math">\(\iff\)</span></li>
+<li>prefer shorter <span class="math">\(w \iff\)</span></li>
+<li>effectively smaller <span class="math">\(C\)</span></li>
+</ul>
+<p>Go with any transform + linear model</p>
+<p><strong>Some details: Legendre Polynomials</strong></p>
+<p><span class="math">\[
+\underset{w\in\mathbb{R}^{Q+1}}{\text{min}}
+\frac{1}{N} \sum_{n=0}^{N} (w^T \Phi(x_n) - y_n^2)^2 +
+\frac{1}{N} \sum_{q=0}^{Q} w_q^2
+\]</span></p>
+<p>naive polynomial transform:</p>
+<p><span class="math">\[
+\Phi(x) = (1, x, x^2, \dots, x^Q)
+\]</span></p>
+<p>When <span class="math">\(x_n \in [-1, +1]\)</span>, <span class="math">\(x_n^q\)</span> really small, needing large <span class="math">\(w_q\)</span>.</p>
+<ul>
+<li>We need large <span class="math">\(w_Q\)</span> for big <span class="math">\(Q\)</span>. We penalize too much for the high dimension.</li>
+</ul>
+<p>normalized polynomial transform:</p>
+<p><span class="math">\[
+(1, L_1(x), L_2(x), \dots, L_Q(x))
+\]</span></p>
+<p>orthonormal basis functions called Legendre Polynomials</p>
+</div>
+<div id="regularization-and-vc-theory" class="section level2">
+<h2>Regularization and VC Theory</h2>
+<p><strong>Regularization and VC Theory</strong></p>
+<ul>
+<li>Regularization by constrained-minimizing <span class="math">\(E_{in}\)</span></li>
+</ul>
+<p><span class="math">\[
+\underset{w}{\text{min}} E_{in}(w) \text{s.t. } w^T w \le C
+\]</span></p>
+<ul>
+<li>Regularization by Minimizing <span class="math">\(E_{aug}\)</span></li>
+</ul>
+<p><span class="math">\[
+\underset{w}{\text{min}} E_{aug}(w) = E_{in}(w) + \frac{\lambda}{N} w^Tw
+\]</span></p>
+<ul>
+<li>VC Guarantee of constrained-minimizing <span class="math">\(E_{in}\)</span></li>
+</ul>
+<p><span class="math">\[
+E_{out}(w) \le E_{in}(w) + \Omega(\mathcal{H}(C))
+\]</span></p>
+<p>minimizing <span class="math">\(E_{aug}\)</span>: indirectly getting VC guarantee without confining to <span class="math">\(\mathcal{H}(C)\)</span>.</p>
+<p><strong>Another View of Augmented Error</strong></p>
+<ul>
+<li>Augmented Error: <span class="math">\(E_{aug}(w) = E_{in}(w) + \frac{\lambda}{N} w^Tw\)</span></li>
+<li><p>VC Bound: <span class="math">\(E_{out}(w) \le E_{in}(w) + \Omega(\mathcal{H}(C))\)</span></p></li>
+<li>regularizer <span class="math">\(w^Tw = \Omega(w)\)</span>: complexity of a single hypothesis</li>
+<li>generalization price <span class="math">\(\Omega(\mathcal{H})\)</span>: complexity of a hypothesis set</li>
+<li><p>if <span class="math">\(\frac{\lambda}{N}\Omega(w)\)</span> ‘represents’ <span class="math">\(\Omega(\mathcal{H})\)</span> well, <span class="math">\(E_{aug}\)</span> is a better proxy of <span class="math">\(E_{out}\)</span> than <span class="math">\(E_{in}\)</span></p></li>
+<li>minimizing <span class="math">\(E_{aug}\)</span>:
+<ul>
+<li>(heuristically) operating with the better proxy;</li>
+<li>(technically) enjoying the flexibility of whole <span class="math">\(\mathcal{H}\)</span></li>
+</ul></li>
+</ul>
+<p><strong>Effective VC Dimenson</strong></p>
+<p><span class="math">\[
+\underset{w\in\mathbb{R}^{\tilde{d}+1}}{\text{min}}
+= E_{in}(w) + \frac{\lambda}{N}\Omega(w)
+\]</span></p>
+<ul>
+<li>model complexity?
+<ul>
+<li><span class="math">\(d_{VC}(\mathcal{H}) = \tilde{d} + 1\)</span>, because {<span class="math">\(w\)</span>} ‘all considered’ during minimization</li>
+</ul></li>
+<li>{<span class="math">\(w\)</span>} ‘actually needed’: <span class="math">\(\mathcal{H}(C)\)</span>, with some <span class="math">\(C\)</span> equivalent to <span class="math">\(\lambda\)</span></li>
+<li><span class="math">\(d_{VC}(\mathcal{H}(C))\)</span>: effective VC dimension <span class="math">\(d_{EFF}(\mathcal{H}, \underbrace{\mathcal{A}}_{\text{min} E_{aug}})\)</span></li>
+</ul>
+<p>explanation of regularization: <span class="math">\(d_{VC}(\mathcal{H})\)</span> large, while <span class="math">\(d_{EFF}(\mathcal{H}, \mathcal{A})\)</span> small if <span class="math">\(\mathcal{A}\)</span> regularized.</p>
+</div>
+<div id="general-regularizers" class="section level2">
+<h2>General Regularizers</h2>
+<p><strong>General Regularizers <span class="math">\(\Omega(w)\)</span></strong></p>
+<p>want: constraint in the ‘direction’ of target function</p>
+<ul>
+<li>target-dependent: some properties of target, if known (domain knowledge)
+<ul>
+<li>symmetry regularizer: <span class="math">\(\sum\)</span> [q is odd] <span class="math">\(w_q^2\)</span></li>
+</ul></li>
+<li>plausible: direction towards smoother or simple
+<ul>
+<li>regularization is to overcome noise</li>
+<li>stochastic/deterministic noise both non-smooth</li>
+<li>sparsity (L1) regularizer: <span class="math">\(\sum |w_q|\)</span></li>
+</ul></li>
+<li>friendly: easy to opmitize
+<ul>
+<li>weight-decay (L2) regularizer: <span class="math">\(\sum w_q^2\)</span></li>
+</ul></li>
+<li><p>bad? no worries, guard by <span class="math">\(\lambda\)</span></p></li>
+<li>augmented error = error <span class="math">\(\widehat{\text{err}}\)</span> + regularizer <span class="math">\(\Omega\)</span></li>
+<li>regularizer: target-dependent, plausible or friendly. ringing a bell?</li>
+<li><p>error measure: user-dependent, plausible or friendly.</p></li>
+</ul>
+<p><strong>L2 and L1 Regularizer</strong></p>
+<ul>
+<li>L2 Regularizer
+<ul>
+<li><span class="math">\(\Omega(w) = \sum_{q=0}^{Q} w_q^2 = \begin{Vmatrix} w \end{Vmatrix}_2^2\)</span></li>
+<li>convex, differentiable everywhere</li>
+<li>easy to optimize</li>
+</ul></li>
+<li>L1 Regularizer
+<ul>
+<li><span class="math">\(\Omega(w) = \sum_{q=0}^{Q} |w_q| = \begin{Vmatrix} w \end{Vmatrix}_1\)</span></li>
+<li>convex, not differentiable everywhere</li>
+<li>sparsity in solution</li>
+<li>optimal solution is often at the corner, meaning some <span class="math">\(w\)</span> is 0.</li>
+</ul></li>
+</ul>
+<p>L1 useful if needing sparse solution.</p>
+<p><strong>The Optimal <span class="math">\(\lambda\)</span></strong></p>
+<ul>
+<li>more noise <span class="math">\(\iff\)</span> more regularization needed
+<ul>
+<li>more bumpy road <span class="math">\(\iff\)</span> putting brakes more</li>
+</ul></li>
+<li>noise unknown - important to make proper choices</li>
+</ul>
+<p>How to choose? Stay tuned for the next lecture!</p>
+</div>
+<div id="conclusions-7" class="section level2">
+<h2>Conclusions</h2>
+<ul>
+<li>Regularized Hypothesis set
+<ul>
+<li>original <span class="math">\(\mathcal{H}\)</span> + constraint</li>
+</ul></li>
+<li>Weighted Decay Regularization
+<ul>
+<li>add <span class="math">\(\frac{\lambda}{N} w^Tw\)</span> in <span class="math">\(E_{aug}\)</span></li>
+</ul></li>
+<li>Regularization and VC Theory
+<ul>
+<li>regularization decreases <span class="math">\(d_{\text{EFF}}\)</span></li>
+</ul></li>
+<li>General Regularizers
+<ul>
+<li>target-dependent, plausible or friendly.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="lecture-15-validation" class="section level1">
+<h1>Lecture 15 Validation</h1>
 </div>
 
 

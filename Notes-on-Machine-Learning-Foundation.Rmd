@@ -2301,13 +2301,77 @@ minimizing $E_{aug}$: indirectly getting VC guarantee without confining to $\mat
 * if $\frac{\lambda}{N}\Omega(w)$ 'represents' $\Omega(\mathcal{H})$ well,
   $E_{aug}$ is a better proxy of $E_{out}$ than $E_{in}$
 
-* minimizing $e$
+* minimizing $E_{aug}$:
+    * (heuristically) operating with the better proxy;
+    * (technically) enjoying the flexibility of whole $\mathcal{H}$
+
+**Effective VC Dimenson**
+
+$$
+\underset{w\in\mathbb{R}^{\tilde{d}+1}}{\text{min}}
+= E_{in}(w) + \frac{\lambda}{N}\Omega(w)
+$$
+
+* model complexity?
+    * $d_{VC}(\mathcal{H}) = \tilde{d} + 1$, because {$w$} 'all considered' during
+      minimization
+* {$w$} 'actually needed': $\mathcal{H}(C)$, with some $C$ equivalent to $\lambda$
+* $d_{VC}(\mathcal{H}(C))$: effective VC dimension $d_{EFF}(\mathcal{H}, \underbrace{\mathcal{A}}_{\text{min} E_{aug}})$
+
+explanation of regularization: $d_{VC}(\mathcal{H})$ large, while $d_{EFF}(\mathcal{H}, \mathcal{A})$
+small if $\mathcal{A}$ regularized.
 
 ## General Regularizers
+
+**General Regularizers $\Omega(w)$**
+
+want: constraint in the 'direction' of target function
+
+* target-dependent: some properties of target, if known (domain knowledge)
+    * symmetry regularizer: $\sum$ [q is odd] $w_q^2$
+* plausible: direction towards smoother or simple
+    * regularization is to overcome noise
+    * stochastic/deterministic noise both non-smooth
+    * sparsity (L1) regularizer: $\sum |w_q|$
+* friendly: easy to opmitize
+    * weight-decay (L2) regularizer: $\sum w_q^2$
+* bad? no worries, guard by $\lambda$
+
+* augmented error = error $\widehat{\text{err}}$ + regularizer $\Omega$
+* regularizer: target-dependent, plausible or friendly. ringing a bell?
+* error measure: user-dependent, plausible or friendly.
+
+**L2 and L1 Regularizer**
+
+* L2 Regularizer
+    * $\Omega(w) = \sum_{q=0}^{Q} w_q^2 = \begin{Vmatrix} w \end{Vmatrix}_2^2$
+    * convex, differentiable everywhere
+    * easy to optimize
+* L1 Regularizer
+    * $\Omega(w) = \sum_{q=0}^{Q} |w_q| = \begin{Vmatrix} w \end{Vmatrix}_1$
+    * convex, not differentiable everywhere
+    * sparsity in solution
+    * optimal solution is often at the corner, meaning some $w$ is 0.
+
+L1 useful if needing sparse solution.
+
+**The Optimal $\lambda$**
+
+* more noise $\iff$ more regularization needed
+    * more bumpy road $\iff$ putting brakes more
+* noise unknown - important to make proper choices
+
+How to choose? Stay tuned for the next lecture!
 
 ## Conclusions
 
 * Regularized Hypothesis set
+    * original $\mathcal{H}$ + constraint
 * Weighted Decay Regularization
+    * add $\frac{\lambda}{N} w^Tw$ in $E_{aug}$
 * Regularization and VC Theory
+    * regularization decreases $d_{\text{EFF}}$
 * General Regularizers
+    * target-dependent, plausible or friendly.
+
+# Lecture 15 Validation
