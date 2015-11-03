@@ -2079,4 +2079,235 @@ Possibly helps: but watch out - virtual example not $\overset{iid}{\sim} P(x, y)
 * Dealing with Overfitting
     * data cleaning/pruning/hinting, and more
 
-# Lecture 14 Regularization
+# Lecture 14 Regularization (规则化/规律化)
+
+Overfitting happens with excessive power, stochastic/deterministic noise, and limited
+data.
+
+## Regularized Hypothesis set
+
+**Regularization: The Magic**
+
+overfit $\implies$ 'regularized fit'
+
+* idea: 'step back' from $\mathcal{H}_{10}$ to $\mathcal{H}_{2}$
+* name history: function approximation for ill-posed problems
+
+how to step back?
+
+**Stepping Back as Constraint**
+
+$Q$-th order polynomial transform for $x \in \mathbb{R}$:
+
+$$
+\Phi_{Q}(x) = (1, x, x^2, \dots, x^Q)
+$$
+
++linear regression, denote $\tilde{w}$ by w
+
+* hypothesis w in $\mathcal{H}_{10}$: $w_0 + w_1 x + w_2 x^2 + \dots + w_{10} x^{10}$
+* hypothesis w in $\mathcal{H}_{2}$: $w_0 + w_1 x + w_2 x^2$
+* that is, $\mathcal{H}_{2} = \mathcal{H}_{10}$ AND 'Constraint that $w_3 = \dots = w_{10} = 0$'
+* step back = 'constraints'
+
+**Regression with Constraint**
+
+* $\mathcal{H}_{10} \equiv {w \in \mathbb{R}^{10+1}}$
+    * regression with $\mathcal{H}_{10}$: $\underset{w\in\mathbb{R}^{10+1}}{\text{min}} E_{in}(w)$
+* $\mathcal{H}_{2} \equiv {w \in \mathbb{R}^{10+1} \text{while} w_3 = \dots = w_{10} = 0}$
+    * regression with $\mathcal{H}_{2}$:
+    * $\underset{w\in\mathbb{R}^{10+1}}{\text{min}} E_{in}(w)$
+    * $s.t. w_3 = \dots = w_{10} = 0$
+
+step back = constrained optimization of $E_{in}$
+
+Why don't you just use $w in \mathbb{R}^{2+1}$
+
+**Regression with Looser Constraint**
+
+* $\mathcal{H}_{2} \equiv {w \in \mathbb{R}^{10+1} \text{while} w_3 = \dots = w_{10} = 0}$
+    * regression with $\mathcal{H}_{2}$:
+    * $\underset{w\in\mathbb{R}^{10+1}}{\text{min}} E_{in}(w)$
+    * $s.t. w_3 = \dots = w_{10} = 0$
+
+Relax to:
+
+* $\mathcal{H'}_{2} \equiv {w \in \mathbb{R}^{10+1} \text{while} \ge 8 \text{of } w_{q}= 0}$
+    * regression with $\mathcal{H'}_{2}$:
+    * $\underset{w\in\mathbb{R}^{10+1}}{\text{min}} E_{in}(w)$
+    * $\text{s.t.} \sum_{q=0}^{10} [w_q \ne 0] \le 3$
+
+* more flexible than $\mathcal{H}_2$: $\mathcal{H}_{2} \in \mathcal{H'}_{2}$
+* less risky than $\mathcal{H}_10$: $\mathcal{H'}_{2} \in \mathcal{H'}_{10}$
+
+Bad news for sparse hypothesis set $\mathcal{H'}_{2}$: NP-hard to solve.
+
+* Boolean operation, discrete.
+
+**Regression with Softer Constraint**
+
+Relax to:
+
+$$
+\begin{split}
+\mathcal{H}(C) \equiv { w \in \mathbb{R}^{10+1} \text{while} |w|^2 \le C } \\
+\underset{w\in\mathbb{R}^{10+1}}{\text{min}} E_{in}(w) \text{s.t. } \sum_{q=0}^{10} w_q^2 \le C
+\end{split}
+$$
+
+* $\mathcal{H}(C)$: overlaps but not exactly the same as $\mathcal{H'}_2$
+* soft and smooth Structure over $C \ge 0$:
+    * $\mathcal{H}(0) \in \mathcal{H}(1.126) \in \dots \in \mathcal{H}(1126) \in \dots \in \mathcal{H}(\infty) = \mathcal{H}_{10}$
+
+regularized hypothesis $w_{REG}$: optimal solution from regularized hypothesis set $\mathcal{H}(C)$
+
+## Weighted Decay Regularization
+
+**Matrix Form of Regularized Regression Problem**
+
+$$
+\begin{split}
+\underset{w\in\mathbb{R}^{Q+1}}{\text{min}} E_{in}(w) = \frac{1}{N} \sum_{n=1}^{N} (w^T z_n - y_n)^2 \\
+\text{s.t. } \sum_{q=0}^{Q} w_q^2 \le C
+\end{split}
+$$
+
+* $\sum_n = (Zw - y)^T(Zw - y)$
+* $w^Tw \le C$: feasible $w$ within a radius-$\sqrt(C)$ hypersphere
+
+How to solve the constrained optimization problem?
+
+**The Lagrange Multiplier**
+
+$$
+\underset{w\in\mathbb{R}^{Q+1}}{\text{min}} E_{in}(w) = \frac{1}{N} (Zw - y)^T(Zw - y)
+\text{s.t. } w^Tw \le C
+$$
+
+* decreasing direction: $- \nabla E_{in}(w)$
+* normal vector of $w^T w = C$: $w$
+* if $- \nabla E_{in}(w)$ and $w$ not parallel: can decrease $E_{in}(w)$ without
+violating the constraint
+* at optimal solution $w_{REG}$, $- \nabla E_{in}(w) \propto w_{REG}$
+* want: find Lagrange multiplier $\lambda > 0$ and $w_{REG}$ such that
+$\nabla E_{in}(w_{REG}) - \frac{2 \lambda}{N} w_{REG} = 0$
+
+**Augmented Error**
+
+* if oracle tells you $\lambda > 0$, then
+solving $\nabla E_{in}(w_{REG}) + \frac{2 \lambda}{N} w_{REG} = 0$
+
+$$
+\frac{2}{N}(Z^T Z w_{REG} - Z^T y) + \frac{2 \lambda}{N} w_{REG} = 0
+$$
+
+* optimal solution:
+
+$$
+w_{REG} \leftarrow (Z^T Z + \lambda I)^{-1} Z^T y
+$$
+
+* $(Z^T Z + \lambda I)$ always invertible.
+* called ridge regression in Statistics.
+
+Another view, equivalent to minimizing augmented error $E_{aug}(w)$:
+
+$$
+E_{in}(w) + \frac{\lambda}{N} w^{T} w
+$$
+
+* regularization with augmented error instead of constrained $E_{in}$
+
+$$
+w_{REG} \leftarrow \underset{w}{\text{argmin}} E_{aug}(w) \text{for given} \lambda
+\text{ or } \lambda = 0
+$$
+
+* minimizing unconstrained $E_{aug}$ effectively minimizes some $C$-constrained $E_{in}$
+
+**The Results**
+
+* $\lambda = 0$, overfitting
+* $\lambda = 0.0001$, OK
+* $\lambda = 0.01$, OK
+* $\lambda = 1$, underfitting, complexity is not enough.
+* Philosophy: a little **regularization** goes a long way.
+
+call '$+\frac{\lambda}{N} w^T w$' weight-decay regularization:
+
+* larger \lambda $\iff$
+* prefer shorter $w \iff$
+* effectively smaller $C$
+
+Go with any transform + linear model
+
+**Some details: Legendre Polynomials**
+
+$$
+\underset{w\in\mathbb{R}^{Q+1}}{\text{min}}
+\frac{1}{N} \sum_{n=0}^{N} (w^T \Phi(x_n) - y_n^2)^2 +
+\frac{1}{N} \sum_{q=0}^{Q} w_q^2
+$$
+
+naive polynomial transform:
+
+$$
+\Phi(x) = (1, x, x^2, \dots, x^Q)
+$$
+
+When $x_n \in [-1, +1]$, $x_n^q$ really small, needing large $w_q$.
+
+* We need large $w_Q$ for big $Q$. We penalize too much for the high dimension.
+
+normalized polynomial transform:
+
+$$
+(1, L_1(x), L_2(x), \dots, L_Q(x))
+$$
+
+orthonormal basis functions called Legendre Polynomials
+
+## Regularization and VC Theory
+
+**Regularization and VC Theory**
+
+* Regularization by constrained-minimizing $E_{in}$
+
+$$
+\underset{w}{\text{min}} E_{in}(w) \text{s.t. } w^T w \le C
+$$
+
+* Regularization by Minimizing $E_{aug}$
+
+$$
+\underset{w}{\text{min}} E_{aug}(w) = E_{in}(w) + \frac{\lambda}{N} w^Tw
+$$
+
+* VC Guarantee of constrained-minimizing $E_{in}$
+
+$$
+E_{out}(w) \le E_{in}(w) + \Omega(\mathcal{H}(C))
+$$
+
+minimizing $E_{aug}$: indirectly getting VC guarantee without confining to $\mathcal{H}(C)$.
+
+**Another View of Augmented Error**
+
+* Augmented Error: $E_{aug}(w) = E_{in}(w) + \frac{\lambda}{N} w^Tw$
+* VC Bound: $E_{out}(w) \le E_{in}(w) + \Omega(\mathcal{H}(C))$
+
+* regularizer $w^Tw = \Omega(w)$: complexity of a single hypothesis
+* generalization price $\Omega(\mathcal{H})$: complexity of a hypothesis set
+* if $\frac{\lambda}{N}\Omega(w)$ 'represents' $\Omega(\mathcal{H})$ well,
+  $E_{aug}$ is a better proxy of $E_{out}$ than $E_{in}$
+
+* minimizing $e$
+
+## General Regularizers
+
+## Conclusions
+
+* Regularized Hypothesis set
+* Weighted Decay Regularization
+* Regularization and VC Theory
+* General Regularizers
