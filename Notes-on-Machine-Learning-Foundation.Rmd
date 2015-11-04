@@ -416,7 +416,7 @@ If:
 
 Definition:
 
-* $d_{VC}(\mathcal{H})$, VC dimesion of $\mathcal{H}$: largest $N$ $m_{\mathcal{H}}(N) = 2^N$
+* $d_{VC}(\mathcal{H})$, VC dimension of $\mathcal{H}$: largest $N$ $m_{\mathcal{H}}(N) = 2^N$
 * the most input $\mathcal{H}$ that can shatter
 * $N \leq d_{vc} \Longrightarrow \mathcal{H}$ can shatter some $N$ inputs
 * $k \geq d_{vc} \Longrightarrow k$ is a break point
@@ -2375,3 +2375,174 @@ How to choose? Stay tuned for the next lecture!
     * target-dependent, plausible or friendly.
 
 # Lecture 15 Validation
+
+minimizes augmented error, where the added regularizer effectively limits model
+complexity.
+
+## Model Selection Problem
+
+**So Many Models Learned**
+
+Even just for Binary Classification ...
+
+* $\mathcal{A} \in$ {PLA, pocket, linear regression, logistic regression}
+* $T \in$ {100, 1000, 10000}
+* $\eta \in$ {1, 0.01, 0.0001}
+* $\Phi \in$ {linear, quadratic, poly-10, Legendre-poly-10}
+* $\Omega(w) \in$ {L2 regularizer, L1 regularizer, symmetry, regularizer}
+* $\lambda \in$ {0, 0.01, 1}
+
+in addition to your favorite combination, may need to try other combination to get
+a good $g$.
+
+**Model Selection Problem**
+
+* Which one do you prefer? Linear $\mathcal{H}_1$ or quadratic $\mathcal{H}_2$?
+
+* given: $M$ models $\mathcal{H}_1, \mathcal{H}_2, \dots, \mathcal{H}_M$, each
+  with corresponding algorithm $\mathcal{A}_1, \mathcal{A}_2, \dots, \mathcal{A}_M$
+* goal: select $\mathcal{H}_{m*}$ such that $g_{m*} = \mathcal{A}_{m*}(\\mathcal{D})$
+  is of low $E_{out}(g_{m*})$
+* unknown $E_{out}$ due to unknown $P(x)$ & $P(y|x)$, as always.
+* arguably the most important practical problem of ML.
+
+How to select? visually? No! See lecture 12.
+
+* Not always can be visualized.
+* The high VC dimension in the human brain.
+
+**Model Selection by Best $E_{in}$**
+
+* select by best $E_{in}$?
+    * $m* = \underset{1 \le m \le M}{E_m = E_{in}(\mathcal{m}(\mathcal{D}))}$
+
+* $\Phi_{1126}$ always more preferred over $\Phi_1$
+* $\lambda = 0$ always more preferred over $\lambda = 0.1$ - overfitting
+* if $\mathcal{A}_1$ minimizes over $\mathcal{H}_1$ and
+  $\mathcal{A}_2$ minimizes over $\mathcal{H}_2$,
+    * $\implies g_{m*}$ achieves minimal $E_{in}$ over $\mathcal{H}_{1} \cup \mathcal{H}_{2}$
+    * $\implies$ Extra model complexity, learning pays $d_{VC}(\mathcal{H}_{1} \cup \mathcal{H}_{2})$
+    * bad generalization?
+
+selecting by $E_{in}$ is dangerous.
+
+**Model Selection by Best $E_{test}$**
+
+* select by best $E_{test}$, which is evaluated on a fresh $\mathcal{D}_{test}$?
+    * $m* = \underset{1 \le m \le M}{E_m = E_{test}(\mathcal{m}(\mathcal{D}))}$
+
+* generalization guarantee (finite-bin Hoeffding):
+    * yes! strong guarantee!
+$$
+E_{out}(g_{m*}) \le E_{test}(g_{m*}) + O(\sqrt{\frac{\text{log}M}{N_{\text{test}}}})
+$$
+
+* But where is $\mathcal{D}_{test}$? Your boss's safe, maybe?
+
+selecting by $E_{test}$ is infeasible and cheating!
+
+**Comparison between $E_{in}$ and $E_{test}$**
+
+* in-sample error $E_{in}$
+    * calculate from $\mathcal{D}$
+    * feasible on hand
+    * 'contaminated' as $\mathcal{D}$ also used by $\mathcal{A}_{m}$ to select $g_{m}$
+
+* test error $E_{test}$
+    * calculate from $\mathcal{D}_{test}$
+    * infeasible in boss's safe
+    * 'clean' as $\mathcal{D}_{test}$ never used for selection before
+
+* something in between: $E_{val}$
+    * calculate from $\mathcal{D}_{val} \in $\mathcal{D}$
+    * feasible on hand
+    * clean if $\mathcal{D}_{val}$ never used by $\mathcal{A}_{m}$ before.
+
+selecting by $E_{val}$: legal cheating.
+
+## Validation
+
+**Validation Set $\mathcal{D}_{val}$**
+
+$$
+\underbrace{\mathcal{D}}_{\text{size } N} \leftarrow \underbrace{\mathcal{D}_{train}}_{\text{size } N-K}
+\cup
+\underbrace{\mathcal{D}_{val}}_{\text{size } K}
+$$
+
+* $\mathcal{D}_{val} \subset \mathcal{D}$: called validation set - 'on hand' simulation
+  of test set to connect $E_{val}$ with $E_{out}$:
+    * $\mathcal{D}_{val} \underset{iid}{\sim} P(x, y)$: select $K$ examples from $\mathcal{D}$
+      at random
+* to make sure $\mathcal{D}_{val}$ 'clean': feed only $\mathcal{D}_{train}$ to $\mathcal{A}_m$
+  for model selection.
+* $g_{m} = \mathcal{A}_m(\mathcal{D})$
+* $g_{m}^- = \mathcal{A}_m(\mathcal{D}_{train})$
+
+$$
+E_{out}(g_m^-) \le E_{val}(g_m^-) + O(\sqrt{\frac{\\text{log} M}{K}})
+$$
+
+**Model Selection by Best $E_{val}$**
+
+$$
+m* = \underset{\text{argmin}}{1 \le m \le M} (E_{in} = E_{val}(\mathcal{A}_m(\mathcal{D}_{train})))
+$$
+
+* generalization guarantee for all $m$:
+    * $E_{out}(g_m^-) \le E_{val}(g_m^-) + O(\sqrt{\frac{\\text{log} M}{K}})$
+* heuristic gain from $N-K$ to $N$:
+    * $E_{out}(\underbrace{g_{m*}}_{\mathcal{A}_{m*}(\mathcal{D})}) \le E_{out}(\underbrace{g_{m*}^-}_{\mathcal{A}_{m}(\mathcal{D}_{train})})$
+    * This is because learning curve.
+
+* The general flow:
+
+1. divide $\mathcal{D}$ to $\mathcal{D}_{val}$ and $\mathcal{D}_{train}$.
+2. Obtain $M$ models $g_1^- \dots g_M^-$
+3. pick the best one $\{\mathcal{H}_{m*}, \mathcal{E}_{m*}\}$
+4. use $\mathcal{D}$ to find $g_{m*}$ in $\mathcal{H}_{m*}$
+
+$$
+E_{out}(g_{m*}) \le E_{out}(g_{m*}^-) \le E_{val}(g_{m*}^-) + O(\sqrt{\frac{\\text{log} M}{K}})
+$$
+
+**Validation in Practice**
+
+use validation to select between $\mathcal{H}_{\Phi_5}$ and $\mathcal{H}_{\Phi_{10}}$
+
+* in-sample: selection with $E_{in}$
+* optimal: cheating-selection with $E_{test}$
+* sub-$g$: selection with $E_{val}$ and report $g_{m*}^-$
+* full-$g$: selection with $E_{val}$ and report $g_{m*}$
+    * $E_{out}(g_{m*}) \le E_{out}(g_{m*}^-)$ indeed.
+
+Why is sub-$g$ worse than in-sample some time?
+
+* $\mathcal{D}_{val} \uparrow$ and $\mathcal{D}_{train} \downarrow$.
+
+**The Dilemma about $K$**
+
+reasoning of validation:
+
+$$
+E_{out}(g) \underset{(\text{small } K)}{\approx} E_{out}(g^-)
+\underset{(\text{large } K)}{\approx} E_{val}(g^-)
+$$
+
+* large $K$: every $E_{val} \approx E_{out}$, but all $g_m^-$ much worse than $g_m$
+* small $K$: every $g_m^- \approx g_m$, but $E_{val}$ far from $E_{out}$
+
+Practical rule of thumb: $K = \frac{N}{5}$
+
+**Fun Time**
+
+Validation might not be slow! Because we use less $\mathcal{D}_{train}$.
+
+## Leave-One-Out Cross Validation
+## V-Fold Cross Validation
+## Conclusions
+
+* Model Selection Problem
+* Validation
+* Leave-One-Out Cross Validation
+* V-Fold Cross Validation

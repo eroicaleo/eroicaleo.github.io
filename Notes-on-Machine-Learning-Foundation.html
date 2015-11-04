@@ -165,7 +165,13 @@ img {
 <li><a href="#general-regularizers">General Regularizers</a></li>
 <li><a href="#conclusions-7">Conclusions</a></li>
 </ul></li>
-<li><a href="#lecture-15-validation">Lecture 15 Validation</a></li>
+<li><a href="#lecture-15-validation">Lecture 15 Validation</a><ul>
+<li><a href="#model-selection-problem">Model Selection Problem</a></li>
+<li><a href="#validation">Validation</a></li>
+<li><a href="#leave-one-out-cross-validation">Leave-One-Out Cross Validation</a></li>
+<li><a href="#v-fold-cross-validation">V-Fold Cross Validation</a></li>
+<li><a href="#conclusions-8">Conclusions</a></li>
+</ul></li>
 </ul>
 </div>
 
@@ -531,7 +537,7 @@ BAD
 <p><strong>VC Dimension</strong></p>
 <p>Definition:</p>
 <ul>
-<li><span class="math">\(d_{VC}(\mathcal{H})\)</span>, VC dimesion of <span class="math">\(\mathcal{H}\)</span>: largest <span class="math">\(N\)</span> <span class="math">\(m_{\mathcal{H}}(N) = 2^N\)</span></li>
+<li><span class="math">\(d_{VC}(\mathcal{H})\)</span>, VC dimension of <span class="math">\(\mathcal{H}\)</span>: largest <span class="math">\(N\)</span> <span class="math">\(m_{\mathcal{H}}(N) = 2^N\)</span></li>
 <li>the most input <span class="math">\(\mathcal{H}\)</span> that can shatter</li>
 <li><span class="math">\(N \leq d_{vc} \Longrightarrow \mathcal{H}\)</span> can shatter some <span class="math">\(N\)</span> inputs</li>
 <li><span class="math">\(k \geq d_{vc} \Longrightarrow k\)</span> is a break point</li>
@@ -2587,6 +2593,176 @@ E_{out}(w) \le E_{in}(w) + \Omega(\mathcal{H}(C))
 </div>
 <div id="lecture-15-validation" class="section level1">
 <h1>Lecture 15 Validation</h1>
+<p>minimizes augmented error, where the added regularizer effectively limits model complexity.</p>
+<div id="model-selection-problem" class="section level2">
+<h2>Model Selection Problem</h2>
+<p><strong>So Many Models Learned</strong></p>
+<p>Even just for Binary Classification …</p>
+<ul>
+<li><span class="math">\(\mathcal{A} \in\)</span> {PLA, pocket, linear regression, logistic regression}</li>
+<li><span class="math">\(T \in\)</span> {100, 1000, 10000}</li>
+<li><span class="math">\(\eta \in\)</span> {1, 0.01, 0.0001}</li>
+<li><span class="math">\(\Phi \in\)</span> {linear, quadratic, poly-10, Legendre-poly-10}</li>
+<li><span class="math">\(\Omega(w) \in\)</span> {L2 regularizer, L1 regularizer, symmetry, regularizer}</li>
+<li><span class="math">\(\lambda \in\)</span> {0, 0.01, 1}</li>
+</ul>
+<p>in addition to your favorite combination, may need to try other combination to get a good <span class="math">\(g\)</span>.</p>
+<p><strong>Model Selection Problem</strong></p>
+<ul>
+<li><p>Which one do you prefer? Linear <span class="math">\(\mathcal{H}_1\)</span> or quadratic <span class="math">\(\mathcal{H}_2\)</span>?</p></li>
+<li>given: <span class="math">\(M\)</span> models <span class="math">\(\mathcal{H}_1, \mathcal{H}_2, \dots, \mathcal{H}_M\)</span>, each with corresponding algorithm <span class="math">\(\mathcal{A}_1, \mathcal{A}_2, \dots, \mathcal{A}_M\)</span></li>
+<li>goal: select <span class="math">\(\mathcal{H}_{m*}\)</span> such that <span class="math">\(g_{m*} = \mathcal{A}_{m*}(\\mathcal{D})\)</span> is of low <span class="math">\(E_{out}(g_{m*})\)</span></li>
+<li>unknown <span class="math">\(E_{out}\)</span> due to unknown <span class="math">\(P(x)\)</span> &amp; <span class="math">\(P(y|x)\)</span>, as always.</li>
+<li><p>arguably the most important practical problem of ML.</p></li>
+</ul>
+<p>How to select? visually? No! See lecture 12.</p>
+<ul>
+<li>Not always can be visualized.</li>
+<li>The high VC dimension in the human brain.</li>
+</ul>
+<p><strong>Model Selection by Best <span class="math">\(E_{in}\)</span></strong></p>
+<ul>
+<li>select by best <span class="math">\(E_{in}\)</span>?
+<ul>
+<li><span class="math">\(m* = \underset{1 \le m \le M}{E_m = E_{in}(\mathcal{m}(\mathcal{D}))}\)</span></li>
+</ul></li>
+<li><span class="math">\(\Phi_{1126}\)</span> always more preferred over <span class="math">\(\Phi_1\)</span></li>
+<li><span class="math">\(\lambda = 0\)</span> always more preferred over <span class="math">\(\lambda = 0.1\)</span> - overfitting</li>
+<li>if <span class="math">\(\mathcal{A}_1\)</span> minimizes over <span class="math">\(\mathcal{H}_1\)</span> and <span class="math">\(\mathcal{A}_2\)</span> minimizes over <span class="math">\(\mathcal{H}_2\)</span>,
+<ul>
+<li><span class="math">\(\implies g_{m*}\)</span> achieves minimal <span class="math">\(E_{in}\)</span> over <span class="math">\(\mathcal{H}_{1} \cup \mathcal{H}_{2}\)</span></li>
+<li><span class="math">\(\implies\)</span> Extra model complexity, learning pays <span class="math">\(d_{VC}(\mathcal{H}_{1} \cup \mathcal{H}_{2})\)</span></li>
+<li>bad generalization?</li>
+</ul></li>
+</ul>
+<p>selecting by <span class="math">\(E_{in}\)</span> is dangerous.</p>
+<p><strong>Model Selection by Best <span class="math">\(E_{test}\)</span></strong></p>
+<ul>
+<li>select by best <span class="math">\(E_{test}\)</span>, which is evaluated on a fresh <span class="math">\(\mathcal{D}_{test}\)</span>?
+<ul>
+<li><span class="math">\(m* = \underset{1 \le m \le M}{E_m = E_{test}(\mathcal{m}(\mathcal{D}))}\)</span></li>
+</ul></li>
+<li>generalization guarantee (finite-bin Hoeffding):
+<ul>
+<li>yes! strong guarantee! <span class="math">\[
+E_{out}(g_{m*}) \le E_{test}(g_{m*}) + O(\sqrt{\frac{\text{log}M}{N_{\text{test}}}})
+\]</span></li>
+</ul></li>
+<li>But where is <span class="math">\(\mathcal{D}_{test}\)</span>? Your boss’s safe, maybe?</li>
+</ul>
+<p>selecting by <span class="math">\(E_{test}\)</span> is infeasible and cheating!</p>
+<p><strong>Comparison between <span class="math">\(E_{in}\)</span> and <span class="math">\(E_{test}\)</span></strong></p>
+<ul>
+<li>in-sample error <span class="math">\(E_{in}\)</span>
+<ul>
+<li>calculate from <span class="math">\(\mathcal{D}\)</span></li>
+<li>feasible on hand</li>
+<li>‘contaminated’ as <span class="math">\(\mathcal{D}\)</span> also used by <span class="math">\(\mathcal{A}_{m}\)</span> to select <span class="math">\(g_{m}\)</span></li>
+</ul></li>
+<li>test error <span class="math">\(E_{test}\)</span>
+<ul>
+<li>calculate from <span class="math">\(\mathcal{D}_{test}\)</span></li>
+<li>infeasible in boss’s safe</li>
+<li>‘clean’ as <span class="math">\(\mathcal{D}_{test}\)</span> never used for selection before</li>
+</ul></li>
+<li>something in between: <span class="math">\(E_{val}\)</span>
+<ul>
+<li>calculate from $_{val} <span class="math">\(\mathcal{D}\)</span></li>
+<li>feasible on hand</li>
+<li>clean if <span class="math">\(\mathcal{D}_{val}\)</span> never used by <span class="math">\(\mathcal{A}_{m}\)</span> before.</li>
+</ul></li>
+</ul>
+<p>selecting by <span class="math">\(E_{val}\)</span>: legal cheating.</p>
+</div>
+<div id="validation" class="section level2">
+<h2>Validation</h2>
+<p><strong>Validation Set <span class="math">\(\mathcal{D}_{val}\)</span></strong></p>
+<p><span class="math">\[
+\underbrace{\mathcal{D}}_{\text{size } N} \leftarrow \underbrace{\mathcal{D}_{train}}_{\text{size } N-K}
+\cup
+\underbrace{\mathcal{D}_{val}}_{\text{size } K}
+\]</span></p>
+<ul>
+<li><span class="math">\(\mathcal{D}_{val} \subset \mathcal{D}\)</span>: called validation set - ‘on hand’ simulation of test set to connect <span class="math">\(E_{val}\)</span> with <span class="math">\(E_{out}\)</span>:
+<ul>
+<li><span class="math">\(\mathcal{D}_{val} \underset{iid}{\sim} P(x, y)\)</span>: select <span class="math">\(K\)</span> examples from <span class="math">\(\mathcal{D}\)</span> at random</li>
+</ul></li>
+<li>to make sure <span class="math">\(\mathcal{D}_{val}\)</span> ‘clean’: feed only <span class="math">\(\mathcal{D}_{train}\)</span> to <span class="math">\(\mathcal{A}_m\)</span> for model selection.</li>
+<li><span class="math">\(g_{m} = \mathcal{A}_m(\mathcal{D})\)</span></li>
+<li><span class="math">\(g_{m}^- = \mathcal{A}_m(\mathcal{D}_{train})\)</span></li>
+</ul>
+<p><span class="math">\[
+E_{out}(g_m^-) \le E_{val}(g_m^-) + O(\sqrt{\frac{\\text{log} M}{K}})
+\]</span></p>
+<p><strong>Model Selection by Best <span class="math">\(E_{val}\)</span></strong></p>
+<p><span class="math">\[
+m* = \underset{\text{argmin}}{1 \le m \le M} (E_{in} = E_{val}(\mathcal{A}_m(\mathcal{D}_{train})))
+\]</span></p>
+<ul>
+<li>generalization guarantee for all <span class="math">\(m\)</span>:
+<ul>
+<li><span class="math">\(E_{out}(g_m^-) \le E_{val}(g_m^-) + O(\sqrt{\frac{\\text{log} M}{K}})\)</span></li>
+</ul></li>
+<li>heuristic gain from <span class="math">\(N-K\)</span> to <span class="math">\(N\)</span>:
+<ul>
+<li><span class="math">\(E_{out}(\underbrace{g_{m*}}_{\mathcal{A}_{m*}(\mathcal{D})}) \le E_{out}(\underbrace{g_{m*}^-}_{\mathcal{A}_{m}(\mathcal{D}_{train})})\)</span></li>
+<li>This is because learning curve.</li>
+</ul></li>
+<li>The general flow:</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>divide <span class="math">\(\mathcal{D}\)</span> to <span class="math">\(\mathcal{D}_{val}\)</span> and <span class="math">\(\mathcal{D}_{train}\)</span>.</li>
+<li>Obtain <span class="math">\(M\)</span> models <span class="math">\(g_1^- \dots g_M^-\)</span></li>
+<li>pick the best one <span class="math">\(\{\mathcal{H}_{m*}, \mathcal{E}_{m*}\}\)</span></li>
+<li>use <span class="math">\(\mathcal{D}\)</span> to find <span class="math">\(g_{m*}\)</span> in <span class="math">\(\mathcal{H}_{m*}\)</span></li>
+</ol>
+<p><span class="math">\[
+E_{out}(g_{m*}) \le E_{out}(g_{m*}^-) \le E_{val}(g_{m*}^-) + O(\sqrt{\frac{\\text{log} M}{K}})
+\]</span></p>
+<p><strong>Validation in Practice</strong></p>
+<p>use validation to select between <span class="math">\(\mathcal{H}_{\Phi_5}\)</span> and <span class="math">\(\mathcal{H}_{\Phi_{10}}\)</span></p>
+<ul>
+<li>in-sample: selection with <span class="math">\(E_{in}\)</span></li>
+<li>optimal: cheating-selection with <span class="math">\(E_{test}\)</span></li>
+<li>sub-<span class="math">\(g\)</span>: selection with <span class="math">\(E_{val}\)</span> and report <span class="math">\(g_{m*}^-\)</span></li>
+<li>full-<span class="math">\(g\)</span>: selection with <span class="math">\(E_{val}\)</span> and report <span class="math">\(g_{m*}\)</span>
+<ul>
+<li><span class="math">\(E_{out}(g_{m*}) \le E_{out}(g_{m*}^-)\)</span> indeed.</li>
+</ul></li>
+</ul>
+<p>Why is sub-<span class="math">\(g\)</span> worse than in-sample some time?</p>
+<ul>
+<li><span class="math">\(\mathcal{D}_{val} \uparrow\)</span> and <span class="math">\(\mathcal{D}_{train} \downarrow\)</span>.</li>
+</ul>
+<p><strong>The Dilemma about <span class="math">\(K\)</span></strong></p>
+<p>reasoning of validation:</p>
+<p><span class="math">\[
+E_{out}(g) \underset{(\text{small } K)}{\approx} E_{out}(g^-)
+\underset{(\text{large } K)}{\approx} E_{val}(g^-)
+\]</span></p>
+<ul>
+<li>large <span class="math">\(K\)</span>: every <span class="math">\(E_{val} \approx E_{out}\)</span>, but all <span class="math">\(g_m^-\)</span> much worse than <span class="math">\(g_m\)</span></li>
+<li>small <span class="math">\(K\)</span>: every <span class="math">\(g_m^- \approx g_m\)</span>, but <span class="math">\(E_{val}\)</span> far from <span class="math">\(E_{out}\)</span></li>
+</ul>
+<p>Practical rule of thumb: <span class="math">\(K = \frac{N}{5}\)</span></p>
+<p><strong>Fun Time</strong></p>
+<p>Validation might not be slow! Because we use less <span class="math">\(\mathcal{D}_{train}\)</span>.</p>
+</div>
+<div id="leave-one-out-cross-validation" class="section level2">
+<h2>Leave-One-Out Cross Validation</h2>
+</div>
+<div id="v-fold-cross-validation" class="section level2">
+<h2>V-Fold Cross Validation</h2>
+</div>
+<div id="conclusions-8" class="section level2">
+<h2>Conclusions</h2>
+<ul>
+<li>Model Selection Problem</li>
+<li>Validation</li>
+<li>Leave-One-Out Cross Validation</li>
+<li>V-Fold Cross Validation</li>
+</ul>
+</div>
 </div>
 
 
