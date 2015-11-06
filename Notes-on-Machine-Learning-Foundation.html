@@ -2750,17 +2750,133 @@ E_{out}(g) \underset{(\text{small } K)}{\approx} E_{out}(g^-)
 </div>
 <div id="leave-one-out-cross-validation" class="section level2">
 <h2>Leave-One-Out Cross Validation</h2>
+<p><strong>Extreme Case: <span class="math">\(K = 1\)</span></strong></p>
+<p>reasoning of validation:</p>
+<p><span class="math">\[
+E_{out}(g) \underset{(\text{small } K)}{\approx} E_{out}(g^-)
+\underset{(\text{large } K)}{\approx} E_{val}(g^-)
+\]</span></p>
+<ul>
+<li>take <span class="math">\(K = 1\)</span>? <span class="math">\(\mathcal{D}_{val}^{(n)} = \{(x_n, y_n\}\)</span> and <span class="math">\(E_{val}^{(n)}(g_n^-) = \text{err}(g_{n}^-(x_n), y_n) = e_n\)</span></li>
+<li>make <span class="math">\(e_n\)</span> closer to <span class="math">\(E_{out}(g)\)</span>? - average over possible <span class="math">\(E_{val}^{(n)}\)</span></li>
+<li>Leave-One-Out cross validation estimate:</li>
+</ul>
+<p><span class="math">\[
+E_{loocv}(\mathcal{H}, \mathcal{A}) = \frac{1}{N} \sum_{n=1}^{N} e_{n}
+= \frac{1}{N} \sum_{n=1}^{N} \\text{err} (g_{n}^-(x_{n}), y_{n})
+\]</span></p>
+<ul>
+<li>It can tell us if our algorithm <span class="math">\(\mathcal{A}\)</span> performs good in data set <span class="math">\(\mathcal{D}\)</span>.</li>
+<li>hope: <span class="math">\(E_{loocv}(\mathcal{H}, \mathcal{A}) \approx E_{out}(g)\)</span></li>
+</ul>
+<p><strong>Illustration of Leave-One-Out</strong></p>
+<p><span class="math">\[
+E_{loocv}(\text{linear}) = \\frac{1}{3} (e_1 + e_2 + e_3)
+\]</span></p>
+<p><span class="math">\[
+E_{loocv}(\text{constant}) = \\frac{1}{3} (e_1 + e_2 + e_3)
+\]</span></p>
+<ul>
+<li>Which one would you choose?
+<ul>
+<li>If we only has three data points, the constant hypothesis will be better.</li>
+</ul></li>
+<li><span class="math">\(m* = \underset{\text{argmin}}{1 \le m \le M} (E_{m} = E_{loocv}(\mathcal{H}_m, \mathcal{A}_m)\)</span></li>
+</ul>
+<p><strong>Theoretical Guarantee of Leave-One-Out Estimate</strong></p>
+<p>Does <span class="math">\(E_{loocv}(\mathcal{H}, \mathcal{A})\)</span> say something about <span class="math">\(E_{out}(g)\)</span>?</p>
+<p>Yes! for average <span class="math">\(E_{out}\)</span> on size <span class="math">\(N-1\)</span> data.</p>
+<p><span class="math">\[
+\underset{\mathcal{D}}{\mathcal{E}} E_{loocv}(\mathcal{H}, \mathcal{A})
+= \underset{\mathcal{D}}{\mathcal{E}} \frac{1}{N} \sum_{n=1}^{N} e_n
+= \frac{1}{N} \sum_{n=1}^{N} \underset{\mathcal{D}}{\mathcal{E}} e_n
+= \frac{1}{N} \sum_{n=1}^{N} \underset{\mathcal{D}_n}{\mathcal{E}} \underset{(x_n, y_n)}{\mathcal{E}} \text{err} (g_n^-(x_n), y_n)
+= \frac{1}{N} \sum_{n=1}^{N} \underset{\mathcal{D}_n}{\mathcal{E}} E_{out}(g^-)
+= \frac{1}{N} \sum_{n=1}^{N} \bar{E_{out}(N-1)}
+= \bar{E_{out}(N-1)} = \bar{E_{out}(g^-)}
+\]</span></p>
+<p>expected <span class="math">\(E_{loocv}(\mathcal{H}, \mathcal{A})\)</span> says something about expected <span class="math">\(E_{out}(g^-)\)</span></p>
+<ul>
+<li>Often called ‘almost unbiased estimate of <span class="math">\(E_{out}(g)\)</span>’</li>
+</ul>
+<p><strong>Leave-One-Out in Practice</strong></p>
+<ul>
+<li>Select by <span class="math">\(E_{in}\)</span>, not smooth, overfit.</li>
+<li>Select by <span class="math">\(E_{loocv}\)</span>, smooth, avoid overfit.</li>
+<li><span class="math">\(E_{loocv}\)</span> much better than <span class="math">\(E_{in}\)</span></li>
+</ul>
 </div>
 <div id="v-fold-cross-validation" class="section level2">
 <h2>V-Fold Cross Validation</h2>
+<p><strong>Disadvantage of Leave-One-Out Estimate</strong></p>
+<p>Computation issue:</p>
+<p><span class="math">\[
+E_{loocv}(\mathcal{H}, \mathcal{A})
+= \frac{1}{N} \sum_{n=1}^{N} e_n
+= \frac{1}{N} \sum_{n=1}^{N} \text{err} (g_n^-(x_n), y_n)
+\]</span></p>
+<ul>
+<li><span class="math">\(N\)</span> ‘additional’ training per model, not always feasible in practice.
+<ul>
+<li>E.g., we have <span class="math">\(\begin{vmatrix}\mathcal{D}\end{vmatrix} = 1000\)</span>, we need 1000 models, each one is trained from 999 points.</li>
+</ul></li>
+<li>except ‘special case’ like analytic solution for linear regression.</li>
+</ul>
+<p>Stability issue - due to variance of single-point estimates.</p>
+<ul>
+<li>The Leave-One-Out curve is jagged shape. Not good for select best algorithm, We don’t want mistakenly select a low point which is just lucky to have low <span class="math">\(E_{cv}\)</span></li>
+</ul>
+<p><strong>V-fold Cross Validation</strong></p>
+<p>how to decrease computation need for cross validation?</p>
+<ul>
+<li>essence of Leave-One-Out cross validation: partition of <span class="math">\(\mathcal{D}\)</span> to <span class="math">\(N\)</span> parts, taking <span class="math">\(N-1\)</span> for training and 1 for validation orderly</li>
+<li><span class="math">\(V\)</span>-fold cross-validation: random-partition of <span class="math">\(\mathcal{D}\)</span> to <span class="math">\(V\)</span> equal parts, take <span class="math">\(V-1\)</span> for training and 1 for validation orderly</li>
+</ul>
+<p><span class="math">\[
+E_{cv}(\mathcal{H}, \mathcal{A})
+= \frac{1}{V} \sum_{v=1}^{V} E_{val}^{(v)}(g_v^-)
+\]</span></p>
+<ul>
+<li>selection by <span class="math">\(E_{cv}: m* = \underset{\text{argmin}}{1 \le m \le M} (E_{m} = E_{cv}(\mathcal{H}_m, \mathcal{A}_m)\)</span></li>
+</ul>
+<p>Practical rule of thumb: <span class="math">\(V = 10\)</span></p>
+<p><strong>Final Words on Validation</strong></p>
+<p>‘Selecting’ Validation Tool</p>
+<ul>
+<li><span class="math">\(V\)</span>-fold generally preferred over single validation if computation allows</li>
+<li>5-Fold or 10-Fold generally works well: not necessary to trade <span class="math">\(V\)</span>-fold with Leave-One-Out</li>
+</ul>
+<p>Nature of Validation</p>
+<ul>
+<li>all training models: select among hypotheses, like qualification match for World cup</li>
+<li>all validation Schemes: select among finalists, like knock-out stage</li>
+<li>all testing methods: just evaluate</li>
+</ul>
+<p>Validation still more optimistic than testing</p>
+<ul>
+<li>validation is still selection, it’s probably to contaminate the data, model complexity.</li>
+</ul>
+<p>Do not fool yourself and others, report test result, not best validation result.</p>
 </div>
 <div id="conclusions-8" class="section level2">
 <h2>Conclusions</h2>
 <ul>
-<li>Model Selection Problem</li>
-<li>Validation</li>
-<li>Leave-One-Out Cross Validation</li>
-<li>V-Fold Cross Validation</li>
+<li>Model Selection Problem
+<ul>
+<li>Dangerous by <span class="math">\(E_{in}\)</span> and dishonest by <span class="math">\(E_{test}\)</span></li>
+</ul></li>
+<li>Validation
+<ul>
+<li>Select with <span class="math">\(E_{val}(\mathcal{D}_{train})\)</span> while returning <span class="math">\(\mathcal{A}_{m*}(\mathcal{D})\)</span></li>
+</ul></li>
+<li>Leave-One-Out Cross Validation
+<ul>
+<li>huge computation by for almost unbiased estimate</li>
+</ul></li>
+<li>V-Fold Cross Validation
+<ul>
+<li>reasonable computation and performance</li>
+</ul></li>
 </ul>
 </div>
 </div>
