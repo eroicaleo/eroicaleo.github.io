@@ -218,7 +218,7 @@ If
 1. eff(N) can replace $M$ and
 2. eff(N) << $2^N$
 
-Then learning is possbile for infinite lines :-)
+Then learning is possible for infinite lines :-)
 
 ## Effective Number of Hypothesis
 
@@ -2673,3 +2673,236 @@ Do not fool yourself and others, report test result, not best validation result.
     * huge computation by for almost unbiased estimate
 * V-Fold Cross Validation
     * reasonable computation and performance
+
+# Lecture 16 Three Learning Principles (锦囊妙计)
+
+## Occam's Razor
+
+*An explanation of the data should be made as simple as possible, but no simpler*
+- Albert Einstein
+
+*entia non sunt multiplicanda praeter necessitatem (entities must not be multiplied
+beyond necessity)* - Willian of Occam (1287 - 1347)
+
+'Occam's razor' for trimming down unnecessary explanation.
+
+* 对资料不要过分解释!
+
+**Occam's Razor for Learning**
+
+* The simplest model that fits the data is also the most plausible.
+* Two questions?
+    * What does it mean for a model to be simple
+    * How do we know that simpler is better
+
+**Simple Model**
+
+* Simple hypothesis $h$
+    * small $\Omega(h)$ = looks simple
+    * specifically by few parameters
+* simple mode $\mathcal{H}$
+    * small $\Omega(\mathcal{H})$ = not many
+    * contains small number of hypothesis
+* connection  
+    * $\begin{vmatrix} \mathcal{H} \end{vmatrix}$ of size $2^{\mathcal{l}}$ $\implies$
+      $h$ specified by $\mathcal{l}$ bits
+    * small $\Omega(\mathcal{H}) \implies \Omega(h)$
+* simple: small hypothesis/model complexity
+    * either we use simple hypothesis set
+    * or we use regularization
+
+**Simple is Better**
+
+In addition to math proof that you have seen, Philosophically:
+
+* simple $\mathcal{H}$
+* $\implies$ smaller $m_{\mathcal{H}}(N)$
+    * 对随意一组资料，通过丢铜板的方式产生输出。（乱乱的资料）
+    * 没有规律。
+* $\implies$ less likely to fit data perfectly $\frac{m_{\mathcal{H}}(N)}{2^N}$
+
+## Sampling Bias
+
+**Presidential Story**
+
+* 1948 US President election: Truman versus Dewey
+* a newspaper phone-poll of how people voted, and set the title 'Dewey Defeats Truman'
+  based on polling
+
+**The Big Smile Came from ...**
+
+Truman, and yes he won
+
+suspect of the mistake:
+* editorial bug? - no
+* bad luck of polling ($\delta$)? - no
+
+hint: phones were expensive
+
+**Sampling Bias**
+
+If the data is sampled in a biased way, learning will produce a simlarity biased
+outcome.
+
+* technical explanation: data from $P_1(x, y)$ but test under $P_2 \ne P_1$: VC fails
+* Philosophical explanation: study Math hard but test English: no strong test guarantee
+* 'minor' VC assumption: data and testing both iid from $P$
+
+**Sampling Bias in Learning**
+
+A True Personal Story
+
+* Netflix competition for movie, recommender system: 10% improvement = 1M US dollars
+* formed $\mathcal{D}_{val}$, in my first shot, $E_{val}(g)$ showed 13% improvement
+* Why am I still teaching here?
+
+* validation: random examples within $\mathcal{D}$;
+* test: 'last' user records 'after' $\mathcal{D}$. 训练资料，测试资料不是随机取样，
+  而是在时间轴上有前后关系。
+
+**Dealing with Sampling Bias**
+
+* Practical rule of thumb: match test scenario as much as possible.
+    * 了解测试环境，让训练环境尽可能接近。
+* e.g. if test: 'last' user records 'after' $\mathcal{D}$
+    * training: emphasize later examples (KDDCup 2011)
+    * validation: use 'late' user records
+* last puzzle: danger when learning 'credit card approval' with existing bank records?
+    * We don't know if the new user will follow the behavior of the existing users.
+
+## Data Snooping
+
+**Visual Data Snooping**
+
+Visualize: $\mathcal{X} = \mathbb{R}^2$
+
+* full $\Phi_2: z = (1, x_1, x_2, x_1^2, x_1x_2, x_2^2)$, $d_{VC} = 6$
+* or $z = (1, x_1^2, x_2^2)$, $d_{VC} = 2$?
+* of better $z = (1, x_1^2 + x_2^2)$, $d_{VC} = 2$?
+* or even better $z = \text{sign}(0.6 - x_1^2 - x_2^2)$?
+
+Careful about your brain's 'model complexity'.
+
+* For VC-safety, $\Phi$ shall be decided without 'Snooping' data.
+
+**Data Snooping by Mere Shifting-Scaling**
+
+If a data set has affected any step in the learning process, its ability to assess
+the outcome has been compromised.
+
+* 8 years of currency trading data
+* first 6 years from training, last 2 years for testing
+* x = previous days, y = 21th day
+* snooping versus no snooping: superior profit possible
+
+* snooping: shift-scale all values by training + testing
+* no snooping: shift-scale all values by training only
+
+**Data Snooping by Data Reusing**
+
+Research Scenario
+
+* benchmark data $\mathcal{D}$
+    * paper1: propose $\mathcal{H}_1$ that works well on $\mathcal{D}$
+    * paper2: find room for improvement, propose $\mathcal{H}_2$ - and publish
+      only if better than $\mathcal{H}_1$ on $\mathcal{D}$
+    * paper3: find room for improvement, propose $\mathcal{H}_3$ - and publish
+      only if better than $\mathcal{H}_2$ on $\mathcal{D}$
+* If all papers from the same author in one big paper: bad generalization due to
+  $d_{VC}(\cup_m \mathcal{H}_m)$
+* step-wise: later author snooped data by reading earlier papers
+
+If you torture the data long enough, it will confess :)
+
+**Dealing with Data Snooping**
+
+* truth - very hard to avoid, unless being extremely honest
+* extremely honest: lock your test data in safe
+* less honest: reserve validation and use cautiously
+* be blind: avoid making modeling decision by data （作决定之前尽量不要看资料）
+* be suspicious: interpret research results (including your own) by proper feeling
+  of contamination
+
+One secret to wining KDDCups: careful balance between data-driven modeling (snooping)
+and validation (no-snooping).
+
+## Power of Three
+
+**Three Related Fields**
+
+Power of Three
+
+* Data Mining
+    * use (huge) data to find property that is interesting
+    * difficult to distinguish ML and DM in reality
+* Artificial Intelligence
+    * Compute something that shows intelligent behavior
+    * ML is one possible route to realize AI
+* Statistics
+    * use data to make inference about an unknown process
+    * statistics contains many useful tools for ML
+
+**Three Theoretical Bounds**
+
+* Hoeffding: $\text{P[BAD]} \le 2 \text{exp} (-2 \epsilon^2 N)$
+    * one hypothesis
+    * useful for verifying/testing
+* Multi-Bin Hoeffding: $\text{P[BAD]} \le 2 M \text{exp} (-2 \epsilon^2 N)$
+    * M hypothesis
+    * useful for validation
+* VC: $\text{P[BAD]} \le 4 m_{\mathcal{H}}(2N) \text{exp} (\dots)$
+    * all $\mathcal{H}$
+    * useful for training
+
+**Three Linear Models**
+
+* PLA/pocket: $h(x) = sign(s)$
+    * plausible err = 0/1 (small flipping noise) minimize specially
+* Linear regression $h(x) = sign(s)$
+    * friendly err = squared (easy to minimize) minimize analytically
+* logistic regression $h(x) = \theta(s)$
+    * plausible err = CE (maxmimum likelihood) minimize iteratively
+
+**Three Key Tools**
+
+* Feature Transformation
+    * $E_{in}(w) \rightarrow E_{in}(\tilde{w})$, $d_{VC}(\mathcal{H}) \rightarrow d_{VC}(\mathcal{H}_{\Phi})$
+    * by using more complicated $\Phi$
+    * lower $E_{in}$
+    * higher $d_{VC}$
+* Regularization
+    * $E_{in}(w) \rightarrow E_{in}(w_{REG})$, $d_{VC}(\mathcal{H}) \rightarrow d_{\text{EFF}}(\mathcal{H}, \mathcal{A})$
+    * by augmenting regularizer $\Omega$
+    * lower $d_{\text{EFF}}$
+    * higher $E_{in}$
+* Validation
+    * $E_{in}(h) \rightarrow E_{val}(g)$, $\mathcal{H} \rightarrow \{g_1^-, \dots, g_M^-\}$
+    * by reserving $K$ examples as $\mathcal{D}_{val}$
+    * fewer choices
+    * fewer examples
+
+**Three Learning Principles**
+
+* Occam's Razer
+    * simple is good
+* Sampling Bias
+    * class matches exam
+* Data Snooping
+    * honestly is best policy
+
+**Three Future Directions**
+
+* More Transform
+* More Regularization
+* Less Label
+
+## Conclusions
+
+* Occam's Razor
+    * simple, simple, simple!
+* Sampling Bias
+    * match test scenario as much as possible
+* Data Snooping
+    * any use of data is 'contamination'
+* Power of Three
+    * relatives, bounds, models, tools, principles
