@@ -158,7 +158,7 @@ img {
 <li><a href="#dealing-with-overfitting">Dealing with Overfitting</a></li>
 <li><a href="#conclusions-6">Conclusions</a></li>
 </ul></li>
-<li><a href="#lecture-14-regularization-eaaeaa">Lecture 14 Regularization (è§åå/è§å¾å)</a><ul>
+<li><a href="#lecture-14-regularization-">Lecture 14 Regularization (规则化/规律化)</a><ul>
 <li><a href="#regularized-hypothesis-set">Regularized Hypothesis set</a></li>
 <li><a href="#weighted-decay-regularization">Weighted Decay Regularization</a></li>
 <li><a href="#regularization-and-vc-theory">Regularization and VC Theory</a></li>
@@ -171,6 +171,13 @@ img {
 <li><a href="#leave-one-out-cross-validation">Leave-One-Out Cross Validation</a></li>
 <li><a href="#v-fold-cross-validation">V-Fold Cross Validation</a></li>
 <li><a href="#conclusions-8">Conclusions</a></li>
+</ul></li>
+<li><a href="#lecture-16-three-learning-principles-">Lecture 16 Three Learning Principles (锦囊妙计)</a><ul>
+<li><a href="#occams-razor">Occam’s Razor</a></li>
+<li><a href="#sampling-bias">Sampling Bias</a></li>
+<li><a href="#data-snooping">Data Snooping</a></li>
+<li><a href="#power-of-three">Power of Three</a></li>
+<li><a href="#conclusions-9">Conclusions</a></li>
 </ul></li>
 </ul>
 </div>
@@ -267,7 +274,7 @@ Pr(|\mu-\nu| \geq \epsilon) \leq exp(-2\epsilon^{2}N)
 <h2>Connection to real learning</h2>
 <div id="bad-data-for-many-h" class="section level3">
 <h3>BAD Data for Many <span class="math">\(h\)</span></h3>
-<p>no ‘freedom of choice’ by A, Ã¨Â¸Â©Ã¥ÂÂ°Ã©ÂÂ·Ã£ÂÂ</p>
+<p>no ‘freedom of choice’ by A, è¸©å°é·ã</p>
 </div>
 <div id="bound-of-bad-data" class="section level3">
 <h3>Bound of BAD data</h3>
@@ -361,7 +368,7 @@ Pr(|E_{in}(g)-E_{out}(g)| &gt; \epsilon) \leq 2\ eff(N)\ exp(-2 \epsilon^2 N)
 <li>eff(N) can replace <span class="math">\(M\)</span> and</li>
 <li>eff(N) &lt;&lt; <span class="math">\(2^N\)</span></li>
 </ol>
-<p>Then learning is possbile for infinite lines :-)</p>
+<p>Then learning is possible for infinite lines :-)</p>
 </div>
 <div id="effective-number-of-hypothesis" class="section level2">
 <h2>Effective Number of Hypothesis</h2>
@@ -1945,8 +1952,8 @@ h(x) = \tilde{h}(z) = \text{sign}(\tilde{w}^T \Phi(x))
 <li>of better <span class="math">\(z = (1, x_1^2 + x_2^2)\)</span>, <span class="math">\(d_{VC} = 2\)</span>?</li>
 <li>or even better <span class="math">\(z = \text{sign}(0.6 - x_1^2 - x_2^2)\)</span>?</li>
 </ul>
-<p>We use our own brain to make the transform. This is human learning not machine learning. Ã¥ÂÂÃ¥ÂÂ°Ã¤Â¸Â»Ã¨Â§ÂÃ¥Â½Â±Ã¥Â“Â.</p>
-<p>careful about your brain’s ‘model complexity’ Ã§ÂÂÃ¨ÂµÂ·Ã¦ÂÂ¥VC DimensonÃ¥Â¾ÂÃ¥Â°ÂÃ¯Â¼ÂÃ¦ÂÂ¯Ã¥ÂÂ Ã¤Â¸ÂºÃ¦Â²Â¡Ã¦ÂÂÃ¦ÂÂÃ¨ÂÂÃ¨Â¢ÂÃ©ÂÂÃ§ÂÂVC DimensonÃ§Â®ÂÃ¨Â¿ÂÃ¥ÂÂ»Ã£ÂÂ The results are too optimistic.</p>
+<p>We use our own brain to make the transform. This is human learning not machine learning. åå°ä¸»è§å½±å“.</p>
+<p>careful about your brain’s ‘model complexity’ çèµ·æ¥VC Dimensonå¾å°ï¼æ¯å ä¸ºæ²¡ææèè¢éçVC Dimensonç®è¿å»ã The results are too optimistic.</p>
 <ul>
 <li>For VC-safety, <span class="math">\(\Phi\)</span> shall be decided without ‘peeking’ data.</li>
 </ul>
@@ -2115,13 +2122,13 @@ E_{in}(g_0) \leq E_{in}(g_1) \leq E_{in}(g_2) \leq
 <li>R ‘give up’ ability to fit</li>
 </ul></li>
 </ul>
-<p>But <span class="math">\(R\)</span> wins in <span class="math">\(E_{out}\)</span> a lot. Philosophy: concession for advantages? ä»¥éä¸ºè¿ï¼</p>
+<p>But <span class="math">\(R\)</span> wins in <span class="math">\(E_{out}\)</span> a lot. Philosophy: concession for advantages? 以退为进！</p>
 <p><strong>Learning Curves Revisited</strong></p>
 <ul>
 <li>When <span class="math">\(\mathcal{H}_{2}\)</span>, <span class="math">\(E_{in}\)</span> is a little bit larger than <span class="math">\(E_{out}\)</span>.</li>
 <li><span class="math">\(\mathcal{H}_{10}\)</span>: lower <span class="math">\(E_{out}\)</span> when <span class="math">\(N \leftarrow \infty\)</span>, but much larger generalization error for small <span class="math">\(N\)</span>.</li>
-<li>Grey area: <span class="math">\(O\)</span> overfits! <span class="math">\(E_{in} \downarrow\)</span>, <span class="math">\(E_{out} \uparrow\)</span>. èªæåè¢«èªæè¯¯ï¼</li>
-<li><span class="math">\(R\)</span> always wins in <span class="math">\(E_{out}\)</span> if <span class="math">\(N\)</span> small! ä¸è¦é»çè§å°ï¼ç®åçhypothesisåèæææ¯è¾å¥½ã</li>
+<li>Grey area: <span class="math">\(O\)</span> overfits! <span class="math">\(E_{in} \downarrow\)</span>, <span class="math">\(E_{out} \uparrow\)</span>. 聪明反被聪明误！</li>
+<li><span class="math">\(R\)</span> always wins in <span class="math">\(E_{out}\)</span> if <span class="math">\(N\)</span> small! 不要钻牛角尖，简单的hypothesis反而效果比较好。</li>
 </ul>
 <p><strong>No Noise Case</strong></p>
 <ul>
@@ -2296,8 +2303,8 @@ y = f(x) + \epsilon \sim \text{Gaussian} (\sum_{q=0}^{Q_f} \alpha_{q} x^q, \sigm
 </ul>
 </div>
 </div>
-<div id="lecture-14-regularization-eaaeaa" class="section level1">
-<h1>Lecture 14 Regularization (è§åå/è§å¾å)</h1>
+<div id="lecture-14-regularization-" class="section level1">
+<h1>Lecture 14 Regularization (规则化/规律化)</h1>
 <p>Overfitting happens with excessive power, stochastic/deterministic noise, and limited data.</p>
 <div id="regularized-hypothesis-set" class="section level2">
 <h2>Regularized Hypothesis set</h2>
@@ -2876,6 +2883,273 @@ E_{cv}(\mathcal{H}, \mathcal{A})
 <li>V-Fold Cross Validation
 <ul>
 <li>reasonable computation and performance</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="lecture-16-three-learning-principles-" class="section level1">
+<h1>Lecture 16 Three Learning Principles (锦囊妙计)</h1>
+<div id="occams-razor" class="section level2">
+<h2>Occam’s Razor</h2>
+<p><em>An explanation of the data should be made as simple as possible, but no simpler</em> - Albert Einstein</p>
+<p><em>entia non sunt multiplicanda praeter necessitatem (entities must not be multiplied beyond necessity)</em> - Willian of Occam (1287 - 1347)</p>
+<p>‘Occam’s razor’ for trimming down unnecessary explanation.</p>
+<ul>
+<li>对资料不要过分解释!</li>
+</ul>
+<p><strong>Occam’s Razor for Learning</strong></p>
+<ul>
+<li>The simplest model that fits the data is also the most plausible.</li>
+<li>Two questions?
+<ul>
+<li>What does it mean for a model to be simple</li>
+<li>How do we know that simpler is better</li>
+</ul></li>
+</ul>
+<p><strong>Simple Model</strong></p>
+<ul>
+<li>Simple hypothesis <span class="math">\(h\)</span>
+<ul>
+<li>small <span class="math">\(\Omega(h)\)</span> = looks simple</li>
+<li>specifically by few parameters</li>
+</ul></li>
+<li>simple mode <span class="math">\(\mathcal{H}\)</span>
+<ul>
+<li>small <span class="math">\(\Omega(\mathcal{H})\)</span> = not many</li>
+<li>contains small number of hypothesis</li>
+</ul></li>
+<li>connection
+<ul>
+<li><span class="math">\(\begin{vmatrix} \mathcal{H} \end{vmatrix}\)</span> of size <span class="math">\(2^{\mathcal{l}}\)</span> <span class="math">\(\implies\)</span> <span class="math">\(h\)</span> specified by <span class="math">\(\mathcal{l}\)</span> bits</li>
+<li>small <span class="math">\(\Omega(\mathcal{H}) \implies \Omega(h)\)</span></li>
+</ul></li>
+<li>simple: small hypothesis/model complexity
+<ul>
+<li>either we use simple hypothesis set</li>
+<li>or we use regularization</li>
+</ul></li>
+</ul>
+<p><strong>Simple is Better</strong></p>
+<p>In addition to math proof that you have seen, Philosophically:</p>
+<ul>
+<li>simple <span class="math">\(\mathcal{H}\)</span></li>
+<li><span class="math">\(\implies\)</span> smaller <span class="math">\(m_{\mathcal{H}}(N)\)</span>
+<ul>
+<li>对随意一组资料，通过丢铜板的方式产生输出。（乱乱的资料）</li>
+<li>没有规律。</li>
+</ul></li>
+<li><span class="math">\(\implies\)</span> less likely to fit data perfectly <span class="math">\(\frac{m_{\mathcal{H}}(N)}{2^N}\)</span></li>
+</ul>
+</div>
+<div id="sampling-bias" class="section level2">
+<h2>Sampling Bias</h2>
+<p><strong>Presidential Story</strong></p>
+<ul>
+<li>1948 US President election: Truman versus Dewey</li>
+<li>a newspaper phone-poll of how people voted, and set the title ‘Dewey Defeats Truman’ based on polling</li>
+</ul>
+<p><strong>The Big Smile Came from …</strong></p>
+<p>Truman, and yes he won</p>
+<p>suspect of the mistake: * editorial bug? - no * bad luck of polling (<span class="math">\(\delta\)</span>)? - no</p>
+<p>hint: phones were expensive</p>
+<p><strong>Sampling Bias</strong></p>
+<p>If the data is sampled in a biased way, learning will produce a simlarity biased outcome.</p>
+<ul>
+<li>technical explanation: data from <span class="math">\(P_1(x, y)\)</span> but test under <span class="math">\(P_2 \ne P_1\)</span>: VC fails</li>
+<li>Philosophical explanation: study Math hard but test English: no strong test guarantee</li>
+<li>‘minor’ VC assumption: data and testing both iid from <span class="math">\(P\)</span></li>
+</ul>
+<p><strong>Sampling Bias in Learning</strong></p>
+<p>A True Personal Story</p>
+<ul>
+<li>Netflix competition for movie, recommender system: 10% improvement = 1M US dollars</li>
+<li>formed <span class="math">\(\mathcal{D}_{val}\)</span>, in my first shot, <span class="math">\(E_{val}(g)\)</span> showed 13% improvement</li>
+<li><p>Why am I still teaching here?</p></li>
+<li>validation: random examples within <span class="math">\(\mathcal{D}\)</span>;</li>
+<li><p>test: ‘last’ user records ‘after’ <span class="math">\(\mathcal{D}\)</span>. 训练资料，测试资料不是随机取样， 而是在时间轴上有前后关系。</p></li>
+</ul>
+<p><strong>Dealing with Sampling Bias</strong></p>
+<ul>
+<li>Practical rule of thumb: match test scenario as much as possible.
+<ul>
+<li>了解测试环境，让训练环境尽可能接近。</li>
+</ul></li>
+<li>e.g. if test: ‘last’ user records ‘after’ <span class="math">\(\mathcal{D}\)</span>
+<ul>
+<li>training: emphasize later examples (KDDCup 2011)</li>
+<li>validation: use ‘late’ user records</li>
+</ul></li>
+<li>last puzzle: danger when learning ‘credit card approval’ with existing bank records?
+<ul>
+<li>We don’t know if the new user will follow the behavior of the existing users.</li>
+</ul></li>
+</ul>
+</div>
+<div id="data-snooping" class="section level2">
+<h2>Data Snooping</h2>
+<p><strong>Visual Data Snooping</strong></p>
+<p>Visualize: <span class="math">\(\mathcal{X} = \mathbb{R}^2\)</span></p>
+<ul>
+<li>full <span class="math">\(\Phi_2: z = (1, x_1, x_2, x_1^2, x_1x_2, x_2^2)\)</span>, <span class="math">\(d_{VC} = 6\)</span></li>
+<li>or <span class="math">\(z = (1, x_1^2, x_2^2)\)</span>, <span class="math">\(d_{VC} = 2\)</span>?</li>
+<li>of better <span class="math">\(z = (1, x_1^2 + x_2^2)\)</span>, <span class="math">\(d_{VC} = 2\)</span>?</li>
+<li>or even better <span class="math">\(z = \text{sign}(0.6 - x_1^2 - x_2^2)\)</span>?</li>
+</ul>
+<p>Careful about your brain’s ‘model complexity’.</p>
+<ul>
+<li>For VC-safety, <span class="math">\(\Phi\)</span> shall be decided without ‘Snooping’ data.</li>
+</ul>
+<p><strong>Data Snooping by Mere Shifting-Scaling</strong></p>
+<p>If a data set has affected any step in the learning process, its ability to assess the outcome has been compromised.</p>
+<ul>
+<li>8 years of currency trading data</li>
+<li>first 6 years from training, last 2 years for testing</li>
+<li>x = previous days, y = 21th day</li>
+<li><p>snooping versus no snooping: superior profit possible</p></li>
+<li>snooping: shift-scale all values by training + testing</li>
+<li><p>no snooping: shift-scale all values by training only</p></li>
+</ul>
+<p><strong>Data Snooping by Data Reusing</strong></p>
+<p>Research Scenario</p>
+<ul>
+<li>benchmark data <span class="math">\(\mathcal{D}\)</span>
+<ul>
+<li>paper1: propose <span class="math">\(\mathcal{H}_1\)</span> that works well on <span class="math">\(\mathcal{D}\)</span></li>
+<li>paper2: find room for improvement, propose <span class="math">\(\mathcal{H}_2\)</span> - and publish only if better than <span class="math">\(\mathcal{H}_1\)</span> on <span class="math">\(\mathcal{D}\)</span></li>
+<li>paper3: find room for improvement, propose <span class="math">\(\mathcal{H}_3\)</span> - and publish only if better than <span class="math">\(\mathcal{H}_2\)</span> on <span class="math">\(\mathcal{D}\)</span></li>
+</ul></li>
+<li>If all papers from the same author in one big paper: bad generalization due to <span class="math">\(d_{VC}(\cup_m \mathcal{H}_m)\)</span></li>
+<li>step-wise: later author snooped data by reading earlier papers</li>
+</ul>
+<p>If you torture the data long enough, it will confess :)</p>
+<p><strong>Dealing with Data Snooping</strong></p>
+<ul>
+<li>truth - very hard to avoid, unless being extremely honest</li>
+<li>extremely honest: lock your test data in safe</li>
+<li>less honest: reserve validation and use cautiously</li>
+<li>be blind: avoid making modeling decision by data （作决定之前尽量不要看资料）</li>
+<li>be suspicious: interpret research results (including your own) by proper feeling of contamination</li>
+</ul>
+<p>One secret to wining KDDCups: careful balance between data-driven modeling (snooping) and validation (no-snooping).</p>
+</div>
+<div id="power-of-three" class="section level2">
+<h2>Power of Three</h2>
+<p><strong>Three Related Fields</strong></p>
+<p>Power of Three</p>
+<ul>
+<li>Data Mining
+<ul>
+<li>use (huge) data to find property that is interesting</li>
+<li>difficult to distinguish ML and DM in reality</li>
+</ul></li>
+<li>Artificial Intelligence
+<ul>
+<li>Compute something that shows intelligent behavior</li>
+<li>ML is one possible route to realize AI</li>
+</ul></li>
+<li>Statistics
+<ul>
+<li>use data to make inference about an unknown process</li>
+<li>statistics contains many useful tools for ML</li>
+</ul></li>
+</ul>
+<p><strong>Three Theoretical Bounds</strong></p>
+<ul>
+<li>Hoeffding: <span class="math">\(\text{P[BAD]} \le 2 \text{exp} (-2 \epsilon^2 N)\)</span>
+<ul>
+<li>one hypothesis</li>
+<li>useful for verifying/testing</li>
+</ul></li>
+<li>Multi-Bin Hoeffding: <span class="math">\(\text{P[BAD]} \le 2 M \text{exp} (-2 \epsilon^2 N)\)</span>
+<ul>
+<li>M hypothesis</li>
+<li>useful for validation</li>
+</ul></li>
+<li>VC: <span class="math">\(\text{P[BAD]} \le 4 m_{\mathcal{H}}(2N) \text{exp} (\dots)\)</span>
+<ul>
+<li>all <span class="math">\(\mathcal{H}\)</span></li>
+<li>useful for training</li>
+</ul></li>
+</ul>
+<p><strong>Three Linear Models</strong></p>
+<ul>
+<li>PLA/pocket: <span class="math">\(h(x) = sign(s)\)</span>
+<ul>
+<li>plausible err = 0/1 (small flipping noise) minimize specially</li>
+</ul></li>
+<li>Linear regression <span class="math">\(h(x) = sign(s)\)</span>
+<ul>
+<li>friendly err = squared (easy to minimize) minimize analytically</li>
+</ul></li>
+<li>logistic regression <span class="math">\(h(x) = \theta(s)\)</span>
+<ul>
+<li>plausible err = CE (maxmimum likelihood) minimize iteratively</li>
+</ul></li>
+</ul>
+<p><strong>Three Key Tools</strong></p>
+<ul>
+<li>Feature Transformation
+<ul>
+<li><span class="math">\(E_{in}(w) \rightarrow E_{in}(\tilde{w})\)</span>, <span class="math">\(d_{VC}(\mathcal{H}) \rightarrow d_{VC}(\mathcal{H}_{\Phi})\)</span></li>
+<li>by using more complicated <span class="math">\(\Phi\)</span></li>
+<li>lower <span class="math">\(E_{in}\)</span></li>
+<li>higher <span class="math">\(d_{VC}\)</span></li>
+</ul></li>
+<li>Regularization
+<ul>
+<li><span class="math">\(E_{in}(w) \rightarrow E_{in}(w_{REG})\)</span>, <span class="math">\(d_{VC}(\mathcal{H}) \rightarrow d_{\text{EFF}}(\mathcal{H}, \mathcal{A})\)</span></li>
+<li>by augmenting regularizer <span class="math">\(\Omega\)</span></li>
+<li>lower <span class="math">\(d_{\text{EFF}}\)</span></li>
+<li>higher <span class="math">\(E_{in}\)</span></li>
+</ul></li>
+<li>Validation
+<ul>
+<li><span class="math">\(E_{in}(h) \rightarrow E_{val}(g)\)</span>, <span class="math">\(\mathcal{H} \rightarrow \{g_1^-, \dots, g_M^-\}\)</span></li>
+<li>by reserving <span class="math">\(K\)</span> examples as <span class="math">\(\mathcal{D}_{val}\)</span></li>
+<li>fewer choices</li>
+<li>fewer examples</li>
+</ul></li>
+</ul>
+<p><strong>Three Learning Principles</strong></p>
+<ul>
+<li>Occam’s Razer
+<ul>
+<li>simple is good</li>
+</ul></li>
+<li>Sampling Bias
+<ul>
+<li>class matches exam</li>
+</ul></li>
+<li>Data Snooping
+<ul>
+<li>honestly is best policy</li>
+</ul></li>
+</ul>
+<p><strong>Three Future Directions</strong></p>
+<ul>
+<li>More Transform</li>
+<li>More Regularization</li>
+<li>Less Label</li>
+</ul>
+</div>
+<div id="conclusions-9" class="section level2">
+<h2>Conclusions</h2>
+<ul>
+<li>Occam’s Razor
+<ul>
+<li>simple, simple, simple!</li>
+</ul></li>
+<li>Sampling Bias
+<ul>
+<li>match test scenario as much as possible</li>
+</ul></li>
+<li>Data Snooping
+<ul>
+<li>any use of data is ‘contamination’</li>
+</ul></li>
+<li>Power of Three
+<ul>
+<li>relatives, bounds, models, tools, principles</li>
 </ul></li>
 </ul>
 </div>
