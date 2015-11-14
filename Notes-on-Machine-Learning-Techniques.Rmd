@@ -1,0 +1,62 @@
+---
+title: "Notes on Machine Learning Techniques"
+author: "Yang Ge"
+date: "November 13, 2015"
+output:
+  html_document:
+    keep_md: true
+    toc: true
+---
+
+# Lecture 1
+
+## Course Introduction
+
+**Course Design**
+
+* From foundations to techniques
+
+## Large-Margin Separating Hyperplane
+
+**Linear Classification Revisited**
+
+* PLA/pocket: $h(x) = \text{sign}(s)$
+    * plausible err = 0/1 (small flipping noise) minimize specially
+
+linear (hyperplane) classifiers:
+
+$$
+h(x) = \text{sign} (w^T x)
+$$
+
+**Which Line Is Best**
+
+* PLA? depending on randomness
+* VC bound? whichever you like!
+    * $E_{out}(w) \le \underbrace{E_{in}(w)}_{0} + \underbrace{\Omega(\mathcal{H})}_{d_{VC} = d + 1} $
+* You? rightmost? Possibly?
+
+**Why Rightmost Hyperplane?**
+
+* informal argument
+    * if (Gaussian-like) noise on future $x \approx x_n$ (可能因为测量误差):
+    * leftmost: a tiny noise will make $x$ cross decision boundary.
+    * Difference between left and right figure: 测量误差容忍度.
+* $x_n$ further from hyperplane $\iff$ tolerate more noise
+    * In machine learning foundations, we know noise is the cause of overfitting.
+    * Then if the line can tolerate more noise, the line is better.
+* $\iff$ more robust to overfitting.
+* distance to closest $x_n$ $\iff$ amount of noise tolerance $\iff$ robustness of
+  hyperplane
+
+* rightmost one: more robust because of larger distance to closest $x_n$.
+
+## Standard Large-Margin Problem
+## Support Vector Machine
+## Reasons Behind Large-Margin Hyperplane
+
+## Conclusions
+* Large-Margin Separating Hyperplane
+* Standard Large-Margin Problem
+* Support Vector Machine
+* Reasons Behind Large-Margin Hyperplane
