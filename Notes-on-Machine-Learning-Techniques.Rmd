@@ -8,6 +8,12 @@ output:
     toc: true
 ---
 
+```{r setoptions, echo=TRUE}
+library(knitr)
+opts_chunk$set(echo = TRUE, cache = TRUE)
+library(dplyr)
+```
+
 # Lecture 1
 
 ## Course Introduction
@@ -33,7 +39,7 @@ $$
 
 * PLA? depending on randomness
 * VC bound? whichever you like!
-    * $E_{out}(w) \le \underbrace{E_{in}(w)}_{0} + \underbrace{\Omega(\mathcal{H})}_{d_{VC} = d + 1} $
+    * $E_{out}(w) \le \underbrace{E_{in}(w)}_{0} + \underbrace{\Omega(\mathcal{H})}_{d_{VC} = d + 1}$
 * You? rightmost? Possibly?
 
 **Why Rightmost Hyperplane?**
@@ -51,8 +57,222 @@ $$
 
 * rightmost one: more robust because of larger distance to closest $x_n$.
 
+**Fat Hyperplane**
+
+* robust separating hyperplane: fat
+    * far from both sides of examples
+* robustness $\equiv$ fatness: distance to closest $x_n$
+
+goal: find fattest separating hyperplane.
+
+**Large-Margin Separating Hyperplane**
+
+* $\underset{w}{\text{max}}$ fatness(w)
+* subject to:
+    * $w$ classifies every $(x_n, y_n)$ correctly
+    * fastness(w) = $\underset{n = 1, \dots, N}{\text{distance}(x_n, w)}$
+
+* fatness: formally called *margin*
+* correctness: $y_{n} = \text{sign} (w^T x_{n})$
+
+So we have the following:
+
+* $\underset{w}{\text{max}}$ fatness(w)
+* subject to:
+    * every $y_{n} w^T x_{n} > 0$
+    * margin(w) = $\underset{n = 1, \dots, N}{\text{distance}(x_n, w)}$
+
+goal: find *Large-Margin* *separating* hyperplane.
+
 ## Standard Large-Margin Problem
+
+**Distance to Hyperplane: Preliminary**
+
+'shorten' $x$ and $w$
+
+* distance needs $w_{0}$ and $(w_1, \dots, w_d)$ differently (to be derived)
+* $b = w_0$, $w = [w_1, \dots, x_d]$; $x = [x_1, \dots, x_d]$
+
+**Distance to Hyperplane**
+
+want: distance $(x, b, w)$, with hyperplane $w^T x' + b = 0$
+
+consider $x', x''$ on hyperplane:
+1. $w^Tx' = -b$, $w^Tx'' = -b$
+2. $w \perp$ hyperplane
+$$
+w^T (x'' - x') = 0
+$$
+3. distance = project $(x - x')$ to $\perp$ hyperplane.
+
+$$
+\text{distance}(x, b, w)
+= \begin{vmatrix}
+\frac{w^T}{
+  \begin{Vmatrix}
+  w
+  \end{Vmatrix}
+} (x - x')
+\end{vmatrix}
+= \frac{1}{
+  \begin{Vmatrix}
+  w
+  \end{Vmatrix}
+} \begin{vmatrix}
+w^T x + b
+\end{vmatrix}
+$$
+
+**Distance to Separating Hyperplane**
+
+$$
+\text{distance}(x, b, w)
+= \frac{1}{
+  \begin{Vmatrix}
+  w
+  \end{Vmatrix}
+} \begin{vmatrix}
+w^T x + b
+\end{vmatrix}
+$$
+
+* separating hyperplane: for every $n$
+
+$$
+y_{n}(w^T x_n + b) > 0
+$$
+
+* distance to separating hyperplane:
+
+$$
+\text{distance}(x, b, w)
+= \frac{1}{
+  \begin{Vmatrix}
+  w
+  \end{Vmatrix}
+} w^T x + b
+$$
+
+* $\underset{b,w}{\text{max}}$ \text{margin}(b, w)
+* subject to:
+    * every $y_{n}(w^T x_n + b) > 0$
+    * $\text{margin}(b, w) = \underset{n=1, \dots, N}{min}\frac{1}{
+      \begin{Vmatrix}
+      w
+      \end{Vmatrix}
+    } y_n (w^T x_n + b)$
+
+**Margin of Special Separating Hyperplane**
+
+* $\underset{b,w}{\text{max}} \text{margin}(b, w)$
+* subject to:
+    * every $y_{n}(w^T x_n + b) > 0$
+    * $\text{margin}(b, w) = \underset{n=1, \dots, N}{min}\frac{1}{
+      \begin{Vmatrix}
+      w
+      \end{Vmatrix}
+    } y_n (w^T x_n + b)$
+
+* $w^Tx + b = 0$ same as $3w^Tx + 3b = 0$: scaling does not matter
+* special scaling: only consider separating $(b, w)$ such that
+
+$$
+\underset{n=1, \dots, N}{\text{min}} y_n (w^T x_n + b) = 1 \implies
+\text{margin}(b, w) = \frac{1}{
+  \begin{Vmatrix}
+  w
+  \end{Vmatrix}}
+$$
+
+We have new formula:
+
+* $\underset{b,w}{\text{max}} \frac{1}{
+  \begin{Vmatrix}
+  w
+  \end{Vmatrix}}$
+* subject to:
+    * every $y_{n}(w^T x_n + b) > 0$
+    * $\underset{n=1, \dots, N}{\text{min}} y_n (w^T x_n + b) = 1$
+
+We could further simplify to:
+
+* $\underset{b,w}{\text{max}} \frac{1}{
+  \begin{Vmatrix}
+  w
+  \end{Vmatrix}}$
+* subject to:
+    * $\underset{n=1, \dots, N}{\text{min}} y_n (w^T x_n + b) = 1$
+
+**Standard Large-Margin Hyperplane Problem**
+
+* original constraints: $\underset{n=1, \dots, N}{\text{min}} y_n (w^T x_n + b) = 1$
+    * want: optimal $(b, w)$ here (inside)
+* necessary constraints: $y_n (w^T x_n + b) \ge 1$ for all $n$
+
+* if optimal $(b, w)$ outside, e.g. $y_n (w^T x_n + b) > 1.126$ for all $n$
+    * can scale $(b, w)$ to "more optimal" $(\frac{b}{1.126}, \frac{w}{1.126})$
+      (contradiction!)
+
+We have another new constraints:
+
+* $\underset{b,w}{\text{max}} \frac{1}{
+  \begin{Vmatrix}
+  w
+  \end{Vmatrix}}$
+* subject to:
+    * $\underset{n=1, \dots, N}{\text{min}} y_n (w^T x_n + b) \ge 1$ for all $n$
+
+final change: max $\implies$ min, remove $\sqrt{}$
+
+* $\underset{b,w}{\text{min}} \frac{1}{2} w^T w$
+* subject to:
+    * $\underset{n=1, \dots, N}{\text{min}} y_n (w^T x_n + b) \ge 1$ for all $n$
+
 ## Support Vector Machine
+
+**Solving a Particular Standard Problem**
+
+* $\underset{b,w}{\text{min}} \frac{1}{2} w^T w$
+* subject to:
+    * $y_n (w^T x_n + b) \ge 1$ for all $n$
+
+```{r}
+data <- data.frame(x0=c(0, 2, 2, 3), x1=c(0, 2, 0, 0), y=c(-1, -1, 1, 1))
+plot(data$x0, data$x1, type = "n", xlim = c(-1, 4), ylim = c(-1, 4), asp = 1, xlab = "x_1", ylab = "x_2")
+points(data$x0[1:2], data$x1[1:2], pch = 4, col = "red")
+points(data$x0[3:4], data$x1[3:4], pch = 1, col = "blue")
+abline(a = -1, b = 1)
+abline(a = 0, b = 1, lty = 2)
+abline(a = -2, b = 1, lty = 2)
+```
+
+* $g_{SVM} = \text{sign}(x_1 - x_2 - 1)$
+
+**Support Vector Machine (SVM)**
+
+* optimal solution: $(w_1 = 1, w_2 = -1, b = -1)$
+* $\text{margin}(b, w) = \frac{1}{\begin{Vmatrix}w\end{Vmatrix}} = \frac{1}{\sqrt{2}}$
+* examples on boundary: 'locates' fattest hyperplane. Other examples: not needed.
+* call boundary example *Support Vector*
+
+*Support vector* machine (SVM): learn fattest hyperplanes (with help of support vectors)
+
+**Solving General SVM**
+
+$$
+\begin{split}
+\underset{b,w}{\text{min}} &\quad \frac{1}{2} w^T w \\
+\text{subject to } &\quad y_n (w^T x_n + b) \ge 1
+\end{split}
+$$
+
+* not easy manually, of course.
+* gradient descent? not easy with constraints
+* luckily:
+    * (convex) quadratic objective function of $(b, w)$
+    * linear constraints of $(b, w)$
+* quadratic programming (QP): 'easy' optimization problem.
+
 ## Reasons Behind Large-Margin Hyperplane
 
 ## Conclusions
