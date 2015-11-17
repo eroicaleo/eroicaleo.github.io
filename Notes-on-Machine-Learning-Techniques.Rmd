@@ -273,6 +273,58 @@ $$
     * linear constraints of $(b, w)$
 * quadratic programming (QP): 'easy' optimization problem.
 
+**Quadratic Programming**
+
+$$
+\begin{split}
+\text{optimal}(b, w) &=? \\
+\underset{b,w}{\text{min}} \quad & \frac{1}{2} w^T w \\
+\text{subject to } \quad & y_n (w^T x_n + b) \ge 1 \\
+& \text{for } n = 1, 2, \dots, N \\
+\end{split}
+$$
+
+* Generic form of quadratic programming
+
+$$
+\begin{split}
+\text{optimal } u \rightarrow & QP(Q, p, A, c) \\
+\underset{u}{\text{min}} \quad & \frac{1}{2} u^T Q u + p^T u \\
+\text{subject to } \quad & a_m^T u \ge c_m, \\
+& \text{for } m = 1, 2, \dots, M \\
+\end{split}
+$$
+
+* objective function:
+    * $u = \begin{bmatrix}
+      b \\
+      w
+      \end{bmatrix}$
+    * $Q = \begin{bmatrix}
+      0 & 0^T \\
+      0 & I
+    \end{bmatrix}$
+    * $p = 0_{d+1}$
+* constraints:
+    * $a_m = y_n[1, x_n^T]$
+    * $c_n  = 1$
+    * $M = N$
+
+* SVM with general QP solver: easy if you've read the manual.
+
+**SVM with QP Solver**
+
+* Linear Hard-Margin SVM Algorithm:
+    1. $Q, p, a^T_n, c_n$ as above
+    2. $\begin{bmatrix}
+      b \\
+      w
+    \end{bmatrix} \leftarrow \text{QP}(Q, p, A, c)$
+    3. return $b \& w$ as $g_{svm}$
+* Hard-Margin: nothing violate 'fat boundary'
+* linear $x_n$
+* want non-linear? $z_n = \Phi(x_n)$ - remember?
+
 ## Reasons Behind Large-Margin Hyperplane
 
 ## Conclusions
