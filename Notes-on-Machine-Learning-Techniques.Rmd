@@ -327,8 +327,76 @@ $$
 
 ## Reasons Behind Large-Margin Hyperplane
 
+**Why Large-Margin Hyperplane**
+
+$$
+\begin{split}
+\underset{b,w}{\text{min}} \quad & \frac{1}{2} w^T w \\
+\text{subject to } \quad & y_n (w^T x_n + b) \ge 1 \text{ for all } n
+\end{split}
+$$
+
+|  | minimize | constraint |
+| :-------------: | :-------------: | :-------------: |
+| regularization | $E_{in}$ | $w^Tw \le C$ |
+| SVM | $w^Tw$ | $E_{in} = 0$ [and more] |
+
+SVM (Large-Margin hyperplane):
+'weight-decay regularization' within $E_{in} = 0$
+
+**Large-Margin Restricts Dichotomies**
+
+consider 'Large-Margin algorithm' $\mathcal{A}_{\rho}$: either returns $g$ with
+margin($g$) $\ge \rho$, or 0 otherwise.
+
+* $\mathcal{A}_0$: like PLA $\implies$ shatter 'general' 3 inputs
+* $\mathcal{A}_{1.126}$: more strict than SVM $\implies$ cannot shatter any 3 inputs
+
+fewer dichotomies $\implies$ smaller VC dim $\implies$ better generalization.
+
+**VC Dimenson of Large-Margin Algorithm**
+
+fewer dichotomies $\implies$ smaller 'VC dim.'
+
+* considers $d_{VC}(\mathcal{A}_{\rho})$ [data dependent, need more than VC]
+* instead of $d_{VC}(\mathcal{H})$ [data independent, covered VC]
+
+* $d_{VC}(\mathcal{A}_{\rho})$ when $\mathcal{X}$ = unit circle in $\mathbb{R}^2$
+* $\rho = 0$: just perceptrons ($d_{VC} = 3$)
+* $\rho = \frac{\sqrt{3}}{2}$: cannot shatter any 3 inputs ($d_{VC} < 3$)
+    * some inputs must be of distance $\le \sqrt{3}$
+
+generally, when $\mathcal{X}$ in radius-R hyperball:
+
+$$
+d_{VC}(\mathcal{A}_{\rho}) \le \text{min} (\frac{R^2}{\rho^2}, d) + 1
+\le \underbrace{d+1}_{d_{VC}(\text{perceptron})}
+$$
+
+**Benefits of Large-Margin Hyperplanes**
+
+|   | Large-Margin Hyperplanes | Hyperplanes | Hyperplanes + feature transform $\Phi$
+| :-------------: | :-------------: | :-------------: | :-------------: |
+| #       | even fewer | not many | many |
+| boundary | simple | simple | sophisticated |
+
+* not many: good for $d_{VC}$ and generalization
+* sophisticated: good for possibly better $E_{in}$
+
+* a new possiblility: non-linear SVM
+
+|   | Large-Margin Hyperplanes + numerous feature transform $\Phi$ |
+| :-------------: | :-------------: |
+| # | not many       |
+| boundary | sophisticated |
+
 ## Conclusions
+
 * Large-Margin Separating Hyperplane
+    * intuitively more robust against noise
 * Standard Large-Margin Problem
+    * minimize 'length of w' at special separating scale
 * Support Vector Machine
+    * 'easy' via quadratic programming
 * Reasons Behind Large-Margin Hyperplane
+    * fewer dichotomies and better generalization
