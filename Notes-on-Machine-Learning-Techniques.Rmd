@@ -4,7 +4,7 @@ author: "Yang Ge"
 date: "November 13, 2015"
 output:
   html_document:
-    keep_md: true
+    keep_md: false
     toc: true
 ---
 
@@ -400,3 +400,114 @@ $$
     * 'easy' via quadratic programming
 * Reasons Behind Large-Margin Hyperplane
     * fewer dichotomies and better generalization
+
+
+# Lecture 2 Dual Support Vector Machine
+
+## Motivation of Dual SVM
+
+**Non-Linear Support Vector Machine Revisited**
+
+$$
+\begin{split}
+\underset{b,w}{\text{min}} \quad & \frac{1}{2} w^T w \\
+\text{subject to } \quad & y_n (w^T \underbrace{z_n}_{\Phi(x_n)} + b) \ge 1 \text{ for all } n
+\end{split}
+$$
+
+Non-Linear Hard-Margin SVM
+
+1. $Q = \begin{bmatrix}
+      0 & 0^T_{\tilde{d}} \\
+      0_{\tilde{d}} & I_{\tilde{d}}
+    \end{bmatrix}$; $p = 0_{\tilde{d}+1}$; $a_n = y_n[1, z_n^T]$; $c_n  = 1$
+2. $\begin{bmatrix}
+b \\
+w
+\end{bmatrix} \leftarrow \text{QP}(Q, p, A, c)$
+3. return $b \in \mathbb{R}$ & $w \in \mathbb{R}^{\tilde{d}}$ with
+   $g_{svm}(x) = \text{sign}(w^T \Phi(x) + b)$
+
+* demanded: not many (Large-Margin), but sophisticated boundary (feature transform)
+* QP with $\tilde{d}+1$ variables and $N$ constraints - challenging if $\tilde{d}$,
+  or infinite?!
+
+Goal: SVM without dependence on $\tilde{d}$
+
+**TODO: SVM without $\tilde{d}$**
+
+* Original SVM
+    * $\tilde{d} + 1$ variables
+    * $N$ constraints
+* 'Equivalent' SVM
+    * $N$ variables
+    * $N+1$ constraints
+
+Warning: Heavy Math!!!
+
+* introduce some necessary math without rigor to help understand SVM deeper
+* 'claim' some results if details unnecessary - like how we 'claimed' Hoeffding
+
+'Equivalent' SVM: based on some dual problem of Original SVM
+
+**Key Tool: Lagrange Multipliers**
+
+| Regularization by Constrained-Minimizing $E_{in}$ | Regularization by Minimizing E_{aug} |
+| :-------------: | :-------------: |
+| $\underset{w}{\text{min}} E_{in}(w) \text{s.t. } w^Tw \le C$ | $\underset{w}{\text{min}} E_{aug}(w) =E_{in}(w) + \frac{\lambda}{N} w^T w$ |
+
+* $C$ equivalent to some $\lambda \ge 0$ by checking optimality condition
+
+$$
+\nabla E_{in}(w) + \frac{2\lambda}{N} w = 0
+$$
+
+* regularization: view $\lambda$ as given parameter instead of $C$, and solve 'easily'
+* dual SVM: view $\lambda$ as unknown given the constraints, and solve them as
+variables instead.
+
+how many $\lambda$'s as variables? $N$.
+
+**Starting Point: Constrained to 'Unconstrained'**
+
+$$
+\begin{split}
+\underset{b,w}{\text{min}} \quad & \frac{1}{2} w^T w \\
+\text{subject to } \quad & y_n (w^T \underbrace{z_n}_{\Phi(x_n)} + b) \ge 1 \text{ for all } n
+\end{split}
+$$
+
+Lagrange Function: with Lagrange Multipliers $\alpha_n$
+
+$$
+\mathcal{L}(b, w, \alpha)
+= \underbrace{\frac{1}{2} w^T w}_{\text{objective}}
++ sum_{n=1}^{N} \alpha \underbrace{(1 - y_n(w^T z_n + b))}_{\text{constraint}}
+$$
+
+Claim
+
+$$
+\text{SVM } \equiv \underset{b,w}{\text{min}}
+(\underset{\text{all } \alpha_n \ge 0}{\text{max}} \mathcal{L}(b, w, \alpha))
+= \underset{b,w}{\text{min}} ( \infty \text{if violate }; \frac{1}{2} w^T w \text{if feasible})
+$$
+
+* any violating $(b, w)$:
+  $\underset{\text{all } \alpha_n \ge 0}{\text{max}}
+  (\square + \sum_n \alpha_n (\text{some positive})) \rightarrow \infty$
+* any feasible $(b, w)$:
+  $\underset{\text{all } \alpha_n \ge 0}{\text{max}}
+  (\square + \sum_n \alpha_n (\text{al non-positive})) = \square$
+
+Constraint now hidden in $max$.
+
+## Lagrange Dual SVM
+## Solving Dual SVM
+## Messages behind Dual SVM
+## Conclusions
+* Motivation of Dual SVM
+* Lagrange Dual SVM
+* Solving Dual SVM
+* Messages behind Dual SVM
+* Conclusions
