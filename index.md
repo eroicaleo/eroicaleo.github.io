@@ -19,3 +19,9 @@ title: Blogging Like a Hacker
 
 [Notes on Machine Learning Foundation](./Notes-on-Machine-Learning-Foundation.html)
 ===================================================================================
+
+[Notes on Machine Learning Foundation](./Notes-on-Machine-Learning-Foundation.html)
+===================================================================================
+
+[Notes on Machine Learning Techniques](./Notes-on-Machine-Learning-Techniques.html)
+===================================================================================
