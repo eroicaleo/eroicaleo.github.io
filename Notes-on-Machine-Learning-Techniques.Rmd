@@ -14,7 +14,7 @@ opts_chunk$set(echo = TRUE, cache = TRUE)
 library(dplyr)
 ```
 
-# Lecture 1
+# Lecture 1 Linear Support Vector Machine
 
 ## Course Introduction
 
@@ -482,7 +482,7 @@ Lagrange Function: with Lagrange Multipliers $\alpha_n$
 $$
 \mathcal{L}(b, w, \alpha)
 = \underbrace{\frac{1}{2} w^T w}_{\text{objective}}
-+ sum_{n=1}^{N} \alpha \underbrace{(1 - y_n(w^T z_n + b))}_{\text{constraint}}
++ \sum_{n=1}^{N} \alpha_n \underbrace{(1 - y_n(w^T z_n + b))}_{\text{constraint}}
 $$
 
 Claim
@@ -490,7 +490,7 @@ Claim
 $$
 \text{SVM } \equiv \underset{b,w}{\text{min}}
 (\underset{\text{all } \alpha_n \ge 0}{\text{max}} \mathcal{L}(b, w, \alpha))
-= \underset{b,w}{\text{min}} ( \infty \text{if violate }; \frac{1}{2} w^T w \text{if feasible})
+= \underset{b,w}{\text{min}} ( \infty \text{ if violate }; \frac{1}{2} w^T w \text{ if feasible})
 $$
 
 * any violating $(b, w)$:
@@ -503,11 +503,294 @@ $$
 Constraint now hidden in $max$.
 
 ## Lagrange Dual SVM
+
+**Lagrange Dual Problem**
+
+for any fixed $\alpha'$ with all $\alpha_n' \ge 0$,
+
+$$
+\underset{b,w}{\text{min}}
+(\underset{\text{all } \alpha_n \ge 0}{\text{max}} \mathcal{L}(b, w, \alpha))
+\ge
+\underset{b,w}{\text{min}} \mathcal{L}(b, w, \alpha'))
+$$
+
+because $\text{max} \ge \text{any}$.
+
+for best $\alpha' \ge 0$ on RHS,
+
+$$
+\underset{b,w}{\text{min}}
+(\underset{\text{all } \alpha_n \ge 0}{\text{max}} \mathcal{L}(b, w, \alpha))
+\ge
+\underbrace{
+\underset{\text{all } \alpha_n \ge 0}{\text{max}}
+\underset{b,w}{\text{min}} \mathcal{L}(b, w, \alpha'))
+}_{\text{Lagrange dual problem}}
+$$
+
+because best is one of any.
+
+If we solve the dual problem, we get a lower bound of the primal problem.
+
+* Lagrange dual problem:
+    * outer maximization of $\alpha$ on lower bound of original problem
+
+**Strong Duality of Quadratic Programming**
+
+$$
+\underbrace{
+\underset{b,w}{\text{min}}
+(\underset{\text{all } \alpha_n \ge 0}{\text{max}} \mathcal{L}(b, w, \alpha))
+}_{\text{equiv. to original (primal) SVM}}
+=
+\underbrace{
+\underset{\text{all } \alpha_n \ge 0}{\text{max}}
+\underset{b,w}{\text{min}} \mathcal{L}(b, w, \alpha'))
+}_{\text{Lagrange dual problem}}
+$$
+
+* $ge$: weak duality
+* $=$: strong duality, true for QP if
+    * convex primal
+    * feasible primal (true if $\Phi$-separable)
+    * linear constraints
+* called constraint qualification
+
+exists primal-dual optimal solution $(b, w, \alpha)$ for both sides.
+
+**Solving Lagrange Dual: Simplification (1/2)**
+
+$$
+\underset{\text{all } \alpha_n \ge 0}{\text{max}}
+\left(
+\underset{b,w}{\text{min}}
+\underbrace{
+  \frac{1}{2} w^Tw +
+  \sum_{n=1}^{N} \alpha_n (1 - y_n (w^Tz_n + b))
+}_{\mathcal{L}(b, w, \alpha)}
+\right)
+$$
+
+* inner problem 'Unconstrained', at optimal:
+    * $\frac{\partial \mathcal{L}(b, w, \alpha)}{\partial b} = 0 =
+      -\sum_{n=1}^{N} \alpha_n y_{n}$
+* no loss of optimality if solving with constraint $\sum_{n=1}^{N} \alpha_n y_{n} = 0$
+
+Then we can remove $b$.
+
+$$
+\underset{\text{all } \alpha_n \ge 0, \sum y_{n} \alpha_{n} = 0}{\text{max}}
+\left(
+\underset{b,w}{\text{min}}
+  \frac{1}{2} w^Tw +
+  \sum_{n=1}^{N} \alpha_n (1 - y_n (w^Tz_n))
+\right)
+$$
+
+**Solving Lagrange Dual: Simplification (2/2)**
+
+$$
+\underset{\text{all } \alpha_n \ge 0, \sum y_{n} \alpha_{n} = 0}{\text{max}}
+\left(
+\underset{b,w}{\text{min}}
+  \frac{1}{2} w^Tw +
+  \sum_{n=1}^{N} \alpha_n (1 - y_n (w^Tz_n))
+\right)
+$$
+
+* inner problem 'Unconstrained', at optimal:
+    * $\frac{\partial \mathcal{L}(b, w, \alpha)}{\partial w_i} = 0 =
+      w_i -\sum_{n=1}^{N} \alpha_n y_{n} z_{n,i}$
+* no loss of optimality if solving with constraint $w = \sum_{n=1}^{N} \alpha_n y_{n} z_n$
+
+$$
+\begin{split}
+& \underset{\text{all } \alpha_n \ge 0, \sum y_{n} \alpha_{n} = 0, w = \sum \alpha_n y_{n} z_n }{\text{max}}
+\left(
+\underset{b,w}{\text{min}}
+  \frac{1}{2} w^Tw +
+  \sum_{n=1}^{N} \alpha_n
+  - w^T w
+\right) \\
+\iff &
+\underset{\text{all } \alpha_n \ge 0, \sum y_{n} \alpha_{n} = 0, w = \sum \alpha_n y_{n} z_n }{\text{max}}
+-\frac{1}{2} \begin{Vmatrix} \sum_{n=1}^{N} \alpha_n y_{n} z_n \end{Vmatrix}
++ \sum_{n=1}^{N} \alpha_n
+\end{split}
+$$
+
+**KTT Optimality Conditions**
+
+$$
+\underset{\text{all } \alpha_n \ge 0, \sum y_{n} \alpha_{n} = 0, w = \sum \alpha_n y_{n} z_n }{\text{max}}
+-\frac{1}{2} \begin{Vmatrix} \sum_{n=1}^{N} \alpha_n y_{n} z_n \end{Vmatrix}
++ \sum_{n=1}^{N} \alpha_n
+$$
+
+* If primal-dual optimal $(b, w, \alpha)$
+    * primal feasible: $y_{n} (w^T z_n + b) \ge 1$
+    * dual feasible: $\alpha_n \ge 0$
+    * dual-inner optimal: $\sum y_n \alpha_n = 0; w = \sum \alpha_n y_n z_n$
+    * primal-inner optimal (at optimal all 'Lagrange term' disappear):
+      $\alpha_n (1 - y_n (w^T z_n + b)) = 0$. which is called **complimentary slackness**
+
+called Karush-Kuhn-Tucker (KKT) conditions, necessary for optimality [& sufficient here].
+
+Will use KKT to 'solve' $(b, w)$ from optimal $\alpha$.
+
 ## Solving Dual SVM
+
+**Dual Formulation of Support Vector Machine**
+
+$$
+\underset{\text{all } \alpha_n \ge 0, \sum y_{n} \alpha_{n} = 0, w = \sum \alpha_n y_{n} z_n }{\text{max}}
+-\frac{1}{2} \begin{Vmatrix} \sum_{n=1}^{N} \alpha_n y_{n} z_n \end{Vmatrix}
++ \sum_{n=1}^{N} \alpha_n
+$$
+
+Standard Hard-Margin SVM dual
+
+$$
+\begin{split}
+\underset{\alpha}{\text{min}} &
+\frac{1}{2} \sum_{n=1}^{N} \sum_{m=1}^{N} \alpha_n \alpha_m y_n y_m z_n^T z_m - \sum_{n=1}^{N} \alpha_n \\
+\text{subject to } &
+\sum_{n=1}^{N} y_n \alpha_n = 0 \\
+& \alpha_n \ge 0, \text{ for } n = 1, 2, \dots, N
+\end{split}
+$$
+
+* (convex) QP of $N$ variables & $N+1$ constraints, as promised
+* How to solve? yeah! we know QP! :)
+
+**Dual SVM with QP Solver**
+
+$$
+\begin{split}
+\text{optimal } \alpha \leftarrow & QP(Q, p, A, c) \\
+\underset{u}{\text{min}} \quad & \frac{1}{2} \alpha^T Q \alpha + p^T u \\
+\text{subject to } \quad & a_m^T \alpha \ge c_m, \\
+& \text{for } m = 1, 2, \dots, M \\
+\end{split}
+$$
+
+$$
+\begin{split}
+q_{n,m} \quad & = y_n y_m z_n^T z_m \\
+p \quad & = -1_N \\
+a_{\ge} = y \quad &; c_{\ge} = 0; \\
+a_{\le} = -y \quad &; c_{\le} = 0; \\
+a_n^T = n \text{-th unit direction} \quad &; c_n = 0
+\end{split}
+$$      
+
+Note: many solvers treat equality ($a_{\ge}, a_{\le}$) & bound
+constraints ($a_n$) specially for numerical stability.
+
+**Dual SVM with Special QP Solver**
+
+* $q_{n,m} = y_n y_m z_n^T z_m$, often non-zero, dense.
+* if $N = 30000$, dense $Q_d$ ($N$ by $N$ symmetric) takes > 3G RAM
+* need special solver for
+    * not storing whole $Q_D$.
+    * utilizing special constraints properly.
+* to scale up to large $N$.
+* usually better to use special solver in practice.
+
+**optimal $(b, w)$**
+
+KKT conditions
+
+* if primal-dual optimal $(b, w, \alpha)$
+    * primal feasible: $y_{n} (w^T z_n + b) \ge 1$
+    * dual feasible: $\alpha_n \ge 0$
+    * dual-inner optimal: $\sum y_n \alpha_n = 0; w = \sum \alpha_n y_n z_n$
+    * primal-inner optimal (at optimal all 'Lagrange term' disappear):
+      $\alpha_n (1 - y_n (w^T z_n + b)) = 0$. (**complimentary slackness**)
+
+* optimal $\alpha \implies$ optimal $w$? easy above!
+* optimal $\alpha \implies$ optimal $b$? a range from primal feasible &
+  equality from complimentary slackness if one $\alpha_n > 0 \implies b = y_n - w^T z_n$
+
+complimentary slackness: $\alpha_n > 0 \implies$ on fat boundary (SV!)
+
 ## Messages behind Dual SVM
+
+**Support Vectors Revisited**
+
+* on boundary: 'locates' fattest hyperplane; others: not needed.
+* examples with $\alpha_n > 0$: on boundary
+* call $\alpha_n > 0$ examples $(z_n, y_n)$ support vectors
+* SV (positive $\alpha_n$) $\subseteq$ SV candidates (on boundary)
+
+* only SV needed to compute $w: w = \sum_{n=1}^{N} \alpha_n y_n z_n  = \sum_{SV} \alpha_n y_n z_n$
+* only SV needed to compute $b: b = y_n - w^T z_n$ with any SV $(z_n, y_n)$
+
+SVM: learn fattest hyperplane by identifying support vectors with dual optimal solution.
+
+**Representation of Fattest Hyperplane**
+
+| SVM | PLA |
+| :-------------: | :-------------: |
+|  $w_{SVM}= \sum_{n=1}^{N} \alpha_n y_n z_n$ | $w_{PLA} = \sum_{n=1}^{N} \beta_n y_n z_n$ |
+| $\alpha_n$ from dual solution | $\beta_n$ by # mistake corrections |
+
+$w =$ linear combination of $y_n z_n$
+
+* also true for GD/SGD-based LogReg/LinReg when $w_0 = 0$
+* call $w$ 'represented' by data
+
+哲学上来说：我们想如何表现 $w$:
+
+* SVM: represent $w$ by SVs only.
+
+**Summary: Two Forms of Hard-Margin SVM**
+
+| Primal Hard-Margin SVM | Dual Hard-Margin SVM |
+| :-------------: | :-------------: |
+|  $\begin{split}
+\underset{b,w}{\text{min}} \quad & \frac{1}{2} w^T w \\
+\text{subject to } \quad & y_n (w^T x_n + b) \ge 1 \\
+& \text{ for all } n
+\end{split}$ | $\begin{split}
+\underset{\alpha}{\text{min}} \quad & \frac{1}{2} \alpha^T Q_D \alpha - 1^T \alpha \\
+\text{subject to } \quad & y^T \alpha = 0 ;\\
+& \alpha_n \ge 0 \text{ for } n = 1, \dots, N
+\end{split}$ |
+| $\tilde{d} + 1$ variables | $N$ variables |
+| $N$ constraints | $N+1$ simple constraints |
+| suitable when $\tilde{d} + 1$ small | suitable when $N$ small |
+| physical meaning: locate specially-scaled $(b, w)$ | physical meaning: locate SVs $(z_n, y_n)$ & their $\alpha_n$ |
+
+Both eventually result in optimal $(b, w)$ for fattest hyperplane
+
+$$
+g_{SVM}(x) = \text{sign} (w^T \Phi(x) + b)
+$$      
+
+**Are We Done Yet?**
+
+$$
+\begin{split}
+\underset{\alpha}{\text{min}} \quad & \frac{1}{2} \alpha^T Q_D \alpha - 1^T \alpha \\
+\text{subject to } \quad & y^T \alpha = 0 ;\\
+& \alpha_n \ge 0 \text{ for } n = 1, \dots, N
+\end{split}
+$$
+
+* $N$ variables, $N+1$ simple constraints: no dependence on $\tilde{d}$?
+* $q_{n,m} = y_n y_m z_n^T z_m$: inner product in $\mathbb{R}^{\tilde{d}}$
+    * $O(\tilde{d})$ via naive computation!
+
+no dependence only if avoiding naive computation! (next lecture :))
+
 ## Conclusions
 * Motivation of Dual SVM
+    * want to remove dependence $\tilde{d}$
 * Lagrange Dual SVM
+    * KKT conditions link primal/dual
 * Solving Dual SVM
+    * another QP, better solved with special solver
 * Messages behind Dual SVM
-* Conclusions
+    * SVs represent fattest hyperplane

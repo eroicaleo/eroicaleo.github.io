@@ -69,7 +69,7 @@ img {
 
 <div id="TOC">
 <ul>
-<li><a href="#lecture-1">Lecture 1</a><ul>
+<li><a href="#lecture-1-linear-support-vector-machine">Lecture 1 Linear Support Vector Machine</a><ul>
 <li><a href="#course-introduction">Course Introduction</a></li>
 <li><a href="#large-margin-separating-hyperplane">Large-Margin Separating Hyperplane</a></li>
 <li><a href="#standard-large-margin-problem">Standard Large-Margin Problem</a></li>
@@ -100,8 +100,8 @@ library(dplyr)</code></pre>
 ## The following objects are masked from 'package:base':
 ## 
 ##     intersect, setdiff, setequal, union</code></pre>
-<div id="lecture-1" class="section level1">
-<h1>Lecture 1</h1>
+<div id="lecture-1-linear-support-vector-machine" class="section level1">
+<h1>Lecture 1 Linear Support Vector Machine</h1>
 <div id="course-introduction" class="section level2">
 <h2>Course Introduction</h2>
 <p><strong>Course Design</strong></p>
@@ -607,13 +607,13 @@ d_{VC}(\mathcal{A}_{\rho}) \le \text{min} (\frac{R^2}{\rho^2}, d) + 1
 <p><span class="math">\[
 \mathcal{L}(b, w, \alpha)
 = \underbrace{\frac{1}{2} w^T w}_{\text{objective}}
-+ sum_{n=1}^{N} \alpha \underbrace{(1 - y_n(w^T z_n + b))}_{\text{constraint}}
++ \sum_{n=1}^{N} \alpha_n \underbrace{(1 - y_n(w^T z_n + b))}_{\text{constraint}}
 \]</span></p>
 <p>Claim</p>
 <p><span class="math">\[
 \text{SVM } \equiv \underset{b,w}{\text{min}}
 (\underset{\text{all } \alpha_n \ge 0}{\text{max}} \mathcal{L}(b, w, \alpha))
-= \underset{b,w}{\text{min}} ( \infty \text{if violate }; \frac{1}{2} w^T w \text{if feasible})
+= \underset{b,w}{\text{min}} ( \infty \text{ if violate }; \frac{1}{2} w^T w \text{ if feasible})
 \]</span></p>
 <ul>
 <li>any violating <span class="math">\((b, w)\)</span>: <span class="math">\(\underset{\text{all } \alpha_n \ge 0}{\text{max}}  (\square + \sum_n \alpha_n (\text{some positive})) \rightarrow \infty\)</span></li>
@@ -623,21 +623,311 @@ d_{VC}(\mathcal{A}_{\rho}) \le \text{min} (\frac{R^2}{\rho^2}, d) + 1
 </div>
 <div id="lagrange-dual-svm" class="section level2">
 <h2>Lagrange Dual SVM</h2>
+<p><strong>Lagrange Dual Problem</strong></p>
+<p>for any fixed <span class="math">\(\alpha'\)</span> with all <span class="math">\(\alpha_n' \ge 0\)</span>,</p>
+<p><span class="math">\[
+\underset{b,w}{\text{min}}
+(\underset{\text{all } \alpha_n \ge 0}{\text{max}} \mathcal{L}(b, w, \alpha))
+\ge
+\underset{b,w}{\text{min}} \mathcal{L}(b, w, \alpha'))
+\]</span></p>
+<p>because <span class="math">\(\text{max} \ge \text{any}\)</span>.</p>
+<p>for best <span class="math">\(\alpha' \ge 0\)</span> on RHS,</p>
+<p><span class="math">\[
+\underset{b,w}{\text{min}}
+(\underset{\text{all } \alpha_n \ge 0}{\text{max}} \mathcal{L}(b, w, \alpha))
+\ge
+\underbrace{
+\underset{\text{all } \alpha_n \ge 0}{\text{max}}
+\underset{b,w}{\text{min}} \mathcal{L}(b, w, \alpha'))
+}_{\text{Lagrange dual problem}}
+\]</span></p>
+<p>because best is one of any.</p>
+<p>If we solve the dual problem, we get a lower bound of the primal problem.</p>
+<ul>
+<li>Lagrange dual problem:
+<ul>
+<li>outer maximization of <span class="math">\(\alpha\)</span> on lower bound of original problem</li>
+</ul></li>
+</ul>
+<p><strong>Strong Duality of Quadratic Programming</strong></p>
+<p><span class="math">\[
+\underbrace{
+\underset{b,w}{\text{min}}
+(\underset{\text{all } \alpha_n \ge 0}{\text{max}} \mathcal{L}(b, w, \alpha))
+}_{\text{equiv. to original (primal) SVM}}
+=
+\underbrace{
+\underset{\text{all } \alpha_n \ge 0}{\text{max}}
+\underset{b,w}{\text{min}} \mathcal{L}(b, w, \alpha'))
+}_{\text{Lagrange dual problem}}
+\]</span></p>
+<ul>
+<li><span class="math">\(ge\)</span>: weak duality</li>
+<li><span class="math">\(=\)</span>: strong duality, true for QP if
+<ul>
+<li>convex primal</li>
+<li>feasible primal (true if <span class="math">\(\Phi\)</span>-separable)</li>
+<li>linear constraints</li>
+</ul></li>
+<li>called constraint qualification</li>
+</ul>
+<p>exists primal-dual optimal solution <span class="math">\((b, w, \alpha)\)</span> for both sides.</p>
+<p><strong>Solving Lagrange Dual: Simplification (1/2)</strong></p>
+<p><span class="math">\[
+\underset{\text{all } \alpha_n \ge 0}{\text{max}}
+\left(
+\underset{b,w}{\text{min}}
+\underbrace{
+  \frac{1}{2} w^Tw +
+  \sum_{n=1}^{N} \alpha_n (1 - y_n (w^Tz_n + b))
+}_{\mathcal{L}(b, w, \alpha)}
+\right)
+\]</span></p>
+<ul>
+<li>inner problem ‘Unconstrained’, at optimal:
+<ul>
+<li><span class="math">\(\frac{\partial \mathcal{L}(b, w, \alpha)}{\partial b} = 0 =  -\sum_{n=1}^{N} \alpha_n y_{n}\)</span></li>
+</ul></li>
+<li>no loss of optimality if solving with constraint <span class="math">\(\sum_{n=1}^{N} \alpha_n y_{n} = 0\)</span></li>
+</ul>
+<p>Then we can remove <span class="math">\(b\)</span>.</p>
+<p><span class="math">\[
+\underset{\text{all } \alpha_n \ge 0, \sum y_{n} \alpha_{n} = 0}{\text{max}}
+\left(
+\underset{b,w}{\text{min}}
+  \frac{1}{2} w^Tw +
+  \sum_{n=1}^{N} \alpha_n (1 - y_n (w^Tz_n))
+\right)
+\]</span></p>
+<p><strong>Solving Lagrange Dual: Simplification (2/2)</strong></p>
+<p><span class="math">\[
+\underset{\text{all } \alpha_n \ge 0, \sum y_{n} \alpha_{n} = 0}{\text{max}}
+\left(
+\underset{b,w}{\text{min}}
+  \frac{1}{2} w^Tw +
+  \sum_{n=1}^{N} \alpha_n (1 - y_n (w^Tz_n))
+\right)
+\]</span></p>
+<ul>
+<li>inner problem ‘Unconstrained’, at optimal:
+<ul>
+<li><span class="math">\(\frac{\partial \mathcal{L}(b, w, \alpha)}{\partial w_i} = 0 =  w_i -\sum_{n=1}^{N} \alpha_n y_{n} z_{n,i}\)</span></li>
+</ul></li>
+<li>no loss of optimality if solving with constraint <span class="math">\(w = \sum_{n=1}^{N} \alpha_n y_{n} z_n\)</span></li>
+</ul>
+<p><span class="math">\[
+\begin{split}
+&amp; \underset{\text{all } \alpha_n \ge 0, \sum y_{n} \alpha_{n} = 0, w = \sum \alpha_n y_{n} z_n }{\text{max}}
+\left(
+\underset{b,w}{\text{min}}
+  \frac{1}{2} w^Tw +
+  \sum_{n=1}^{N} \alpha_n
+  - w^T w
+\right) \\
+\iff &amp;
+\underset{\text{all } \alpha_n \ge 0, \sum y_{n} \alpha_{n} = 0, w = \sum \alpha_n y_{n} z_n }{\text{max}}
+-\frac{1}{2} \begin{Vmatrix} \sum_{n=1}^{N} \alpha_n y_{n} z_n \end{Vmatrix}
++ \sum_{n=1}^{N} \alpha_n
+\end{split}
+\]</span></p>
+<p><strong>KTT Optimality Conditions</strong></p>
+<p><span class="math">\[
+\underset{\text{all } \alpha_n \ge 0, \sum y_{n} \alpha_{n} = 0, w = \sum \alpha_n y_{n} z_n }{\text{max}}
+-\frac{1}{2} \begin{Vmatrix} \sum_{n=1}^{N} \alpha_n y_{n} z_n \end{Vmatrix}
++ \sum_{n=1}^{N} \alpha_n
+\]</span></p>
+<ul>
+<li>If primal-dual optimal <span class="math">\((b, w, \alpha)\)</span>
+<ul>
+<li>primal feasible: <span class="math">\(y_{n} (w^T z_n + b) \ge 1\)</span></li>
+<li>dual feasible: <span class="math">\(\alpha_n \ge 0\)</span></li>
+<li>dual-inner optimal: <span class="math">\(\sum y_n \alpha_n = 0; w = \sum \alpha_n y_n z_n\)</span></li>
+<li>primal-inner optimal (at optimal all ‘Lagrange term’ disappear): <span class="math">\(\alpha_n (1 - y_n (w^T z_n + b)) = 0\)</span>. which is called <strong>complimentary slackness</strong></li>
+</ul></li>
+</ul>
+<p>called Karush-Kuhn-Tucker (KKT) conditions, necessary for optimality [&amp; sufficient here].</p>
+<p>Will use KKT to ‘solve’ <span class="math">\((b, w)\)</span> from optimal <span class="math">\(\alpha\)</span>.</p>
 </div>
 <div id="solving-dual-svm" class="section level2">
 <h2>Solving Dual SVM</h2>
+<p><strong>Dual Formulation of Support Vector Machine</strong></p>
+<p><span class="math">\[
+\underset{\text{all } \alpha_n \ge 0, \sum y_{n} \alpha_{n} = 0, w = \sum \alpha_n y_{n} z_n }{\text{max}}
+-\frac{1}{2} \begin{Vmatrix} \sum_{n=1}^{N} \alpha_n y_{n} z_n \end{Vmatrix}
++ \sum_{n=1}^{N} \alpha_n
+\]</span></p>
+<p>Standard Hard-Margin SVM dual</p>
+<p><span class="math">\[
+\begin{split}
+\underset{\alpha}{\text{min}} &amp;
+\frac{1}{2} \sum_{n=1}^{N} \sum_{m=1}^{N} \alpha_n \alpha_m y_n y_m z_n^T z_m - \sum_{n=1}^{N} \alpha_n \\
+\text{subject to } &amp;
+\sum_{n=1}^{N} y_n \alpha_n = 0 \\
+&amp; \alpha_n \ge 0, \text{ for } n = 1, 2, \dots, N
+\end{split}
+\]</span></p>
+<ul>
+<li>(convex) QP of <span class="math">\(N\)</span> variables &amp; <span class="math">\(N+1\)</span> constraints, as promised</li>
+<li>How to solve? yeah! we know QP! :)</li>
+</ul>
+<p><strong>Dual SVM with QP Solver</strong></p>
+<p><span class="math">\[
+\begin{split}
+\text{optimal } \alpha \leftarrow &amp; QP(Q, p, A, c) \\
+\underset{u}{\text{min}} \quad &amp; \frac{1}{2} \alpha^T Q \alpha + p^T u \\
+\text{subject to } \quad &amp; a_m^T \alpha \ge c_m, \\
+&amp; \text{for } m = 1, 2, \dots, M \\
+\end{split}
+\]</span></p>
+<p><span class="math">\[
+\begin{split}
+q_{n,m} \quad &amp; = y_n y_m z_n^T z_m \\
+p \quad &amp; = -1_N \\
+a_{\ge} = y \quad &amp;; c_{\ge} = 0; \\
+a_{\le} = -y \quad &amp;; c_{\le} = 0; \\
+a_n^T = n \text{-th unit direction} \quad &amp;; c_n = 0
+\end{split}
+\]</span></p>
+<p>Note: many solvers treat equality (<span class="math">\(a_{\ge}, a_{\le}\)</span>) &amp; bound constraints (<span class="math">\(a_n\)</span>) specially for numerical stability.</p>
+<p><strong>Dual SVM with Special QP Solver</strong></p>
+<ul>
+<li><span class="math">\(q_{n,m} = y_n y_m z_n^T z_m\)</span>, often non-zero, dense.</li>
+<li>if <span class="math">\(N = 30000\)</span>, dense <span class="math">\(Q_d\)</span> (<span class="math">\(N\)</span> by <span class="math">\(N\)</span> symmetric) takes &gt; 3G RAM</li>
+<li>need special solver for
+<ul>
+<li>not storing whole <span class="math">\(Q_D\)</span>.</li>
+<li>utilizing special constraints properly.</li>
+</ul></li>
+<li>to scale up to large <span class="math">\(N\)</span>.</li>
+<li>usually better to use special solver in practice.</li>
+</ul>
+<p><strong>optimal <span class="math">\((b, w)\)</span></strong></p>
+<p>KKT conditions</p>
+<ul>
+<li>if primal-dual optimal <span class="math">\((b, w, \alpha)\)</span>
+<ul>
+<li>primal feasible: <span class="math">\(y_{n} (w^T z_n + b) \ge 1\)</span></li>
+<li>dual feasible: <span class="math">\(\alpha_n \ge 0\)</span></li>
+<li>dual-inner optimal: <span class="math">\(\sum y_n \alpha_n = 0; w = \sum \alpha_n y_n z_n\)</span></li>
+<li>primal-inner optimal (at optimal all ‘Lagrange term’ disappear): <span class="math">\(\alpha_n (1 - y_n (w^T z_n + b)) = 0\)</span>. (<strong>complimentary slackness</strong>)</li>
+</ul></li>
+<li>optimal <span class="math">\(\alpha \implies\)</span> optimal <span class="math">\(w\)</span>? easy above!</li>
+<li>optimal <span class="math">\(\alpha \implies\)</span> optimal <span class="math">\(b\)</span>? a range from primal feasible &amp; equality from complimentary slackness if one <span class="math">\(\alpha_n &gt; 0 \implies b = y_n - w^T z_n\)</span></li>
+</ul>
+<p>complimentary slackness: <span class="math">\(\alpha_n &gt; 0 \implies\)</span> on fat boundary (SV!)</p>
 </div>
 <div id="messages-behind-dual-svm" class="section level2">
 <h2>Messages behind Dual SVM</h2>
+<p><strong>Support Vectors Revisited</strong></p>
+<ul>
+<li>on boundary: ‘locates’ fattest hyperplane; others: not needed.</li>
+<li>examples with <span class="math">\(\alpha_n &gt; 0\)</span>: on boundary</li>
+<li>call <span class="math">\(\alpha_n &gt; 0\)</span> examples <span class="math">\((z_n, y_n)\)</span> support vectors</li>
+<li><p>SV (positive <span class="math">\(\alpha_n\)</span>) <span class="math">\(\subseteq\)</span> SV candidates (on boundary)</p></li>
+<li>only SV needed to compute <span class="math">\(w: w = \sum_{n=1}^{N} \alpha_n y_n z_n = \sum_{SV} \alpha_n y_n z_n\)</span></li>
+<li><p>only SV needed to compute <span class="math">\(b: b = y_n - w^T z_n\)</span> with any SV <span class="math">\((z_n, y_n)\)</span></p></li>
+</ul>
+<p>SVM: learn fattest hyperplane by identifying support vectors with dual optimal solution.</p>
+<p><strong>Representation of Fattest Hyperplane</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">SVM</th>
+<th align="center">PLA</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math">\(w_{SVM}= \sum_{n=1}^{N} \alpha_n y_n z_n\)</span></td>
+<td align="center"><span class="math">\(w_{PLA} = \sum_{n=1}^{N} \beta_n y_n z_n\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math">\(\alpha_n\)</span> from dual solution</td>
+<td align="center"><span class="math">\(\beta_n\)</span> by # mistake corrections</td>
+</tr>
+</tbody>
+</table>
+<p><span class="math">\(w =\)</span> linear combination of <span class="math">\(y_n z_n\)</span></p>
+<ul>
+<li>also true for GD/SGD-based LogReg/LinReg when <span class="math">\(w_0 = 0\)</span></li>
+<li>call <span class="math">\(w\)</span> ‘represented’ by data</li>
+</ul>
+<p>哲学上来说：我们想如何表现 <span class="math">\(w\)</span>:</p>
+<ul>
+<li>SVM: represent <span class="math">\(w\)</span> by SVs only.</li>
+</ul>
+<p><strong>Summary: Two Forms of Hard-Margin SVM</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Primal Hard-Margin SVM</th>
+<th align="center">Dual Hard-Margin SVM</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math">\(\begin{split} \underset{b,w}{\text{min}} \quad &amp; \frac{1}{2} w^T w \\ \text{subject to } \quad &amp; y_n (w^T x_n + b) \ge 1 \\ &amp; \text{ for all } n \end{split}\)</span></td>
+<td align="center"><span class="math">\(\begin{split} \underset{\alpha}{\text{min}} \quad &amp; \frac{1}{2} \alpha^T Q_D \alpha - 1^T \alpha \\ \text{subject to } \quad &amp; y^T \alpha = 0 ;\\ &amp; \alpha_n \ge 0 \text{ for } n = 1, \dots, N \end{split}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math">\(\tilde{d} + 1\)</span> variables</td>
+<td align="center"><span class="math">\(N\)</span> variables</td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math">\(N\)</span> constraints</td>
+<td align="center"><span class="math">\(N+1\)</span> simple constraints</td>
+</tr>
+<tr class="even">
+<td align="center">suitable when <span class="math">\(\tilde{d} + 1\)</span> small</td>
+<td align="center">suitable when <span class="math">\(N\)</span> small</td>
+</tr>
+<tr class="odd">
+<td align="center">physical meaning: locate specially-scaled <span class="math">\((b, w)\)</span></td>
+<td align="center">physical meaning: locate SVs <span class="math">\((z_n, y_n)\)</span> &amp; their <span class="math">\(\alpha_n\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Both eventually result in optimal <span class="math">\((b, w)\)</span> for fattest hyperplane</p>
+<p><span class="math">\[
+g_{SVM}(x) = \text{sign} (w^T \Phi(x) + b)
+\]</span></p>
+<p><strong>Are We Done Yet?</strong></p>
+<p><span class="math">\[
+\begin{split}
+\underset{\alpha}{\text{min}} \quad &amp; \frac{1}{2} \alpha^T Q_D \alpha - 1^T \alpha \\
+\text{subject to } \quad &amp; y^T \alpha = 0 ;\\
+&amp; \alpha_n \ge 0 \text{ for } n = 1, \dots, N
+\end{split}
+\]</span></p>
+<ul>
+<li><span class="math">\(N\)</span> variables, <span class="math">\(N+1\)</span> simple constraints: no dependence on <span class="math">\(\tilde{d}\)</span>?</li>
+<li><span class="math">\(q_{n,m} = y_n y_m z_n^T z_m\)</span>: inner product in <span class="math">\(\mathbb{R}^{\tilde{d}}\)</span>
+<ul>
+<li><span class="math">\(O(\tilde{d})\)</span> via naive computation!</li>
+</ul></li>
+</ul>
+<p>no dependence only if avoiding naive computation! (next lecture :))</p>
 </div>
 <div id="conclusions-1" class="section level2">
 <h2>Conclusions</h2>
 <ul>
-<li>Motivation of Dual SVM</li>
-<li>Lagrange Dual SVM</li>
-<li>Solving Dual SVM</li>
-<li>Messages behind Dual SVM</li>
-<li>Conclusions</li>
+<li>Motivation of Dual SVM
+<ul>
+<li>want to remove dependence <span class="math">\(\tilde{d}\)</span></li>
+</ul></li>
+<li>Lagrange Dual SVM
+<ul>
+<li>KKT conditions link primal/dual</li>
+</ul></li>
+<li>Solving Dual SVM
+<ul>
+<li>another QP, better solved with special solver</li>
+</ul></li>
+<li>Messages behind Dual SVM
+<ul>
+<li>SVs represent fattest hyperplane</li>
+</ul></li>
 </ul>
 </div>
 </div>
