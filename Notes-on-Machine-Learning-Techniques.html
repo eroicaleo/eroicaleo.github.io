@@ -84,6 +84,9 @@ img {
 <li><a href="#messages-behind-dual-svm">Messages behind Dual SVM</a></li>
 <li><a href="#conclusions-1">Conclusions</a></li>
 </ul></li>
+<li><a href="#lecture-3-kernel-support-vector-machine">Lecture 3 Kernel Support Vector Machine</a><ul>
+<li><a href="#kernel-trick">Kernel Trick</a></li>
+</ul></li>
 </ul>
 </div>
 
@@ -928,6 +931,61 @@ g_{SVM}(x) = \text{sign} (w^T \Phi(x) + b)
 <ul>
 <li>SVs represent fattest hyperplane</li>
 </ul></li>
+</ul>
+</div>
+</div>
+<div id="lecture-3-kernel-support-vector-machine" class="section level1">
+<h1>Lecture 3 Kernel Support Vector Machine</h1>
+<div id="kernel-trick" class="section level2">
+<h2>Kernel Trick</h2>
+<p><strong>Dual SVM Revisited</strong></p>
+<p>goal: SVM without dependence on <span class="math">\(\tilde{d}\)</span></p>
+<p>half way done:</p>
+<p><span class="math">\[
+\begin{split}
+\underset{\alpha}{\text{min}} \quad &amp; \frac{1}{2} \alpha^T Q_D \alpha - 1^T \alpha \\
+\text{subject to } \quad &amp; y^T \alpha = 0 ;\\
+&amp; \alpha_n \ge 0 \text{ for } n = 1, \dots, N
+\end{split}
+\]</span></p>
+<ul>
+<li><span class="math">\(q_{n,m} = y_n y_m z_n^T z_m\)</span>: inner product in <span class="math">\(\mathbb{R}^{\tilde{d}}\)</span></li>
+<li>need: <span class="math">\(z_n^T z_m = \Phi(x_n)^T \Phi(x_m)\)</span> calculated faster than <span class="math">\(O(\tilde{d})\)</span>
+<ul>
+<li>先做转换，再做内积。Assume 10000 dimension, 10000 cost to to the transform, 10000 cost to do the inner product.</li>
+<li>可以合起来偷吃步吗？</li>
+</ul></li>
+</ul>
+<p><strong>Fast Inner Product for <span class="math">\(\Phi_2\)</span></strong></p>
+<ul>
+<li>2nd order polynomial transform
+<ul>
+<li><span class="math">\(\Phi_2(x) = (1, x_1, x_2, \dots, x_d, x_1^2, x_1x_2, \dots, x_1x_d, x_2x_1, x_2^2,  \dots, x_2x_d, \dots, x_d^2)\)</span></li>
+<li>Include both <span class="math">\(x_1x_2\)</span> &amp; <span class="math">\(x_2x_1\)</span> for simplicity.</li>
+</ul></li>
+</ul>
+<p><span class="math">\[
+\begin{split}
+\Phi_2(x)^T \Phi_2(x')
+\quad &amp; = 1 + \sum_{i=1}^{d} x_ix_i'
++ \sum_{i=1}^{d} \sum_{j=1}^{d} x_ix_jx_i'x_j' \\
+\quad &amp; = 1 + \sum_{i=1}^{d} x_ix_i'
++ \sum_{i=1}^{d} x_ix_i' \sum_{j=1}^{d} x_jx_j' \\
+\quad &amp; = 1 + x^Tx' + (x^Tx')(x^Tx')
+\end{split}
+\]</span></p>
+<ul>
+<li>For <span class="math">\(\Phi_2\)</span>, transform + inner product can be carefully done in <span class="math">\(O(d)\)</span> instead of <span class="math">\(O(d^2)\)</span></li>
+</ul>
+<p><strong>Kernel: Transform + Inner Product</strong></p>
+<ul>
+<li>transform <span class="math">\(\Phi \iff\)</span> Kernel function: <span class="math">\(K_{\Phi}(x, x') \equiv \Phi(x)^T \Phi(x')\)</span></li>
+<li><p><span class="math">\(\Phi_2 \iff K_{\Phi^2}(x, x') = 1 + x^Tx' + (x^Tx')^2\)</span></p></li>
+<li>quadratic coefficient <span class="math">\(q_{n,m} = y_n y_m z_n^T z_m = y_ny_m K(x_n, x_m)\)</span> ## Polynomial Kernel ## Gaussian Kernel ## Comparison of Kernels ## Conclusions</li>
+<li>Kernel Trick</li>
+<li>Polynomial Kernel</li>
+<li>Gaussian Kernel</li>
+<li><p>Comparison of Kernels</p></li>
 </ul>
 </div>
 </div>

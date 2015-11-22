@@ -794,3 +794,71 @@ no dependence only if avoiding naive computation! (next lecture :))
     * another QP, better solved with special solver
 * Messages behind Dual SVM
     * SVs represent fattest hyperplane
+
+# Lecture 3 Kernel Support Vector Machine
+
+## Kernel Trick
+
+**Dual SVM Revisited**
+
+goal: SVM without dependence on $\tilde{d}$
+
+half way done:
+
+$$
+\begin{split}
+\underset{\alpha}{\text{min}} \quad & \frac{1}{2} \alpha^T Q_D \alpha - 1^T \alpha \\
+\text{subject to } \quad & y^T \alpha = 0 ;\\
+& \alpha_n \ge 0 \text{ for } n = 1, \dots, N
+\end{split}
+$$
+
+* $q_{n,m} = y_n y_m z_n^T z_m$: inner product in $\mathbb{R}^{\tilde{d}}$
+* need: $z_n^T z_m =  \Phi(x_n)^T \Phi(x_m)$ calculated faster than $O(\tilde{d})$
+    * 先做转换，再做内积。Assume 10000 dimension, 10000 cost to to the transform,
+      10000 cost to do the inner product.
+    * 可以合起来偷吃步吗？
+
+**Fast Inner Product for $\Phi_2$**
+
+* 2nd order polynomial transform
+    * $\Phi_2(x) = (1, x_1, x_2, \dots, x_d, x_1^2, x_1x_2, \dots, x_1x_d, x_2x_1, x_2^2,
+      \dots, x_2x_d, \dots, x_d^2)$
+    * Include both $x_1x_2$ & $x_2x_1$ for simplicity.
+
+$$
+\begin{split}
+\Phi_2(x)^T \Phi_2(x')
+\quad & = 1 + \sum_{i=1}^{d} x_ix_i'
++ \sum_{i=1}^{d} \sum_{j=1}^{d} x_ix_jx_i'x_j' \\
+\quad & = 1 + \sum_{i=1}^{d} x_ix_i'
++ \sum_{i=1}^{d} x_ix_i' \sum_{j=1}^{d} x_jx_j' \\
+\quad & = 1 + x^Tx' + (x^Tx')(x^Tx')
+\end{split}
+$$
+
+* For $\Phi_2$, transform + inner product can be carefully done in $O(d)$ instead
+  of $O(d^2)$
+
+**Kernel: Transform + Inner Product**
+
+* transform $\Phi \iff$ Kernel function: $K_{\Phi}(x, x') \equiv \Phi(x)^T \Phi(x')$
+* $\Phi_2 \iff K_{\Phi^2}(x, x') = 1 + x^Tx' + (x^Tx')^2$
+
+* quadratic coefficient $q_{n,m} = y_n y_m z_n^T z_m = y_ny_m K(x_n, x_m)$
+* optimal bias $b$? From SV($x_s$, $y_s$)
+
+$$
+b = y_s - w^T z_s
+= y_s - (\sum_{i=1}^{N} \alpha_n y_n z_n)^T z_s
+= y_s - \sum_{i=1}^{N} ( \alpha_n y_n K(x_n, x_s))
+$$
+
+## Polynomial Kernel
+## Gaussian Kernel
+## Comparison of Kernels
+## Conclusions
+* Kernel Trick
+* Polynomial Kernel
+* Gaussian Kernel
+* Comparison of Kernels
