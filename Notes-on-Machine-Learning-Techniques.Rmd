@@ -2,10 +2,14 @@
 title: "Notes on Machine Learning Techniques"
 author: "Yang Ge"
 date: "November 13, 2015"
+header-includes:
+   - \usepackage{stmaryrd}
 output:
   html_document:
     keep_md: false
     toc: true
+    includes:
+        in_header: header.tex
 ---
 
 ```{r setoptions, echo=TRUE}
@@ -1077,3 +1081,92 @@ define your own kernel: possible, but hard.
     * embeds infinite dimensional transform
 * Comparison of Kernels
     * linear for efficiency or Gaussian for power
+
+# Lecture 4 Soft-Margin Support Vector Machine
+
+## Motivation and Primal Problem
+
+**Cons of Hard-Margin SVM**
+
+recall: SVM can still overfit :(
+
+* part of reasons: $\Phi$
+    * $\Phi_1$ looks reasonable, although make some mistakes.
+    * $\Phi_4$ separate data perfectly, but looks weird and not reasonable
+* other part: separable
+
+If always insisting on separable ($\implies$ shatter), have power to overfit to
+noise.
+
+**Give Up on Some Examples**
+
+want: give up on some noisy examples
+
+| pocket | Hard-Margin SVM |
+| :------------- | :------------- |
+| $\underset{b,w}{\text{min}} \sum_{n=1}^{N} [y_n \ne \text{sign} (w^Tz_n + b)]$ | $\underset{b,w}{\text{min}} \frac{1}{2} w^T w$ |
+| | s.t. $y_n (w^T z_n + b) \ge 1$ for all $n$|
+
+Combination:
+
+$$
+\begin{split}
+\underset{b,w}{\text{min}} \quad & \frac{1}{2} w^T w + C \dot \sum_{n=1}^{N} [y_n \ne \text{sign} (w^Tz_n + b)] \\
+\text{s.t.} \quad & y_n (w^T z_n + b) \ge 1 \text{ for correct } n \\
+& y_n (w^T z_n + b) \ge -\infty \text{ for incorrect } n
+\end{split}
+$$
+
+$C$: trade-off of large margin & noise tolerance
+
+**Soft-Margin SVM (1/2)**
+
+$$
+\begin{split}
+\underset{b,w}{\text{min}} \quad & \frac{1}{2} w^T w + C \dot \sum_{n=1}^{N} [ y_n \ne \text{sign} (w^Tz_n + b) ] \\
+\text{s.t.} \quad & y_n (w^T z_n + b) \ge 1 - \infty \dot [ y_n \ne \text{sign} (w^Tz_n + b) ]
+\end{split}
+$$
+
+* $[\dot]$: non-linear, not QP anymore :(
+    * what about dual? kernel?
+* cannot distinguish small error (slightly away from fat boundary)
+    * large error (far away from fat boundary)
+* record 'margin violation' by $\xi_n$ - linear constraints
+* penalize with margin violation instead of error count - quadratic objective
+
+$$
+\begin{split}
+\underset{b,w}{\text{min}} \quad & \frac{1}{2} w^T w + C \dot \sum_{n=1}^{N} \xi_n \\
+\text{s.t.} \quad & y_n (w^T z_n + b) \ge 1 - \xi_n \text{ and } \xi_n \ge 0 \text{ for all } n
+\end{split}
+$$
+
+**Soft-Margin SVM (1/2)**
+
+* record 'margin violation' by $\xi_n$
+* penalize with margin violation instead of error count
+
+$$
+\begin{split}
+\underset{b,w,\xi}{\text{min}} \quad & \frac{1}{2} w^T w + C \dot \sum_{n=1}^{N} \xi_n \\
+\text{s.t.} \quad & y_n (w^T z_n + b) \ge 1 - \xi_n \text{ and } \xi_n \ge 0 \text{ for all } n
+\end{split}
+$$
+
+* parameter $C$: trade-off of Large-Margin and margin violation
+    * large $C$: want less margin violation
+    * small $C$: want large margin
+* QP of $\tilde{d} + 1 + N$ variables, $2N$ constraints
+
+next: remove dependence on $\tilde{d}$ by Soft-Margin SVM primal $\implies$ dual?
+
+## Dual Problem
+## Messages behind Soft-Margin SVM
+## Model Selection
+## Conclusions
+
+* Motivation and Primal Problem
+* Dual Problem
+* Messages behind Soft-Margin SVM
+* Model Selection
