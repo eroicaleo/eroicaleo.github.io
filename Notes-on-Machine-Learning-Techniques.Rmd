@@ -854,11 +854,226 @@ b = y_s - w^T z_s
 = y_s - \sum_{i=1}^{N} ( \alpha_n y_n K(x_n, x_s))
 $$
 
+* optimal hypothesis $g_{SVM}$: for test input x,
+
+$$
+g_{SVM} = \text{sign} (w^T \Phi(x) + b)
+= \text{sign} (\sum_{n=1}^{N} \alpha_n y_n K(x_n, x) + b)
+$$
+
+没有任何地方需要在$z$空间中进行。
+
+Kernel Trick: plug in efficient kernel function to avoid dependence on $\tilde{d}$
+
+**Kernel SVM with QP**
+
+| Kernel Hard-Margin SVM Algorithm ||
+| :------------- | :------------- |
+| 1. $q_{n,m} = y_n y_m z_n^T z_m$; $p = -1_N$; $(A, c)$ for equ./bound constraints ||
+| 2. $\alpha \leftarrow QP(Q_D, p, A, c)$||
+| 3. $b \leftarrow (y_s - \sum_{i=1}^{N} ( \alpha_n y_n K(x_n, x_s)))$ with SV $(x_s, y_s)$ ||
+| 4. return SVs and their $\alpha_n$ as well as $b$ such that for new $x$,
+$g_{SVM} = \text{sign} (\sum_{n=1}^{N} \alpha_n y_n K(x_n, x) + b)$ ||
+
+* 1: time complexity $O(N^2) \cdot$ (kernel evaluation)
+* 2: QP with $N$ variables and $N+1$ constraints
+* 3 and 4: time complexity $O(\# SV) \cdot$ (kernel evaluation)
+
+Kernel SVM: use computational shortcut to avoid $\tilde{d}$ & predict with SV only.
+
 ## Polynomial Kernel
+
+**General Poly-2 Kernel**
+
+$$
+\begin{split}
+\Phi_2(x) = (1, x_1, \dots, x_d, x_1^2, \dots, x_d^2) \quad & \iff
+K_{\Phi_2}(x, x') = 1 + x^Tx' + (x^Tx')^2 \\
+\Phi_2(x) = (1, \sqrt{2}x_1, \dots, \sqrt{2} x_d, x_1^2, \dots, x_d^2) \quad & \iff
+K_{\Phi_2}(x, x') = 1 + 2x^Tx' + (x^Tx')^2 \\
+\Phi_2(x) = (1, \sqrt{2\gamma}x_1, \dots, \sqrt{2\gamma} x_d, x_1^2, \dots, x_d^2) \quad & \iff
+K_{\Phi_2}(x, x') = 1 + 2\gamma x^Tx' + (x^Tx')^2 \\
+\end{split}
+$$
+
+$$
+K_2(x, x') = (1 + \gamma x^Tx')^2 \text{ with } \gamma > 0
+$$
+
+* $K_2$: somewhat 'easier' to calculate than $K_{\Phi_2}$
+* $\Phi_2$ and $\\Phi_2$: equivalent power, different inner product $\implies$
+  different geometry.
+    * 不同内积代表不同距离，不同的距离有不同的几何特性，算出来的margin就不一样。
+    * 就算在同样的空间，也会得到不同的边界。
+* $K_2$ commonly used.
+
+**Poly-2 Kernels in Action**
+
+ * $g_{SVM}$ different, SVs different.
+    * 'hard' to say which is better before learning.
+* change of kernel $\iff$ change of margin definition
+
+need selecting $K$, just like selecting $\Phi$.
+
+**General Polynomial Kernel**
+
+$$
+\begin{split}
+K_2(x, x') \quad & = (\zeta + \gamma x^Tx')^2 \text{ with } \gamma > 0, \zeta \ge 0 \\
+K_3(x, x') \quad & = (\zeta + \gamma x^Tx')^3 \text{ with } \gamma > 0, \zeta \ge 0 \\
+K_Q(x, x') \quad & = (\zeta + \gamma x^Tx')^Q \text{ with } \gamma > 0, \zeta \ge 0
+\end{split}
+$$
+
+* embeds $\Phi_Q$ specially with parameters
+* allows computing Large-Margin polynomial classification without dependence on $\tilde{d}$
+    * Will 10th order overfit? Probably, but the bottom line is that you still
+      has large margin to help you to harness the complexity.
+
+* SVM + Polynomial Kernel: Polynomial SVM
+
+**Special Case Linear Kernel**
+
+$$
+K_1(x, x') = (0 + 1 \dot x^T x)^1
+$$
+
+* $K_1$: just usual inner product, called linear kernel
+* 'even easier': can be solved (often in primal form) efficiently.
+
+linear first, remember? :)
+
 ## Gaussian Kernel
+
+**Kernel of Infinite Dimensional Transform**
+
+Infinite dimensional $\Phi(x)$? Yes, if $K(x, x')$ efficiently computable!
+
+$$
+\begin{split}
+\text{when } x = (x), K (x, x')
+\quad &= \quad \text{exp}(-(x-x')^2) \\
+\quad &= \quad \text{exp}(-(x)^2) \text{exp}(-(x')^2) \text{exp}(2xx') \\
+\quad &= \quad \text{exp}(-(x)^2) \text{exp}(-(x')^2) \left( \sum_{i=0}^{\infty}
+\frac{(2xx')^i}{i!}\right) \\
+\quad &= \quad \sum_{i=0}^{\infty} \left(
+  \text{exp}(-(x)^2) \text{exp}(-(x')^2) \sqrt{\frac{2^i}{i!}} \sqrt{\frac{2^i}{i!}} (x)^i (x')^i
+\right) \\
+\quad &= \quad \Phi(x)^T \Phi(x')
+\end{split}
+$$
+
+with infinite dimensional $\Phi(x) = \text{exp}(-x^2) \dot (1,
+\sqrt{\frac{2^1}{1!}}, \sqrt{\frac{2^2}{2!}}, \dots)$
+
+more generally, Gaussian kernel $K(x, x') = \text{exp}(-\gamma \begin{Vmatrix}
+x-x'
+\end{Vmatrix}^2 )$ with $\gamma > 0$
+
+**Hypothesis of Gaussian SVM**
+
+$$
+\begin{split}
+g_{SVM}
+&= (\text{sign} \sum_{SV} \alpha_n y_n K(x_n, x) + b) \\
+&= (\text{sign} \sum_{SV} \alpha_n y_n \text{exp}(-\gamma \begin{Vmatrix}
+x - x_n
+\end{Vmatrix}^2) + b) \\
+\end{split}
+$$
+
+* linear combination of Gaussian centered at SVs $x_n$
+* also called Radial Basis Function (RBF) kernel
+
+Gaussian SVM: find $\alpha_n$ to combine Gaussian centered at $x_n$ & achieve
+large margin in infinite-dim. space
+
+**Support Vector Mechanism**
+
+| Header One     | Large-Margin hyperplane + higher-order transforms with kernel trick |
+| :-------------: | :-------------: |
+| # | not many |
+|boundary | sophisticated|
+
+* transformed vector $z = \Phi(x) \implies$ efficient kernel $K(x, x')$
+* store optimal $w \implies$ store a few SVs and $\alpha_n$
+
+new possiblility by Gaussian SVM: infinite-dimensional linear classification, with
+generalization 'guarded by' Large-Margin :)
+
+**Gaussian SVM in Action**
+
+* large $\gamma \implies$ sharp Gaussian $\implies$ 'overfit'
+* Warning: SVM can still overfit :(
+
+Gaussian SVM: need careful selection of $\gamma$.
+
 ## Comparison of Kernels
+
+**Linear Kernel: Cons and Pros**
+
+$$
+K(x, x') = x^T x
+$$
+
+| Cons | Pros     |
+| :------------- | :------------- |
+| restricted - not always separable?! | fast - with special QP solver in primal |
+| | safe - linear first, remember  |
+| | very explainable - $w$ and SVs say something |
+
+Linear kernel: an important basic tool.
+
+**Polynomial Kernel: Cons and Pros**
+
+$$
+K(x, x') = (\zeta + \gamma x^T x')^Q
+$$
+
+| Cons | Pros     |
+| :------------- | :------------- |
+| numerical difficulty for large $Q$: | less restricted than linear |
+| $|\zeta + \gamma x^Tx'| < 1: K \rightarrow 0$ | strong physical control - 'knows' degree Q |
+| $|\zeta + \gamma x^Tx'| > 1: K \rightarrow big$ | |
+| three parameters $(\gamma, \zeta, Q)$ - more difficult to select | |
+
+polynomial kernel: perhaps small-Q only. 当我们心里想好 $Q$ 的时候.
+
+sometimes efficiently done by linear on $\Phi_Q(x)$
+
+**Gaussian Kernel: Cons and Pros**
+
+$$
+K(x, x') = \text{exp}(-\gamma \begin{Vmatrix}
+x - x'
+\end{Vmatrix}^2)
+$$
+
+| Cons | Pros     |
+| :------------- | :------------- |
+| mysterious - no $w$ | more powerful than linear/poly |
+| slower than linear | bounded - less numerical difficult than poly |
+| too powerful! | one parameter only - easier to select than poly |
+
+Gaussian kernel: one of most popular but shall be used with care.
+
+**Other Valid Kernels**
+
+* kernel represents special similarity: $\Phi(x)^T \Phi(x')$
+* any similarity $\implies$ valid kernel? not really
+* necessary and sufficient conditions for valid kernel: Mercer's condition
+    * symmetric
+    * let $k_{ij} = K(x_i, x_j)$, the matrix $K = ZZ^T$ must always be positive
+      semi-definite
+
+define your own kernel: possible, but hard.
+
 ## Conclusions
 * Kernel Trick
+    * kernel as shortcut of transform + inner product
 * Polynomial Kernel
+    * embeds specially-scaled polynomial transform
 * Gaussian Kernel
+    * embeds infinite dimensional transform
 * Comparison of Kernels
+    * linear for efficiency or Gaussian for power

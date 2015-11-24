@@ -86,6 +86,10 @@ img {
 </ul></li>
 <li><a href="#lecture-3-kernel-support-vector-machine">Lecture 3 Kernel Support Vector Machine</a><ul>
 <li><a href="#kernel-trick">Kernel Trick</a></li>
+<li><a href="#polynomial-kernel">Polynomial Kernel</a></li>
+<li><a href="#gaussian-kernel">Gaussian Kernel</a></li>
+<li><a href="#comparison-of-kernels">Comparison of Kernels</a></li>
+<li><a href="#conclusions-2">Conclusions</a></li>
 </ul></li>
 </ul>
 </div>
@@ -981,11 +985,306 @@ g_{SVM}(x) = \text{sign} (w^T \Phi(x) + b)
 <ul>
 <li>transform <span class="math">\(\Phi \iff\)</span> Kernel function: <span class="math">\(K_{\Phi}(x, x') \equiv \Phi(x)^T \Phi(x')\)</span></li>
 <li><p><span class="math">\(\Phi_2 \iff K_{\Phi^2}(x, x') = 1 + x^Tx' + (x^Tx')^2\)</span></p></li>
-<li>quadratic coefficient <span class="math">\(q_{n,m} = y_n y_m z_n^T z_m = y_ny_m K(x_n, x_m)\)</span> ## Polynomial Kernel ## Gaussian Kernel ## Comparison of Kernels ## Conclusions</li>
-<li>Kernel Trick</li>
-<li>Polynomial Kernel</li>
-<li>Gaussian Kernel</li>
-<li><p>Comparison of Kernels</p></li>
+<li>quadratic coefficient <span class="math">\(q_{n,m} = y_n y_m z_n^T z_m = y_ny_m K(x_n, x_m)\)</span></li>
+<li><p>optimal bias <span class="math">\(b\)</span>? From SV(<span class="math">\(x_s\)</span>, <span class="math">\(y_s\)</span>)</p></li>
+</ul>
+<p><span class="math">\[
+b = y_s - w^T z_s
+= y_s - (\sum_{i=1}^{N} \alpha_n y_n z_n)^T z_s
+= y_s - \sum_{i=1}^{N} ( \alpha_n y_n K(x_n, x_s))
+\]</span></p>
+<ul>
+<li>optimal hypothesis <span class="math">\(g_{SVM}\)</span>: for test input x,</li>
+</ul>
+<p><span class="math">\[
+g_{SVM} = \text{sign} (w^T \Phi(x) + b)
+= \text{sign} (\sum_{n=1}^{N} \alpha_n y_n K(x_n, x) + b)
+\]</span></p>
+<p>没有任何地方需要在<span class="math">\(z\)</span>空间中进行。</p>
+<p>Kernel Trick: plug in efficient kernel function to avoid dependence on <span class="math">\(\tilde{d}\)</span></p>
+<p><strong>Kernel SVM with QP</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Kernel Hard-Margin SVM Algorithm</th>
+<th align="left"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">1. <span class="math">\(q_{n,m} = y_n y_m z_n^T z_m\)</span>; <span class="math">\(p = -1_N\)</span>; <span class="math">\((A, c)\)</span> for equ./bound constraints</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">2. <span class="math">\(\alpha \leftarrow QP(Q_D, p, A, c)\)</span></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">3. <span class="math">\(b \leftarrow (y_s - \sum_{i=1}^{N} ( \alpha_n y_n K(x_n, x_s)))\)</span> with SV <span class="math">\((x_s, y_s)\)</span></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">4. return SVs and their <span class="math">\(\alpha_n\)</span> as well as <span class="math">\(b\)</span> such that for new <span class="math">\(x\)</span>,</td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math">\(g_{SVM} = \text{sign} (\sum_{n=1}^{N} \alpha_n y_n K(x_n, x) + b)\)</span></td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>1: time complexity <span class="math">\(O(N^2) \cdot\)</span> (kernel evaluation)</li>
+<li>2: QP with <span class="math">\(N\)</span> variables and <span class="math">\(N+1\)</span> constraints</li>
+<li>3 and 4: time complexity <span class="math">\(O(\# SV) \cdot\)</span> (kernel evaluation)</li>
+</ul>
+<p>Kernel SVM: use computational shortcut to avoid <span class="math">\(\tilde{d}\)</span> &amp; predict with SV only.</p>
+</div>
+<div id="polynomial-kernel" class="section level2">
+<h2>Polynomial Kernel</h2>
+<p><strong>General Poly-2 Kernel</strong></p>
+<p><span class="math">\[
+\begin{split}
+\Phi_2(x) = (1, x_1, \dots, x_d, x_1^2, \dots, x_d^2) \quad &amp; \iff
+K_{\Phi_2}(x, x') = 1 + x^Tx' + (x^Tx')^2 \\
+\Phi_2(x) = (1, \sqrt{2}x_1, \dots, \sqrt{2} x_d, x_1^2, \dots, x_d^2) \quad &amp; \iff
+K_{\Phi_2}(x, x') = 1 + 2x^Tx' + (x^Tx')^2 \\
+\Phi_2(x) = (1, \sqrt{2\gamma}x_1, \dots, \sqrt{2\gamma} x_d, x_1^2, \dots, x_d^2) \quad &amp; \iff
+K_{\Phi_2}(x, x') = 1 + 2\gamma x^Tx' + (x^Tx')^2 \\
+\end{split}
+\]</span></p>
+<p><span class="math">\[
+K_2(x, x') = (1 + \gamma x^Tx')^2 \text{ with } \gamma &gt; 0
+\]</span></p>
+<ul>
+<li><span class="math">\(K_2\)</span>: somewhat ‘easier’ to calculate than <span class="math">\(K_{\Phi_2}\)</span></li>
+<li><span class="math">\(\Phi_2\)</span> and <span class="math">\(\\Phi_2\)</span>: equivalent power, different inner product <span class="math">\(\implies\)</span> different geometry.
+<ul>
+<li>不同内积代表不同距离，不同的距离有不同的几何特性，算出来的margin就不一样。</li>
+<li>就算在同样的空间，也会得到不同的边界。</li>
+</ul></li>
+<li><span class="math">\(K_2\)</span> commonly used.</li>
+</ul>
+<p><strong>Poly-2 Kernels in Action</strong></p>
+<ul>
+<li><span class="math">\(g_{SVM}\)</span> different, SVs different.
+<ul>
+<li>‘hard’ to say which is better before learning.</li>
+</ul></li>
+<li>change of kernel <span class="math">\(\iff\)</span> change of margin definition</li>
+</ul>
+<p>need selecting <span class="math">\(K\)</span>, just like selecting <span class="math">\(\Phi\)</span>.</p>
+<p><strong>General Polynomial Kernel</strong></p>
+<p><span class="math">\[
+\begin{split}
+K_2(x, x') \quad &amp; = (\zeta + \gamma x^Tx')^2 \text{ with } \gamma &gt; 0, \zeta \ge 0 \\
+K_3(x, x') \quad &amp; = (\zeta + \gamma x^Tx')^3 \text{ with } \gamma &gt; 0, \zeta \ge 0 \\
+K_Q(x, x') \quad &amp; = (\zeta + \gamma x^Tx')^Q \text{ with } \gamma &gt; 0, \zeta \ge 0
+\end{split}
+\]</span></p>
+<ul>
+<li>embeds <span class="math">\(\Phi_Q\)</span> specially with parameters</li>
+<li>allows computing Large-Margin polynomial classification without dependence on <span class="math">\(\tilde{d}\)</span>
+<ul>
+<li>Will 10th order overfit? Probably, but the bottom line is that you still has large margin to help you to harness the complexity.</li>
+</ul></li>
+<li>SVM + Polynomial Kernel: Polynomial SVM</li>
+</ul>
+<p><strong>Special Case Linear Kernel</strong></p>
+<p><span class="math">\[
+K_1(x, x') = (0 + 1 \dot x^T x)^1
+\]</span></p>
+<ul>
+<li><span class="math">\(K_1\)</span>: just usual inner product, called linear kernel</li>
+<li>‘even easier’: can be solved (often in primal form) efficiently.</li>
+</ul>
+<p>linear first, remember? :)</p>
+</div>
+<div id="gaussian-kernel" class="section level2">
+<h2>Gaussian Kernel</h2>
+<p><strong>Kernel of Infinite Dimensional Transform</strong></p>
+<p>Infinite dimensional <span class="math">\(\Phi(x)\)</span>? Yes, if <span class="math">\(K(x, x')\)</span> efficiently computable!</p>
+<p><span class="math">\[
+\begin{split}
+\text{when } x = (x), K (x, x')
+\quad &amp;= \quad \text{exp}(-(x-x')^2) \\
+\quad &amp;= \quad \text{exp}(-(x)^2) \text{exp}(-(x')^2) \text{exp}(2xx') \\
+\quad &amp;= \quad \text{exp}(-(x)^2) \text{exp}(-(x')^2) \left( \sum_{i=0}^{\infty}
+\frac{(2xx')^i}{i!}\right) \\
+\quad &amp;= \quad \sum_{i=0}^{\infty} \left(
+  \text{exp}(-(x)^2) \text{exp}(-(x')^2) \sqrt{\frac{2^i}{i!}} \sqrt{\frac{2^i}{i!}} (x)^i (x')^i
+\right) \\
+\quad &amp;= \quad \Phi(x)^T \Phi(x')
+\end{split}
+\]</span></p>
+<p>with infinite dimensional <span class="math">\(\Phi(x) = \text{exp}(-x^2) \dot (1, \sqrt{\frac{2^1}{1!}}, \sqrt{\frac{2^2}{2!}}, \dots)\)</span></p>
+<p>more generally, Gaussian kernel <span class="math">\(K(x, x') = \text{exp}(-\gamma \begin{Vmatrix} x-x' \end{Vmatrix}^2 )\)</span> with <span class="math">\(\gamma &gt; 0\)</span></p>
+<p><strong>Hypothesis of Gaussian SVM</strong></p>
+<p><span class="math">\[
+\begin{split}
+g_{SVM}
+&amp;= (\text{sign} \sum_{SV} \alpha_n y_n K(x_n, x) + b) \\
+&amp;= (\text{sign} \sum_{SV} \alpha_n y_n \text{exp}(-\gamma \begin{Vmatrix}
+x - x_n
+\end{Vmatrix}^2) + b) \\
+\end{split}
+\]</span></p>
+<ul>
+<li>linear combination of Gaussian centered at SVs <span class="math">\(x_n\)</span></li>
+<li>also called Radial Basis Function (RBF) kernel</li>
+</ul>
+<p>Gaussian SVM: find <span class="math">\(\alpha_n\)</span> to combine Gaussian centered at <span class="math">\(x_n\)</span> &amp; achieve large margin in infinite-dim. space</p>
+<p><strong>Support Vector Mechanism</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Header One</th>
+<th align="center">Large-Margin hyperplane + higher-order transforms with kernel trick</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">#</td>
+<td align="center">not many</td>
+</tr>
+<tr class="even">
+<td align="center">boundary</td>
+<td align="center">sophisticated</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>transformed vector <span class="math">\(z = \Phi(x) \implies\)</span> efficient kernel <span class="math">\(K(x, x')\)</span></li>
+<li>store optimal <span class="math">\(w \implies\)</span> store a few SVs and <span class="math">\(\alpha_n\)</span></li>
+</ul>
+<p>new possiblility by Gaussian SVM: infinite-dimensional linear classification, with generalization ‘guarded by’ Large-Margin :)</p>
+<p><strong>Gaussian SVM in Action</strong></p>
+<ul>
+<li>large <span class="math">\(\gamma \implies\)</span> sharp Gaussian <span class="math">\(\implies\)</span> ‘overfit’</li>
+<li>Warning: SVM can still overfit :(</li>
+</ul>
+<p>Gaussian SVM: need careful selection of <span class="math">\(\gamma\)</span>.</p>
+</div>
+<div id="comparison-of-kernels" class="section level2">
+<h2>Comparison of Kernels</h2>
+<p><strong>Linear Kernel: Cons and Pros</strong></p>
+<p><span class="math">\[
+K(x, x') = x^T x
+\]</span></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Cons</th>
+<th align="left">Pros</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">restricted - not always separable?!</td>
+<td align="left">fast - with special QP solver in primal</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">safe - linear first, remember</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left">very explainable - <span class="math">\(w\)</span> and SVs say something</td>
+</tr>
+</tbody>
+</table>
+<p>Linear kernel: an important basic tool.</p>
+<p><strong>Polynomial Kernel: Cons and Pros</strong></p>
+<p><span class="math">\[
+K(x, x') = (\zeta + \gamma x^T x')^Q
+\]</span></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Cons</th>
+<th align="left">Pros</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">numerical difficulty for large <span class="math">\(Q\)</span>:</td>
+<td align="left">less restricted than linear</td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math">\(|\zeta + \gamma x^Tx'| &lt; 1: K \rightarrow 0\)</span></td>
+<td align="left">strong physical control - ‘knows’ degree Q</td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math">\(|\zeta + \gamma x^Tx'| &gt; 1: K \rightarrow big\)</span></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">three parameters <span class="math">\((\gamma, \zeta, Q)\)</span> - more difficult to select</td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+<p>polynomial kernel: perhaps small-Q only. 当我们心里想好 <span class="math">\(Q\)</span> 的时候.</p>
+<p>sometimes efficiently done by linear on <span class="math">\(\Phi_Q(x)\)</span></p>
+<p><strong>Gaussian Kernel: Cons and Pros</strong></p>
+<p><span class="math">\[
+K(x, x') = \text{exp}(-\gamma \begin{Vmatrix}
+x - x'
+\end{Vmatrix}^2)
+\]</span></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Cons</th>
+<th align="left">Pros</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">mysterious - no <span class="math">\(w\)</span></td>
+<td align="left">more powerful than linear/poly</td>
+</tr>
+<tr class="even">
+<td align="left">slower than linear</td>
+<td align="left">bounded - less numerical difficult than poly</td>
+</tr>
+<tr class="odd">
+<td align="left">too powerful!</td>
+<td align="left">one parameter only - easier to select than poly</td>
+</tr>
+</tbody>
+</table>
+<p>Gaussian kernel: one of most popular but shall be used with care.</p>
+<p><strong>Other Valid Kernels</strong></p>
+<ul>
+<li>kernel represents special similarity: <span class="math">\(\Phi(x)^T \Phi(x')\)</span></li>
+<li>any similarity <span class="math">\(\implies\)</span> valid kernel? not really</li>
+<li>necessary and sufficient conditions for valid kernel: Mercer’s condition
+<ul>
+<li>symmetric</li>
+<li>let <span class="math">\(k_{ij} = K(x_i, x_j)\)</span>, the matrix <span class="math">\(K = ZZ^T\)</span> must always be positive semi-definite</li>
+</ul></li>
+</ul>
+<p>define your own kernel: possible, but hard.</p>
+</div>
+<div id="conclusions-2" class="section level2">
+<h2>Conclusions</h2>
+<ul>
+<li>Kernel Trick
+<ul>
+<li>kernel as shortcut of transform + inner product</li>
+</ul></li>
+<li>Polynomial Kernel
+<ul>
+<li>embeds specially-scaled polynomial transform</li>
+</ul></li>
+<li>Gaussian Kernel
+<ul>
+<li>embeds infinite dimensional transform</li>
+</ul></li>
+<li>Comparison of Kernels
+<ul>
+<li>linear for efficiency or Gaussian for power</li>
+</ul></li>
 </ul>
 </div>
 </div>
