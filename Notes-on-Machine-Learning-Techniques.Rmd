@@ -1162,6 +1162,38 @@ $$
 next: remove dependence on $\tilde{d}$ by Soft-Margin SVM primal $\implies$ dual?
 
 ## Dual Problem
+
+**Lagrange Dual**
+
+Primal:
+
+$$
+\begin{split}
+\underset{b,w,\xi}{\text{min}} \quad & \frac{1}{2} w^T w + C \dot \sum_{n=1}^{N} \xi_n \\
+\text{s.t.} \quad & y_n (w^T z_n + b) \ge 1 - \xi_n \text{ and } \xi_n \ge 0 \text{ for all } n
+\end{split}
+$$
+
+Lagrange function with Lagrange multipliers $\alpha_n$ and $\beta_n$
+
+$$
+\begin{split}
+\mathcal{L}(b, w, \xi, \alpha, \beta) = &
+\frac{1}{2} w^T w + C \dot \sum_{n=1}^{N} \xi_n \\
+& + \sum_{n=1}^{N} \alpha_n \dot (1 - \xi_n - y_n (w^T z_n + b) )
++ \sum_{n=1}^{N} \beta_n \dot (-\xi_n)
+\end{split}
+$$
+
+want: Lagrange dual
+
+$$
+\underset{\alpha_n \ge 0, \beta_n \ge 0}{\text{max}}
+(
+\underset{b, w, \xi}{\text{min}} \mathcal{L}(b, w, \xi, \alpha, \beta)  
+)
+$$
+
 ## Messages behind Soft-Margin SVM
 ## Model Selection
 ## Conclusions
