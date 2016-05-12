@@ -204,9 +204,14 @@ h(x) = \text{sign} (w^T x)
 </ul>
 <p><strong>Distance to Hyperplane</strong></p>
 <p>want: distance <span class="math">\((x, b, w)\)</span>, with hyperplane <span class="math">\(w^T x' + b = 0\)</span></p>
-<p>consider <span class="math">\(x', x''\)</span> on hyperplane: 1. <span class="math">\(w^Tx' = -b\)</span>, <span class="math">\(w^Tx'' = -b\)</span> 2. <span class="math">\(w \perp\)</span> hyperplane <span class="math">\[
+<p>consider <span class="math">\(x', x''\)</span> on hyperplane:</p>
+<ol style="list-style-type: decimal">
+<li><span class="math">\(w^Tx' = -b\)</span>, <span class="math">\(w^Tx'' = -b\)</span></li>
+<li><span class="math">\(w \perp\)</span> hyperplane <span class="math">\[
 w^T (x'' - x') = 0
-\]</span> 3. distance = project <span class="math">\((x - x')\)</span> to <span class="math">\(\perp\)</span> hyperplane.</p>
+\]</span></li>
+<li>distance = project <span class="math">\((x - x')\)</span> to <span class="math">\(\perp\)</span> hyperplane.</li>
+</ol>
 <p><span class="math">\[
 \text{distance}(x, b, w)
 = \begin{vmatrix}
@@ -250,24 +255,26 @@ y_{n}(w^T x_n + b) &gt; 0
   \begin{Vmatrix}
   w
   \end{Vmatrix}
-} w^T x + b
+} y_n(w^T x + b)
 \]</span></p>
 <ul>
-<li><span class="math">\(\underset{b,w}{\text{max}}\)</span> (b, w)</li>
-<li>subject to:
-<ul>
-<li>every <span class="math">\(y_{n}(w^T x_n + b) &gt; 0\)</span></li>
-<li><span class="math">\(\text{margin}(b, w) = \underset{n=1, \dots, N}{min}\frac{1}{  \begin{Vmatrix}  w  \end{Vmatrix} } y_n (w^T x_n + b)\)</span></li>
-</ul></li>
+<li>In summary:</li>
 </ul>
+<p><span class="math">\[
+\begin{split}
+\underset{b,w}{\text{max}} &amp;\quad \text{margin}(b, w) \\
+\text{subject to} &amp;\quad \text{every } y_{n}(w^T x_n + b) &gt; 0 \\
+ &amp;\quad
+ \text{margin}(b, w) = \underset{n=1, \dots, N}{min}\frac{1}{
+   \begin{Vmatrix}
+   w
+   \end{Vmatrix}
+ } y_n (w^T x_n + b)
+\end{split}
+\]</span></p>
 <p><strong>Margin of Special Separating Hyperplane</strong></p>
+<p>From above problem and notice the following 2 points:</p>
 <ul>
-<li><span class="math">\(\underset{b,w}{\text{max}} \text{margin}(b, w)\)</span></li>
-<li>subject to:
-<ul>
-<li>every <span class="math">\(y_{n}(w^T x_n + b) &gt; 0\)</span></li>
-<li><span class="math">\(\text{margin}(b, w) = \underset{n=1, \dots, N}{min}\frac{1}{  \begin{Vmatrix}  w  \end{Vmatrix} } y_n (w^T x_n + b)\)</span></li>
-</ul></li>
 <li><span class="math">\(w^Tx + b = 0\)</span> same as <span class="math">\(3w^Tx + 3b = 0\)</span>: scaling does not matter</li>
 <li>special scaling: only consider separating <span class="math">\((b, w)\)</span> such that</li>
 </ul>
@@ -278,23 +285,33 @@ y_{n}(w^T x_n + b) &gt; 0
   w
   \end{Vmatrix}}
 \]</span></p>
-<p>We have new formula:</p>
 <ul>
-<li><span class="math">\(\underset{b,w}{\text{max}} \frac{1}{  \begin{Vmatrix}  w  \end{Vmatrix}}\)</span></li>
-<li>subject to:
-<ul>
-<li>every <span class="math">\(y_{n}(w^T x_n + b) &gt; 0\)</span></li>
-<li><span class="math">\(\underset{n=1, \dots, N}{\text{min}} y_n (w^T x_n + b) = 1\)</span></li>
-</ul></li>
+<li>We have new formula:</li>
 </ul>
-<p>We could further simplify to:</p>
+<p><span class="math">\[
+\begin{split}
+  \underset{b,w}{\text{max}} &amp;\quad \frac{1}{
+    \begin{Vmatrix}
+    w
+    \end{Vmatrix}} \\
+  \text{subject to} &amp;\quad \text{every } y_{n}(w^T x_n + b) &gt; 0 \\
+  &amp;\quad
+  \underset{n=1, \dots, N}{\text{min}} y_n (w^T x_n + b) = 1
+\end{split}
+\]</span></p>
 <ul>
-<li><span class="math">\(\underset{b,w}{\text{max}} \frac{1}{  \begin{Vmatrix}  w  \end{Vmatrix}}\)</span></li>
-<li>subject to:
-<ul>
-<li><span class="math">\(\underset{n=1, \dots, N}{\text{min}} y_n (w^T x_n + b) = 1\)</span></li>
-</ul></li>
+<li>We could further simplify to the following since the 2nd condition is strong than the 1st one:</li>
 </ul>
+<p><span class="math">\[
+\begin{split}
+  \underset{b,w}{\text{max}} &amp;\quad \frac{1}{
+    \begin{Vmatrix}
+    w
+    \end{Vmatrix}} \\
+  &amp;\quad
+  \underset{n=1, \dots, N}{\text{min}} y_n (w^T x_n + b) = 1
+\end{split}
+\]</span></p>
 <p><strong>Standard Large-Margin Hyperplane Problem</strong></p>
 <ul>
 <li>original constraints: <span class="math">\(\underset{n=1, \dots, N}{\text{min}} y_n (w^T x_n + b) = 1\)</span>
@@ -308,21 +325,26 @@ y_{n}(w^T x_n + b) &gt; 0
 </ul></li>
 </ul>
 <p>We have another new constraints:</p>
-<ul>
-<li><span class="math">\(\underset{b,w}{\text{max}} \frac{1}{  \begin{Vmatrix}  w  \end{Vmatrix}}\)</span></li>
-<li>subject to:
-<ul>
-<li><span class="math">\(\underset{n=1, \dots, N}{\text{min}} y_n (w^T x_n + b) \ge 1\)</span> for all <span class="math">\(n\)</span></li>
-</ul></li>
-</ul>
-<p>final change: max <span class="math">\(\implies\)</span> min, remove <span class="math">\(\sqrt{}\)</span></p>
-<ul>
-<li><span class="math">\(\underset{b,w}{\text{min}} \frac{1}{2} w^T w\)</span></li>
-<li>subject to:
-<ul>
-<li><span class="math">\(\underset{n=1, \dots, N}{\text{min}} y_n (w^T x_n + b) \ge 1\)</span> for all <span class="math">\(n\)</span></li>
-</ul></li>
-</ul>
+<p><span class="math">\[
+\begin{split}
+  \underset{b,w}{\text{max}} &amp;\quad \frac{1}{
+    \begin{Vmatrix}
+    w
+    \end{Vmatrix}} \\
+  \text{subject to}
+  &amp;\quad
+  y_n (w^T x_n + b) \ge 1 \text{ for all } n
+\end{split}
+\]</span></p>
+<p>final change: <span class="math">\(\text{max }\implies \text{min}\)</span>, remove <span class="math">\(\sqrt{\quad}\)</span></p>
+<p><span class="math">\[
+\begin{split}
+  \underset{b,w}{\text{min}} &amp;\quad \frac{1}{2} w^T w \\
+  \text{subject to}
+  &amp;\quad
+  y_n (w^T x_n + b) \ge 1 \text{ for all } n
+\end{split}
+\]</span></p>
 </div>
 <div id="support-vector-machine" class="section level2">
 <h2>Support Vector Machine</h2>
@@ -444,7 +466,7 @@ abline(a = -2, b = 1, lty = 2)</code></pre>
 <tr class="even">
 <td align="center">SVM</td>
 <td align="center"><span class="math">\(w^Tw\)</span></td>
-<td align="center"><span class="math">\(E_{in} = 0\)</span> [and more]</td>
+<td align="center"><span class="math">\(E_{in} = 0\)</span> [and more: <span class="math">\(y_n(wx_n+b) \ge 1\)</span>]</td>
 </tr>
 </tbody>
 </table>
@@ -461,9 +483,9 @@ abline(a = -2, b = 1, lty = 2)</code></pre>
 <ul>
 <li>considers <span class="math">\(d_{VC}(\mathcal{A}_{\rho})\)</span> [data dependent, need more than VC]</li>
 <li><p>instead of <span class="math">\(d_{VC}(\mathcal{H})\)</span> [data independent, covered VC]</p></li>
-<li><span class="math">\(d_{VC}(\mathcal{A}_{\rho})\)</span> when <span class="math">\(\mathcal{X}\)</span> = unit circle in <span class="math">\(\mathbb{R}^2\)</span></li>
+<li><span class="math">\(d_{VC}(\mathcal{A}_{\rho})\)</span> when <span class="math">\(\mathcal{X}\)</span> = unit circle in <span class="math">\(\mathbb{R}^2\)</span>, where <span class="math">\(\mathcal{X}\)</span> is the data set.</li>
 <li><span class="math">\(\rho = 0\)</span>: just perceptrons (<span class="math">\(d_{VC} = 3\)</span>)</li>
-<li><span class="math">\(\rho = \frac{\sqrt{3}}{2}\)</span>: cannot shatter any 3 inputs (<span class="math">\(d_{VC} &lt; 3\)</span>)
+<li><span class="math">\(\rho \ge \frac{\sqrt{3}}{2}\)</span>: cannot shatter any 3 inputs (<span class="math">\(d_{VC} &lt; 3\)</span>)
 <ul>
 <li>some inputs must be of distance <span class="math">\(\le \sqrt{3}\)</span></li>
 </ul></li>
@@ -485,7 +507,7 @@ d_{VC}(\mathcal{A}_{\rho}) \le \text{min} (\frac{R^2}{\rho^2}, d) + 1
 </thead>
 <tbody>
 <tr class="odd">
-<td align="center">#</td>
+<td align="center"># of hypothesis</td>
 <td align="center">even fewer</td>
 <td align="center">not many</td>
 <td align="center">many</td>
@@ -1362,7 +1384,7 @@ x - x'
 <p><span class="math">\[
 \begin{split}
 \underset{b,w}{\text{min}} \quad &amp; \frac{1}{2} w^T w + C \dot \sum_{n=1}^{N} \xi_n \\
-\text{s.t.} \quad &amp; y_n (w^T z_n + b) \ge 1 - \xi_n \text{ and } \xi \ge 0 \text{ for all } n
+\text{s.t.} \quad &amp; y_n (w^T z_n + b) \ge 1 - \xi_n \text{ and } \xi_n \ge 0 \text{ for all } n
 \end{split}
 \]</span></p>
 <p><strong>Soft-Margin SVM (1/2)</strong></p>
@@ -1373,7 +1395,7 @@ x - x'
 <p><span class="math">\[
 \begin{split}
 \underset{b,w,\xi}{\text{min}} \quad &amp; \frac{1}{2} w^T w + C \dot \sum_{n=1}^{N} \xi_n \\
-\text{s.t.} \quad &amp; y_n (w^T z_n + b) \ge 1 - \xi_n \text{ and } \xi \ge 0 \text{ for all } n
+\text{s.t.} \quad &amp; y_n (w^T z_n + b) \ge 1 - \xi_n \text{ and } \xi_n \ge 0 \text{ for all } n
 \end{split}
 \]</span></p>
 <ul>
@@ -1388,6 +1410,46 @@ x - x'
 </div>
 <div id="dual-problem" class="section level2">
 <h2>Dual Problem</h2>
+<p><strong>Lagrange Dual</strong></p>
+<p>Primal:</p>
+<p><span class="math">\[
+\begin{split}
+\underset{b,w,\xi}{\text{min}} \quad &amp; \frac{1}{2} w^T w + C \dot \sum_{n=1}^{N} \xi_n \\
+\text{s.t.} \quad &amp; y_n (w^T z_n + b) \ge 1 - \xi_n \text{ and } \xi_n \ge 0 \text{ for all } n
+\end{split}
+\]</span></p>
+<p>Lagrange function with Lagrange multipliers <span class="math">\(\alpha_n\)</span> and <span class="math">\(\beta_n\)</span></p>
+<p><span class="math">\[
+\begin{split}
+\mathcal{L}(b, w, \xi, \alpha, \beta) = &amp;
+\frac{1}{2} w^T w + C \dot \sum_{n=1}^{N} \xi_n \\
+&amp; + \sum_{n=1}^{N} \alpha_n \dot (1 - \xi_n - y_n (w^T z_n + b) )
++ \sum_{n=1}^{N} \beta_n \dot (-\xi_n)
+\end{split}
+\]</span></p>
+<p>want: Lagrange dual</p>
+<p><span class="math">\[
+\underset{\alpha_n \ge 0, \beta_n \ge 0}{\text{max}}
+(
+\underset{b, w, \xi}{\text{min}} \mathcal{L}(b, w, \xi, \alpha, \beta)  
+)
+\]</span></p>
+<p><strong>Simplify <span class="math">\(\xi_n\)</span> and <span class="math">\(\beta_n\)</span></strong></p>
+<p><span class="math">\[
+\begin{split}
+\underset{\alpha_n \ge 0, \beta_n \ge 0}{\text{max}}
+(
+\underset{b, w, \xi}{\text{min}}
+&amp; \frac{1}{2} w^T w + C \dot \sum_{n=1}^{N} \xi_n \\
+&amp; + \sum_{n=1}^{N} \alpha_n \dot (1 - \xi_n - y_n (w^T z_n + b) )
++ \sum_{n=1}^{N} \beta_n \dot (-\xi_n)
+)
+\end{split}
+\]</span></p>
+<ul>
+<li><span class="math">\(\frac{\partial \mathcal{L}}{\partial \xi_n} = 0 = C - \alpha_n - \beta_n\)</span></li>
+<li>no loss of optimality if solving with implicit constraint <span class="math">\(\beta_n = C - \alpha_n\)</span> and explicit constraint <span class="math">\(0 \le \alpha_n \le C\)</span></li>
+</ul>
 </div>
 <div id="messages-behind-soft-margin-svm" class="section level2">
 <h2>Messages behind Soft-Margin SVM</h2>

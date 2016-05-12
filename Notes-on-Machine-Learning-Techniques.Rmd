@@ -102,6 +102,7 @@ goal: find *Large-Margin* *separating* hyperplane.
 want: distance $(x, b, w)$, with hyperplane $w^T x' + b = 0$
 
 consider $x', x''$ on hyperplane:
+
 1. $w^Tx' = -b$, $w^Tx'' = -b$
 2. $w \perp$ hyperplane
 $$
@@ -154,28 +155,27 @@ $$
   \begin{Vmatrix}
   w
   \end{Vmatrix}
-} w^T x + b
+} y_n(w^T x + b)
 $$
 
-* $\underset{b,w}{\text{max}}$ \text{margin}(b, w)
-* subject to:
-    * every $y_{n}(w^T x_n + b) > 0$
-    * $\text{margin}(b, w) = \underset{n=1, \dots, N}{min}\frac{1}{
-      \begin{Vmatrix}
-      w
-      \end{Vmatrix}
-    } y_n (w^T x_n + b)$
+* In summary:
+
+$$
+\begin{split}
+\underset{b,w}{\text{max}} &\quad \text{margin}(b, w) \\
+\text{subject to} &\quad \text{every } y_{n}(w^T x_n + b) > 0 \\
+ &\quad
+ \text{margin}(b, w) = \underset{n=1, \dots, N}{min}\frac{1}{
+   \begin{Vmatrix}
+   w
+   \end{Vmatrix}
+ } y_n (w^T x_n + b)
+\end{split}
+$$
 
 **Margin of Special Separating Hyperplane**
 
-* $\underset{b,w}{\text{max}} \text{margin}(b, w)$
-* subject to:
-    * every $y_{n}(w^T x_n + b) > 0$
-    * $\text{margin}(b, w) = \underset{n=1, \dots, N}{min}\frac{1}{
-      \begin{Vmatrix}
-      w
-      \end{Vmatrix}
-    } y_n (w^T x_n + b)$
+From above problem and notice the following 2 points:
 
 * $w^Tx + b = 0$ same as $3w^Tx + 3b = 0$: scaling does not matter
 * special scaling: only consider separating $(b, w)$ such that
@@ -188,24 +188,33 @@ $$
   \end{Vmatrix}}
 $$
 
-We have new formula:
+* We have new formula:
 
-* $\underset{b,w}{\text{max}} \frac{1}{
-  \begin{Vmatrix}
-  w
-  \end{Vmatrix}}$
-* subject to:
-    * every $y_{n}(w^T x_n + b) > 0$
-    * $\underset{n=1, \dots, N}{\text{min}} y_n (w^T x_n + b) = 1$
+$$
+\begin{split}
+  \underset{b,w}{\text{max}} &\quad \frac{1}{
+    \begin{Vmatrix}
+    w
+    \end{Vmatrix}} \\
+  \text{subject to} &\quad \text{every } y_{n}(w^T x_n + b) > 0 \\
+  &\quad
+  \underset{n=1, \dots, N}{\text{min}} y_n (w^T x_n + b) = 1
+\end{split}
+$$
 
-We could further simplify to:
+* We could further simplify to the following since the 2nd condition is strong
+  than the 1st one:
 
-* $\underset{b,w}{\text{max}} \frac{1}{
-  \begin{Vmatrix}
-  w
-  \end{Vmatrix}}$
-* subject to:
-    * $\underset{n=1, \dots, N}{\text{min}} y_n (w^T x_n + b) = 1$
+$$
+\begin{split}
+  \underset{b,w}{\text{max}} &\quad \frac{1}{
+    \begin{Vmatrix}
+    w
+    \end{Vmatrix}} \\
+  &\quad
+  \underset{n=1, \dots, N}{\text{min}} y_n (w^T x_n + b) = 1
+\end{split}
+$$
 
 **Standard Large-Margin Hyperplane Problem**
 
@@ -219,18 +228,28 @@ We could further simplify to:
 
 We have another new constraints:
 
-* $\underset{b,w}{\text{max}} \frac{1}{
-  \begin{Vmatrix}
-  w
-  \end{Vmatrix}}$
-* subject to:
-    * $\underset{n=1, \dots, N}{\text{min}} y_n (w^T x_n + b) \ge 1$ for all $n$
+$$
+\begin{split}
+  \underset{b,w}{\text{max}} &\quad \frac{1}{
+    \begin{Vmatrix}
+    w
+    \end{Vmatrix}} \\
+  \text{subject to}
+  &\quad
+  y_n (w^T x_n + b) \ge 1 \text{ for all } n
+\end{split}
+$$
 
-final change: max $\implies$ min, remove $\sqrt{}$
+final change: $\text{max }\implies \text{min}$, remove $\sqrt{\quad}$
 
-* $\underset{b,w}{\text{min}} \frac{1}{2} w^T w$
-* subject to:
-    * $\underset{n=1, \dots, N}{\text{min}} y_n (w^T x_n + b) \ge 1$ for all $n$
+$$
+\begin{split}
+  \underset{b,w}{\text{min}} &\quad \frac{1}{2} w^T w \\
+  \text{subject to}
+  &\quad
+  y_n (w^T x_n + b) \ge 1 \text{ for all } n
+\end{split}
+$$
 
 ## Support Vector Machine
 
@@ -343,7 +362,7 @@ $$
 |  | minimize | constraint |
 | :-------------: | :-------------: | :-------------: |
 | regularization | $E_{in}$ | $w^Tw \le C$ |
-| SVM | $w^Tw$ | $E_{in} = 0$ [and more] |
+| SVM | $w^Tw$ | $E_{in} = 0$ [and more: $y_n(wx_n+b) \ge 1$] |
 
 SVM (Large-Margin hyperplane):
 'weight-decay regularization' within $E_{in} = 0$
@@ -365,9 +384,10 @@ fewer dichotomies $\implies$ smaller 'VC dim.'
 * considers $d_{VC}(\mathcal{A}_{\rho})$ [data dependent, need more than VC]
 * instead of $d_{VC}(\mathcal{H})$ [data independent, covered VC]
 
-* $d_{VC}(\mathcal{A}_{\rho})$ when $\mathcal{X}$ = unit circle in $\mathbb{R}^2$
+* $d_{VC}(\mathcal{A}_{\rho})$ when $\mathcal{X}$ = unit circle in $\mathbb{R}^2$,
+  where $\mathcal{X}$ is the data set.
 * $\rho = 0$: just perceptrons ($d_{VC} = 3$)
-* $\rho = \frac{\sqrt{3}}{2}$: cannot shatter any 3 inputs ($d_{VC} < 3$)
+* $\rho \ge \frac{\sqrt{3}}{2}$: cannot shatter any 3 inputs ($d_{VC} < 3$)
     * some inputs must be of distance $\le \sqrt{3}$
 
 generally, when $\mathcal{X}$ in radius-R hyperball:
@@ -381,7 +401,7 @@ $$
 
 |   | Large-Margin Hyperplanes | Hyperplanes | Hyperplanes + feature transform $\Phi$
 | :-------------: | :-------------: | :-------------: | :-------------: |
-| #       | even fewer | not many | many |
+| # of hypothesis | even fewer | not many | many |
 | boundary | simple | simple | sophisticated |
 
 * not many: good for $d_{VC}$ and generalization
@@ -404,7 +424,6 @@ $$
     * 'easy' via quadratic programming
 * Reasons Behind Large-Margin Hyperplane
     * fewer dichotomies and better generalization
-
 
 # Lecture 2 Dual Support Vector Machine
 
@@ -1193,6 +1212,26 @@ $$
 \underset{b, w, \xi}{\text{min}} \mathcal{L}(b, w, \xi, \alpha, \beta)  
 )
 $$
+
+**Simplify $\xi_n$ and $\beta_n$**
+
+$$
+\begin{split}
+\underset{\alpha_n \ge 0, \beta_n \ge 0}{\text{max}}
+(
+\underset{b, w, \xi}{\text{min}}
+& \frac{1}{2} w^T w + C \dot \sum_{n=1}^{N} \xi_n \\
+& + \sum_{n=1}^{N} \alpha_n \dot (1 - \xi_n - y_n (w^T z_n + b) )
++ \sum_{n=1}^{N} \beta_n \dot (-\xi_n)
+)
+\end{split}
+$$
+
+* $\frac{\partial \mathcal{L}}{\partial \xi_n} = 0 = C - \alpha_n - \beta_n$
+* no loss of optimality if solving with implicit constraint $\beta_n = C - \alpha_n$
+  and explicit constraint $0 \le \alpha_n \le C$
+
+
 
 ## Messages behind Soft-Margin SVM
 ## Model Selection
