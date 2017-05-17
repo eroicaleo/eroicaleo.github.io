@@ -1,0 +1,77 @@
+---
+title: "Notes-on-combining-predictive-features"
+author: "Yang Ge"
+date: "5/16/2017"
+header-includes:
+   - \usepackage{bm}
+output:
+  html_document:
+    keep_md: false
+    toc: true
+    # includes:
+    #    in_header: header.tex
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
+```
+
+# Lecture 7 Blending and Bagging
+
+## Motivation of Aggregation
+
+* An Aggregation Story
+
+How to combine $g_1, g_2, \dots, g_T$ to a $g_t(x)$
+
+1. Select best one: validation!
+$$
+G(x) = g_{t_*}(x)\ \text{with } \underset{t\in{1,2,\dots,T}}{\text{argmin}}\ E_{val}(g_t^-)
+$$
+2. Mix uniformly
+$$
+G(x) = \text{sign } (\sum_{1}^{T} 1 \cdot g_t(x))
+$$
+3. Mix non-uniformly
+$$
+G(x) = \text{sign } (\sum_{1}^{T} \alpha_t \cdot g_t(x))
+$$
+  * include case 1: $\alpha_t = \| E_{val}(g_t^-)\ \text{smallest } \|$
+  * include case 2: $\alpha_t = 1$
+4. Combine conditionally
+    * Some one is good at tech stock, others are good at energy stock
+    * include case 3.
+
+$$
+G(x) = \text{sign } (\sum_{1}^{T} q_t(x) \cdot g_t(x))
+$$
+
+**_Aggregation: mix or combine hypothesis to get better performance_, it's a rich family**
+
+* Selection by validation
+
+## Uniform Blending
+
+## Linear and Any Blending
+
+## Bagging (Bootstrap Aggregation)
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
