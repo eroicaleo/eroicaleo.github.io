@@ -26,7 +26,7 @@ How to combine $g_1, g_2, \dots, g_T$ to a $g_t(x)$
 
 1. Select best one: validation!
 $$
-G(x) = g_{t_*}(x)\ \text{with } \underset{t\in{1,2,\dots,T}}{\text{argmin}}\ E_{val}(g_t^-)
+G(x) = g_{t_*}(x)\ \text{with } t_* = \underset{t\in{1,2,\dots,T}}{\text{argmin}}\ E_{val}(g_t^-)
 $$
 2. Mix uniformly
 $$
@@ -50,28 +50,109 @@ $$
 
 * Selection by validation
 
+$$
+G(x) = g_{t_*}(x)\ \text{with } t_* = \underset{t\in{1,2,\dots,T}}{\text{argmin}}\ E_{val}(g_t^-)
+$$
+  
+* simple and popular
+* What if use $E_{in}(g_t)$ instead of $E_{val}(g_t^-)$? complexity price with $d_{vc}$
+* need one strong $g_t^-$ to guarantee small $E_{val}$ and small $E_{out}$
+
+* **selection**: rely on one strong hypothesis
+* **Aggreration**: can we do better with many (possibly weaker) hypothesis.
+
 ## Uniform Blending
+
+* Uniform blending for classification
+    * known $g_t$, each with 1 ballot
+    * same $g_t$, as good as one single $g_t$
+    * very different $g_t$ (diversity + democracy), majority corrects minority
+    * similar results with uniform voting for multi-class
+    
+$$
+G(x) = \text{sign } (\sum_{1}^{T} 1 \cdot g_t(x))
+$$
+$$
+G(x) = \underset{1 \le k \le K}{\text{argmax}}\ \sum_{1}^{T} [g_t(x)=k]
+$$
+
+### Theoretic analysis of Uniform Blending
+
+$$
+\text{For a given } x\\
+G=\frac{1}{T}\sum{g_t} = \text{avg}(g_t), \text{then} \\
+\text{avg}((g_t - f)^2) = \text{avg}((g_t - G)^2) + (G-f)^2 \\
+\text{avg}(E_{out}(g_t)) = \text{avg}(E(g_t-G)^2) + (G-f)^2 \ge (G-f)^2
+$$
+
+### Special g
+
+$$
+\text{avg}(E_{out}(g_t)) = \text{avg}(E(g_t-\overline{g})^2) + 
+E_{out}(\overline{g})^2 
+$$
+
+* The 2nd part is called the performance of consensus
+* The 1st part is called variance of consensus
+* When variance goes down, the performance goes up.
 
 ## Linear and Any Blending
 
+### Linear blending
+
+$$
+G(x) = \text{sign } (\sum_{1}^{T} \alpha_t \cdot g_t(x))\ \text{with } \alpha_t \ge 0 \\
+\text{good }\alpha_t: \underset{\alpha_t \ge 0}{\text{min}} E_{in}(\alpha) \\
+\text{linear blending for regression: }
+\underset{\alpha_t \ge 0}{\text{min}} \frac{1}{N}\sum_{1}^{N}(y_n - \sum_{1}^{T} \alpha_t g_t(x_n))^2\\
+\text{linear Reg + Transformation: }
+\underset{w_i}{\text{min}} \frac{1}{N}\sum_{n = 1}^{N}(y_n - \sum_{i = 1}^{\tilde{d}} w_i \phi_i(x_n) )^2
+$$
+
+### Constraints on alpha
+
+* Linear blending = linear model + hypothesis as transform + constraints
+
+$$
+\underset{\alpha_t \ge 0}{\text{min}} \frac{1}{N}\sum_{1}^{N}
+\text{err } (y_n - \sum_{1}^{T} \alpha_t g_t(x_n))
+$$
+
+* linear blending for binary classification
+
+$$
+\text{if }\alpha_t < 0 \Rightarrow \alpha_t g_t(x) = |\alpha_t|(-g_t(x)) \\
+$$
+
+* In practice, Linear blending = linear model + hypothesis as transform (removed constraints)
+
+### Blending versus Selection
+
+* Usually $g_1 \in \mathcal{H_1}, \dots, g_T \in \mathcal{H_T}$.
+* Selection is best of best, paying $d_{vc}(\bigcup_{1}^{T}\mathcal{H_t})$
+* Blending is Aggregation of best, paying even higher.
+* Practically, blending done with $E_{val}$ instead of $E_{in}$ + $g_t^{-}$ from minimum $E_{train}$
+
+### Any blending
+
+* Given $g^-_1, \dots, g^-_T$ from $D_{train}$, transform $x_n, y_n$ in $D_{val}$ to
+$z_n = \phi^-(x_n) = (g^-_1(x), \dots, g^-_T(x)), y_n$
+
+* Linear blending
+    * compute $\alpha = \text{Lin}({z_n, y_n})$
+    * return $G_{LINB}(x) = \text{LinH}(\text{innerprod}(\alpha,\phi(x)))$, note here, the minus on phi is
+      removed.
+* Any blending (Stacking)
+    * compute $\tilde{g} = \text{Any}({z_n, y_n})$
+    * return $G_{ANYB}(x) = \tilde{g}(\phi(x))$
+* Very powerful but danger of overfitting.
+
+### Blending in Practice
+
+* KDD Cup 2011, "A linear ensemble of individual and blended models for music rating applications"
+    * validation set blending: a special any blending model.
+* test set blending: linear blending using $\tilde{E}_{test}$. (Is it kinda cheating?)
+
 ## Bagging (Bootstrap Aggregation)
 
-## R Markdown
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
-```
-
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
