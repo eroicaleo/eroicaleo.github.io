@@ -137,7 +137,10 @@ $(document).ready(function () {
 <li><a href="#any-blending">Any blending</a></li>
 <li><a href="#blending-in-practice">Blending in Practice</a></li>
 </ul></li>
-<li><a href="#bagging-bootstrap-aggregation">Bagging (Bootstrap Aggregation)</a></li>
+<li><a href="#bagging-bootstrap-aggregation">Bagging (Bootstrap Aggregation)</a><ul>
+<li><a href="#what-we-have-done">What we have done</a></li>
+<li><a href="#bootstrapping-aggregation">Bootstrapping Aggregation</a></li>
+</ul></li>
 </ul></li>
 </ul>
 </div>
@@ -293,12 +296,61 @@ G(x) = \text{sign } (\sum_{1}^{T} \alpha_t \cdot g_t(x))\ \text{with } \alpha_t 
 <ul>
 <li>validation set blending: a special any blending model.</li>
 </ul></li>
-<li>test set blending: linear blending using <span class="math inline">\(\tilde{E}_{test}\)</span>.</li>
+<li>test set blending: linear blending using <span class="math inline">\(\tilde{E}_{test}\)</span>. (Is it kinda cheating?)</li>
 </ul>
 </div>
 </div>
 <div id="bagging-bootstrap-aggregation" class="section level2">
 <h2>Bagging (Bootstrap Aggregation)</h2>
+<div id="what-we-have-done" class="section level3">
+<h3>What we have done</h3>
+<table>
+<thead>
+<tr class="header">
+<th>aggregation type</th>
+<th>blending</th>
+<th>learning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>uniform</td>
+<td>voting/averaging</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>non-uniform</td>
+<td>linear</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>conditional</td>
+<td>stacking</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>learning <span class="math inline">\(g_t\)</span> for uniform aggregation: diversity is important.</p>
+<ul>
+<li>diversity by different models <span class="math inline">\(g_1 \in \mathcal{H_1}, \dots, g_T \in \mathcal{H_T}\)</span></li>
+<li>diversity by different parameters: GD with<span class="math inline">\(\eta = 0.001, 0.01, \dots, 10\)</span></li>
+<li>diversity by algorithmic randomness: random PLA with different random seeds</li>
+<li>diversity by data randomness: within-cross-validation hypotheses <span class="math inline">\(g_v^-\)</span></li>
+</ul>
+</div>
+<div id="bootstrapping-aggregation" class="section level3">
+<h3>Bootstrapping Aggregation</h3>
+<ul>
+<li>bootstrapping: bootstrap sampe <span class="math inline">\(\tilde{D_t}\)</span>: re-sample N examples from <span class="math inline">\(\mathcal{D}\)</span> uniformly with replacement, meaning the sample can have duplicates.</li>
+<li>Don’t have to be N, can be N’. The important part is sample with replacement.</li>
+<li>bootstrap aggregation:
+<ul>
+<li>request size-N’ data <span class="math inline">\(\tilde{D_t}\)</span> from bootstrapping</li>
+<li>obtain <span class="math inline">\(g_t\)</span> by by <span class="math inline">\(\mathcal{A}(\tilde{D_t})\)</span>, then G = uniform(<span class="math inline">\(g_t\)</span>)</li>
+</ul></li>
+<li>A simple meta algorithm on top of base algorithm <span class="math inline">\(\mathcal{A}\)</span></li>
+</ul>
+</div>
 </div>
 </div>
 

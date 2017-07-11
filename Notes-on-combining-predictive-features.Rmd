@@ -155,4 +155,28 @@ $z_n = \phi^-(x_n) = (g^-_1(x), \dots, g^-_T(x)), y_n$
 
 ## Bagging (Bootstrap Aggregation)
 
+### What we have done
 
+| aggregation type | blending | learning |
+| ---------------- | -------- | -------- |
+| uniform | voting/averaging | |
+| non-uniform | linear | |
+| conditional | stacking | |
+
+learning $g_t$ for uniform aggregation: diversity is important.
+
+* diversity by different models $g_1 \in \mathcal{H_1}, \dots, g_T \in \mathcal{H_T}$
+* diversity by different parameters: GD with$\eta = 0.001, 0.01, \dots, 10$
+* diversity by algorithmic randomness: random PLA with different random seeds
+* diversity by data randomness: within-cross-validation hypotheses $g_v^-$
+
+### Bootstrapping Aggregation
+
+* bootstrapping: bootstrap sampe $\tilde{D_t}$: re-sample N examples from $\mathcal{D}$
+  uniformly with replacement, meaning the sample can have duplicates.
+* Don't have to be N, can be N'. The important part is sample with replacement.
+* bootstrap aggregation:
+    * request size-N' data $\tilde{D_t}$ from bootstrapping
+    * obtain $g_t$ by by $\mathcal{A}(\tilde{D_t})$, then G = uniform($g_t$)
+* A simple meta algorithm on top of base algorithm $\mathcal{A}$
+    
