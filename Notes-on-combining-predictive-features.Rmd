@@ -179,4 +179,331 @@ learning $g_t$ for uniform aggregation: diversity is important.
     * request size-N' data $\tilde{D_t}$ from bootstrapping
     * obtain $g_t$ by by $\mathcal{A}(\tilde{D_t})$, then G = uniform($g_t$)
 * A simple meta algorithm on top of base algorithm $\mathcal{A}$
+
+# Lecture 8 Adaptive Boosting
+
+## Motivation of boosting
+
+### Motivation
+
+* Students: simple hypothesis $g_t$ (like vertical/horizontal lines)
+* Class: sophisticated hypothesis $G$
+* Teacher: a tactic learning algorithm that directs the students to focus on key examples.
+
+## Diversity by Re-weighting
+
+### Bootstrapping as Re-weighting Process
+
+$$
+D = \{(x_1, y_1), (x_2, y_2),(x_3, y_3), (x_4, y_4)\} \\
+\text{bootstrap} => \tilde{D_t} = \{(x_1, y_1), (x_1, y_1),(x_2, y_2), (x_4, y_4)\}
+$$
+
+* Weighted $E_{in}$ on $\mathcal{D}$
+
+$$
+E_{in}^u(h) = 1/4 \sum_{n=1}^4 u_n \cdot [y_n \ne h(x_n)] \\
+(x_1, y_1), u_1 = 2 \\
+(x_2, y_2), u_2 = 1 \\
+(x_3, y_3), u_3 = 0 \\
+(x_4, y_4), u_4 = 1 \\
+$$
+
+* $E_{in}$ on $\tilde{\mathcal{D_t}}$ 
+
+$$
+E_{in}^{0/1}(h) = 1/4 \sum_{(x,y) \in \tilde{\mathcal{D_t}}} \cdot [y_n \ne h(x_n)] \\
+\tilde{\mathcal{D_t}} = \{(x_1, y_1), (x_1, y_1),(x_2, y_2), (x_4, y_4)\}
+$$
+
+* Each diverse $g_t$ in bagging: by minimizing bootstrap-weighted error
+
+### Weighted Base Algorithm
+
+* minimize (regularized)
+
+$$
+E_{in}^u(h) = 1/N \sum_{n=1}^N u_n \cdot \text{err} (y_n, h(x_n)) \\
+$$
+
+* SVM can handle weighted sample
+
+$$
+E_{in}^u(h) \propto C\ \sum_{n=1}^N\ u_n \widehat{\text{err}}_{SVM} \\
+\Leftrightarrow 0 \le \alpha \le Cu_n
+$$
+
+* logistic regression can handle weighted sample
+    * $E_{in}^u(h) \propto \sum_{n=1}^N\ u_n \text{err}_{CE}$ by SGD
+      $\Leftrightarrow$ sample $(x_n, y_n)$ with probability proportional to $u_n$
+
+* example-weighted learning:
+    * extension of class-weighted learning in lecture 8 of ML Foundations.
     
+### Re-weighting for More Diverse Hypothesis
+
+* How to re-weight for more diverse hypothesis?
+
+$$
+g_t \leftarrow \underset{h \in \mathcal{H} }{\text{argmin}}
+\sum_{n=1}^N u_n^{(t)} [y_n \ne h(x_n)]
+\\
+g_{t+1} \leftarrow \underset{h \in \mathcal{H} }{\text{argmin}}
+\sum_{n=1}^N u_{n}^{(t+1)} [y_n \ne h(x_n)]
+$$
+
+* Diversity means, if $g_t$ is not good $u_{n}^{(t+1)}$, then
+  $g_t$-like hypothesis will not returned as $g_{t+1}$. Then $g_{t+1}$ will
+  diverse from $g_{t}$
+
+* idea: construct $u_{n}^{(t+1)}$ to make $g_{t}$ random-like
+
+$$
+\frac
+{\sum_{n=1}^N u_{n}^{(t+1)} [y_n \ne g_t(x_n)] } 
+{\sum_{n=1}^N u_{n}^{(t+1)} }
+=
+\frac{1}{2}
+$$
+
+### optimal re-weighting
+
+* weighted incorrect rate $\epsilon_t$
+* multiply incorrect $\propto (1-\epsilon_t); u_n^{t+1} \leftarrow (1-\epsilon_t)u_n^{t}$
+; multiply correct $\propto \epsilon_t; u_n^{t+1} \leftarrow \epsilon_t u_n^{t}$
+
+## Adaptive Boosting algorithm
+
+### Scaling factor
+
+* Here, the important thing is you don't care $\sum_{n=1}^N [y_n \ne g_t(x_n)]$ much
+  You care about $\sum_{n=1}^N u_n^{(t)}[y_n \ne g_t(x_n)]$
+* Let me give an example, let's say we have 5 points, their current weight is (1, 2, 3, 4, 5).
+  The current $g_t$ gives $(F, F, T, T, T)$, then weighted error rate is $3/15$.
+  Then new $u_n^{t+1}$ would be $(12, 12x2, 3x3, 3x4, 3x5) = (12, 24, 9, 12, 15)$.
+* Now if we consider non-weighted error, which is $2/5$,
+  Then new $u_n^{t+1}$ would be simply be $(3, 3, 2, 2, 2)$
+* 可以问一下老师为什么要用weighted error rate去scale $u_n$，而不是简单的用non-weighted
+  error rate去scale $u_n$。这样也可以让$g_t$的error rate变成$1/2$。我的理解是如果用后者，就
+  切断了$u^{t+1}$以及$g_{t+1}$和之前的联系。是不是之后aggregate起来就没有VC dim的保证了？
+
+$$
+\epsilon_t
+=
+\frac
+{\sum_{n=1}^N u_n^{(t)}[y_n \ne g_t(x_n)]}
+{\sum_{n=1}^N u_n^{(t)}}
+$$
+
+* multipy incorrect $\propto (1-\epsilon_t)$; multiply correct $\propto \epsilon_t$
+
+* The following is equivalent
+
+$$
+\diamondsuit_t = \sqrt{\frac{1-\epsilon_t}{\epsilon_t}}
+\\
+\text{incorrect} \leftarrow \text{incorrect} \cdot \diamondsuit_t
+\\
+\text{correct} \leftarrow \text{correct} / \diamondsuit_t
+$$
+
+* $\diamondsuit_t > 1$ iff $\epsilon_t \le 1/2$,
+  which means scale up incorrect and scale down correct, like the teacher does.
+* scaling up incorrect examples leads to diverse hypothesis
+
+### A Preliminary Algorithm
+
+* Problems remain:
+    1. What could be our $u^{(1)}$
+    2. How to aggregate $g_t$ to get $G(x)$
+
+* Answer to 1. $u^{(1)} = 1/N$ would be a good choice.
+* Answer to 2. uniform is not a good choice because $g_2$ would behave bad on original dataset.
+  linear aggregation might be good.
+  
+### Linear aggregation on the fly
+
+$$
+G(x) = sign(\sum_1^T \alpha_t g_t)
+$$
+
+* The intention is to give good $g_t$ with bigger $\alpha_t$. According to Prof. Lin,
+  good $\alpha_t$ means smaller $\epsilon_t$, means larger $\diamondsuit_t$.
+* Original designer set
+
+$$
+\alpha_t = ln(\diamondsuit_t)
+$$
+
+* Bad $g_t$ with $\epsilon_t = 1/2$ will have $\alpha_t = 0$.
+* Super $g_t$ with $\epsilon_t = 0$ will have $\alpha_t = \inf$
+* 我又有个问题了这里的$\epsilon_t$ 并不是原来的$E_{in}$呀。
+* Adaptive boosting:
+    * weak base algorithm (student)
+    * optimal re-weighting factor $\diamondsuit_t$ (teacher)
+    * 'magic' linear aggregation $\alpha_t$ (Class)
+
+### Adaptive Boosting (AdaBoost) Algorithm
+
+* See slides 208, pg 17.
+
+### Theoretical Guarantee of AdaBoost
+
+* VC bound
+
+$$
+E_{out}(G) \le E_{in}(G) + O(\sqrt
+{O(d_{vc}(\mathcal{H}) \cdot T logT) \cdot \frac{logN}{N} }
+)
+$$
+
+* The $d_{vc}(\mathcal{H})$ is for $g$, and when they aggregate together,
+  The $d_{vc}$ is $d_{vc}(\mathcal{H}) \cdot T logT$
+* First term can be small, from the original paper:
+  $E_{in}(G) = 0$ after $T = O(log N)$ iterations if $\epsilon_t \le \epsilon < 1/2$ always .
+* Second term can be small: overall $d_{vc}$ grows "slowly" with T
+* boosting view of AdaBoost: if A is weak but always slightly better than random
+  $\epsilon_t \le \epsilon < 1/2$, then (AdaBoost + A) can be strong ($E_{in}(G) = 0$)
+  and $E_{out} small$.
+
+## Adaptive Boosting in Action
+
+### Decision stump
+
+* Want a 'weak' base learning algorithm $\mathcal{A}$, which leads to $\epsilon < 1/2$ .
+* A popular choice: decision stump
+
+$$
+h_{s,i,\theta}(x) = s \cdot \text{sign}(x_i - \theta)
+$$
+
+* physical meaning: vertical/horizontal lines in 2D
+* efficient to optimize: $O(d \cdot N log N )$
+* decision stump model: allows efficient minimization of $E_{in}^u$, but too weak by it self.
+* Adaboost + decision stump: non-linear yet efficient.
+
+### AdaBoost-stump in application
+
+* Real-time face detection
+* feature selection achieved through Adaboost
+* linear aggregation to rule out non-face earlier
+
+# Lecture 9 Decision Tree
+
+## Decision tree hypothesis
+
+### What we have done
+
+* Blending: aggregate after getting $g_t$;
+* Learning: aggregate as well as getting $g_t$;
+
+| aggregation type | blending | learning |
+|:-----------:|:------:|:---:|
+| uniform     | voting/averaging | Bagging |
+| non-uniform | linear           | Adaboost |
+| conditional | stacking         | Decision tree |
+
+* Decision tree: a traditional learning model that realizes conditional aggregation
+
+### Decision Tree for Watching MOOC Lectures
+
+$$
+G(x) = \sum_{t=1}^T
+q_t(x) \cdot g_t(x)
+$$
+
+* base hypothesis $g_t(x)$ leaf at end of path $t$,
+  a constant here
+* condition $q_t(x)$: is $x$ on path $t$?
+* Usually with simple internal nodes
+* Arguably one of the most human-mimicking models
+
+### Recursive View of Decision Tree
+
+* Path view
+
+$$
+G(x) = \sum_{t=1}^T [ x \text{ on path } t ] \cdot \text{leaf}_t(x)
+$$
+
+* Recursive View
+
+$$
+G(x) = \sum_{c=1}^C [b(x) = c] \cdot G_c(x)
+$$
+
+* G(x): full tree hypothesis
+* b(x): branching criteria
+* $G_c(x)$: sub-tree hypothesis at c-th branch
+* tree = (root, sub-trees)
+
+### Disclaimers about Decision Tree
+
+* human-explainable
+* simple
+* efficient in prediction and training
+* heuristic: little theoretical explanations
+* heuristics: confusing to beginners
+* arguably no single representative algorithm
+
+## Decision Tree Algorithm
+
+### A basic Decision Tree Algorithm
+
+$$
+G(x) = \sum_{c=1}^C [b(x) = c] \cdot G_c(x)
+$$
+
+* Four choices:
+    * number of branches
+    * branching criteria
+    * termination criteria
+    * base hypothesis
+
+### Classification and Regression Tree (C&RT)
+
+$\mathcal{D} = \{(x_n, y_n)\}_{n=1}^N$
+
+* number of branches: 2
+* base hypothesis: $g_t(x) = E_{in}$-optimal constant
+    * classification: majority vote
+    * regression: average of $y_n$
+* branching criteria: decision stump, branch by purifying
+
+$$
+b(x) = \underset{\text{decision stump } h(x)}{argmin}
+\sum_{c=1}^2
+|D_c \text{ with } h| \cdot \text{impurity}(D_c \text{ with } h)
+$$
+
+### Impurity Functions
+
+* Regression
+
+$$
+\text{impurity}(\mathcal{D}) =
+1/N \sum (y_n - \hat{y} )
+$$
+
+* Classification
+
+$$
+\text{impurity}(\mathcal{D}) =
+1/N \sum (y_n \ne \hat{y} )
+$$
+
+* for classification, we can also use Gini index
+  the intuition is consider all $k$ together, the distribution
+  of all $k$ is considered in the Gini index.
+  
+$$
+1 - 
+\sum_{k=1}^{K}
+(\frac{\sum_{n=1}^N[y_n = k]}{N})^2
+$$
+
+* Popular choices: Gini for classification, regression error for regression.
+
+### termination in C&RT
+
+* all $y_n$ the same, all $x_n$ the same.
