@@ -507,3 +507,71 @@ $$
 ### termination in C&RT
 
 * all $y_n$ the same, all $x_n$ the same.
+
+## Decision Tree Heuristic in CR&T
+
+### Basic CR&T
+
+* Easy handle binary classfication, regression and multi-class classification
+
+### Regularization by pruning
+
+* fully grown tree: $E_{in}(G) = 0$ if all $x_n$ different
+* but overfit because low-level trees built with small $D_c$
+* need a regularizer, say $\Omega(G)$ = Number of Leaves(G)
+* want regularized decision tree, called pruned decision tree:
+
+$$
+\underset{\text{all possible } G}{\text{argmin}}
+E_{in}(G) +
+\lambda \Omega(G)
+$$
+
+* Cannot enumerate computationally, in practice
+    * $G^{(0)}$ = fully-grown tree
+    * $G^{(i)} = \text{argmin}_G E_{in}(G)$ such that G is one leaf removed from $G^{(i-1)}$
+* Systematic choice of $\lambda$? Validation
+
+### Branching on Categorical Feature
+
+* numerical feature, e.g. blood pressure
+* branching for numerical: decision stump
+* Categorical features, e.g. major sympton
+* branching for categorical
+
+$$
+b(x) = [x_i \in S] + 1
+\\
+S \subset \{1, 2, \dots, K\}
+$$
+
+* decision trees handles categorical features easily
+* 可以问一下老师，subset可以有$2^n$那么多，怎么选呢？
+
+### Missing Features by surrogate Branch
+
+* possible $b(x) = [weight \le 50\ kg]$
+
+* if weight missing during prediction: surrogate branch
+    * maintain surrogate branch $b_1(x), \dots \approx \text{best branch } b(x)$ during training
+    * allow missing feature for b(x) during prediction by using surrogate instead
+* 可以问一下老师或者自己研究一下surrogate到底怎么做的
+* CR&T handles missing feature easily
+    
+## Decision tree in action
+
+* C&RT: 'divide and conquer'
+* human-explainable
+* multiclass easily
+* categorical features easily
+* missing features easily
+* efficient non-linear training (and testing)
+* almost no other learning model shares all such specialities
+
+## Summary
+
+* Decision Tree Hypothesis: express path-conditional aggregation
+* Decision Tree Algorithm: recursive branching until termination to base
+* Decision Tree Heuristics in C&RT: pruning, categorical branching, surrogate
+* Decision Tree in Action: explainable and efficient
+* next: aggregation of aggregation.
