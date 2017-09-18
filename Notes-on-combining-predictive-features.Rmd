@@ -575,3 +575,73 @@ $$
 * Decision Tree Heuristics in C&RT: pruning, categorical branching, surrogate
 * Decision Tree in Action: explainable and efficient
 * next: aggregation of aggregation.
+
+# Lecture 10 Random Forest
+
+## Random Forest Algorithm
+
+### Recall: Bagging and Decision Tree
+
+* Bagging: function Bag(D, A)
+* For $t = 1, 2, \dots, T$
+
+1. request size-$N'$ data $\tilde{D}_t$ by bootstrapping with $D$
+2. obtain base $g_t$ by $A(\tilde{D}_t)$
+
+* return G = uniform({$g_t$})
+* reduce variance by voting and averaging
+
+* Decision Tree function DTree(D)
+* if termination returns base $g_t$
+* else
+
+1. learn $b(x)$ and split D to $D_c$ by $b(x)$
+2. build $G_c \leftarrow Dtree(D_c)$
+3. return $G(x) = \sum_{c=1}^C [b(x) = c] \cdot G_c(x)$
+
+* Large variance especially if fully-grown
+* putting them together (撒尿虾＋牛丸＝撒尿牛丸) aggregation of aggregation
+
+### Random Forest
+
+* random forest = bagging + fully-grown C&RT decision tree
+* function RandomForest(D)
+* For $t = 1, 2, \dots, T$
+
+1. request size-$N'$ data $\tilde{D}_t$ by bootstrapping with $D$
+2. obtain base $g_t$ by DTree($\tilde{D}_t$)
+
+* return G = uniform({$g_t$})
+* highly parallel/efficient to learn
+* inherits procs of C&RT
+* eliminates cons of fully-grown tree
+
+### Diversifying by Feature Projection
+
+* recall: data randomness for diversity in bagging, randomly sample $N'$ examples
+  from $\mathcal{D}$
+* another possiblity for diversity: random sample $d'$ features from $x$
+
+1. When sampling index $i_1, i_2, \dots, i_{d'}: \phi(x) = (x_{i_1}, x_{i_2}, \dots, x_{i_{d'}})$
+2. $\mathcal{Z} \in R^{d'}$: a random subspace of $\mathcal{X} \in R^{d'}$
+3. offten $d' << d$, efficient for large d, can be generally applied on other models.
+4. original RF re-sample new subspace for each b(x) in C&RT.
+5. RF = bagging + random-subspace C&RT
+
+### Diversifying by Feature Expansion
+
+* Random sample d' features from $x: \phi(x) = P \cdot x$ with row i of P sampled randomly $\in$ natural basis.
+    * 给个例子如下：$d = 3, d' = 2$
+    
+```{r}
+P <- matrix(c(0,0,1,0,0,1), 2, 3)
+P
+```
+
+* more powerful features for diversity: row i other than nature basis
+* projection (combination) with random row $p_i$ of $P$: $\phi_i(x) = p_i^Tx$
+* often consider low-dimensional projection: only $d''$ non-zero components in $p_i$
+* include random - subspace as special case: $d'' = 1, p_i \in $ nature basis
+* original RF consider $d'$ random low-dimensional projections for each $b(x)$ in C&RT
+* RF = bagging + random-combination C&RT - randomness everywhere
+* 可以问一下老师：注意这里，树生成了之后，在预测的时候也要做相同的projectoin.
