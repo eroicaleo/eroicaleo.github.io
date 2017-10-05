@@ -142,6 +142,102 @@ $(document).ready(function () {
 <li><a href="#bootstrapping-aggregation">Bootstrapping Aggregation</a></li>
 </ul></li>
 </ul></li>
+<li><a href="#lecture-8-adaptive-boosting">Lecture 8 Adaptive Boosting</a><ul>
+<li><a href="#motivation-of-boosting">Motivation of boosting</a><ul>
+<li><a href="#motivation">Motivation</a></li>
+</ul></li>
+<li><a href="#diversity-by-re-weighting">Diversity by Re-weighting</a><ul>
+<li><a href="#bootstrapping-as-re-weighting-process">Bootstrapping as Re-weighting Process</a></li>
+<li><a href="#weighted-base-algorithm">Weighted Base Algorithm</a></li>
+<li><a href="#re-weighting-for-more-diverse-hypothesis">Re-weighting for More Diverse Hypothesis</a></li>
+<li><a href="#optimal-re-weighting">optimal re-weighting</a></li>
+</ul></li>
+<li><a href="#adaptive-boosting-algorithm">Adaptive Boosting algorithm</a><ul>
+<li><a href="#scaling-factor">Scaling factor</a></li>
+<li><a href="#a-preliminary-algorithm">A Preliminary Algorithm</a></li>
+<li><a href="#linear-aggregation-on-the-fly">Linear aggregation on the fly</a></li>
+<li><a href="#adaptive-boosting-adaboost-algorithm">Adaptive Boosting (AdaBoost) Algorithm</a></li>
+<li><a href="#theoretical-guarantee-of-adaboost">Theoretical Guarantee of AdaBoost</a></li>
+</ul></li>
+<li><a href="#adaptive-boosting-in-action">Adaptive Boosting in Action</a><ul>
+<li><a href="#decision-stump">Decision stump</a></li>
+<li><a href="#adaboost-stump-in-application">AdaBoost-stump in application</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#lecture-9-decision-tree">Lecture 9 Decision Tree</a><ul>
+<li><a href="#decision-tree-hypothesis">Decision tree hypothesis</a><ul>
+<li><a href="#what-we-have-done-1">What we have done</a></li>
+<li><a href="#decision-tree-for-watching-mooc-lectures">Decision Tree for Watching MOOC Lectures</a></li>
+<li><a href="#recursive-view-of-decision-tree">Recursive View of Decision Tree</a></li>
+<li><a href="#disclaimers-about-decision-tree">Disclaimers about Decision Tree</a></li>
+</ul></li>
+<li><a href="#decision-tree-algorithm">Decision Tree Algorithm</a><ul>
+<li><a href="#a-basic-decision-tree-algorithm">A basic Decision Tree Algorithm</a></li>
+<li><a href="#classification-and-regression-tree-crt">Classification and Regression Tree (C&amp;RT)</a></li>
+<li><a href="#impurity-functions">Impurity Functions</a></li>
+<li><a href="#termination-in-crt">termination in C&amp;RT</a></li>
+</ul></li>
+<li><a href="#decision-tree-heuristic-in-crt">Decision Tree Heuristic in CR&amp;T</a><ul>
+<li><a href="#basic-crt">Basic CR&amp;T</a></li>
+<li><a href="#regularization-by-pruning">Regularization by pruning</a></li>
+<li><a href="#branching-on-categorical-feature">Branching on Categorical Feature</a></li>
+<li><a href="#missing-features-by-surrogate-branch">Missing Features by surrogate Branch</a></li>
+</ul></li>
+<li><a href="#decision-tree-in-action">Decision tree in action</a></li>
+<li><a href="#summary">Summary</a></li>
+</ul></li>
+<li><a href="#lecture-10-random-forest">Lecture 10 Random Forest</a><ul>
+<li><a href="#random-forest-algorithm">Random Forest Algorithm</a><ul>
+<li><a href="#recall-bagging-and-decision-tree">Recall: Bagging and Decision Tree</a></li>
+<li><a href="#random-forest">Random Forest</a></li>
+<li><a href="#diversifying-by-feature-projection">Diversifying by Feature Projection</a></li>
+<li><a href="#diversifying-by-feature-expansion">Diversifying by Feature Expansion</a></li>
+</ul></li>
+<li><a href="#out-of-bag-estimate">Out-Of-Bag Estimate</a><ul>
+<li><a href="#bagging-revisited">Bagging Revisited</a></li>
+<li><a href="#number-of-oob-examples">Number of OOB Examples</a></li>
+<li><a href="#oob-versus-validation">OOB versus Validation</a></li>
+<li><a href="#model-selection-by-oob-error">Model selection by OOB error</a></li>
+</ul></li>
+<li><a href="#feature-selection">Feature selection</a><ul>
+<li><a href="#feature-selection-by-importance">Feature selection by importance</a></li>
+<li><a href="#feature-importance-by-permutation-test">Feature importance by Permutation Test</a></li>
+<li><a href="#feature-importance-in-original-rf">Feature importance in Original RF</a></li>
+</ul></li>
+<li><a href="#random-forest-in-action">Random Forest in Action</a><ul>
+<li><a href="#how-many-trees-needed">How many trees needed?</a></li>
+</ul></li>
+<li><a href="#summary-1">Summary</a></li>
+</ul></li>
+<li><a href="#lecture-11-adaptive-boosted-decision-tree">Lecture 11 Adaptive Boosted Decision Tree</a><ul>
+<li><a href="#adaptive-boosted-decision-tree">Adaptive Boosted Decision Tree</a><ul>
+<li><a href="#from-random-forest-to-adaboost-dtree">From Random Forest to AdaBoost-DTree</a></li>
+<li><a href="#weighted-decision-tree-algorithm">Weighted Decision Tree Algorithm</a></li>
+<li><a href="#weak-decision-tree-algorithm">Weak Decision Tree Algorithm</a></li>
+<li><a href="#adaboost-with-extremely-pruned-tree">AdaBoost with Extremely-Pruned Tree</a></li>
+</ul></li>
+<li><a href="#optimization-view-of-adaboost">Optimization View of AdaBoost</a><ul>
+<li><a href="#example-weights-of-adaboost">Example Weights of AdaBoost</a></li>
+<li><a href="#voting-score-and-margin">voting score and margin</a></li>
+<li><a href="#adaboost-error-function">AdaBoost Error Function</a></li>
+<li><a href="#gradient-descent-on-adaboost-error-function">Gradient Descent on AdaBoost Error Function</a></li>
+<li><a href="#learning-hypothesis-as-optimization">Learning Hypothesis as Optimization</a></li>
+<li><a href="#deciding-blending-weight-as-optimization">Deciding blending weight as optimization</a></li>
+</ul></li>
+<li><a href="#gradient-boosting">Gradient Boosting</a><ul>
+<li><a href="#gradient-boosting-for-arbitrary-error-function">Gradient Boosting for Arbitrary Error Function</a></li>
+<li><a href="#gradient-boost-for-regression">Gradient Boost for Regression</a></li>
+<li><a href="#learning-hypothesis-as-optimization-1">Learning Hypothesis as Optimization</a></li>
+<li><a href="#deciding-blending-weight-as-optimization-1">Deciding Blending Weight as Optimization</a></li>
+</ul></li>
+<li><a href="#summary-of-aggregation-models">Summary of Aggregation Models</a><ul>
+<li><a href="#map-of-blending-models">Map of Blending Models</a></li>
+<li><a href="#map-of-aggregation-learning-models">Map of Aggregation-Learning Models</a></li>
+<li><a href="#map-of-aggregation-of-aggregation-models">Map of Aggregation of Aggregation Models</a></li>
+<li><a href="#specialty-of-aggregation-models">Specialty of Aggregation Models</a></li>
+<li><a href="#summary-2">Summary</a></li>
+</ul></li>
+</ul></li>
 </ul>
 </div>
 
@@ -349,6 +445,1138 @@ G(x) = \text{sign } (\sum_{1}^{T} \alpha_t \cdot g_t(x))\ \text{with } \alpha_t 
 <li>obtain <span class="math inline">\(g_t\)</span> by by <span class="math inline">\(\mathcal{A}(\tilde{D_t})\)</span>, then G = uniform(<span class="math inline">\(g_t\)</span>)</li>
 </ul></li>
 <li>A simple meta algorithm on top of base algorithm <span class="math inline">\(\mathcal{A}\)</span></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="lecture-8-adaptive-boosting" class="section level1">
+<h1>Lecture 8 Adaptive Boosting</h1>
+<div id="motivation-of-boosting" class="section level2">
+<h2>Motivation of boosting</h2>
+<div id="motivation" class="section level3">
+<h3>Motivation</h3>
+<ul>
+<li>Students: simple hypothesis <span class="math inline">\(g_t\)</span> (like vertical/horizontal lines)</li>
+<li>Class: sophisticated hypothesis <span class="math inline">\(G\)</span></li>
+<li>Teacher: a tactic learning algorithm that directs the students to focus on key examples.</li>
+</ul>
+</div>
+</div>
+<div id="diversity-by-re-weighting" class="section level2">
+<h2>Diversity by Re-weighting</h2>
+<div id="bootstrapping-as-re-weighting-process" class="section level3">
+<h3>Bootstrapping as Re-weighting Process</h3>
+<p><span class="math display">\[
+D = \{(x_1, y_1), (x_2, y_2),(x_3, y_3), (x_4, y_4)\} \\
+\text{bootstrap} =&gt; \tilde{D_t} = \{(x_1, y_1), (x_1, y_1),(x_2, y_2), (x_4, y_4)\}
+\]</span></p>
+<ul>
+<li>Weighted <span class="math inline">\(E_{in}\)</span> on <span class="math inline">\(\mathcal{D}\)</span></li>
+</ul>
+<p><span class="math display">\[
+E_{in}^u(h) = 1/4 \sum_{n=1}^4 u_n \cdot [y_n \ne h(x_n)] \\
+(x_1, y_1), u_1 = 2 \\
+(x_2, y_2), u_2 = 1 \\
+(x_3, y_3), u_3 = 0 \\
+(x_4, y_4), u_4 = 1 \\
+\]</span></p>
+<ul>
+<li><span class="math inline">\(E_{in}\)</span> on <span class="math inline">\(\tilde{\mathcal{D_t}}\)</span></li>
+</ul>
+<p><span class="math display">\[
+E_{in}^{0/1}(h) = 1/4 \sum_{(x,y) \in \tilde{\mathcal{D_t}}} \cdot [y_n \ne h(x_n)] \\
+\tilde{\mathcal{D_t}} = \{(x_1, y_1), (x_1, y_1),(x_2, y_2), (x_4, y_4)\}
+\]</span></p>
+<ul>
+<li>Each diverse <span class="math inline">\(g_t\)</span> in bagging: by minimizing bootstrap-weighted error</li>
+</ul>
+</div>
+<div id="weighted-base-algorithm" class="section level3">
+<h3>Weighted Base Algorithm</h3>
+<ul>
+<li>minimize (regularized)</li>
+</ul>
+<p><span class="math display">\[
+E_{in}^u(h) = 1/N \sum_{n=1}^N u_n \cdot \text{err} (y_n, h(x_n)) \\
+\]</span></p>
+<ul>
+<li>SVM can handle weighted sample</li>
+</ul>
+<p><span class="math display">\[
+E_{in}^u(h) \propto C\ \sum_{n=1}^N\ u_n \widehat{\text{err}}_{SVM} \\
+\Leftrightarrow 0 \le \alpha \le Cu_n
+\]</span></p>
+<ul>
+<li>logistic regression can handle weighted sample
+<ul>
+<li><span class="math inline">\(E_{in}^u(h) \propto \sum_{n=1}^N\ u_n \text{err}_{CE}\)</span> by SGD <span class="math inline">\(\Leftrightarrow\)</span> sample <span class="math inline">\((x_n, y_n)\)</span> with probability proportional to <span class="math inline">\(u_n\)</span></li>
+</ul></li>
+<li>example-weighted learning:
+<ul>
+<li>extension of class-weighted learning in lecture 8 of ML Foundations.</li>
+</ul></li>
+</ul>
+</div>
+<div id="re-weighting-for-more-diverse-hypothesis" class="section level3">
+<h3>Re-weighting for More Diverse Hypothesis</h3>
+<ul>
+<li>How to re-weight for more diverse hypothesis?</li>
+</ul>
+<p><span class="math display">\[
+g_t \leftarrow \underset{h \in \mathcal{H} }{\text{argmin}}
+\sum_{n=1}^N u_n^{(t)} [y_n \ne h(x_n)]
+\\
+g_{t+1} \leftarrow \underset{h \in \mathcal{H} }{\text{argmin}}
+\sum_{n=1}^N u_{n}^{(t+1)} [y_n \ne h(x_n)]
+\]</span></p>
+<ul>
+<li><p>Diversity means, if <span class="math inline">\(g_t\)</span> is not good <span class="math inline">\(u_{n}^{(t+1)}\)</span>, then <span class="math inline">\(g_t\)</span>-like hypothesis will not returned as <span class="math inline">\(g_{t+1}\)</span>. Then <span class="math inline">\(g_{t+1}\)</span> will diverse from <span class="math inline">\(g_{t}\)</span></p></li>
+<li><p>idea: construct <span class="math inline">\(u_{n}^{(t+1)}\)</span> to make <span class="math inline">\(g_{t}\)</span> random-like</p></li>
+</ul>
+<p><span class="math display">\[
+\frac
+{\sum_{n=1}^N u_{n}^{(t+1)} [y_n \ne g_t(x_n)] } 
+{\sum_{n=1}^N u_{n}^{(t+1)} }
+=
+\frac{1}{2}
+\]</span></p>
+</div>
+<div id="optimal-re-weighting" class="section level3">
+<h3>optimal re-weighting</h3>
+<ul>
+<li>weighted incorrect rate <span class="math inline">\(\epsilon_t\)</span></li>
+<li>multiply incorrect <span class="math inline">\(\propto (1-\epsilon_t); u_n^{t+1} \leftarrow (1-\epsilon_t)u_n^{t}\)</span> ; multiply correct <span class="math inline">\(\propto \epsilon_t; u_n^{t+1} \leftarrow \epsilon_t u_n^{t}\)</span></li>
+</ul>
+</div>
+</div>
+<div id="adaptive-boosting-algorithm" class="section level2">
+<h2>Adaptive Boosting algorithm</h2>
+<div id="scaling-factor" class="section level3">
+<h3>Scaling factor</h3>
+<ul>
+<li>Here, the important thing is you don’t care <span class="math inline">\(\sum_{n=1}^N [y_n \ne g_t(x_n)]\)</span> much You care about <span class="math inline">\(\sum_{n=1}^N u_n^{(t)}[y_n \ne g_t(x_n)]\)</span></li>
+<li>Let me give an example, let’s say we have 5 points, their current weight is (1, 2, 3, 4, 5). The current <span class="math inline">\(g_t\)</span> gives <span class="math inline">\((F, F, T, T, T)\)</span>, then weighted error rate is <span class="math inline">\(3/15\)</span>. Then new <span class="math inline">\(u_n^{t+1}\)</span> would be <span class="math inline">\((12, 12x2, 3x3, 3x4, 3x5) = (12, 24, 9, 12, 15)\)</span>.</li>
+<li>Now if we consider non-weighted error, which is <span class="math inline">\(2/5\)</span>, Then new <span class="math inline">\(u_n^{t+1}\)</span> would be simply be <span class="math inline">\((3, 3, 2, 2, 2)\)</span></li>
+<li>可以问一下老师为什么要用weighted error rate去scale <span class="math inline">\(u_n\)</span>，而不是简单的用non-weighted error rate去scale <span class="math inline">\(u_n\)</span>。这样也可以让<span class="math inline">\(g_t\)</span>的error rate变成<span class="math inline">\(1/2\)</span>。我的理解是如果用后者，就 切断了<span class="math inline">\(u^{t+1}\)</span>以及<span class="math inline">\(g_{t+1}\)</span>和之前的联系。是不是之后aggregate起来就没有VC dim的保证了？</li>
+</ul>
+<p><span class="math display">\[
+\epsilon_t
+=
+\frac
+{\sum_{n=1}^N u_n^{(t)}[y_n \ne g_t(x_n)]}
+{\sum_{n=1}^N u_n^{(t)}}
+\]</span></p>
+<ul>
+<li><p>multipy incorrect <span class="math inline">\(\propto (1-\epsilon_t)\)</span>; multiply correct <span class="math inline">\(\propto \epsilon_t\)</span></p></li>
+<li><p>The following is equivalent</p></li>
+</ul>
+<p><span class="math display">\[
+\diamondsuit_t = \sqrt{\frac{1-\epsilon_t}{\epsilon_t}}
+\\
+\text{incorrect} \leftarrow \text{incorrect} \cdot \diamondsuit_t
+\\
+\text{correct} \leftarrow \text{correct} / \diamondsuit_t
+\]</span></p>
+<ul>
+<li><span class="math inline">\(\diamondsuit_t &gt; 1\)</span> iff <span class="math inline">\(\epsilon_t \le 1/2\)</span>, which means scale up incorrect and scale down correct, like the teacher does.</li>
+<li>scaling up incorrect examples leads to diverse hypothesis</li>
+</ul>
+</div>
+<div id="a-preliminary-algorithm" class="section level3">
+<h3>A Preliminary Algorithm</h3>
+<ul>
+<li>Problems remain:
+<ol style="list-style-type: decimal">
+<li>What could be our <span class="math inline">\(u^{(1)}\)</span></li>
+<li>How to aggregate <span class="math inline">\(g_t\)</span> to get <span class="math inline">\(G(x)\)</span></li>
+</ol></li>
+<li>Answer to 1. <span class="math inline">\(u^{(1)} = 1/N\)</span> would be a good choice.</li>
+<li>Answer to 2. uniform is not a good choice because <span class="math inline">\(g_2\)</span> would behave bad on original dataset. linear aggregation might be good.</li>
+</ul>
+</div>
+<div id="linear-aggregation-on-the-fly" class="section level3">
+<h3>Linear aggregation on the fly</h3>
+<p><span class="math display">\[
+G(x) = sign(\sum_1^T \alpha_t g_t)
+\]</span></p>
+<ul>
+<li>The intention is to give good <span class="math inline">\(g_t\)</span> with bigger <span class="math inline">\(\alpha_t\)</span>. According to Prof. Lin, good <span class="math inline">\(\alpha_t\)</span> means smaller <span class="math inline">\(\epsilon_t\)</span>, means larger <span class="math inline">\(\diamondsuit_t\)</span>.</li>
+<li>Original designer set</li>
+</ul>
+<p><span class="math display">\[
+\alpha_t = ln(\diamondsuit_t)
+\]</span></p>
+<ul>
+<li>Bad <span class="math inline">\(g_t\)</span> with <span class="math inline">\(\epsilon_t = 1/2\)</span> will have <span class="math inline">\(\alpha_t = 0\)</span>.</li>
+<li>Super <span class="math inline">\(g_t\)</span> with <span class="math inline">\(\epsilon_t = 0\)</span> will have <span class="math inline">\(\alpha_t = \inf\)</span></li>
+<li>我又有个问题了这里的<span class="math inline">\(\epsilon_t\)</span> 并不是原来的<span class="math inline">\(E_{in}\)</span>呀。</li>
+<li>Adaptive boosting:
+<ul>
+<li>weak base algorithm (student)</li>
+<li>optimal re-weighting factor <span class="math inline">\(\diamondsuit_t\)</span> (teacher)</li>
+<li>‘magic’ linear aggregation <span class="math inline">\(\alpha_t\)</span> (Class)</li>
+</ul></li>
+</ul>
+</div>
+<div id="adaptive-boosting-adaboost-algorithm" class="section level3">
+<h3>Adaptive Boosting (AdaBoost) Algorithm</h3>
+<ul>
+<li>See slides 208, pg 17.</li>
+</ul>
+</div>
+<div id="theoretical-guarantee-of-adaboost" class="section level3">
+<h3>Theoretical Guarantee of AdaBoost</h3>
+<ul>
+<li>VC bound</li>
+</ul>
+<p><span class="math display">\[
+E_{out}(G) \le E_{in}(G) + O(\sqrt
+{O(d_{vc}(\mathcal{H}) \cdot T logT) \cdot \frac{logN}{N} }
+)
+\]</span></p>
+<ul>
+<li>The <span class="math inline">\(d_{vc}(\mathcal{H})\)</span> is for <span class="math inline">\(g\)</span>, and when they aggregate together, The <span class="math inline">\(d_{vc}\)</span> is <span class="math inline">\(d_{vc}(\mathcal{H}) \cdot T logT\)</span></li>
+<li>First term can be small, from the original paper: <span class="math inline">\(E_{in}(G) = 0\)</span> after <span class="math inline">\(T = O(log N)\)</span> iterations if <span class="math inline">\(\epsilon_t \le \epsilon &lt; 1/2\)</span> always .</li>
+<li>Second term can be small: overall <span class="math inline">\(d_{vc}\)</span> grows “slowly” with T</li>
+<li>boosting view of AdaBoost: if A is weak but always slightly better than random <span class="math inline">\(\epsilon_t \le \epsilon &lt; 1/2\)</span>, then (AdaBoost + A) can be strong (<span class="math inline">\(E_{in}(G) = 0\)</span>) and <span class="math inline">\(E_{out} small\)</span>.</li>
+</ul>
+</div>
+</div>
+<div id="adaptive-boosting-in-action" class="section level2">
+<h2>Adaptive Boosting in Action</h2>
+<div id="decision-stump" class="section level3">
+<h3>Decision stump</h3>
+<ul>
+<li>Want a ‘weak’ base learning algorithm <span class="math inline">\(\mathcal{A}\)</span>, which leads to <span class="math inline">\(\epsilon &lt; 1/2\)</span> .</li>
+<li>A popular choice: decision stump</li>
+</ul>
+<p><span class="math display">\[
+h_{s,i,\theta}(x) = s \cdot \text{sign}(x_i - \theta)
+\]</span></p>
+<ul>
+<li>physical meaning: vertical/horizontal lines in 2D</li>
+<li>efficient to optimize: <span class="math inline">\(O(d \cdot N log N )\)</span></li>
+<li>decision stump model: allows efficient minimization of <span class="math inline">\(E_{in}^u\)</span>, but too weak by it self.</li>
+<li>Adaboost + decision stump: non-linear yet efficient.</li>
+</ul>
+</div>
+<div id="adaboost-stump-in-application" class="section level3">
+<h3>AdaBoost-stump in application</h3>
+<ul>
+<li>Real-time face detection</li>
+<li>feature selection achieved through Adaboost</li>
+<li>linear aggregation to rule out non-face earlier</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="lecture-9-decision-tree" class="section level1">
+<h1>Lecture 9 Decision Tree</h1>
+<div id="decision-tree-hypothesis" class="section level2">
+<h2>Decision tree hypothesis</h2>
+<div id="what-we-have-done-1" class="section level3">
+<h3>What we have done</h3>
+<ul>
+<li>Blending: aggregate after getting <span class="math inline">\(g_t\)</span>;</li>
+<li>Learning: aggregate as well as getting <span class="math inline">\(g_t\)</span>;</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th align="center">aggregation type</th>
+<th align="center">blending</th>
+<th align="center">learning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">uniform</td>
+<td align="center">voting/averaging</td>
+<td align="center">Bagging</td>
+</tr>
+<tr class="even">
+<td align="center">non-uniform</td>
+<td align="center">linear</td>
+<td align="center">Adaboost</td>
+</tr>
+<tr class="odd">
+<td align="center">conditional</td>
+<td align="center">stacking</td>
+<td align="center">Decision tree</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Decision tree: a traditional learning model that realizes conditional aggregation</li>
+</ul>
+</div>
+<div id="decision-tree-for-watching-mooc-lectures" class="section level3">
+<h3>Decision Tree for Watching MOOC Lectures</h3>
+<p><span class="math display">\[
+G(x) = \sum_{t=1}^T
+q_t(x) \cdot g_t(x)
+\]</span></p>
+<ul>
+<li>base hypothesis <span class="math inline">\(g_t(x)\)</span> leaf at end of path <span class="math inline">\(t\)</span>, a constant here</li>
+<li>condition <span class="math inline">\(q_t(x)\)</span>: is <span class="math inline">\(x\)</span> on path <span class="math inline">\(t\)</span>?</li>
+<li>Usually with simple internal nodes</li>
+<li>Arguably one of the most human-mimicking models</li>
+</ul>
+</div>
+<div id="recursive-view-of-decision-tree" class="section level3">
+<h3>Recursive View of Decision Tree</h3>
+<ul>
+<li>Path view</li>
+</ul>
+<p><span class="math display">\[
+G(x) = \sum_{t=1}^T [ x \text{ on path } t ] \cdot \text{leaf}_t(x)
+\]</span></p>
+<ul>
+<li>Recursive View</li>
+</ul>
+<p><span class="math display">\[
+G(x) = \sum_{c=1}^C [b(x) = c] \cdot G_c(x)
+\]</span></p>
+<ul>
+<li>G(x): full tree hypothesis</li>
+<li>b(x): branching criteria</li>
+<li><span class="math inline">\(G_c(x)\)</span>: sub-tree hypothesis at c-th branch</li>
+<li>tree = (root, sub-trees)</li>
+</ul>
+</div>
+<div id="disclaimers-about-decision-tree" class="section level3">
+<h3>Disclaimers about Decision Tree</h3>
+<ul>
+<li>human-explainable</li>
+<li>simple</li>
+<li>efficient in prediction and training</li>
+<li>heuristic: little theoretical explanations</li>
+<li>heuristics: confusing to beginners</li>
+<li>arguably no single representative algorithm</li>
+</ul>
+</div>
+</div>
+<div id="decision-tree-algorithm" class="section level2">
+<h2>Decision Tree Algorithm</h2>
+<div id="a-basic-decision-tree-algorithm" class="section level3">
+<h3>A basic Decision Tree Algorithm</h3>
+<p><span class="math display">\[
+G(x) = \sum_{c=1}^C [b(x) = c] \cdot G_c(x)
+\]</span></p>
+<ul>
+<li>Four choices:
+<ul>
+<li>number of branches</li>
+<li>branching criteria</li>
+<li>termination criteria</li>
+<li>base hypothesis</li>
+</ul></li>
+</ul>
+</div>
+<div id="classification-and-regression-tree-crt" class="section level3">
+<h3>Classification and Regression Tree (C&amp;RT)</h3>
+<p><span class="math inline">\(\mathcal{D} = \{(x_n, y_n)\}_{n=1}^N\)</span></p>
+<ul>
+<li>number of branches: 2</li>
+<li>base hypothesis: <span class="math inline">\(g_t(x) = E_{in}\)</span>-optimal constant
+<ul>
+<li>classification: majority vote</li>
+<li>regression: average of <span class="math inline">\(y_n\)</span></li>
+</ul></li>
+<li>branching criteria: decision stump, branch by purifying</li>
+</ul>
+<p><span class="math display">\[
+b(x) = \underset{\text{decision stump } h(x)}{argmin}
+\sum_{c=1}^2
+|D_c \text{ with } h| \cdot \text{impurity}(D_c \text{ with } h)
+\]</span></p>
+</div>
+<div id="impurity-functions" class="section level3">
+<h3>Impurity Functions</h3>
+<ul>
+<li>Regression</li>
+</ul>
+<p><span class="math display">\[
+\text{impurity}(\mathcal{D}) =
+1/N \sum (y_n - \hat{y} )
+\]</span></p>
+<ul>
+<li>Classification</li>
+</ul>
+<p><span class="math display">\[
+\text{impurity}(\mathcal{D}) =
+1/N \sum (y_n \ne \hat{y} )
+\]</span></p>
+<ul>
+<li>for classification, we can also use Gini index the intuition is consider all <span class="math inline">\(k\)</span> together, the distribution of all <span class="math inline">\(k\)</span> is considered in the Gini index.</li>
+</ul>
+<p><span class="math display">\[
+1 - 
+\sum_{k=1}^{K}
+(\frac{\sum_{n=1}^N[y_n = k]}{N})^2
+\]</span></p>
+<ul>
+<li>Popular choices: Gini for classification, regression error for regression.</li>
+</ul>
+</div>
+<div id="termination-in-crt" class="section level3">
+<h3>termination in C&amp;RT</h3>
+<ul>
+<li>all <span class="math inline">\(y_n\)</span> the same, all <span class="math inline">\(x_n\)</span> the same.</li>
+</ul>
+</div>
+</div>
+<div id="decision-tree-heuristic-in-crt" class="section level2">
+<h2>Decision Tree Heuristic in CR&amp;T</h2>
+<div id="basic-crt" class="section level3">
+<h3>Basic CR&amp;T</h3>
+<ul>
+<li>Easy handle binary classfication, regression and multi-class classification</li>
+</ul>
+</div>
+<div id="regularization-by-pruning" class="section level3">
+<h3>Regularization by pruning</h3>
+<ul>
+<li>fully grown tree: <span class="math inline">\(E_{in}(G) = 0\)</span> if all <span class="math inline">\(x_n\)</span> different</li>
+<li>but overfit because low-level trees built with small <span class="math inline">\(D_c\)</span></li>
+<li>need a regularizer, say <span class="math inline">\(\Omega(G)\)</span> = Number of Leaves(G)</li>
+<li>want regularized decision tree, called pruned decision tree:</li>
+</ul>
+<p><span class="math display">\[
+\underset{\text{all possible } G}{\text{argmin}}
+E_{in}(G) +
+\lambda \Omega(G)
+\]</span></p>
+<ul>
+<li>Cannot enumerate computationally, in practice
+<ul>
+<li><span class="math inline">\(G^{(0)}\)</span> = fully-grown tree</li>
+<li><span class="math inline">\(G^{(i)} = \text{argmin}_G E_{in}(G)\)</span> such that G is one leaf removed from <span class="math inline">\(G^{(i-1)}\)</span></li>
+</ul></li>
+<li>Systematic choice of <span class="math inline">\(\lambda\)</span>? Validation</li>
+</ul>
+</div>
+<div id="branching-on-categorical-feature" class="section level3">
+<h3>Branching on Categorical Feature</h3>
+<ul>
+<li>numerical feature, e.g. blood pressure</li>
+<li>branching for numerical: decision stump</li>
+<li>Categorical features, e.g. major sympton</li>
+<li>branching for categorical</li>
+</ul>
+<p><span class="math display">\[
+b(x) = [x_i \in S] + 1
+\\
+S \subset \{1, 2, \dots, K\}
+\]</span></p>
+<ul>
+<li>decision trees handles categorical features easily</li>
+<li>可以问一下老师，subset可以有<span class="math inline">\(2^n\)</span>那么多，怎么选呢？</li>
+</ul>
+</div>
+<div id="missing-features-by-surrogate-branch" class="section level3">
+<h3>Missing Features by surrogate Branch</h3>
+<ul>
+<li><p>possible <span class="math inline">\(b(x) = [weight \le 50\ kg]\)</span></p></li>
+<li>if weight missing during prediction: surrogate branch
+<ul>
+<li>maintain surrogate branch <span class="math inline">\(b_1(x), \dots \approx \text{best branch } b(x)\)</span> during training</li>
+<li>allow missing feature for b(x) during prediction by using surrogate instead</li>
+</ul></li>
+<li>可以问一下老师或者自己研究一下surrogate到底怎么做的</li>
+<li><p>CR&amp;T handles missing feature easily</p></li>
+</ul>
+</div>
+</div>
+<div id="decision-tree-in-action" class="section level2">
+<h2>Decision tree in action</h2>
+<ul>
+<li>C&amp;RT: ‘divide and conquer’</li>
+<li>human-explainable</li>
+<li>multiclass easily</li>
+<li>categorical features easily</li>
+<li>missing features easily</li>
+<li>efficient non-linear training (and testing)</li>
+<li>almost no other learning model shares all such specialities</li>
+</ul>
+</div>
+<div id="summary" class="section level2">
+<h2>Summary</h2>
+<ul>
+<li>Decision Tree Hypothesis: express path-conditional aggregation</li>
+<li>Decision Tree Algorithm: recursive branching until termination to base</li>
+<li>Decision Tree Heuristics in C&amp;RT: pruning, categorical branching, surrogate</li>
+<li>Decision Tree in Action: explainable and efficient</li>
+<li>next: aggregation of aggregation.</li>
+</ul>
+</div>
+</div>
+<div id="lecture-10-random-forest" class="section level1">
+<h1>Lecture 10 Random Forest</h1>
+<div id="random-forest-algorithm" class="section level2">
+<h2>Random Forest Algorithm</h2>
+<div id="recall-bagging-and-decision-tree" class="section level3">
+<h3>Recall: Bagging and Decision Tree</h3>
+<ul>
+<li>Bagging: function Bag(D, A)</li>
+<li>For <span class="math inline">\(t = 1, 2, \dots, T\)</span></li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>request size-<span class="math inline">\(N'\)</span> data <span class="math inline">\(\tilde{D}_t\)</span> by bootstrapping with <span class="math inline">\(D\)</span></li>
+<li>obtain base <span class="math inline">\(g_t\)</span> by <span class="math inline">\(A(\tilde{D}_t)\)</span></li>
+</ol>
+<ul>
+<li>return G = uniform({<span class="math inline">\(g_t\)</span>})</li>
+<li><p>reduce variance by voting and averaging</p></li>
+<li>Decision Tree function DTree(D)</li>
+<li>if termination returns base <span class="math inline">\(g_t\)</span></li>
+<li><p>else</p></li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>learn <span class="math inline">\(b(x)\)</span> and split D to <span class="math inline">\(D_c\)</span> by <span class="math inline">\(b(x)\)</span></li>
+<li>build <span class="math inline">\(G_c \leftarrow Dtree(D_c)\)</span></li>
+<li>return <span class="math inline">\(G(x) = \sum_{c=1}^C [b(x) = c] \cdot G_c(x)\)</span></li>
+</ol>
+<ul>
+<li>Large variance especially if fully-grown</li>
+<li>putting them together (撒尿虾＋牛丸＝撒尿牛丸) aggregation of aggregation</li>
+</ul>
+</div>
+<div id="random-forest" class="section level3">
+<h3>Random Forest</h3>
+<ul>
+<li>random forest = bagging + fully-grown C&amp;RT decision tree</li>
+<li>function RandomForest(D)</li>
+<li>For <span class="math inline">\(t = 1, 2, \dots, T\)</span></li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>request size-<span class="math inline">\(N'\)</span> data <span class="math inline">\(\tilde{D}_t\)</span> by bootstrapping with <span class="math inline">\(D\)</span></li>
+<li>obtain base <span class="math inline">\(g_t\)</span> by DTree(<span class="math inline">\(\tilde{D}_t\)</span>)</li>
+</ol>
+<ul>
+<li>return G = uniform({<span class="math inline">\(g_t\)</span>})</li>
+<li>highly parallel/efficient to learn</li>
+<li>inherits procs of C&amp;RT</li>
+<li>eliminates cons of fully-grown tree</li>
+</ul>
+</div>
+<div id="diversifying-by-feature-projection" class="section level3">
+<h3>Diversifying by Feature Projection</h3>
+<ul>
+<li>recall: data randomness for diversity in bagging, randomly sample <span class="math inline">\(N'\)</span> examples from <span class="math inline">\(\mathcal{D}\)</span></li>
+<li>another possiblity for diversity: random sample <span class="math inline">\(d'\)</span> features from <span class="math inline">\(x\)</span></li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>When sampling index <span class="math inline">\(i_1, i_2, \dots, i_{d'}: \phi(x) = (x_{i_1}, x_{i_2}, \dots, x_{i_{d'}})\)</span></li>
+<li><span class="math inline">\(\mathcal{Z} \in R^{d'}\)</span>: a random subspace of <span class="math inline">\(\mathcal{X} \in R^{d'}\)</span></li>
+<li>offten <span class="math inline">\(d' &lt;&lt; d\)</span>, efficient for large d, can be generally applied on other models.</li>
+<li>original RF re-sample new subspace for each b(x) in C&amp;RT.</li>
+<li>RF = bagging + random-subspace C&amp;RT</li>
+</ol>
+</div>
+<div id="diversifying-by-feature-expansion" class="section level3">
+<h3>Diversifying by Feature Expansion</h3>
+<ul>
+<li>Random sample d’ features from <span class="math inline">\(x: \phi(x) = P \cdot x\)</span> with row i of P sampled randomly <span class="math inline">\(\in\)</span> natural basis.
+<ul>
+<li>给个例子如下：<span class="math inline">\(d = 3, d' = 2\)</span></li>
+</ul></li>
+</ul>
+<pre class="r"><code>P &lt;- matrix(c(0,0,1,0,0,1), 2, 3)
+P</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    0    1    0
+## [2,]    0    0    1</code></pre>
+<ul>
+<li>more powerful features for diversity: row i other than nature basis</li>
+<li>projection (combination) with random row <span class="math inline">\(p_i\)</span> of <span class="math inline">\(P\)</span>: <span class="math inline">\(\phi_i(x) = p_i^Tx\)</span></li>
+<li>often consider low-dimensional projection: only <span class="math inline">\(d''\)</span> non-zero components in <span class="math inline">\(p_i\)</span></li>
+<li>include random - subspace as special case: <span class="math inline">\(d'' = 1, p_i \in\)</span> nature basis</li>
+<li>original RF consider <span class="math inline">\(d'\)</span> random low-dimensional projections for each <span class="math inline">\(b(x)\)</span> in C&amp;RT</li>
+<li>RF = bagging + random-combination C&amp;RT - randomness everywhere</li>
+<li>可以问一下老师：注意这里，树生成了之后，在预测的时候也要做相同的projectoin.</li>
+</ul>
+</div>
+</div>
+<div id="out-of-bag-estimate" class="section level2">
+<h2>Out-Of-Bag Estimate</h2>
+<div id="bagging-revisited" class="section level3">
+<h3>Bagging Revisited</h3>
+<ul>
+<li>Bagging: function Bag(D, A)</li>
+<li>For <span class="math inline">\(t = 1, 2, \dots, T\)</span></li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>request size-<span class="math inline">\(N'\)</span> data <span class="math inline">\(\tilde{D}_t\)</span> by bootstrapping with <span class="math inline">\(D\)</span></li>
+<li>obtain base <span class="math inline">\(g_t\)</span> by <span class="math inline">\(A(\tilde{D}_t)\)</span></li>
+</ol>
+<ul>
+<li><p>return G = uniform({<span class="math inline">\(g_t\)</span>})</p></li>
+<li><p>if <span class="math inline">\((x_i, y_i)\)</span> is not used for obtaining <span class="math inline">\(g_t\)</span>, then it’s called out-of-bag (OOB) examples of <span class="math inline">\(g_t\)</span></p></li>
+</ul>
+</div>
+<div id="number-of-oob-examples" class="section level3">
+<h3>Number of OOB Examples</h3>
+<ul>
+<li>OOB <span class="math inline">\(\Longleftrightarrow\)</span> not sampled after <span class="math inline">\(N'\)</span> drawings.</li>
+</ul>
+<p>if <span class="math inline">\(N' = N\)</span></p>
+<ol style="list-style-type: decimal">
+<li>probability for <span class="math inline">\((x_n, y_n)\)</span> to be OOB for <span class="math inline">\(g_t\)</span>: <span class="math inline">\((1-1/N)^N\)</span></li>
+<li>if N large:</li>
+</ol>
+<p><span class="math display">\[
+(1-1/N)^N
+= \frac{1}{(\frac{N}{N-1})^N}
+= \frac{1}{(1+\frac{1}{N-1})^N}
+\approx \frac{1}{e}
+\]</span></p>
+<ol start="3" style="list-style-type: decimal">
+<li>OOB size per <span class="math inline">\(g_t \approx 1/e \cdot N\)</span> which is about 1/3 .</li>
+</ol>
+</div>
+<div id="oob-versus-validation" class="section level3">
+<h3>OOB versus Validation</h3>
+<ul>
+<li>OOB examples are like <span class="math inline">\(D_{val}\)</span>: enough random examples unused during training.</li>
+<li>Use OOB examples to validate <span class="math inline">\(g_t\)</span>? YES, but not needed, because we don’t care about <span class="math inline">\(g_t\)</span>. We care more about <span class="math inline">\(G\)</span>.</li>
+<li>Use OOB examples to validate G?</li>
+<li>With <span class="math inline">\(G_n^-\)</span> contains only trees that <span class="math inline">\(x_n\)</span> is OOB of, say, <span class="math inline">\(x_n\)</span> is OOB for <span class="math inline">\(g_2, g_3, g_T\)</span> . Then <span class="math inline">\(x_n\)</span> can be the validation for <span class="math inline">\(G_n^- = 1/3 \cdot (g_2 + g_3 + g_T)\)</span></li>
+</ul>
+<p><span class="math display">\[
+E_{oob}(G) = \frac{1}{N} \sum_{n=1}^N err(y_n, G_n^-(x_n))
+\]</span></p>
+<ul>
+<li><span class="math inline">\(E_{oob}\)</span>: self-validation of bagging and RF.</li>
+</ul>
+</div>
+<div id="model-selection-by-oob-error" class="section level3">
+<h3>Model selection by OOB error</h3>
+<ul>
+<li>RF: by Best <span class="math inline">\(E_{oob}\)</span>
+<ul>
+<li>use <span class="math inline">\(E_{oob}\)</span> for self-validation - of RF parameters such as <span class="math inline">\(d''\)</span></li>
+<li>no re-training needed, as we did in validation</li>
+</ul></li>
+<li><span class="math inline">\(E_{oob}\)</span> often accurate in practice</li>
+</ul>
+</div>
+</div>
+<div id="feature-selection" class="section level2">
+<h2>Feature selection</h2>
+<p>for <span class="math inline">\(x = (x_1, \dots, x_d)\)</span>, want to remove</p>
+<ul>
+<li>redundant features: like keeping one of ‘age’ and ‘full birthday’.</li>
+<li>irrelevant features: like insurance type for cancer prediction.</li>
+</ul>
+<p>and only ‘learn’ subset-transform <span class="math inline">\(\phi(x) = (x_{i_1}, \dots, x_{i_{d'}})\)</span> with <span class="math inline">\(d' &lt; d\)</span> for <span class="math inline">\(g(\phi(x))\)</span></p>
+<ul>
+<li>advantages:</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>efficient: simpler hypothesis and shorter prediction time</li>
+<li>generalization: feature noisy removed</li>
+<li>interpretability</li>
+</ol>
+<ul>
+<li>disadvantages:</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>computation: ‘combinational’ optimization in training</li>
+<li>overfit: ‘combinational’ selection</li>
+<li>mis-interpretability, 只发现关联性，没发现因果性。</li>
+</ol>
+<ul>
+<li>decision tree：a rare model with built-in feature selection</li>
+</ul>
+<div id="feature-selection-by-importance" class="section level3">
+<h3>Feature selection by importance</h3>
+<ul>
+<li>idea: calculate the importance for each feature, select the most important <span class="math inline">\(d'\)</span> of them.</li>
+</ul>
+<p>importance by linear model:</p>
+<p><span class="math display">\[
+score = w^T x = \sum_{i=1}^d w_i x_i
+\]</span></p>
+<ul>
+<li>intuitive estimate: importance(i) = <span class="math inline">\(|w_i|\)</span> with some ‘good’ w.</li>
+<li>getting ‘good’ w: learned from data, just use linear model.</li>
+<li>non-linear models? often much harder.</li>
+</ul>
+</div>
+<div id="feature-importance-by-permutation-test" class="section level3">
+<h3>Feature importance by Permutation Test</h3>
+<ul>
+<li>idea: random test - if feature i needed, ‘random’ values of <span class="math inline">\(x_{n,i}\)</span> degrades performance</li>
+<li>which random values?
+<ul>
+<li>uniform, Gaussian, … <span class="math inline">\(P(x_i)\)</span> changed</li>
+<li>bootstrap, permutation: <span class="math inline">\(P(x_i)\)</span> approximately remained.</li>
+</ul></li>
+<li>permutation test: importance(i) = performance(<span class="math inline">\(D\)</span>) - performance(<span class="math inline">\(D^{(p)}\)</span>)</li>
+<li>It’s a general statistical tool for arbitrary non-linear models like RF</li>
+</ul>
+</div>
+<div id="feature-importance-in-original-rf" class="section level3">
+<h3>Feature importance in Original RF</h3>
+<ol style="list-style-type: decimal">
+<li>performance(<span class="math inline">\(D^{(P)}\)</span>): needs re-training and validation in general</li>
+<li>‘escaping’ validation? OOB in RF</li>
+<li>Original RF solution: importance(i) = <span class="math inline">\(E_{oob}(G) - E_{oob}^{(p)}(G)\)</span>, where <span class="math inline">\(E_{oob}^{(p)}(G)\)</span> comes from replacing each request of <span class="math inline">\(x_{n_i}\)</span> by a permuted OOB value.</li>
+</ol>
+<ul>
+<li>老师也说，这个介绍比较简单。可以参考原始文献<a href="https://link.springer.com/article/10.1023%2FA%3A1010933404324">here</a>。</li>
+</ul>
+</div>
+</div>
+<div id="random-forest-in-action" class="section level2">
+<h2>Random Forest in Action</h2>
+<ul>
+<li>With 1000 trees, smooth and large-margin-like boundary with many trees.</li>
+<li>Easy yet robust nonlinear model</li>
+<li>For a complicated and noisy data set, single decision tree trys to overfit.</li>
+<li>可以学习一下老师这样做一个这样的动画，应该可以假设理解。</li>
+</ul>
+<div id="how-many-trees-needed" class="section level3">
+<h3>How many trees needed?</h3>
+<ul>
+<li>almost every theory: the more, the ‘better’, assuming good</li>
+</ul>
+<p><span class="math display">\[
+\bar{g} = \text{lim}_{T \rightarrow \infty} G
+\]</span></p>
+<ul>
+<li>KDDCup 2013: predicting author-paper relation</li>
+<li>Depending on random seed, for thousands of trees, <span class="math inline">\(E_{val} \in [0.015, 0.019]\)</span></li>
+<li><span class="math inline">\(E_{out} \in [0.014, 0.019]\)</span> for top 20 teams.</li>
+<li>decision: take 12000 trees with seed 1.</li>
+<li>cons of RF: may need lots of trees if the whole random process too unstable. Should double check stability of G to ensure enough trees.</li>
+</ul>
+</div>
+</div>
+<div id="summary-1" class="section level2">
+<h2>Summary</h2>
+<ul>
+<li>Random Forest Algorithm: bag of trees on randomly projected subspaces</li>
+<li>Out-of-bag Estimate: self-validation with OOB examples</li>
+<li>Feature selection: permutation test for feature importance</li>
+<li>Random Forest in Action: ‘smooth’ boundary with many trees</li>
+</ul>
+</div>
+</div>
+<div id="lecture-11-adaptive-boosted-decision-tree" class="section level1">
+<h1>Lecture 11 Adaptive Boosted Decision Tree</h1>
+<div id="adaptive-boosted-decision-tree" class="section level2">
+<h2>Adaptive Boosted Decision Tree</h2>
+<div id="from-random-forest-to-adaboost-dtree" class="section level3">
+<h3>From Random Forest to AdaBoost-DTree</h3>
+<ul>
+<li>function RandomForest(D)</li>
+<li>For <span class="math inline">\(t = 1, 2, \dots, T\)</span></li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>request size-<span class="math inline">\(N'\)</span> data <span class="math inline">\(\tilde{D}_t\)</span> by bootstrapping with <span class="math inline">\(D\)</span></li>
+<li>obtain base <span class="math inline">\(g_t\)</span> by DTree(<span class="math inline">\(\tilde{D}_t\)</span>)</li>
+</ol>
+<ul>
+<li><p>return G = uniform({<span class="math inline">\(g_t\)</span>})</p></li>
+<li>function AdaBoost-DTree(D)</li>
+<li><p>For <span class="math inline">\(t = 1, 2, \dots, T\)</span></p></li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>re-weight data by <span class="math inline">\(u^{(t)}\)</span></li>
+<li>obtain tree <span class="math inline">\(g_t\)</span> by Dtree(<span class="math inline">\(D, u^{(t)}\)</span>)</li>
+<li>calculate vote <span class="math inline">\(\alpha_t\)</span> of <span class="math inline">\(g_t\)</span></li>
+</ol>
+<ul>
+<li><p>return G = LinearHypo(<span class="math inline">\(g_t, \alpha_t\)</span>)</p></li>
+<li><p>我的问题是decision tree的算法好像和weight没什么关系。</p></li>
+</ul>
+</div>
+<div id="weighted-decision-tree-algorithm" class="section level3">
+<h3>Weighted Decision Tree Algorithm</h3>
+<ul>
+<li>Weighted Algorithm</li>
+</ul>
+<p><span class="math display">\[
+\text{minimize (regularized) }
+E_{in}^u(h) = 1/N \sum_{n=1}^N u_n \cdot \text{err} (y_n, h(x_n)) \\
+\]</span></p>
+<ol style="list-style-type: decimal">
+<li>If using existing algorithm as black-box (no modifications), to get <span class="math inline">\(E_{in}^u\)</span> approximately optimized</li>
+<li>“weighted” algorithm in bagging
+<ol style="list-style-type: decimal">
+<li>weights u expressed by bootstrap-sampled copies.</li>
+<li>request size-N’ data <span class="math inline">\(\tilde{D_t}\)</span> by bootstrapping with <span class="math inline">\(D\)</span></li>
+</ol></li>
+<li>A General Randomized Base Algorithm
+<ol style="list-style-type: decimal">
+<li>weights u expressed by sampling proportional to <span class="math inline">\(u_n\)</span></li>
+<li>request size-N’ data <span class="math inline">\(\tilde{D_t}\)</span> by sampling <span class="math inline">\(\propto u\)</span> on D</li>
+</ol></li>
+</ol>
+<ul>
+<li>Adaboost-Dtree: often via AdaBoost + sampling <span class="math inline">\(\propto u^{(t)}\)</span> + Dtree(<span class="math inline">\(\tilde{D_t}\)</span>) without modifying DTree.</li>
+</ul>
+</div>
+<div id="weak-decision-tree-algorithm" class="section level3">
+<h3>Weak Decision Tree Algorithm</h3>
+<ul>
+<li>Adaboost:</li>
+</ul>
+<p><span class="math display">\[
+\alpha_t = ln \diamondsuit_t = ln\sqrt{\frac{1-\epsilon_t}{\epsilon_t}}
+\]</span></p>
+<p>With weighted error rate <span class="math inline">\(\epsilon_t\)</span></p>
+<ul>
+<li>If fully grown tree, we will get <span class="math inline">\(\alpha_t = \infty\)</span>. That’s autocracy.</li>
+<li>Need: pruned tree trained on some <span class="math inline">\(x_n\)</span> to be weak.
+<ul>
+<li>pruned: usual pruning, or just limiting tree height</li>
+<li>some: sampling <span class="math inline">\(\propto u\)</span></li>
+</ul></li>
+<li>Adaboost-Dtree: often via AdaBoost + sampling <span class="math inline">\(\propto u^{(t)}\)</span> + pruned Dtree(<span class="math inline">\(\tilde{D_t}\)</span>)</li>
+</ul>
+</div>
+<div id="adaboost-with-extremely-pruned-tree" class="section level3">
+<h3>AdaBoost with Extremely-Pruned Tree</h3>
+<ol style="list-style-type: decimal">
+<li>What if DTree with hight <span class="math inline">\(\le 1\)</span> (extremely pruned)?</li>
+</ol>
+<ul>
+<li>DTree (C&amp;RT) with height <span class="math inline">\(\le\)</span> 1, learn branching criteria</li>
+</ul>
+<p><span class="math display">\[
+b(x) = \underset{\text{decision stump } h(x)}{\text{argmin}}
+\sum_{c=1}^2
+|D_c \text{ with } h| \cdot \text{impurity}(D_c \text{ with } h)
+\]</span></p>
+<ul>
+<li>If impurity = binary classification error, it becames a decision stump.</li>
+<li>So AdaBoost-Stump = special case of AdaBoost-DTree.</li>
+</ul>
+</div>
+</div>
+<div id="optimization-view-of-adaboost" class="section level2">
+<h2>Optimization View of AdaBoost</h2>
+<div id="example-weights-of-adaboost" class="section level3">
+<h3>Example Weights of AdaBoost</h3>
+<p><span class="math display">\[
+\begin{align*}
+u_{n}^{(t+1)} &amp; = 
+\begin{cases}
+u_{n}^{(t)} \cdot \diamondsuit_t &amp; \quad \text{if incorrect} \\
+u_{n}^{(t)} / \diamondsuit_t &amp; \quad \text{if correct} \\
+\end{cases} \\
+&amp; = u_n \diamondsuit_t ^ {-y_n g_t (x_n)} = u_n \cdot exp(-y_n \alpha_t g_t (x_n))
+\end{align*} \\
+u_{n}^{(T+1)} = u_{n}^{(1)} \cdot \prod_{t=1}^T exp (-y_n \alpha_t g_t (x_n))
+= \frac{1}{N} \cdot exp \left( -y_n \sum_{t=1}^T \alpha_t g_t (x_n) \right)
+\\
+G(x) = \text{sign} \left( \sum_{t=1}^T \alpha_t g_t (x_n) \right) \\
+\sum_{t=1}^T \alpha_t g_t (x_n) \text{ : voting score of } \{g_t\} \text{ on } x
+\]</span></p>
+<ol style="list-style-type: decimal">
+<li>Adaboost: <span class="math inline">\(u_{n}^{(T+1)} \propto exp (-y_n (\text{ voting score on } x_n))\)</span></li>
+</ol>
+</div>
+<div id="voting-score-and-margin" class="section level3">
+<h3>voting score and margin</h3>
+<ul>
+<li>linear blending = LinModel + hypothesis transform + without constraints</li>
+</ul>
+<p><span class="math display">\[
+G(x_n) = \text{sign} \left( 
+\sum_{t=1}^T 
+\underbrace{\alpha_t}_{w_i}
+\underbrace{g_t (x_n)}_{\phi_i(x_n)} \right)
+\]</span></p>
+<ul>
+<li>and hard-margin SVM margin</li>
+</ul>
+<p><span class="math display">\[
+\frac
+{y_n \cdot (w^T \phi_i(x_n) + b)}
+{||w||}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(y_n\)</span> (voting score) = signed &amp; unnormalized margin</li>
+<li><span class="math inline">\(\Leftrightarrow\)</span> want <span class="math inline">\(y_n\)</span> (voting score) positive &amp; large</li>
+<li><span class="math inline">\(\Leftrightarrow\)</span> exp( -<span class="math inline">\(y_n\)</span>(voting score) ) small</li>
+<li><span class="math inline">\(\Leftrightarrow u_n^{(T+1)}\)</span> small</li>
+<li>claim: AdaBoost decreases <span class="math inline">\(\sum_{n=1}^N u_n^{(t)}\)</span></li>
+</ul>
+</div>
+<div id="adaboost-error-function" class="section level3">
+<h3>AdaBoost Error Function</h3>
+<ol style="list-style-type: decimal">
+<li>claim: AdaBoost decreases <span class="math inline">\(\sum_{n=1}^N u_n^{(t)}\)</span> and thus somewhat minimizes</li>
+</ol>
+<p><span class="math display">\[
+\sum_{n=1}^{N} u_{n}^{(T+1)}
+= \frac{1}{N} \cdot \sum_{n=1}^{N} exp \left( -y_n \sum_{t=1}^T \alpha_t g_t (x_n) \right)
+\\
+\]</span></p>
+<ol start="2" style="list-style-type: decimal">
+<li>linear score <span class="math inline">\(s = \sum_{t=1}^T \alpha_t g_t (x_n)\)</span></li>
+<li><span class="math inline">\(\text{err}_{0/1}(s, y) = [ys \le 0]\)</span></li>
+<li><span class="math inline">\(\text{err}_{ADA}(s, y) = exp(-ys)\)</span>: upper bound of <span class="math inline">\(\text{err}_{0/1}\)</span> , called exponential error measure.</li>
+</ol>
+<pre><code>## Warning: Removed 121 rows containing missing values (geom_path).</code></pre>
+<p><img src="data:image/png;base64,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pIQKUiZAgAABAgQIECBAgACBhRRQAF1IfWMTIECg6AKDA1E7alWaZWWy+Fm9+pqiZyw/AgQIECBAgAABAgQIEMiYgAJoxiZEOAQIECiawOhL3QZftDmVDwECBAgQIECAAAECBPIkoACap9kSKwECBHIoUHvxMdHo60sjr14y+SKkyRciWQgQIECAAAECBAgQIECAQLcEFEC7JW0cAgQIlFSgsXT7qB96cJp9zyNrov+mW0oqIW0CBAgQIECAAAECBAgQWAgBBdCFUDcmAQIESiYw+tKXNDMeuODCZluDAAECBAgQIECAAAECBAh0WkABtNPC+idAgACBqB1/XDQed6heeDERAgQIECBAgAABAgQIECDQNQEF0K5RG4gAAQLlFZjYZecY+5P9U4De390ffT+9rbwYMidAgAABAgQIECBAgACBrgoogHaV22AECBAor8D02+CrP7iovBAyJ0CAAAECBAgQIECAAIGuCiiAdpXbYAQIECivQM1zQMs7+TInQIAAAQIECBAgQIDAAgoogC4gvqEJECBQJoHx5zw7xvbeK0257+5fR+9dd5cpfbkSIECAAAECBAgQIECAwAIJKIAuELxhCRAgUEaB0Zcd30zb2+CbFBoECBAgQIAAAQIECBAg0EEBBdAO4uqaAAECBDYXGH3ZS5orqhdc2GxrECBAgAABAgQIECBAgACBTgkogHZKVr8ECBAg8ASB8ec/L8af9cx0ff/td0TPvfc+YR8rCBAgQIAAAQIECBAgQIBAOwUUQNupqS8CBAgQeFKBzW+D9zb4JwWzAwECBAgQIECAAAECBAjMS0ABdF58DiZAgACBuQpsXgB1G/xc/exPgAABAgQIECBAgAABAnMTUACdm5e9CRAgQGCeAmMHHhDjO++U9tJ3y4+i8uDqefbocAIECBAgQIAAAQIECBAgMLuAAujsNrYQIECAQCcEKpWovfSxlyFVGo0Y+IHb4DvBrE8CBAgQIECAAAECBAgQeExAAdSZQIAAAQJdFxg94aXNMQfO/0GzrUGAAAECBAgQIECAAAECBNotoADablH9ESBAgMCTCtQPOSgmlu2Y7td/w01RefiRJz3GDgQIECBAgAABAgQIECBAoBUBBdBW1BxDgAABAvMT6O2N0eOPS/uojI9H9eJL59efowkQIECAAAECBAgQIECAwCwCCqCzwFhNgAABAp0VcBt8Z331ToAAAQIECBAgQIAAAQKPCSiAOhMIECBAYEEE6kccFhPbb5eOXb362qisW7cgcRiUAAECBAgQIECAAAECBIotoABa7PmVHQECBLIr0N8ftWNfnMZXqdejesll2Y1VZAQIECBAgAABAgQIECCQWwEF0NxOncAJECCQf4HRl3sbfP5nUQYECBAgQIAAAQIECBDItoACaLbnR3QECBAotEDtyJUxsXhxmmP1iqsjNmwodL6SI0CAAAECBAgQIECAAIHuCyiAdt/ciAQIECAwJTAwMHkb/NHpp8roaAxcevnUFr8TIECAAAECBAgQIECAAIG2CCiAtoVRJwQIECDQqsBmb4P//g9a7cZxBAgQIECAAAECBAgQIEBgRgEF0BlZrCRAgACBbgnUjjoyGkOD6XDVy6+I2DjcraGNQ4AAAQIECBAgQIAAAQIlEFAALcEkS5EAAQKZFlg0FLVjHr8Nfngk0iJopgMWHAECBAgQIECAAAECBAjkSUABNE+zJVYCBAgUVGD0xJc1Mxs474JmW4MAAQIECBAgQIAAAQIECMxXQAF0voKOJ0CAAIF5C4wec1Q0BgfSftIXIU1eCWohQIAAAQIECBAgQIAAAQLtEFAAbYeiPggQIEBgfgKLFkXt6KPSPirDw1G94sr59edoAgQIECBAgAABAgQIECDwuIACqFOBAAECBDIhMPry6bfBn5+JmARBgAABAgQIECBAgAABAvkXUADN/xzKgAABAoUQGD326E23wV9yeYTb4Asxr5IgQIAAAQIECBAgQIDAQgsogC70DBifAAECBB4TWLw4akcdmbYrGzdO3gZ/FRkCBAgQIECAAAECBAgQIDBvAQXQeRPqgAABAgTaJTB64gnNrgbO+36zrUGAAAECBAgQIECAAAECBFoVUABtVc5xBAgQINB2AbfBt51UhwQIECBAgAABAgQIECi9gAJo6U8BAAQIEMiQwBNug78yQ8EJhQABAgQIECBAgAABAgTyKKAAmsdZEzMBAgQKLLDZbfDneht8gadaagQIECBAgAABAgQIEOiKgAJoV5gNQoAAAQLbKjB63DHT3gZ/WcTG4W091H4ECBAgQIAAAQIECBAgQOAJAgqgTyCxggABAgQWVGDRoqgdc3QaQmV4OKqXX7Gg4RicAAECBAgQIECAAAECBPItoACa7/kTPQECBAop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XRI9v38gayGKhwABAgQIECBAgAABAgS2EFAA3QLERwIECBAgMKvA4sUx+pqT082V8fEY/No3Zt3VBgIECBAgQIAAAQIECBDIhoACaDbmQRQECBAgkBOB4T97UzPSwTMmC6BjY83PGgQIECBAgAABAgQIECCQPQEF0OzNiYgIECBAIMMC43vvFbVDDk4j7H3gwaheeHGGoxUaAQIECBAgQIAAAQIECCiAOgcIECBAgMAcBUbe+ubmEUNf/mqzrUGAAAECBAgQIECAAAEC2RNQAM3enIiIAAECBDIuMHr8cTG+01PTKKs33BS9v7or4xELjwABAgQIECBAgAABAuUVUAAt79zLnAABAgRaFejvj5E3ndo82lWgTQoNAgQIECBAgAABAgQIZE5AATRzUyIgAgQIEMiDwMib3hCN3t401IGzzonKo4/mIWwxEiBAgAABAgQIECBAoHQCCqClm3IJEyBAgEA7BCZ22TlGX3Z82lXPhg0x8O2z29GtPggQIECAAAECBAgQIECgzQIKoG0G1R0BAgQIlEdgs5chfeX08iQuUwIECBAgQIAAAQIECORIQAE0R5MlVAIECBDIlkD9kINj7I/2ToPqu/ue6L/mumwFKBoCBAgQIECAAAECBAgQCAVQJwEBAgQIEJiHwPDb/rR59NB//GezrUGAAAECBAgQIECAAAEC2RBQAM3GPIiCAAECBHIqMPKqk2Ni++3S6KsXXxo9996b00yETYAAAQIECBAgQIAAgWIKKIAWc15lRYAAAQLdElg0FCOvf106WqXRiKGvnNGtkY1DgAABAgQIECBAgAABAtsgoAC6DUh2IUCAAAECWxMYfsubo1GppLsMfv2bEcMjW9vdNgIECBAgQIAAAQIECBDoooACaBexDUWAAAECxRSY2H23qB19ZJpcz5q1Mfid7xYzUVkRIECAAAECBAgQIEAghwIKoDmcNCETIECAQPYEhv/HW5pBeRlSk0KDAAECBAgQIECAAAECCy6gALrgUyAAAgQIECiCQH3Vihjb4zlpKn2/+GX033BjEdKSAwECBAgQIECAAAECBHIvoACa+ymUAAECBAhkQmDyGaDDb/2zZihDX/xKs61BgAABAgQIECBAgAABAgsnoAC6cPZGJkCAAIGCCYy87tUxsWRJmlX1okui5957C5ahdAgQIECAAAECBAgQIJA/AQXQ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LAQUQMdC2T0IECBAgACBGPjYitG9x66JRCqTiebDj4oYHCRDgAABAgQIECBAgACBURVQAB1VXo0TIECAAAECwwU6jzgkBpdeOtlV88yfkpGgw49bJ0CAAAECBAgQIECAwEgLKICOtKj2CBAgQIAAgTkLNDbGjNNPKRzPPwu06r8vFLatECBAgAABAgQIECBAYKQFFEBHWlR7BAgQIECAwFwF+j67XvRs9fnknFR3d7Qcecxcz3eQAAECBAgQIECAAAECCyOgALoweq4lQIAAAQIEFkhgxsknRGZCW3Jt7W/uj7obb16gdlxEgAABAgQIECBAgACBdxJQAH0nIccJECBAgACBERfILrpozDjh2EK7zSecHKnJkwvbVggQIECAAAECBAgQIDBSAgqgIyWpHQIECBAgQGC+BHp33D761l4zuaZqytRoPu7E+breyQQIECBAgAABAgQIEJgXAQXQeVFyDgECBAgQIDAqAh1nnhbZhvqk7fqf3xq1d98zKvfRKAECBAgQIECAAAEClSugAFq5fS9zAgQIECAw7gKZ974nOo88rBBH81HHRqqjo7BthQABAgQIECBAgAABAgsroAC6sIKuJ0CAAAECBBZKoHuPXaP/k59I2ki//Eo0nXzaQrXnYgIECBAgQIAAAQIECAwXUAAdrmGdAAECBAgQGHuBqqro+O4Zka2pSe5df81Povq3j4x9HO5IgAABAgQIECBAgEBZCiiAlmW3SooAAQIECJSWwOAKy0fXgftGtr4++ldfNVoPOyqiq7u0khAtAQIECBAgQIAAAQJFKaAAWpTdIigCBAgQIFB5Al37fyP6V105ah95LNL/+nc0nXZG5SHImAABAgQIECBAgACBERdQAB1xUg0SIECAAAECCySQmwLfefSRkU2nk8sbLr8qqh99fIGachEBAgQIECBAgAABAgSGBBRAhyT8JkCAAAECBMZdYODjH42uffdK4khls9FyyBER3T3jHpcACBAgQIAAAQIECBAoXQEF0NLtO5ETIECAAIGyFOg6+IAYWG7ZJLfqf/4rmr5zZlnmKSkCBAgQIECAAAECBMZGQAF0bJzdhQABAgQIEJhXgbq66DjvrMjm3g6fXxouvSKqH3tiXq92HgECBAgQIECAAAECBN4ioAD6Fg4bBAgQIECAQDEIDHzyE9H9ja8noSRT4Q8+3Fvhi6Fj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6bUSulaOcxHIP+on/8/79vb25OXgczm1pA/N7bGX75TYmw9DeqczS/D4008/HUcddVR0dHTEyiuvHKeccso7Fj/zaa6wwgrJZ04p54up5b7k/0jyLwbl3svyGxJobW1NVvN/HPneD6n4Xe4C+aJ/fin773zuZUiZM0+L1r32S/KtPfU70bXKp2LgUysl235UpoC/cyqz3ys163wxaHBwsPz/eV+pHSzvtwnk/wPv0JIf1ON5iEMafpezQP755vkl/53P/51jebtA2U6B//Wvfx0HHXRQUvzcZJNNIv9m+Hca+fl2HnsIECBAgACBUhfo3WLz6P7yl5I0Urk/CFv33j9S09tLPS3xEyBAgAABAgQIECAwjwJlWQC99dZb44QTToj+/v7Ydddd49hjj43hb/6cRxunESBAgAABAmUiMOPE42NgheWTbNIvvBgthxxeJplJgwABAgQIECBAgACBdxIouwLoI488koz2TKVSyfT33Xbb7Z0MHCdAgAABAgTKXaChPtp/cGFkGxqSTOvuuCsaLr2i3LOWHwECBAgQIECAAAECOYGyKoDmn3Xw3e9+N3nI8R577BGbb765TiZAgAABAgQIJAKDyy0bHd8+qaDRdPJpUf3U04VtKwQIECBAgAABAgQIlKdAWb0E6YYbboiXXnop6anLL7888p85LfkXIq211lpzOmw/AQIECBAgUIYCvTtuHz2/fSTqf3ZjpHKPymn9+r4x9a7bIts282VoZZiylAgQIECAAAECBAhUvEBZjQB96qmnCh2af9Ph3D7eBFegskKAAAECBCpKoOO0k2MgNxo0v6T/+0K0HHxYReUvWQIECBAgQIAAAQKVJlBWI0DPOOOMSus/+RIgQIAAAQLzK9DYEO0//H5M3HTLSHX3RN2dd0fDJZdG9157zG9LzidAgAABAgQIECBAoAQEymoEaAl4C5EAAQIECBAoAoHB5ZeLjtNPLUTSdOrpUf347wrbVggQIECAAAECBAgQKB8BBdDy6UuZECBAgAABAvMh0Lv9ttG9047JFamBgWjde79ITZ48Hy04lQABAgQIECBAgACBUhBQAC2FXhIjAQIECBAgMCoCM045MQZW/HDSdvrlV6J134MiMplRuZdGCRAgQIAAAQIECBAYHwEF0PFxd1cCBAgQIECgGATq62L6Dy+KTEtLEk3t/Q9G41nnFkNkYiBAgAABAgQIECBAYIQEFEBHCFIzBAgQIECAQGkKZJZ5X3Sce1Yh+MZzz4/ae+4tbFshQIAAAQIECBAgQKC0BRRAS7v/RE+AAAECBAiMgEDfphtH1zf2SlpK5X627HdQVP3nvyPQsiYIECBAgAABAgQIEBhvAQXQ8e4B9ydAgAABAgSKQqDzm4dH3+qrJbFUTW+P1j32jujpLYrYBEGAAAECBAgQIECAwIILKIAuuJ0rCRAgQIAAgXISSKej/ZLzY/BdiydZ1fzxz9Fy5DHllKFcCBAgQIAAAQIECFSkgAJoRXa7pAkQIECAAIHZCWQXWyzaf/D9yFZXJ4frf3Zj1F91zexOtY8AAQIECBAgQIAAgRIRUAAtkY4SJgECBAgQIDA2AgOrfDpmnHhc4WbNx50Y1U/8vrBthQABAgQIECBAgACB0hJQAC2t/hItAQIECBAgMAYCPbt+NXq23za5U2pgIHkeaNWr/xuDO7sFAQIECBAgQIAAAQIjLaAAOtKi2iNAgAABAgTKQqDj9FOj/6MfSXJJ/++1aN1zn4j+/rLITRIECBAgQIAAAQIEKklAAbSSeluuBAgQIECAwLwLNNRH+2WXRGbihOSamtw0+OZjvzXv1zuTAAECBAgQIECAAIGiEFAALYpuEAQBAgQIECBQjAKZ97w72i++ILJVM/9kavjRj6P+mp8UY6hiIkCAAAECBAgQIEBgDgIKoHOAsZsAAQIECBAgkBfoX3vN6Dz2qAJG8zEnRPXjvytsWyFAgAABAgQIECBAoLgFFECLu39ER4AAAQIECBSBQPfee0bPtlslkaRyzwFt22PvqHr5lSKITAgECBAgQIAAAQIECLyTgALoOwk5ToAAAQIECBDICXSc+Z3o/9iKiUXVa69H665fj+jpZUOAAAECBAgQIECAQJELKIAWeQcJjwABAgQIECgSgfxLkS7/QWQWWSQJqObpZ6LlsCOLJDhhECBAgAABAgQIECAwJwEF0DnJ2E+AAAECBAgQmEUgs/RSMf3SiyJbXZ0cqb/plmi44KJZzrJJgAABAgQIECBAgEAxCSiAFlNviIUAAQIECBAoeoGB1VaJGaedXIiz6bQzo/buewrbVggQIECAAAECBAgQKC4BBdDi6g/RECBAgAABAiUg0LPzF6N7t68lkaay2Wj5xoGR/uuzJRC5EAkQIECAAAECBAhUnoACaOX1uYwJECBAgACBERCY8a1jo2/tNZOWqjo7o+1re0Rq8pQRaFkTBAgQIECAAAECBAiMpIAC6EhqaosAAQIECBCoHIHcc0DbL7kwBj7w/iTn9H9fiLbd94ro66scA5kSIECAAAECBAgQKAEBBdAS6CQhEiBAgAABAsUpkJ3QFu1X/jAyrS1JgDWPPREtRxxdnMGKigABAgQIECBAgECFCiiAVmjHS5sAAQIECBAYGYHBZT8Y7T/4fmTT6aTB+utvjIbzvRl+ZHS1QoAAAQIECBAgQGDhBRRAF95QCwQIECBAgECFC/Svs1bMOOVbBYWm086I2tvvLGxbIUCAAAECBAgQIEBg/AQUQMfP3p0JECBAgACBMhLo+dqXo2uPXZOMUrmfrfsfHNVPPV1GGUqFAAECBAgQIECAQGkKKICWZr+JmgABAgQIEChCgc4Tjonez66XRJbq7om2r+4eVS+8WISRCokAAQIECBAgQIBA5QgogFZOX8uUAAECBAgQGG2B3HNAOy4+PwY+/KHkTlWvvZ4UQVMdHaN9Z+0TIECAAAECBAgQIDAHAQXQOcDYTYAAAQIECBBYEIFsc3NMv/qyGFx8seTy6r8+G61f3zdiYGBBmnMNAQIECBAgQIAAAQILKaAAupCALidAgAABAgQIzCqQWXqpaL/68sg2NCSHau97IJq/edysp9kmQIAAAQIECBAgQGAMBBRAxwDZLQgQIECAAIHKExj4+Eej/aLvRTaVfyVSRMO110XjeRdWHoSMCRAgQIAAAQIECIyzgALoOHeA2xMgQIAAAQLlK9C38YYx46TjCwk2nn5W1N10S2HbCgECBAgQIECAAAECoy+gADr6xu5AgAABAgQIVLBAz+67RNfXd08E8mNBWw4+PGoeeriCRaROgAABAgQIECBAYGwFFEDH1tvdCBAgQIAAgQoU6Dz+6Ojd7HNJ5qn+/mjdba9I516OZCFAgAABAgQIECBAYPQFFEBH39gdCBAgQIAAgUoXqKqK9gvOjf5VPp1IVHV0RNvOu0TVSy9Xuoz8CRAgQIAAAQIECIy6gALoqBO7AQECBAgQIEAgJ1BfF9OvvDQGPviBhCP98itJETTV3o6HAAECBAgQIECAAIFRFFAAHUVcTRMgQIAAAQIEhgtkJ06I6T++KjKLLZrsrn72b9G6y9cjenuHn2adAAECBAgQIECAAIERFFAAHUFMTREgQIAAAQIE3kkg8553x/RrroxMU1Nyau0jj0brfgdHZDLvdKnjBAgQIECAAAECBAgsgIAC6AKguYQAAQIECBAgsDACAx9bMdovuziy1dVJM3W33RHNx5ywME26lgABAgQIECBAgACBOQgogM4Bxm4CBAgQIECAwGgK9K+zVnSce1Zk37hJw1XXRON3vzeat9Q2AQIECBAgQIAAgYoUUACtyG6XNAECBAgQIFAMAr3bbhWd3zq2EErTmd+N+h9dW9i2QoAAAQIECBAgQIDAwgsogC68oRYIECBAgAABAgss0P313aNr370L1zcfdVzU/vL2wrYVAgQIECBAgAABAgQWTkABdOH8XE2AAAECBAgQWGiBzqOPiJ4dt0/aSWWz0brvQVFz/4ML3a4GCBAgQIAAAQIECBCIUAD1LSBAgAABAgQIjLdAKhUdZ30nejfeMIkk1d8fbbvtFdV/eHK8I3N/AgQIECBAgAABAiUvoABa8l0oAQIECBAgQKAsBNLpaL/4guhbfbUknVRXV7TtvEukn/1bWaQnCQIECBAgQIAAAQLjJaAAOl7y7kuAAAECBAgQmFWgvi7ar/ph9H9sxeRI1bTp0fbFr0TVv/8z65m2CRAgQIAAAQIECBCYRwEF0HmEchoBAgQIECBAYCwEsi0tMf3HV8XABz+Q3C796v9iwo5fjqpXXh2L27sHAQIECBAgQIAAgbITUAAtuy6VEAECBAgQIFDqAtlFFonpR9AygQAAQABJREFU1/0oBpdeKkkl/Z//RluuCJqaPKXUUxM/AQIECBAgQIAAgTEXUAAdc3I3JECAAAECBAi8s0AmV/yc/tNrIrPoosnJ1c/9Pdp2+mqk2tvf+WJnECBAgAABAgQIECBQEFAALVBYIUCAAAECBAgUl8DgB94f0667OjJtrUlgNc/8Kdq+vGtE7gVJFgIECBAgQIAAAQIE5k1AAXTenJxFgAABAgQIEBgXgcGPfDh5JmimqSm5f80Tv4+2r+0R0dM7LvG4KQECBAgQIECAAIFSE1AALbUeEy8BAgQIECBQcQIDK30y2q++NLK5t8Tnl9qHHo7W3feK6OurOAsJEyBAgAABAgQIEJhfAQXQ+RVzPgECBAgQIEBgHAT611g9pl92SWRra5O71917X7TuvV/EwMA4ROOWBAgQIECAAAECBEpHQAG0dPpKpAQIECBAgECFC/Svv260X3JBZKurE4m6O++Oln0PihgcrHAZ6RMgQIAAAQIECBCYs4AC6JxtHCFAgAABAgQIFJ1A3yYbRceF50a2auafcfW33hYtBx4akckUXawCIkCAAAECBAgQIFAMAgqgxdALYiBAgAABAgQIzIdA7xabR8d5Z0c2lUquqr/plmg56HBF0PkwdCoBAgQIECBAgEDlCCiAVk5fy5QAAQIECBAoI4He7baOjnPOiOwbOdXfcFO0HHpkRHZoTxklKxUCBAgQIECAAAECCyGgALoQeC4lQIAAAQIECIynQO+O28eMM097swj60xui+bCjFEHHs1PcmwABAgQIECBAoOgEFECLrksERIAAAQIECBCYd4Genb8YM04/pVAEbfjJ9Yqg887nTAIECBAgQIAAgQoQUACtgE6WIgECBAgQIFDeAj1f2TlmfGeWIqjp8OXd6bIjQIAAAQIECBCYZwEF0HmmciIBAgQIECBAoHgFer6aK4KedvKbI0Gv+1m0HOzFSMXbYyIjQIAAAQIECBAYKwEF0LGSdh8CBAgQIECAwCgL9Hzty28ZCVp//Y3RcuBh3g4/yu6aJ0CAAAECBAgQKG4BBdDi7h/RESBAgAABAgTmSyAZCXrGqYWRoPU33hwt+x0UMTg4X+04mQABAgQIECBAgEC5CCiAlktPyoMAAQIECBAg8IZAz5d3ihlnfSeyqVSyp/7nt0br3vtH9PczIkCAAAECBAgQIFBxAgqgFdflEiZAgAABAgQqQaBnpx2j49wzC0XQutvuiNY9vxHR21sJ6cuRAAECBAgQIECAQEFAAbRAYYUAAQIECBAgUF4CvTtsFx0XnBvZdDpJrO6uX0Xbrl+P6O4pr0RlQ4AAAQIECBAgQGAuAgqgc8FxiAABAgQIECBQ6gK922wZ7ZdcENnq6iSV2t/cH2077xLR2VnqqYmfAAECBAgQIECAwDwJKIDOE5OTCBAgQIAAAQKlK9C32eei/bKLI1tbmyRR+8ijMeELX47UtOmlm5TICRAgQIAAAQIECMyjgALoPEI5jQABAgQIECBQygJ9G20Q06++LLIN9UkaNX94MiZs/6VIvf56KacldgIECBAgQIAAAQLvKKAA+o5ETiBAgAABAgQIlIdA/zprxbQfXx2Z5uYkoeo//yUmbP2FqHrxpfJIUBYECBAgQIAAAQIEZiOgADobFLsIECBAgAABAuUqMLDaKjH9hh9HZuKEJMXq5/+ZK4LuEOl/PF+uKcuLAAECBAgQIECgwgUUQCv8CyB9AgQIECBAoPIEBj7+sZh28/Ux+K7Fk+TTuRGg+ZGg6T/+ufIwZEyAAAECBAgQIFD2AgqgZd/FEiRAgAABAgQIvF1gcPnlYtotN8Tge9+THKyaPDkmbPfFqHnksbefbA8BAgQIECBAgACBEhZQAC3hzhM6AQIECBAgQGBhBDK54me+CDqwwvJJM1UdHdG201ej9u57FqZZ1xIgQIAAAQIECBAoKgEF0KLqDsEQIECAAAECBMZWIJObBp+fDt//qU8mN0719EbrbntF3fU3jG0g7kaAAAECBAgQIEBglAQUQEcJVrMECBAgQIAAgVIRyE5oi2nXXxt9662ThJwaHIyWgw6Phot+UCopiJMAAQIECBAgQIDAHAUUQOdI4wABAgQIECBAoIIEGhtj+lWXRs/WWyRJp3I/m08+LZpOPDUim60gCKkSIECAAAECBAiUm4ACaLn1qHwIECBAgAABAgsqUFMTHReeF927fa3QQuMll0bL/gdH9PcX9lkhQIAAAQIECBAgUEoCCqCl1FtiJUCAAAECBAiMtkAqFTNO+VZ0HnlY4U71N90SbV/ZLVIzZhT2WSFAgAABAgQIECBQKgIKoKXSU+IkQIAAAQIECIyhQNeB+0bH2adHNp1O7lp7/4PRtu2Okfrfa2MYhVsRIECAAAECBAgQWHgBBdCFN9QCAQIECBAgQKAsBXq+9IVov/KHkW2oT/Kr+eOfY+Lm20T6uX+UZb6SIkCAAAECBAgQKE8BBdDy7FdZESBAgAABAgRGRKBvg/Vj2g0/icykSUl76RdfjAlbbhs1jzw2Iu1rhAABAgQIECBAgMBoCyiAjraw9gkQIECAAAECJS4wsNInY+qtN8bgMu9LMqma3h5tX/xK1N1ya4lnJnwCBAgQIECAAIFKEFAArYReliMBAgQIECBAYCEFMu9fJimC9ueKofkl1dcXLfscEA3nX5Rs+0GAAAECBAgQIECgWAUUQIu1Z8RFgAABAgQIECgygewiiyTT4Xs/t1ESWSr3s/m0M6L58G9GDAwUWbTCIUCAAAECBAgQIDBTQAHUN4EAAQIECBAgQGDeBXIvRGq/9OLo2mPXwjUN114XbV/eNVIdHYV9VggQIECAAAECBAgUi4ACaLH0hDgIECBAgAABAqUiUFUVnScdHx0nnxDZVH4caETt/Q/GhC22i6r/vlAqWYiTAAECBAgQIECgQgQUQCuko6VJgAABAgQIEBhpgZ7dd4n2K38Y2YaGpOnqvz0XEzfbOqqf+P1I30p7BAgQIECAAAECBBZYQAF0gelcSIAAAQIECBAg0LfRBjHt5z+LwSXelWBUTZ4cE7b/UtTddAscAgQIECBAgAABAkUhoABaFN0gCAIECBAgQIBA6QoMfGzFmHb7LdGf+51f8m+Ib93voGg8/eyIbLZ0ExM5AQIECBAgQIBAWQgogJZFN0qCAAECBAgQIDC+ApncCNBpN/8sejfdpBBI03kXROue34jo6i7ss0KAAAECBAgQIEBgrAUUQMda3P0IECBAgAABAuUq0NiQe0P8RdG1/z6FDOtuvzMmbpV7OdKLLxX2WSFAgAABAgQIECAwlgIKoGOp7V4ECBAgQIAAgXIXyL0VvvObR0T7+d+NbG1tkm31n/4SEz+3ZVQ/9kS5Zy8/AgQIECBAgACBIhRQAC3CThESAQIECBAgQKDUBXq32zqm3XRdZBZbNEkleTnSDjtF/bXXlXpq4idAgAABAgQIECgxAQXQEusw4RIgQIAAAQIESkVg4FMrxdQ7b43+j38sCTnV3x8th38zmo8+PmJgoFTSECcBAgQIECBAgECJCyiAlngHCp8AAQIECBAgUMwCmSWXyL0c6fro2WbLQpgNV/4o2nbYOVKvv17YZ4UAAQIECBAgQIDAaAkogI6WrHYJECBAgAABAgRmCjTUR8eF58WMY4+KbO4Zofml9tHHZj4X9KmnZ57jJwECBAgQIECAAIFRElAAHSVYzRIgQIAAAQIECLxVoPsbe8X0a66ITFtrciD90ssxYesvRN11P3vribYIECBAgAABAgQIjKCAAugIYmqKAAECBAgQIEBg7gL9668bU+/4RQyssHxyYqq3N1oPOSKajzo2oq9v7hc7SoAAAQIECBAgQGABBBRAFwDNJQQIECBAgAABAgsukFnmfTH1tpujZ4vNC400XH1tTNh2x6h6+ZXCPisECBAgQIAAAQIERkJAAXQkFLVBgAABAgQIECAwfwKNjdFxyQUznwtaNfNP0prfPxkTN/581Dz08Py15WwCBAgQIECAAAECcxFQAJ0LjkMECBAgQIAAAQKjK5A8F/S6H0Vm0qTkRlWTJ0fbjl+OhvMvishmR/fmWidAgAABAgQIEKgIAQXQiuhmSRIgQIAAAQIEilegf63PxNS7fhn9K30yCTKVyUTzaWdE6y57Rmp6e/EGLjICBAgQIECAAIGSEFAALYluEiQBAgQIECBAoLwFMkstGdNu/ml07/KVQqJ1d9+TmxK/eVQ//UxhnxUCBAgQIECAAAEC8yugADq/Ys4nQIAAAQIECBAYHYHa2pjx7ZOi/cLzItvQkNwj/d8XYsKW20f9lT8anXtqlQABAgQIECBAoOwFFEDLvoslSIAAAQIECBAoLYHebbaMqXf+IgaWWzYJPNXXFy1HHx8te+0XqY6O0kpGtAQIECBAgAABAuMuoAA67l0gAAIECBAgQIAAgVkFBnPFz6l33BI9225dOFR/620xcZMtclPi/1jYZ4UAAQIECBAgQIDAOwkogL6TkOMECBAgQIAAAQLjI9DYGB0XfDc6zjwtsvV1SQzpf/07NyV+u6i/7MrxicldCRAgQIAAAQIESk5AAbTkukzABAgQIECAAIHKEujZ+Ysx9bafx8CyH0gST6bEH3ditO729UhNnVZZGLIlQIAAAQIECBCYbwEF0PkmcwEBAgQIECBAgMBYCwx++EO554LeGj3bbVO4dd2dd8fEjTaLmkceK+yzQoAAAQIECBAgQGBWAQXQWUVsEyBAgAABAgQIFKdAfkr8+edE+7lnvvmW+JdejrbtvxSNZ50bMThYnHGLigABAgQIECBAYFwFFEDHld/NCRAgQIAAAQIE5leg9wvbx9T/uzUGVvxwcmkqk4mmc86LCdt9MapeeGF+m3M+AQIECBAgQIBAmQsogJZ5B0uPAAECBAgQIFCOAoPLfjCm/vLm6Npj10J6NY89ERM32Czqfn5rYZ8VAgQIECBAgAABAgqgvgMECBAgQIAAAQKlKVBXF50nHR/Tf3R5ZCZNSnKo6uiI1m8cEC37HxKp3LqFAAECBAgQIECAgAKo7wABAgQIECBAgEBJC/RtsH5MuffO6FtvnUIe9TfenBsNumlUP/p4YZ8VAgQIECBAgACByhRQAK3Mfpc1AQIECBAgQKCsBLKLLRbTr70yZpx4XGRra5Pc0i+8GBO23TGaTjsjor+/rPKVDAECBAgQIECAwLwLKIDOu5UzCRAgQIAAAQIEilkglYruPXeLqXfcEgMfWiGJNJXNRuP5F0XjhptF9s9/KeboxUaAAAECBAgQIDBKAtWj1K5mS1jghdzbU6+77rro6+sr4SyETmDeBBobGyOdTkdVVVVkcm8R7vC8uHmDc1ZJCzQ1NeUGw/VHQ0NDTJ8+vaRzETyBOQmkv7htrHP3r2OVhx6NVO6k9DN/jMFPrx5Vp54UMezFSXO63n4CBAgQIECAAIHyEcj9R/Hcfxa3zJdAT0/PfJ1faic/8MADsfHGG5da2OIlsEACa6yxRjz88MMLdK2LCJSqwJprrhkPPfRQqYYvbgLzJbBurvx5edTEe5My6BuXrr1mDPzgwohllpmvtpxMoBQFanOPhMj/R96BgYFSDF/MBOZbIP+dzw9uyC/l/u/u843jgrIVyH/n89/93t7eKOcyX319/QL3oSnwC0znQgIECBAgQIAAgWIXuC+ysVL0xY9i8M1QH3go0iuvGalLr3hznzUCBAgQIECAAIGyFTACdAG69uWXX16Aq0rnkvx/HTYFvnT6S6QLJ2AK/ML5ubo0BUyBL81+E/WCCbzyyitxwQUXJBef8Zm14uDn/hnx2uuFxvrWXTs6zvpOZJZeqrDPCoFyElh00UWTR1u1t7eXU1pyITBHgUmTJkVdXV1y/NVXX01GQM/xZAcIlIlAfvTnIossEq+99lpZj/hfcsklF7jHPAN0genK98J3v/vdsddee0VnZ2f5JikzAsMEFl988eQ5oPnpYfk/kiwEKkEgX/xva2uLcv+PepXQl3Kcu8Df/va3QgH0kSVy/7z/+U3Rt/vekb71tuTC2vseiInrbxKd3zo2enbace6NOUqAAAECBAgQIFCSAqbAl2S3CZoAAQIECBAgQGBeBIaeA5c/Nz/LJbXYYtF37ZXRfsG5kWlrTZqomjEjWg47Ktq+9NWoeuHFZJ8fBAgQIECAAAEC5SOgAFo+fSkTAgQIECBAgACBWQSqq9+c8DQ4+OZzQHu33Sqm/ubu6N1og8IVQ6NB66++NnJvECjst0KAAAECBAgQIFDaAgqgpd1/oidAgAABAgQIEJiLwPAC6Kxvwc68a/Fov+rSaD//nMhMaEtaqco9AqjlqGOjbbsvRdU//zWXlh0iQIAAAQIECBAoFQEF0FLpKXESIECAAAECBAjMt8CsU+Bn10DvdtvElPxo0E03LhyufeTRmLTB56Lh+5dEDBs5WjjBCgECBAgQIECAQMkIKICWTFcJlAABAgQIECBAYH4F5jYCdHhb2cUXi/bLLon2i8+PTO4tqvkl1dMbzad8JyZstlVUP/On4adbJ0CAAAECBAgQKCEBBdAS6iyhEiBAgAABAgQIzJ9AOp0uXDD8GaCFnbOs9G75+Zhy393RkxsVOrTU5IqfEzbdMppOPi2iq3tot98ECBAgQIAAAQIlIqAAWiIdJUwCBAgQIECAAIH5FxheAJ31GaBzai07aWJ05J4LOu3aK2Nw6aWT01KZTDRe9IOYtP7GUXPvfXO61H4CBAgQIECAAIEiFFAALcJOERIBAgQIECBAgMDICMzrFPjZ3a1//XVzo0Hviq49d4ts1cw/m9P/fSEm7LxLtOyzf6T+99rsLrOPAAECBAgQIECgyAQUQIusQ4RDgAABAgQIECAwcgLDR4DOyxT4t925sTE6Tzwupt12c/R/9COFw/W3/DImrbNB1F91TURudKiFAAECBAgQIECgeAUUQIu3b0RGgAABAgQIECCwkAILMwJ0+K0HPvHxmHbHL2LG8UdHtqEhOVTV3hEt3zwuJnx+Wy9JGo5lnQABAgQIECBQZAIKoEXWIcIhQIAAAQIECBAYOYHhI0Dn9Rmgc7x77oVK3XvvmbwkqXejDQqn1Tz5VPKSpOZjvxWp9vbCfisECBAgQIAAAQLFIaAAWhz9IAoCBAgQIECAAIFREKh649md+aYXaAr8bGLKvHvpaL/q0ph+2SUxuNSSyRn5lyQ1XH5VTFprg6i78ebZXGUXAQIECBAgQIDAeAkogI6XvPsSIECAAAECBAiMicDQNPiFHgE6S7R9m24cU+7/VXTt8/XI5kaH5peq11+P1v0PibZtvhDpv/x1litsEiBAgAABAgQIjIeAAuh4qLsnAQIECBAgQIDAmAkMTYMf6QJokkD+JUnHfTOm/ur26Ft9tUJOtY8+HhM32jySafHTTYsvwFghQIAAAQIECIyDgALoOKC7JQECBAgQIECAwNgJDBVAR2oK/OwiH1xh+Zh+03XRfv53Y3DxxZJTCtPi11w/6q+9ztviZwdnHwECBAgQIEBgDAQUQMcA2S0IECBAgAABAgTGT2C0psDPLqPe7baOqQ/+Orq+vntkq6uTU6qmTImWw78ZEzbbKqof/93sLrOPAAECBAgQIEBgFAUUQEcRV9MECBAgQIAAAQLjLzA0AnRUpsDPJr1sc3N0fuvYmHrPHdG39pqFM2qe/mNM3Gr7aNn3wKh66eXCfisECBAgQIAAAQKjK6AAOrq+WidAgAABAgQIEBhngaEC6GhOgZ9dioPLLRvTf3pNTL/04hh8z7sLp9Tf/IuYtPZno/GscyO6ugv7rRAgQIAAAQIECIyOgALo6LhqlQABAgQIECBAoEgExnIK/OxS7ttsk5hy36+i88hDI9vQkJyS6u6JpnPOSwqhdTfcFJHNzu5S+wgQIECAAAECBEZAQAF0BBA1QYAAAQIECBAgULwCQyNAx2oK/Gwl6uui68D9YspD90bPdtvEULkz/fIr0XrAodHyjQOi5pHHZnupnQQIECBAgAABAgsnoAC6cH6uJkCAAAECBAgQKHKBoiiAvmGUWeJd0XH+OTHt9p9H/8qfSvZma2qi5tHHY8K2O0br7ntF+h/PF7mo8AgQIECAAAECpSWgAFpa/SVaAgQIECBAgACB+RQYmgKfLaJp5gOf/ERM+8WN0X7x+dG34fqRfuXVJKu6O+6KietvEs3HnBCpyZPnM1OnEyBAgAABAgQIzE5AAXR2KvYRIECAAAECBAiUjUBV1cw/efMvQcpkMkWVV++Wn4/2738vZhx7VGRaWpLYUgMD0XDF1TFpjfWi8bwLvCipqHpMMAQIECBAgEApCiiAlmKviZkAAQIECBAgQGCeBYZGgOYvGNfngM4p4rq66P7GXjHl4fuia/ddIltdnZxZNWNGNJ1+dkz6zLpRf82P88HPqQX7CRAgQIAAAQIE5iKgADoXHIcIECBAgAABAgRKX2B4ATQ/CrRYl+ykidF58gm5N8bfHb2f36wQZvp/r0XLEcckU+Nrf3l7Yb8VAgQIECBAgACBeRNQAJ03J2cRIECAAAECBAiUqMDQS5Dy4RflCNBZXDPvXybaf3BhTP3lTdG3+mqFo9W5lyO1fX3fmPC5LaPm/gcL+60QIECAAAECBAjMXUABdO4+jhIgQIAAAQIECJS4QKkVQIe4Bz61Uky/6bqYfvVlMfChFYZ2R83Tz8SEL34l2nbYKap/94fCfisECBAgQIAAAQKzF1AAnb2LvQQIECBAgAABAmUiUCpT4OfE3bfhZ2Pqr26P9vPPicH3vLtwWu1DD8fELbaN1q/tEek//bmw3woBAgQIECBAgMBbBRRA3+phiwABAgQIECBAoMwESnUE6Fu6Ifcm+97ttokpD9wTHaeeGJnFFi0crrv7npi40ebRmpsen37u74X9VggQIECAAAECBGYKKID6JhAgQIAAAQIECJS1QFkUQId6qLY2enb9akx++P6YcfQRkZnQlhxJ5X7W5V6QNHG9jaNlv4MinXteqIUAAQIECBAgQGCmgAKobwIBAgQIECBAgEBZC5T6FPjZdk5jQ3Tvt09MeeT+6Dz4gMg0NyenpbLZqL/plpi47kbRcsChkX7+n7O93E4CBAgQIECAQCUJKIBWUm/LlQABAgQIECBQgQJlNQJ0lv7LtrZG1+EHJ4XQrv32jmxDQ3JGKpOJ+htuionrbDizEGpE6CxyNgkQIECAAIFKElAAraTelisBAgQIECBAoAIFyrkAOtSd2UkTo/PoI2PyYw9E19575gqh9cmhQiE0PyI0PzXeM0KHyPwmQIAAAQIEKkhAAbSCOluqBAgQIECAAIFKFBheAB0cHCxrguwii0Tn8UfH5EdzhdC99nhrITQ/NT7/jNC99ov0n/9S1g6SI0CAAAECBAgMF1AAHa5hnQABAgQIECBAoOwEhj8DdGBgoOzym11C2UUXjc4TjplZCE1GhL4xNT7/jNBbb4uJG24WrbvsGdV/eHJ2l9tHgAABAgQIECgrAQXQsupOyRAgQIAAAQIECMwqMHwEaKUUQIcMkkJofkToYw9G1/77RKapKTmUvDX+rl/FxM23ibYv7Bw1D/526BK/CRAgQIAAAQJlJ6AAWnZdKiECBAgQIECAAIHhApVcAB1yyC4yKTq/eURMefyh6DzkwMi0tQ4ditpc8XNCrgg6YbOto/aOuyJyo0QtBAgQIECAAIFyElAALafelAsBAgQIECBAgMDbBIZPgS/3Z4C+LflZdmQntEXXYQclhdAZxxwZmdxU+aGl5smnom33vWLiuhtG3XU/i+jrGzrkNwECBAgQIECgpAUUQEu6+wRPgAABAgQIECDwTgJGgL5dKNvcHN377p1Mje/49kkx+O6lCydV//35aD3kiJi0+jrRcNEPItXRUThmhQABAgQIECBQigIKoKXYa2ImQIAAAQIECBCYZwEF0LlQ1ddFzy5fiSm//U20n//dGPjQCoWT06+8Gs0nnxaTPv2ZaMr9rnrp5cIxKwQIECBAgACBUhJQAC2l3hIrAQIECBAgQIDAfAuYAj8PZNXV0bvd1jH113fG9B9dHn2rrVq4qGrGjGjMjQTNjwht2e/gSP/xz4VjVggQIECAAAECpSCgAFoKvSRGAgQIECBAgACBBRYYXgCttLfALwha3wbrx/SbfxpTf3lT9G72ucim8u+Mj0gNDET9TT+PSRtvHm077BS1d9/jhUkLAuwaAgQIECBAYMwFFEDHnNwNCRAgQIAAAQIExlKgqurNP3kVQOddfuBTK0X7pRfFlIfuje7cNPlsQ33h4tqHHo62r+0RE9feIOqv/FFEV1fhmBUCBAgQIECAQLEJvPnXYLFFJh4CBAgQIECAAAECIyAwfARopb8FfkE4M8u8L2bkXpQ0+YmHo/PIQ2Nw8cUKzVQ//89oOfr4WORTq0fTSd+OqhdeKByzQoAAAQIECBAoFgEF0GLpCXEQIECAAAECBAiMioCXII0Ma3bihOg6cL+Y8tiD0X7eWTGw4ocLDVe1d0TjxT/MPSd03Wjdfa+oyY0QtRAgQIAAAQIEikVAAbRYekIcBAgQIECAAAECoyKgADrCrLW10bvDdjH17ttj2g0/id5NNnrzOaGZTNTdcVdMyD0jdOL6m0T9j641PX6E+TVHgAABAgQIzL+AAuj8m7mCAAECBAgQIECghARMgR+9zur/zOrRfsUPYspvfxNde+4WmZaWws2qn/1btBx5bCyyUm56/PEnRfofzxeOWSFAgAABAgQIjKWAAuhYarsXAQIECBAgQIDAmAsYATr65Jn3vTc6TzwuJv/+4eg47eQYWG7Zwk2rOnLT4y+9InlhUtuOX47a2/8vIvdGeQsBAgQIECBAYKwEFEDHStp9CBAgQIAAAQIExkVAAXQM2ZuaoudrX46p990d066/Nno33TiyVTP/lSOVC6P2gYeibY+9Y9Kqa0XjWedG1Usvj2FwbkWAAAECBAhUqoACaKX2vLwJECBAgAABAhUiYAr8+HR0/1qfifbLLokpjz4QnQfsG5lFFy0Ekn7l1Wg657ykENq6y55Re8+9Ebnnh1oIECBAgAABAqMhoAA6GqraJECAAAECBAgQKBoBI0DHtysySy8VXUcdFpOfeCjav/+96Ftt1UJAqfxLk+76VbR9ZbeYtNra0ZgrihoVWuCxQoAAAQIECIyQgALoCEFqhgABAgQIECBAoDgFFECLpF/yb4/feouYfvNPY8pv7oqu3XeJTOubL01Kv/hSNOWmxeenx7fmCqK1ubfJe1ZokfSdMAgQIECAQIkLKICWeAcKnwABAgQIECBAYO4Cw6fAD3j5ztyxxujo4PLLRefJJ8TkPzwW7eeeGf2fXqlw52RUaG5KfNvue8Uin14jmk75TqT//o/CcSsECBAgQIAAgfkVUACdXzHnEyBAgAABAgQIlJTA8BGgg4ODJRV72QfbUB+9X9g+pt16U0z59Z0zR4VOaCukXfXa69H4/Uti0jobxoStto/6H/80UjNmFI5bIUCAAAECBAjMi4AC6LwoOYcAAQIECBAgQKBkBYYXQI0ALd5uHPzQCjNHhf7+0Wi/8LzoW3ONyA4Lt+bx30XLYUfFIp9YNVoOODRqHno4Ijv8jGEnWyVAgAABAgQIDBNQAB2GYZUAAQIECBAgQKD8BEyBL7E+ra+L3m22jOk/+3FMefi+6DxwvxhcaslCEqnu7qi/4aaYsMNOueeF5l6cdPrZkX7+n4XjVggQIECAAAECswoogM4qYpsAAQIECBAgQKCsBIaPADUFvrS6NvO+90bXkYfGlMcejGk/vip6tvp8ZOvqCkmkX3wxms67ICat9dmYsMW2UX/1tZGaOq1w3AoBAgQIECBAIC9QjYEAAQIECBAgQIBAOQsYAVoGvVtVFf3rrZN8Zkxvj7pbbo3662+Imt8/WUiu5nd/iPyn+bgTo2+D9aJnu22ib8PPRgwrmBZOtkKAAAECBAhUlIACaEV1t2QJECBAgAABApUnUJUrng0tngE6JFG6v7NtrdHz1Z2TT/7t8HW56fD1N/480i++lCSV6u+PujvvTj6Zlpbo/fymuSn1W0X/Z1aPGPZdKF0BkRMgQIAAAQLzK/DmX4Pze6XzCRAgQIAAAQIECJSAwPARoKbAl0CHzUeIg8t+MLqOOnzmFPncM0N7dtw+Ms3NhRaqOjqi4SfXx4Qv7ByTPr1GNJ1wclQ/+VThuBUCBAgQIECgMgQUQCujn2VJgAABAgQIEKhYgeEFUCNAy/RrkEpFf+6t8R3fPTMmP/V4tF98fvRutEFkq9+c8JZ+9X/R+MPLY+JmW8ekNdaNxu+cFem/PlumINIiQIAAAQIEhgsogA7XsE6AAAECBAgQIFB2AqbAl12Xzj2hhvro3fLz0X7VpTH5ycei4/RTom+1VSI77Kr0v/8TTd+7MCZ99nMxcd2NovGc8yI/nd5CgAABAgQIlKeAAmh59qusCBAgQIAAAQIE3hAYPgLUFPjK+lpkJ02Mnq/sHNNvvj6mPP5QzDj2qOj/2IpvQah+7u/RdNa5MWmdDWPiBptG47nnK4a+RcgGAQIECBAofQEF0NLvQxkQIECAAAECBAjMRWB4AdQU+LlAlfmhzNJLRfc39opp//fLmPLAPdF5+MExsNyyb8m6+i9/jaYzzplZDM2NDk1Ghv7tubecY4MAAQIECBAoPQEF0NLrMxETIECAAAECBAjMh4Ap8POBVSGnDn7wA9F18AEx9b67Y8q9/xedB+0fA7l9w5fq3PNBk5Gh620cE9fZIHlmaPXTfxx+inUCBAgQIECgRAQUQEuko4RJgAABAgQIECCwYALDR4CaAr9ghuV81eAKy0fXEYfE1Nyo0Cm/uj06D9wvBpadpRj69+eTZ4ZO/NwWMWmVtZK3ydc88lhEJlPONHIjQIAAAQJlI/DmaxHLJiWJECBAgAABAgQIEHhTYHgB1BT4N12svV1g8CMfjq7858hDI/3s36Lul7fnPndEdW59aEm/+GLyNvn8G+UzkyZF78YbRN/nNo6+ddaOqK8bOs1vAgQIECBAoIgEFECLqDOEQoAAAQIECBAgMPICpsCPvGkltJiMDM2PDj30oEg//8+ove3OqLv9zqh+6ulIvQFQNWVKNFz3s+STbWiIvvXWzhVEN4q+DT8b2UUmVQKTHAkQIECAQEkIKICWRDcJkgABAgQIECBAYEEFjABdUDnXDQkMfuD90b3/Psmn6qWXo/aO/4u6O++K/DT41OBgclqquzvq7rgr+WRTqRhY+VPRu1FudOjGG8bg8ssNNeU3AQIECBAgMA4CCqDjgO6WBAgQIECAAAECYyeQTqcLN/MM0AKFlQUUyCy1ZPTsvkvySU2dFrW/uidXDL07an9zf+SLoPkllc1GzeO/Sz7x7TNi8L3vmVkMzY0M7V9jtYja2uQ8PwgQIECAAIGxEVAAHRtndyFAgAABAgQIEBgngeEFUM8AHadOKNPbZidOiN4dtks+0dMbtQ8+FLV3/Spq774n0q/+r5B1+j//jcbLrkw+2cbG3PNC14y+z64ffRusH5kllyicZ4UAAQIECBAYHQEF0NFx1SoBAgQIECBAgECRCJgCXyQdUe5h5F6AlH/2Z/4TuRGg1U8/kyuG3pMrhv4qav7450L2qa6uZMRoftRofhn48IdyhdD1cgXR9aJ/5U9HVPtXtATGDwIECBAgMIIC/t91BDE1RYAAAQIECBAgUHwCw0eAmgJffP1TlhHlnwH6iY8nn67DD46ql1+J2nt+nZsuf2/UPvBQYap8Pvfqv/w1+TRecHFkmpujf+3PRN/66+ZeqLRuZN69dFnySIoAAQIECIy1gALoWIu7HwECBAgQIECAwJgKGAE6ptxuNhuB/DT3ni/vlHyitzdqfvtI1P76N1F3z72R/te/C1dUzZhReJFSfufAsh+IvnXXif711om+/LNDc9PnLQQIECBAgMD8CyiAzr+ZKwgQIECAAAECBEpIYPgIUM8ALaGOK9dQ6+qiPzfCM//pPPmEqPrnv5JiaL4gWvvwI5HKPUt0aKn++/OR/8RlV0a2piY3Rf5TMwuiuWeIDnz8YxFVVUOn+k2AAAECBAjMRUABdC44DhEgQIAAAQIECJS+wPACqCnwpd+f5ZZB5v3LFN4qn3+RUs0jj0btvfdF/q3y1c/9vZBuqr8/VyDNHct94jtnRqatNfrXzE2XX2et6F/rMzH4gfcXzrVCgAABAgQIvFVAAfStHrYIECBAgAABAgTKTMAU+DLr0HJOJ/cipfx09/ynM5dn1UsvR+19D0RN7lP7wINRNXVaIfuq6e1Rd/udySe/c3CpJZNCaF+uGJovjHq7fIHKCgECBAgQCAVQXwICBAgQIECAAIGyFhg+AtQU+LLu6rJLLpMravZ86QvJJzKZqP7jn3LF0AeTYmjNY09Eqq+vkHM6VyxNX39j1Oc++WUgNyK0/zNrRHxu44j880Mb6gvnWiFAgAABApUmoABaaT0uXwIECBAgQIBAhQkML4CaAl9hnV9O6eae95l/7mf+073/PhHdPVHz2ONR++Bvoyb3ZvnqZ/4YqWy2kHH18/+M/Ceu+XHU5fZOXPaDuYLo6smnb/XVIrv4YoVzrRAgQIAAgXIXUAAt9x6WHwECBAgQIECgwgVMga/wL0C5pp8b0dm/7trJJ59iatr0qMk/I/TBh6LmoYej+m/PvSXz6r//I/dCpX9Ew9XXJvsHPviB6M+NDO1fbdXoX33VyCy91FvOt0GAAAECBMpJQAG0nHpTLgQIECBAgAABAm8TqBr2pmxT4N/GY0eZCGQntEXfphsnn3xKqddei9rfPhItv3sysvfdH1XDXqiUP179j9wb5nOfhmt+kt+MwaWXTgqh/autkiuKrhKDuRGjkUolx/wgQIAAAQKlLqAAWuo9KH4CBAgQIECAAIG5CqRyRZx8ETSTe4aiKfBzpXKwjASyiy0WvVttES277xr9uWeFzsgVQPMjRGsefiT5nR8NOnxJv/hipG+8Oepzn/ySmTQx+ldZOff5dPSvukpu6v1HI2prh19inQABAgQIlIyAAmjJdJVACRAgQIAAAQIEFlQgPw2+L1cEMgJ0QQVdV+oCmXctHr1bb5F88rmkXn89ah59PGoeeSxqH3k00n/+61ueIVo1ZWrU/d/dySd/frauLgY+8bHoXzlXEF35U0lhNLvIIvlDFgIECBAgUPQCCqBF30UCJECAAAECBAgQWFiBoRchKYAurKTry0Ugu+ii0bf5psmnM5dUqr09ah7/XfJipXxhtPrJp9/ylvlUb2/u2BPJZ8hgcJn3Rf+nc8XQXEF04FMrxcBHPhSRTg8d9psAAQIECBSNgAJo0XSFQAgQIECAAAECBEZLYOhFSAqgoyWs3VIXyLa2Rt8G6yefJJdcwbP6qWdyRdFc0TNfGH3id5EfFTp8Sf/r35H/DE2bzzY0RP8nPh4Dn14p+lf6ZK4o+snILPGu4ZdYJ0CAAAEC4yKgADou7G5KgAABAgQIECAwlgJDI0A9A3Qs1d2rpAXyU95XXTn5dL+RSDr/Jvknfp8UQ/NF0XTuuaLDX5OU6u5OptPnp9QPLYNLLhEDuWJo/0qfSH7nnyWabW4eOuw3AQIECBAYEwEF0DFhdhMCBAgQIECAAIHxFBgqgBoBOp694N6lLpB/M3z+0/vFHZJUUtPbo/r3f4ia3+U+ud/59ar2jrekmX75lUi/fGfU3X5nsj+beylZvo2BT34i+nLT5wc/9pHc1PkPR+QKrhYCBAgQIDBaAgqgoyWrXQIECBAgQOD/27sXILurwn7g5+5uHmRDnhBCSDCJQAIxlFKUCiISsLTjlEGHlNraVhh8lZk6Vaq2pTp2Woq0o6POWNvR4gupvGmYfy1DiR39o9C/vCG8AoSEQAIJeRDy2r33f87Zvevd7N0lr4X7+93Pb+bH73l/e87nrHH3u+f8DgECLSNgCHzLNIWClEigNnlS2H3WmXnN1arVQudTT/eFoikQve/+0LXi8VDp7R2odSXe0xV7jna89HIYf/2NfR+Lk5T1LDwuTrIUh8/HHqJ5u3CBWecH1OwQIECAwIEKCEAPVNDnCRAgQIAAAQIEWl6gHoAaAt/yTaWARRZIvTuPjb1E47rzwgv6arJ9R+h66OEw5v4HciA65r4HQudzq0Pv0bNDx6ZN+Z5KT08Y8/CjeQ3X9H2sVg9FT1wcehbHUHTxotBzfOwpesj4IgspOwECBAi8SQIC0DcJ3pclQIAAAQIECBB44wQMgX/jrH0lAoMEYmBZf5do/XwlTqbU+eiKMDZOrJQmWup64MHQ+eK6+uW8HRSKhh/lc7WOjr7h82+LYWgKRBfF4fNxrU2dMuizDggQIECAwJ4CAtA9RRwTIECAAAECBAiUTkAAWromVaECC9SmTQ097zotr/VqVNa/FMbEILTrwRiIPvhw3nauW1+/nLeVajV0PfFkXsNNtwxc6z1qVl8YGt8l2vO2vneKVt9ydAixR6qFAAECBAgkAQGo7wMCBAgQIECAAIHSC9SHwFdjgGIhQKD1BGozDg+73nt2Xuuly6FoHD6fhtD3rY+EzjXP1y8PbDufXxvSOu72OwbO1SZMiEPmF+Rh8z2LYjAa3ynaG49rkyYN3GOHAAECBNpHQADaPm2tpgQIECBAgACBthWoB6AJwEzwbfttoOIFE8ih6NlnhV1xrS+VTZtD18OPhK5HHo2haN+286mVgyZaSvdWXnutb3b6OEN945J7ix6/MPSmSZcWLsyTL6VZ6cPYsY232SdAgACBkgkIQEvWoKpDgAABAgQIECAwVKAjvjuwvghA6xK2BIonUJsyOeyOw+fTOrDs3Bm6Ho9D42Momt4t2vVIXFesCB2btwzcUt+p9xYNd9xZPxVqnZ2hd/680LsghaJxjdve4+I67y1xzKRfmQeg7BAgQKDAAv41L3DjKToBAgQIECBAgMDeCTT2ADUT/N6ZuYtAYQTGjQs9J8aZ4uPauHTEYfFdKRB99LHQ+dhjfdunnxnaW7S3N3Q9+VRex932fwYeURszJvS+dX7oOe7YGIge07+N+/PmhhCvWQgQIECgOAIC0OK0lZISIECAAAECBAjsp0BjAJp6gNYnRdrPx/kYAQIFEKjGyZF2pTW+W3Rgib1F05D5rscej+sToXNFDEYfj9sYlu65VHbv7r/v8UGXco/R2Du099hj+mal79+mofS1iRMH3euAAAECBFpDQADaGu2gFAQIECBAgAABAqMo0Bh4CkBHEdqjCbS6QOwt2rvohLzubChrZevW0PlE7AUag9HOJ57IQ+o744zznS+ua7irb7eSeow+9XRe97zYO/OI3Gs0haG592jsQZr2UxgbGl7FsefnHBMgQIDA6AoIQEfX19MJECBAgAABAgRaQKAxADUTfAs0iCIQaDGB2qGHhp7f+PW8NhatsmVLXzCawtC4dqXtkytDx/PPh0rjjf37KTDNoen//fmgq7UUvM6b2/eu0bfOCz3zYzCa3js6f26oTZ8+6F4HBAgQIHDwBQSgB9/UEwkQIECAAAECBFpMYM8h8C1WPMUhQKBFBWqTJoWeU07O66AixlnmUy/Qzvju0LR2xWH1aWh957OrQmXXrkG3poNKmqgpD7sfPJw+XatOOjSGo31haO/cFJLGNW3nxXB02tR0i4UAAQIEDlBAAHqAgD5OgAABAgQIECDQ+gKNPUDNAt/67aWEBFpeYMKEphMvhTg8vuO51aFrZQxH62saLr8y9hp96eWm1erYsjV0PPBgGBPXPZccjs6N7xtNgejco/O2mrZHHx2qR86MyWqzfqh7PsUxAQIECAhAfQ8QIECAAAECBAiUXkAP0NI3sQoSaA2Bzs5QnTc37IprOGfJoDLl94w+82wMRp8JnU/HgDTOSN/5dDyO2474DtJmSw5HH3w4jInrnkseVj9nduh9SwxD45pC0d63zInbvjV0d+/5EccECBBoWwEBaNs2vYoTIECAAAECBNpHoLEHaG/soWUhQIDAGy2Q3zN64uLYc3TxkC9d2bChLwx9NgWicU3bZ1blbQpBmy15WH0cdp+G3zdbqtOmDYSh1aNjUJrC0jlzQjVtjzoqhPHjmn3MOQIECJRSQABaymZVKQIECBAgQIAAgUYBAWijhn0CBFpNIE2E1JPWt//GkKJVNr4SOlfFMDQFomn77HN527HqudCxbn3TyZjSQzo2bszrmPsfGPLMWjxTnXF4qM4+Kgej1dl9AWk+jjPW98bzepAOYXOCAIECCwhAC9x4ik6AAAECBAgQILB3AobA752TuwgQaD2BNBFST1p//aShhdu+I3SuXh0D0RSKxkA078fj+B7StFbiZE3NlvTm0M71L+V1zL33N7slVKdMDtUUhsbeon3bWb86nnVkqB4xIz6ks+lnnSRAgECrCQhAW61FlIcAAQIECBAgQOCgCzQGoIbAH3ReDyRA4M0SOGR86D3u2Lw2K0IeWr96TQ5D0+RMnWk/rh1r4nbN86GyY2ezj+VzHZs2h7R2PbKi6T219L7TmUeEagxDe4+MgWgKRdN+2sYJmqrpXOxlGjo6mn7eSQIECLyRAgLQN1Lb1yJAgAABAgQIEHhTBBqHwJsF/k1pAl+UAIE3QWBgaP1Jv9b0q1defrkvFI1haEdcUyg6sH0+7g/z/tH0sEp8n3Ln82vzOqbp00PIIWnsKZoD0ZkzY1CagtG4xv3qkUeE3iNigBr3QwxyLQQIEBhNAQHoaOp6NgECBAgQIECAQEsICEBbohkUggCBFhOoHXZY6Elrs+H1saxp5vqO/pAzbTvWxsBzTdq+EIPPGJC+uC5Udu8etlY5JE33xnWkpTp5UhxSn8LQuObtjP5wNB7PiAHqzLgeHnuTjjNx00iOrhEgMLyAAHR4G1cIECBAgAABAgRKItA4BL5arZakVqpBgACB0RVIM9f3LlyQ16ZfqVYLlZdiL9IXXohBaQo6Yzj6wotxjcdxm4LPPFHTrl1NP14/2bF5S0hreOLJ+qmm2/xe0hSIpl6laZsmckr7MRzN+2nIfXwlQEi9Si0ECBBoEBCANmDYJUCAAAECBAgQKKdAYwBqCHw521itCBB4EwQqlVCLoWNPCh5/7cTmBUghaZyRvnNtDEZf7F9fWJf3O2MP0tSLNJ+P7xt9vaX+XtLXC0p7xo0NIfYknTR9WqjGHq7Vw9MaQ9K4raX9w6bHtf84TvZkIUCg/AIC0PK3sRoSIECAAAECBNpeoKNhEg4BaNt/OwAgQOCNFEgh6fTpoSeuYfGi4b9ynJCpY/36HIh2rusPRtfF47zG47RN11NP0ddbdsYep3HSpzFxfb2l1tXVH4hOD+mVANVYzr6ANG1jYJpD1Lifzsf9MGHC6z3SdQIEWlBAANqCjaJIBAgQIECAAAECB1egsQeoWeAPrq2nESBA4KAIjB8XqkfPyWvPSA/cmYLSl/rWFIq+FPfr23h+7MZXQiUGpSGGqGHX8O8nrX+JSk9PSD1R07o3Sy2Vsz8MrU2LPUzT/rSpeVtL23gub/P5KaE2ZUoInZ1782j3ECAwigIC0FHE9WgCBAgQIECAAIHWEGgMQPUAbY02UQoCBAjsl0CcCKk6Z3Zem31+Wgwgx/VPlrT+8SdiENofkqagNL6vNM18n7Z5fXlD33ZDPB97oO7Nku7r7J8Yam/ur8WbanGYfQpGe2IP2Mpr20Nt6pRQnRrD0rjWpvXt1/JxX2CazocYtFoIEDh4AgLQg2fpSQQIECBAgAABAi0qYBb4Fm0YxSJAgMAoCuTgcVKcyOnYt77+V9m2LXSkQDSvMSDt369s7D+3YWPo2LAhVPJ2Y6jsfv3epemLVtIa32+a3l+aQtCx/++Xr1+WeEfuaRp7j+ZgNAaoqSdpNQaneTs5Hk+NoWq6nvbjmq9NnhTSxFUhvnbAQoDAYAEB6GAPRwQIECBAgAABAiUUaAxAzQJfwgZWJQIECByoQHd3qKb1LUfv1ZMqW7f2haFxgqeOGIrmYDTtpyH4/duOuK3E47xN7y7t2vuh8LmnaRqWv5dD8+uFrqV3rqYgNIWiKRxN4emkSTEs7d/mwDReT+fSfXHbuK/naV3StmwCAtCytaj6ECBAgAABAgQIDBEwBH4IiRMECBAgcAACqadlWqtz37J3T6lWQ3hlU+h8JQakcZtD0bSNx2nNvURTeJqOY2/Rvu2mvR6aXy9EpVbLzwrxGXsft9Y/HXuejh3bV6+BcLS/nrEnbV9Y2nA8MZ3rXydODNW0H88JUX/laa91BASgrdMWSkKAAAECBAgQIDBKAo09QL0DdJSQPZYAAQIEhhfo6AghziLfm2aS35clvnO0Y1MMQuOat6+k4fTxeHMMSfO5tI3n8nH/Nu3HHqeVFLru41LZtSv2Zo3D/uO6v0ttzJgYok6MYeivQtG+4+58ri88jtdTj9scJPftp/vzffF83p/YbQKp/W0EnxsiIAAdQuIEAQIECBAgQIBA2QT0AC1bi6oPAQIE2kQgzTo/84gQ4tq7L1VOPUFffbUvKI1haEcKRPMaQ9It/ftxm8/3H+fzaX9LHN6fhvjvy9druDe9HzUN/Q9x3Z9eqA2Pyu9CrXWnMDWFonHtf1VBDki7J/QFpRPiNoem6Xr/fv1c/bh/Gw45xDtSG4HbaF8A2kaNraoECBAgQIAAgXYVaOwB2tu7T79CtiuZehMgQIBAkQXSu0D7h+mH2WHfwtNU79h7NAeo/YFoRz0Ubdh2pJA0XU9Bazyfj7fG/XQ+ra9uC5UD/P/c9C7UtIYD6JHa2Iy1dBBD0ByYTmjYpsA0h6b923RP/Vy8L+T9eG7gfMN+ClXTs9K280Aj38bS2j+YAgLQg6npWQQIECBAgAABAi0pIABtyWZRKAIECBBoVYE4ZL8+QVIq4n7/6fC17TkgzeFoCkpzQBq3236135H2U1iartX303G6f1v/Nh3vx5D+PXlzr9btsUxxHY0lD//vD0NzIJoC00PG9wWneT+GpPXj8fXz4+N7U/v369t4T3qXag5c07m45nsG9seNRvFL/czSBqCPPfZYuP7668OqVatCd+wKvXjx4rBkyZIwf/78UjeoyhEgQIAAAQIECAwVMAR+qIkzBAgQIEBg1AVSGBjX3hmHH/iX2r6jLyDd9lp/OBq3KSDNIWn/Nl17Le3XrzVs0/kUyObPpPvieoA9VPesVB7+v3l3CPF1A6O55J6sKSCtB6IxXK1+9tMhfOD80fyyhX52KQPQG264IXz1q1/NDTMxvkR3V3yJ77333huuu+66cOWVV4aTTz650I2m8AQIECBAgAABAvsm0BiAGgK/b3buJkCAAAECLSGQe07G3pCHHcTS7IxD7FMomsLQQWvfuTDoWl/P0b77+vZD+kwKZvO2fr3/2o54Pr6LdTSW3JO1/nqAsLnvS8QetJbhBUoXgD700EPha1/7Whg7dmz4whe+EM4444yQZvq85ZZb8vnLLrss/PCHPwwzZ84cXsUVAgQIECBAgACBUgk0DoE3C3ypmlZlCBAgQIDA/guMi70o0zp1yv4/Y6RPppCyf8h9HnafwtL6cQpI01D8dK5/v74NOdyM51MAG6+FdH1gje9EHdhPz+i7nobWW4YXKF0A+t3vfjfUYsL+oQ99KLz73e/ONR8zZkxYunRpWLt2bUi9Q1MY+vGPf3x4FVcIECBAgAABAgRKJSAALVVzqgwBAgQIECiGQB6mPooBa79C6gQ4bdq0EF5+uRgub0IpO96ErzlqX/K12OX4nnvuyc8/99xzh3yd+rnbbrst9wodcoMTBAgQIECAAAECpRRoHAJfPQiTKJQSSaUIECBAgACBwgpUKnlgfGHLP9oFL1UAumLFitz7c86cOYjcJlMAABzjSURBVGHWrFlD7BYuXBgOPfTQsHnz5vDcc88Nue4EAQIECBAgQIBAOQUaA1BD4MvZxmpFgAABAgQIEBhOoFRD4J9//vlczylThn93Q7q2devWsHr16mFnhH/88cfDk08+2dRs8uTJ4W1ve1vTa2U6mX5JGB9nE7MQaAeB+l/K0tb3fTu0uDomgfR6mLT4ns8M/tMGAmloWH1J74xPI4IsBMoskH6uSa8GOyTODJwm/koTw1oIlF0g/Vvf0dER6n/02hZn+07/O7AQKLNA+nl+9+7d4bTTTsudAevf/2Wu8/7UrVQBaPrHLS0jBaCTJk3K99TvzQd7/OfHP/5x+MY3vrHH2b7DRYsWhZtuuqnptTKdnDBhQkirhUA7CaRfFKZOndpOVVZXAr7nfQ+0jcDEiRMH6nrzzTeHtFoIlFkgvfc2BZ8WAu0ksHjx4pD+yGUh0E4CZ555Zvif//mf8E//9E/h05/+dDtVfZ/qWqoh8OkdoGlJw9yHW+o//O5Is2hZCBAgQIAAAQIE2kJg7ty5bVFPlSRAgAABAgQIEBgqUKoeoN3d3bmGIw3v2LlzZ75n3LhxQzX6z/zmb/5m7jbf7IYjjjgiD6Fvdq0s51JInJxSF2oLgXYQSP92pKEyaXjMq6++2g5VVkcCeQh8Gi6TXgtjIdAOAqlX0K233hruv//+/DOOnnHt0OrtXcf0s02a8Cu98iRtfc+39/dDu9Q+/Vx//vnnh9QDOi313//bpf7q2Z4C6VWNp59+eh4Cn0Y7l3myx5E6PL5e65cqAD3ssMNyfbds2TJsveu/6NXD0mY3nnrqqSGtwy0vvPDCcJdKcT4FoClEHuk1AaWoqEoQ6Beov+5BAOpbop0E0vd9CkCF/u3U6u1d1/T9ft555+U1/Tzoe7+9vx/aqfbpd6T0s/1IvyO1k4e6ll9g2rRpod7had26daUOg8rfmmq4twLp/bfTp08PL730UijzZI8HEoCWagh8PQCth5zNvlHq/8fvPX/NdJwjQIAAAQIECBAgQIAAAQIECBAgUC6BUgWgM2bMyK2TZnhvNnx78+bNYePGjXmo67HHHluullQbAgQIECBAgAABAgQIECBAgAABAgSGCJQqAJ01a1ZYuHBhHtJ09913D6ns8uXL87tv0j31Ia9DbnKCAAECBAgQIECAAAECBAgQIECAAIHSCJQqAE2t8sEPfjA3ztVXXz1oYof169eHa6+9Nl9bunRp3voPAQIECBAgQIAAAQIECBAgQIAAAQLlFijVJEipqc4888xw/PHHhxUrVoRLLrkknHXWWfkFsHfccUfYsGFDnhlryZIl5W5VtSNAgAABAgQIECBAgAABAgQIECBAIAuULgDt7OwMX//618NXvvKVcPvtt4drrrkmVzSdv+CCC8LHPvax/A5Q7U+AAAECBAgQIECAAAECBAgQIECAQPkFSheApiYbN25c+NznPhcuu+yysHLlylCr1cKcOXNCd3d3+VtUDQkQIECAAAECBAgQIECAAAECBAgQGBAoZQBar11XV1dYsGBB/dCWAAECBAgQIECAAAECBAgQIECAAIE2EyjdJEht1n6qS4AAAQIECBAgQIAAAQIECBAgQIDACAIC0BFwXCJAgAABAgQIECBAgAABAgQIECBAoNgCAtBit5/SEyBAgAABAgQIECBAgAABAgQIECAwgoAAdAQclwgQIECAAAECBAgQIECAAAECBAgQKLaAALTY7af0BAgQIECAAAECBAgQIECAAAECBAiMICAAHQHHJQIECBAgQIAAAQIECBAgQIAAAQIEii0gAC12+yk9AQIECBAgQIAAAQIECBAgQIAAAQIjCAhAR8BxiQABAgQIECBAgAABAgQIECBAgACBYgsIQIvdfkpPgAABAgQIECBAgAABAgQIECBAgMAIAgLQEXBcIkCAAAECBAgQIECAAAECBAgQIECg2AIC0GK3n9ITIECAAAECBAgQIECAAAECBAgQIDCCgAB0BByXCBAgQIAAAQIECBAgQIAAAQIECBAotoAAtNjtp/QECBAgQIAAAQIECBAgQIAAAQIECIwgIAAdAcclAgQIECBAgAABAgQIECBAgAABAgSKLSAALXb7KT0BAgQIECBAgAABAgQIECBAgAABAiMICEBHwHGJAAECBAgQIECAAAECBAgQIECAAIFiCwhAi91+Sk+AAAECBAgQIECAAAECBAgQIECAwAgCAtARcFwiQIAAAQIECBAgQIAAAQIECBAgQKDYAgLQYref0hMgQIAAAQIECBAgQIAAAQIECBAgMIKAAHQEHJcIECBAgAABAgQIECBAgAABAgQIECi2gAC02O2n9AQIECBAgAABAgQIECBAgAABAgQIjCAgAB0BxyUCBAgQIECAAAECBAgQIECAAAECBIotIAAtdvspPQECBAgQIECAAAECBAgQIECAAAECIwgIQEfAcYkAAQIECBAgQIAAAQIECBAgQIAAgWILCECL3X5KT4AAAQIECBAgQIAAAQIECBAgQIDACAIC0BFwXCJAgAABAgQIECBAgAABAgQIECBAoNgCAtBit5/SEyBAgAABAgQIECBAgAABAgQIECAwgoAAdAQclwgQIECAAAECBAgQIECAAAECBAgQKLZApRaXYldB6QkQIHBgAuedd17YsGFD6O7uDrfffvuBPcynCRAgQKAlBZYvXx4uv/zyXLYPf/jD4SMf+UhLllOhCBAgQODABC699NJw//3354fcdtttYerUqQf2QJ8mQKAUAl2lqIVKECBA4AAENm7cGF5++eWwffv2A3iKjxIgQIBAKwvs3Lkz/1ufyrht27ZWLqqyESBAgMABCGzatGng3/tqtXoAT/JRAgTKJGAIfJlaU10IECBAgAABAgQIECBAgAABAgQIEBgkIAAdxOGAAAECBAgQIECAAAECBAgQIECAAIEyCQhAy9Sa6kKAAAECBAgQIECAAAECBAgQIECAwCABAeggDgcECBAgQIAAAQIECBAgQIAAAQIECJRJQABaptZUFwIECBAgQIAAAQIECBAgQIAAAQIEBglUanEZdMYBAQIE2kzg1ltvDTt27AhjxowJH/jAB9qs9qpLgACB9hBYvXp1uOuuu3JlTzjhhLB48eL2qLhaEiBAoM0E7rzzzvDSSy/lWp9//vlh3LhxbSagugQINBMQgDZTcY4AAQIECBAgQIAAAQIECBAgQIAAgVIIGAJfimZUCQIECBAgQIAAAQIECBAgQIAAAQIEmgkIQJupOEeAAAECBAgQIECAAAECBAgQIECAQCkEBKClaEaVIECAAAECBAgQIECAAAECBAgQIECgmYAAtJmKcwQIECBAgAABAgQIECBAgAABAgQIlEJAAFqKZlQJAgQIECBAgAABAgQIECBAgAABAgSaCXQ1O+kcAQIE2lFg+fLl4ac//WlYs2ZNqFar4eijjw7vfOc7w3vf+9525FBnAgQIlEbgscceC9dff31YtWpV6O7uDosXLw5LliwJ8+fPL00dVYQAAQLtLrBhw4Zw3XXXhZUrV4Z169aFGTNmhHnz5oULL7wwHH744e3Oo/4E2l6gUotL2ysAIECgrQV27twZ/uIv/iLcd9992WHSpEl5u2XLlrw96aSTwlVXXRUOOeSQtnZSeQIECBRR4IYbbghf/epXc9EnTpwYdu3aldf0b/qVV14ZTj755CJWS5kJECBAoEHgJz/5SbjiiivC9u3bQ2dnZ5g+fXpIgWhvb2/+Gf6zn/1sOPvssxs+YZcAgXYT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BAgQIECAAAECBAgQaHcBAWi7fweoPwECBAgQIECAAAECBAgQIECAAIESCwhAS9y4qkaAAAECBAgQIECAAAECBAgQIECg3QUEoO3+HaD+BAgQIECAAAECBAgQIECAAAECBEosIAAtceOqGgECBAgQIECAAAECBAgQIECAAIF2FxCAtvt3gPoTIECAAAECBAgQIECAAAECBAgQKLGAALTEjatqBAgQIECAAAECBAgQIECAAAECBNpdQADa7t8B6k+AAAECBAgQIECAAAECBAgQIECgxAIC0BI3rqoRIECAAAECBAgQIECAAAECBAgQaHcBAWi7fweoPwECBAgQIECAAAECBAgQIECAAIESCwhAS9y4qkaAAAECBAgQIECAAAECBAgQIECg3QUEoO3+HaD+BAgQIECAAAECBAgQIECAAAECBEosIAAtceOqGgECBAgQIECAAAECBAgQIECAAIF2FxCAtvt3gPoTIECAAAECBAgQIECAAAECBAgQKLGAALTEjatqBAgQIECAAAECBAgQIECAAAECBNpdQADa7t8B6k+AAAECBAgQIECAAAECBAgQIECgxAIC0BI3rqoRIECAAAECBAgQIECAAAECBAgQaHeBrnYHUH8CBAgQIECAAIFiCaxduzasWbMmF3rBggVh8uTJw1Zg27Zt4ZFHHsnX3/rWt4bp06cPuvfJJ58M99xzT1i5cmUYP358OOGEE/I6b968UKlUBt3rgAABAgQIECBAoJgCAtBitptSEyBAgAABAgTaVuDxxx8PS5YsyfX//Oc/H774xS8Oa/Htb387fPKTn8zXn3jiiYEAdMOGDeHiiy8Oy5YtC7Vabcjnzz777PCd73wnzJ49e8g1JwgQIECAAAECBIolUIk/8A39ia9YdVBaAgQIECBAgACBNhJIP77Onz8/PPvssyH16nzqqaeGrf0pp5wSfvnLX4bTTz89/OxnP8v37dixIweoP//5z/PxqaeeGhYuXBi2bt0a/vu//zts3rw5n586dWq49957w9y5c/Ox/xAgQIAAAQIECBRTwDtAi9luSk2AAAECBAgQaFuBNDT9T/7kT3L909D1epC5J8ijjz6aw890/sMf/vDA5VtvvXXgM9/4xjfCL37xi9zb88Ybbwwvv/xy+NKXvpTvfeWVV8LVV1898Dk7BAgQIECAAAECxRQQgBaz3ZSaAAECBAgQINDWAinQrL+j8wc/+EFTi+9///v5/CGHHBJ+7/d+b+Cen/70p3l/2rRp4aMf/ejA+bTT1dUVPvWpT4X0btEZM2aENGzeQoAAAQIECBAgUGwBAWix20/pCRAgQIAAAQJtKZCGpb/nPe/Jdf/Rj34Udu/ePcihWq2GejD6/ve/P0yaNGng+pFHHpn3N27cGG644YaB8/WdFIKmiZPWrVsXrr322vppWwIECBAgQIAAgYIKCEAL2nCKTYAAAQIECBBod4GLLrooE6QJjX784x8P4li+fPnATPGNw9/TTb/zO78zcO/v//7v5/eD/sM//EN+32f99fidnZ0D99ghQIAAAQIECBAotoBJkIrdfkpPgAABAgQIEGhbgddeey2k3pxbtmzJQ9xTT9D6kt4R+r3vfS/P4r5q1arQ0TH47/7f+ta3wic+8YnQ09NT/0jezpw5M/z2b/92uPDCC8M555yTh8QPusEBAQIECBAgQIBA4QQG/yRYuOIrMAECBAgQIECAQLsKTJgwYeDdnsuWLctBaLLYtm1buOmmmzLLH/3RHw0JP9OFSy65JPzkJz8JS5cuDePHj8/3pv+8+OKLeUKk1Ev0jDPOCGvXrh24ZocAAQIECBAgQKCYAgLQYrabUhMgQIAAAQIECESB+jD47du3D4SeN998c3j11Vezz57D3xvRTj/99HDdddeF9C7QNIT+z//8z8Pxxx8/cEuaHf7tb3/7kPeLDtxghwABAgQIECBAoBACAtBCNJNCEiBAgAABAgQINBM47bTT8ozt6dqNN96Yb0kBaFre+c53huOOOy7vj/SfNEv8ueeeG7785S+HRx99NE+AdMIJJ+SPpB6gd91110gfd40AAQIECBAgQKDFBQSgLd5AikeAAAECBAgQIDCyQL2X5x133BHShEj/9V//lT9QP9/46d7e3txr9B3veEf44z/+48ZLA/sp/PzSl740cHz33XcP7NshQIAAAQIECBAonoAAtHhtpsQECBAgQIAAAQINAinITLO279ixI3zmM5/J7wBN7/VMExntuaT7nn322fC///u/4Qc/+EG4//7797wlH9dng08HqZephQABAgQIECBAoLgCAtDitp2SEyBAgAABAgQIRIFZs2aF3/qt38oWV199dd6ef/75YfLkyU196j1DU8j58Y9/PKxYsWLQfT/72c/CpZdems8dfvjhAtBBOg4IECBAgAABAsUTqMQf/GrFK7YSEyBAgAABAgQIEPiVwPXXXz8wI3w6myY1Su/1HG5Jkyd95zvfyZcrlUoOUWfMmJFnfV+3bl0+f+SRR4b0PtFTTz11uMc4T4AAAQIECBAgUAABAWgBGkkRCRAgQIAAAQIERhbYuXNnDjHTjO5HHXVUWLVqVR4WP9yndu/eHb797W/nd32mIfGNy5QpU8IZZ5wRvvnNb+ZnNl6zT4AAAQIECBAgUDwBAWjx2kyJCRAgQIAAAQIE9hDo6enJwef69evDX/7lX4YrrrhijzuaH1ar1bBmzZrw3HPPhU2bNoVFixaFefPmNb/ZWQIECBAgQIAAgUIKCEAL2WwKTYAAAQIECBAg0CiwbNmycN5554U0nP2JJ54IxxxzTONl+wQIECBAgAABAm0sYBKkNm58VSdAgAABAgQIlEEgDWe/6qqrclXOPvts4WcZGlUdCBAgQIAAAQIHUaDrID7LowgQIECAAAECBAi8IQJ33XVXeOCBB8KuXbvCDTfcENLM7WlJw98tBAgQIECAAAECBBoFBKCNGvYJECBAgAABAgQKIbB69erwp3/6p4PK+jd/8zdhyZIlg845IECAAAECBAgQICAA9T1AgAABAgQIECBQOIH0js9x48aFNPv7nDlzwh/8wR+EL37xi4WrhwITIECAAAECBAiMvoBJkEbf2FcgQIAAAQIECBAYBYE08/uLL74YZs+ePQpP90gCBAgQIECAAIGyCAhAy9KS6kGAAAECBAgQIECAAAECBAgQIECAwBABs8APIXGCAAECBAgQIECAAAECBAgQIECAAIGyCAhAy9KS6kGAAAECBAgQIECAAAECBAgQIECAwBABAegQEicIECBAgAABAgQIECBAgAABAgQIECiLgAC0LC2pHgQIECBAgAABAgQIECBAgAABAgQIDBEQgA4hcYIAAQIECBAgQIAAAQIECBAgQIAAgbIICEDL0pLqQYAAAQIECBAgQIAAAQIECBAgQIDAEAEB6BASJwgQIECAAAECBAgQIECAAAECBAgQKIuAALQsLakeBAgQIECAAAECBAgQIECAAAECBAgMERCADiFxggABAgQIECBAgAABAgQIECBAgACBsggIQMvSkupBgAABAgQIECBAgAABAgQIECBAgMAQAQHoEBInCBAgQIAAAQIECBAgQIAAAQIECBAoi4AAtCwtqR4ECBAgQIAAAQIECBAgQIAAAQIECAwREIAOIXGCAAECBAgQIECAAAECBAgQIECAAIGyCPx/i9gB5HZtlaIAAAAASUVORK5CYII=" width="672" /></p>
+<ol start="5" style="list-style-type: decimal">
+<li><span class="math inline">\(\widehat{err}_{ADA}\)</span>: algorithmic error measure by convex upper bound of <span class="math inline">\(\text{err}_{0/1}\)</span></li>
+</ol>
+</div>
+<div id="gradient-descent-on-adaboost-error-function" class="section level3">
+<h3>Gradient Descent on AdaBoost Error Function</h3>
+<ol style="list-style-type: decimal">
+<li>recall: gradient desecent, at iteration t</li>
+</ol>
+<p><span class="math display">\[
+\underset{||v|| = 1}{\text{min}} \quad
+E_{in}(w_t + \eta v)
+\approx
+\underbrace{E_{in}(w_t)}_{\text{known}} +
+\underbrace{\eta}_{\text{given position}}
+v^T
+\nabla
+\underbrace{E_{in}(w_t)}_{\text{known}}
+\]</span></p>
+<ol start="2" style="list-style-type: decimal">
+<li>at iteration t, to find <span class="math inline">\(g_t\)</span>, solve</li>
+</ol>
+<p><span class="math display">\[
+\begin{align*}
+\underset{h}{\text{min}} \quad
+\widehat{E}_{ADA} \quad
+&amp;= \frac{1}{N} \cdot \sum_{n=1}^{N} exp \left( -y_n \sum_{\tau =1}^{t-1} \alpha_{\tau} g_{\tau} (x_n) + \eta h(x_n) \right) \\
+&amp;= \sum_{n=1}^{N} u_{n}^{(t)} exp (-y_n \eta h(x_n)) \\
+&amp; \overset{\text{taylor}}{\approx} \sum_{n=1}^{N} u_{n}^{(t)} (1 -y_n \eta h(x_n) )
+= \sum_{n=1}^{N} u_{n}^{(t)} - \eta \sum_{n=1}^{N} u_{n}^{(t)} y_n h(x_n)
+\end{align*}
+\]</span></p>
+<ol start="3" style="list-style-type: decimal">
+<li>good <span class="math inline">\(h\)</span>: minimize <span class="math inline">\(\sum_{n=1}^{N} u_{n}^{(t)} (-y_n h(x_n))\)</span></li>
+</ol>
+</div>
+<div id="learning-hypothesis-as-optimization" class="section level3">
+<h3>Learning Hypothesis as Optimization</h3>
+<ol style="list-style-type: decimal">
+<li><p>finding good <span class="math inline">\(h\)</span> (function direction) <span class="math inline">\(\Leftrightarrow\)</span> minimize <span class="math inline">\(\sum_{n=1}^{N} u_{n}^{(t)} ( -y_n h(x_n) )\)</span></p></li>
+<li><p>for binary classification, where <span class="math inline">\(y_n\)</span> and <span class="math inline">\(h(x_n)\)</span> both <span class="math inline">\(\in \{-1,+1\}\)</span></p></li>
+</ol>
+<p><span class="math display">\[
+\begin{align*}
+\sum_{n=1}^{N} u_{n}^{(t)} (-y_n h(x_n)) &amp;=
+\sum_{n=1}^{N} u_{n}^{(t)} \cdot
+\begin{cases}
+-1 &amp; \text{if } y_n = h(x_n)\\
++1 &amp; \text{if } y_n \ne h(x_n)\\
+\end{cases}
+\\
+&amp;= -\sum_{n=1}^{N} u_{n}^{(t)} +
+\sum_{n=1}^{N} u_{n}^{(t)} \cdot
+\begin{cases}
+0 &amp; \text{if } y_n = h(x_n)\\
+2 &amp; \text{if } y_n \ne h(x_n)\\
+\end{cases}
+\\
+&amp;= -\sum_{n=1}^{N} u_{n}^{(t)} + 2 \cdot E_{in}^{u(t)}(h)
+\end{align*}
+\]</span></p>
+<ol start="3" style="list-style-type: decimal">
+<li>Who minimizes <span class="math inline">\(E_{in}^{u(t)}(h)\)</span> ? <span class="math inline">\(\mathcal{A}\)</span> in AdaBoost!</li>
+<li><span class="math inline">\(\mathcal{A}: \text{good } g_t = h\)</span> for ‘gradient descent’</li>
+</ol>
+</div>
+<div id="deciding-blending-weight-as-optimization" class="section level3">
+<h3>Deciding blending weight as optimization</h3>
+<ol style="list-style-type: decimal">
+<li>AdaBoost finds <span class="math inline">\(g_t\)</span> by approximately <span class="math inline">\(\underset{h}{\text{min}} \widehat{E}_{ADA} = \sum_{n=1}^{N} u_{n}^{(t)} exp (-y_n \eta h(x_n))\)</span></li>
+<li>After finding <span class="math inline">\(g_t\)</span>, how about <span class="math inline">\(\underset{\eta}{\text{min}} \widehat{E}_{ADA} = \sum_{n=1}^{N} u_{n}^{(t)} exp (-y_n \eta g_t(x_n))\)</span></li>
+<li>Optimal <span class="math inline">\(\eta_t\)</span> somewhat ‘greedily faster’ than fixed (small) <span class="math inline">\(\eta\)</span> - called steepest descent for optimization</li>
+<li>Two cases inside summation:
+<ul>
+<li><span class="math inline">\(y_n = g_t(x_n): u_n^{t}exp(-\eta)\)</span> (correct)</li>
+<li><span class="math inline">\(y_n = g_t(x_n): u_n^{t}exp(+\eta)\)</span> (incorrect)</li>
+</ul></li>
+<li><span class="math inline">\(\widehat{E}_{ADA} = (\sum_{n=1}^{N} u_{n}^{(t)}) \cdot ((1-\epsilon_t) exp(-\eta) + \epsilon_t exp(+\eta))\)</span></li>
+<li><span class="math inline">\(\frac{\partial \widehat{E}_{ADA}}{\partial \eta} = 0\)</span>, steepest <span class="math inline">\(\eta = \ln(\sqrt{\frac{1-\epsilon_t}{\epsilon_t}}) = \alpha_t\)</span></li>
+<li>Adaboost: Steepest descent with approximate functional gradient</li>
+</ol>
+</div>
+</div>
+<div id="gradient-boosting" class="section level2">
+<h2>Gradient Boosting</h2>
+<div id="gradient-boosting-for-arbitrary-error-function" class="section level3">
+<h3>Gradient Boosting for Arbitrary Error Function</h3>
+<ul>
+<li>AdaBoost with binary-output hypothesis</li>
+</ul>
+<p><span class="math display">\[
+\underset{\eta}{\text{min}}
+\underset{h}{\text{min}}
+\frac{1}{N} \cdot \sum_{n=1}^{N} \exp \left( -y_n 
+\left( 
+\sum_{\tau =1}^{t-1} \alpha_{\tau} g_{\tau} (x_n) + \eta h(x_n)
+\right)
+\right)
+\]</span></p>
+<ul>
+<li>同样的概念能不能对不同的error function做最佳化？</li>
+<li>Gradient boost, as long as the error function is smooth.</li>
+</ul>
+<p><span class="math display">\[
+\underset{\eta}{\text{min}}
+\underset{h}{\text{min}}
+\frac{1}{N} \cdot \sum_{n=1}^{N} \text{err} 
+\left( 
+\sum_{\tau =1}^{t-1} \alpha_{\tau} g_{\tau} (x_n) + \eta h(x_n)
+, y_n
+\right)
+\]</span></p>
+<ul>
+<li>with any hypothesis <span class="math inline">\(h\)</span>, (usually real-output hypothesis)</li>
+<li>allows extension to different err for regression / soft classification / etc.</li>
+</ul>
+</div>
+<div id="gradient-boost-for-regression" class="section level3">
+<h3>Gradient Boost for Regression</h3>
+<p><span class="math display">\[
+\underset{\eta}{\text{min}}
+\underset{h}{\text{min}}
+\frac{1}{N} \cdot \sum_{n=1}^{N} \text{err} 
+\left( 
+\underbrace{\sum_{\tau =1}^{t-1} \alpha_{\tau} g_{\tau} (x_n)}_{s_n} + \eta h(x_n)
+, y_n
+\right)
+\text{ with err} (s,y) = (s-y)^2
+\]</span></p>
+<ul>
+<li></li>
+</ul>
+<p><span class="math display">\[
+\begin{align*}
+\underset{h}{\text{min}} \dots
+ &amp; \overset{\text{taylor}}{\approx} 
+ \frac{1}{N} \cdot \sum_{n=1}^{N} 
+\underbrace{\text{err} (s_n, y_n)}_{\text{constant}}
++
+\frac{1}{N} \sum_{n=1}^{N} \eta h(x_n)
+\left. \frac{\partial \text{err} (s, y_n) }{ \partial s } \right|_{s = s_n} \\
+&amp; = \underset{h}{\text{min}} \text{ constants } + \frac{\eta}{N}
+\sum_{n=1}^{N} h(x_n) \cdot 2(s_n - y_n)
+\end{align*}
+\]</span></p>
+<ol style="list-style-type: decimal">
+<li>Naive solution <span class="math inline">\(h(x_n) = -\infty(s_n - y_n)\)</span> if no constraint on <span class="math inline">\(h\)</span></li>
+</ol>
+</div>
+<div id="learning-hypothesis-as-optimization-1" class="section level3">
+<h3>Learning Hypothesis as Optimization</h3>
+<p><span class="math display">\[
+\underset{h}{\text{min}} \text{ constants } + \frac{\eta}{N}
+\sum_{n=1}^{N} h(x_n) \cdot 2(s_n - y_n)
+\]</span></p>
+<ol style="list-style-type: decimal">
+<li>magnitude of h does not matter: because <span class="math inline">\(\eta\)</span> will be optimized next</li>
+<li>penalize large magnitude to avoid naive solution.</li>
+</ol>
+<p><span class="math display">\[
+\begin{align*}
+\underset{h}{\text{min}}
+&amp; \quad \text{ constants } + \frac{\eta}{N}
+\sum_{n=1}^{N} h(x_n) \cdot 2(s_n - y_n) + (h(x_n))^2 \\
+&amp; = \text{ constants } + \frac{\eta}{N}
+\sum_{n=1}^{N} \text{ constant } + (h(x_n) - (y_n - s_n))^2
+\end{align*}
+\]</span></p>
+<ol start="3" style="list-style-type: decimal">
+<li>solution of penalized approximate functional gradient: squared-error regression on <span class="math inline">\(\{(x_n, \underbrace{y_n-s_n}_{residual})\}\)</span></li>
+<li>GradientBoost for regression: find <span class="math inline">\(g_t = h\)</span> by regression with residuals.</li>
+</ol>
+</div>
+<div id="deciding-blending-weight-as-optimization-1" class="section level3">
+<h3>Deciding Blending Weight as Optimization</h3>
+<ol style="list-style-type: decimal">
+<li>After finding <span class="math inline">\(g_t=h\)</span>, <span class="math display">\[
+\underset{\eta}{\text{min}}
+\frac{1}{N} \cdot \sum_{n=1}^{N} \text{err} 
+\left( 
+\sum_{\tau =1}^{t-1} \alpha_{\tau} g_{\tau} (x_n) + \eta g_t(x_n)
+, y_n
+\right)
+\text{ with err}(s,y) = (s-y)^2
+\]</span></li>
+</ol>
+<p><span class="math display">\[
+\underset{\eta}{\text{min}}
+\frac{1}{N} \cdot \sum_{n=1}^{N} 
+( 
+s_n + \eta g_t(x_n) - y_n
+)^2
+= \frac{1}{N} \sum_{n=1}^{N}
+((y_n-s_n) - \eta g_t(x_n))^2
+\]</span></p>
+<ol start="2" style="list-style-type: decimal">
+<li>one-variable linear regression on {(<span class="math inline">\(g_t\)</span>-transformed input, residual)}</li>
+<li>GradientBoost for regression: <span class="math inline">\(\alpha_t\)</span> = optimal <span class="math inline">\(\eta\)</span> by <span class="math inline">\(g_t\)</span>-transformed linear regression.</li>
+</ol>
+</div>
+</div>
+<div id="summary-of-aggregation-models" class="section level2">
+<h2>Summary of Aggregation Models</h2>
+<div id="map-of-blending-models" class="section level3">
+<h3>Map of Blending Models</h3>
+<ol style="list-style-type: decimal">
+<li>blending: aggregate after getting diverse <span class="math inline">\(g_t\)</span></li>
+</ol>
+<ul>
+<li>uniform: simple voting/averaging of <span class="math inline">\(g_t\)</span></li>
+<li>non-uniform: linear model on <span class="math inline">\(g_t\)</span>-transformed inputs</li>
+<li>conditional: nonlinear model on <span class="math inline">\(g_t\)</span>-transformed inputs</li>
+<li>uniform for ‘stability’</li>
+<li>non-uniform/conditional carefully for ‘complexity’</li>
+</ul>
+</div>
+<div id="map-of-aggregation-learning-models" class="section level3">
+<h3>Map of Aggregation-Learning Models</h3>
+<p>Learning: aggregate as well as getting diverse <span class="math inline">\(g_t\)</span></p>
+<ul>
+<li>Bagging: diverse <span class="math inline">\(g_t\)</span> by bootstrapping; uniform vote by nothing</li>
+<li>AdaBoost: diverse <span class="math inline">\(g_t\)</span> by reweighting; linear vote by steepest search</li>
+<li>Decision Tree: diverse <span class="math inline">\(g_t\)</span> by data splitting; conditional vote by branching</li>
+<li>GradientBoost: diverse <span class="math inline">\(g_t\)</span> by residual fitting; linear vote by steepest search</li>
+<li>Boosting-like algorithms most popular</li>
+</ul>
+</div>
+<div id="map-of-aggregation-of-aggregation-models" class="section level3">
+<h3>Map of Aggregation of Aggregation Models</h3>
+<ul>
+<li>Random forest: Randomized bagging + ‘strong’ DTree</li>
+<li>AdaBoost Dtree: AdaBoost + ‘weak’ Dtree</li>
+<li>GradientBoost + ‘weak’ Dtree</li>
+<li>All three frequently used in practice</li>
+</ul>
+</div>
+<div id="specialty-of-aggregation-models" class="section level3">
+<h3>Specialty of Aggregation Models</h3>
+<ol style="list-style-type: decimal">
+<li>cure underfitting: <span class="math inline">\(G(x)\)</span> ‘strong’.</li>
+<li>aggregation =&gt; feature transform</li>
+<li>cure overfitting: <span class="math inline">\(G(x)\)</span> ‘moderate’.</li>
+<li>aggregation =&gt; regularization</li>
+<li>proper aggregation (a.k.a ensemble) =&gt; better performance</li>
+</ol>
+</div>
+<div id="summary-2" class="section level3">
+<h3>Summary</h3>
+<ul>
+<li>Adaptive Boosted Decision Tree: sampling and pruning for weak trees</li>
+<li>Optimization View of AdaBoost: functional gradient descent on exponential error</li>
+<li>Gradient Boosting: iterative steepest residual fitting</li>
+<li>Summary of Aggregation Models: some cure underfitting; some cure overfitting.</li>
 </ul>
 </div>
 </div>

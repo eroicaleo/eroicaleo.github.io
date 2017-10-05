@@ -641,7 +641,534 @@ P
 * more powerful features for diversity: row i other than nature basis
 * projection (combination) with random row $p_i$ of $P$: $\phi_i(x) = p_i^Tx$
 * often consider low-dimensional projection: only $d''$ non-zero components in $p_i$
-* include random - subspace as special case: $d'' = 1, p_i \in $ nature basis
+* include random - subspace as special case: $d'' = 1, p_i \in$ nature basis
 * original RF consider $d'$ random low-dimensional projections for each $b(x)$ in C&RT
 * RF = bagging + random-combination C&RT - randomness everywhere
 * 可以问一下老师：注意这里，树生成了之后，在预测的时候也要做相同的projectoin.
+
+## Out-Of-Bag Estimate
+
+### Bagging Revisited
+
+* Bagging: function Bag(D, A)
+* For $t = 1, 2, \dots, T$
+
+1. request size-$N'$ data $\tilde{D}_t$ by bootstrapping with $D$
+2. obtain base $g_t$ by $A(\tilde{D}_t)$
+
+* return G = uniform({$g_t$})
+
+* if $(x_i, y_i)$ is not used for obtaining $g_t$, then it's called out-of-bag (OOB) examples
+  of $g_t$
+
+### Number of OOB Examples
+
+* OOB $\Longleftrightarrow$ not sampled after $N'$ drawings.
+
+if $N' = N$
+
+1. probability for $(x_n, y_n)$ to be OOB for $g_t$: $(1-1/N)^N$
+2. if N large:
+
+$$
+(1-1/N)^N
+= \frac{1}{(\frac{N}{N-1})^N}
+= \frac{1}{(1+\frac{1}{N-1})^N}
+\approx \frac{1}{e}
+$$
+
+3. OOB size per $g_t \approx 1/e \cdot N$ which is about 1/3 .
+
+### OOB versus Validation
+
+* OOB examples are like $D_{val}$: enough random examples unused during training.
+* Use OOB examples to validate $g_t$? YES, but not needed, because we don't care about
+  $g_t$. We care more about $G$.
+* Use OOB examples to validate G?
+* With $G_n^-$ contains only trees that $x_n$ is OOB of, say, $x_n$ is OOB for $g_2, g_3, g_T$ .
+Then $x_n$ can be the validation for $G_n^- = 1/3 \cdot (g_2 + g_3 + g_T)$
+
+$$
+E_{oob}(G) = \frac{1}{N} \sum_{n=1}^N err(y_n, G_n^-(x_n))
+$$
+
+* $E_{oob}$: self-validation of bagging and RF.
+
+### Model selection by OOB error
+
+* RF: by Best $E_{oob}$
+    * use $E_{oob}$ for self-validation - of RF parameters such as $d''$
+    * no re-training needed, as we did in validation
+* $E_{oob}$ often accurate in practice
+
+## Feature selection
+
+for $x = (x_1, \dots, x_d)$, want to remove 
+
+* redundant features: like keeping one of 'age' and 'full birthday'.
+* irrelevant features: like insurance type for cancer prediction.
+
+and only 'learn' subset-transform $\phi(x) = (x_{i_1}, \dots, x_{i_{d'}})$
+with $d' < d$ for $g(\phi(x))$
+
+* advantages:
+
+1. efficient: simpler hypothesis and shorter prediction time
+2. generalization: feature noisy removed
+3. interpretability
+
+* disadvantages:
+
+1. computation: 'combinational' optimization in training
+2. overfit: 'combinational' selection
+3. mis-interpretability, 只发现关联性，没发现因果性。
+
+* decision tree：a rare model with built-in feature selection
+
+### Feature selection by importance
+
+* idea: calculate the importance for each feature, select the most important $d'$ of them.
+
+importance by linear model:
+
+$$
+score = w^T x = \sum_{i=1}^d w_i x_i
+$$
+
+* intuitive estimate: importance(i) = $|w_i|$ with some 'good' w.
+* getting 'good' w: learned from data, just use linear model.
+* non-linear models? often much harder.
+
+### Feature importance by Permutation Test
+
+* idea: random test -  if feature i needed, 'random' values of $x_{n,i}$ degrades performance
+* which random values?
+    * uniform, Gaussian, ... $P(x_i)$ changed
+    * bootstrap, permutation: $P(x_i)$ approximately remained.
+* permutation test: importance(i) = performance($D$) - performance($D^{(p)}$)
+* It's a general statistical tool for arbitrary non-linear models like RF
+
+### Feature importance in Original RF
+
+1. performance($D^{(P)}$): needs re-training and validation in general
+2. 'escaping' validation? OOB in RF
+3. Original RF solution: importance(i) = $E_{oob}(G) - E_{oob}^{(p)}(G)$, where
+    $E_{oob}^{(p)}(G)$ comes from replacing each request of $x_{n_i}$ by a permuted OOB value.
+* 老师也说，这个介绍比较简单。可以参考原始文献[here](https://link.springer.com/article/10.1023%2FA%3A1010933404324)。
+
+## Random Forest in Action
+
+* With 1000 trees, smooth and large-margin-like boundary with many trees.
+* Easy yet robust nonlinear model
+* For a complicated and noisy data set, single decision tree trys to overfit.
+* 可以学习一下老师这样做一个这样的动画，应该可以假设理解。
+
+### How many trees needed?
+
+* almost every theory: the more, the 'better', assuming good
+
+$$
+\bar{g} = \text{lim}_{T \rightarrow \infty} G
+$$
+
+* KDDCup 2013: predicting author-paper relation
+* Depending on random seed, for thousands of trees, $E_{val} \in [0.015, 0.019]$
+* $E_{out} \in [0.014, 0.019]$ for top 20 teams.
+* decision: take 12000 trees with seed 1.
+* cons of RF: may need lots of trees if the whole random process too unstable. Should
+  double check stability of G to ensure enough trees.
+  
+## Summary
+
+* Random Forest Algorithm: bag of trees on randomly projected subspaces
+* Out-of-bag Estimate: self-validation with OOB examples
+* Feature selection: permutation test for feature importance
+* Random Forest in Action: 'smooth' boundary with many trees
+
+# Lecture 11 Adaptive Boosted Decision Tree
+
+## Adaptive Boosted Decision Tree
+
+### From Random Forest to AdaBoost-DTree
+
+* function RandomForest(D)
+* For $t = 1, 2, \dots, T$
+
+1. request size-$N'$ data $\tilde{D}_t$ by bootstrapping with $D$
+2. obtain base $g_t$ by DTree($\tilde{D}_t$)
+
+* return G = uniform({$g_t$})
+
+* function AdaBoost-DTree(D)
+* For $t = 1, 2, \dots, T$
+
+1. re-weight data by $u^{(t)}$
+2. obtain tree $g_t$ by Dtree($D, u^{(t)}$)
+3. calculate vote $\alpha_t$ of $g_t$
+
+* return G = LinearHypo($g_t, \alpha_t$)
+
+* 我的问题是decision tree的算法好像和weight没什么关系。
+
+### Weighted Decision Tree Algorithm
+
+* Weighted Algorithm
+
+$$
+\text{minimize (regularized) }
+E_{in}^u(h) = 1/N \sum_{n=1}^N u_n \cdot \text{err} (y_n, h(x_n)) \\
+$$
+
+1. If using existing algorithm as black-box (no modifications), to get $E_{in}^u$
+   approximately optimized
+2. "weighted" algorithm in bagging
+    1. weights u expressed by bootstrap-sampled copies.
+    2. request size-N' data $\tilde{D_t}$ by bootstrapping with $D$
+3. A General Randomized Base Algorithm
+    1. weights u expressed by sampling proportional to $u_n$
+    2. request size-N' data $\tilde{D_t}$ by sampling $\propto u$ on D
+
+* Adaboost-Dtree: often via AdaBoost + sampling $\propto u^{(t)}$ + Dtree($\tilde{D_t}$)
+  without modifying DTree.
+  
+### Weak Decision Tree Algorithm
+
+* Adaboost:
+
+$$
+\alpha_t = ln \diamondsuit_t = ln\sqrt{\frac{1-\epsilon_t}{\epsilon_t}}
+$$
+
+With weighted error rate $\epsilon_t$
+
+* If fully grown tree, we will get $\alpha_t = \infty$. That's autocracy.
+* Need: pruned tree trained on some $x_n$ to be weak.
+    * pruned: usual pruning, or just limiting tree height
+    * some: sampling $\propto u$
+* Adaboost-Dtree: often via AdaBoost + sampling $\propto u^{(t)}$ + pruned Dtree($\tilde{D_t}$)
+
+### AdaBoost with Extremely-Pruned Tree
+
+1. What if DTree with hight $\le 1$ (extremely pruned)?
+
+* DTree (C&RT) with height $\le$ 1, learn branching criteria
+
+$$
+b(x) = \underset{\text{decision stump } h(x)}{\text{argmin}}
+\sum_{c=1}^2
+|D_c \text{ with } h| \cdot \text{impurity}(D_c \text{ with } h)
+$$
+
+* If impurity = binary classification error, it becames a decision stump.
+* So AdaBoost-Stump = special case of AdaBoost-DTree.
+
+## Optimization View of AdaBoost
+
+### Example Weights of AdaBoost
+
+$$
+\begin{align*}
+u_{n}^{(t+1)} & = 
+\begin{cases}
+u_{n}^{(t)} \cdot \diamondsuit_t & \quad \text{if incorrect} \\
+u_{n}^{(t)} / \diamondsuit_t & \quad \text{if correct} \\
+\end{cases} \\
+& = u_n \diamondsuit_t ^ {-y_n g_t (x_n)} = u_n \cdot exp(-y_n \alpha_t g_t (x_n))
+\end{align*} \\
+u_{n}^{(T+1)} = u_{n}^{(1)} \cdot \prod_{t=1}^T exp (-y_n \alpha_t g_t (x_n))
+= \frac{1}{N} \cdot exp \left( -y_n \sum_{t=1}^T \alpha_t g_t (x_n) \right)
+\\
+G(x) = \text{sign} \left( \sum_{t=1}^T \alpha_t g_t (x_n) \right) \\
+\sum_{t=1}^T \alpha_t g_t (x_n) \text{ : voting score of } \{g_t\} \text{ on } x
+$$
+
+1. Adaboost: $u_{n}^{(T+1)} \propto exp (-y_n (\text{ voting score on } x_n))$
+
+### voting score and margin
+
+* linear blending = LinModel + hypothesis transform + without constraints
+
+$$
+G(x_n) = \text{sign} \left( 
+\sum_{t=1}^T 
+\underbrace{\alpha_t}_{w_i}
+\underbrace{g_t (x_n)}_{\phi_i(x_n)} \right)
+$$
+
+* and hard-margin SVM margin
+
+$$
+\frac
+{y_n \cdot (w^T \phi_i(x_n) + b)}
+{||w||}
+$$
+
+* $y_n$ (voting score) = signed & unnormalized margin
+* $\Leftrightarrow$ want $y_n$ (voting score) positive & large
+* $\Leftrightarrow$ exp( -$y_n$(voting score) ) small
+* $\Leftrightarrow u_n^{(T+1)}$ small
+* claim: AdaBoost decreases $\sum_{n=1}^N u_n^{(t)}$
+
+### AdaBoost Error Function
+
+1. claim: AdaBoost decreases $\sum_{n=1}^N u_n^{(t)}$ and thus somewhat minimizes
+
+$$
+\sum_{n=1}^{N} u_{n}^{(T+1)}
+= \frac{1}{N} \cdot \sum_{n=1}^{N} exp \left( -y_n \sum_{t=1}^T \alpha_t g_t (x_n) \right)
+\\
+$$
+
+2. linear score $s = \sum_{t=1}^T \alpha_t g_t (x_n)$
+3. $\text{err}_{0/1}(s, y) = [ys \le 0]$
+4. $\text{err}_{ADA}(s, y) = exp(-ys)$: upper bound of $\text{err}_{0/1}$
+    , called exponential error measure.
+
+```{r, echo=FALSE}
+library(tidyverse)
+x <- seq(-3, 3, 0.01)
+err01 <- as.numeric((x < 0))
+errada <- exp(-x)
+ggplot() +
+  geom_line(mapping = aes(x = x, y = err01)) +
+  geom_line(mapping = aes(x = x, y = errada), colour = "red") +
+  ylim(c(0, 6)) + ylab("err") + xlab("ys")
+```
+
+5. $\widehat{err}_{ADA}$: algorithmic error measure by convex upper bound of 
+   $\text{err}_{0/1}$
+   
+### Gradient Descent on AdaBoost Error Function
+
+1. recall: gradient desecent, at iteration t
+
+$$
+\underset{||v|| = 1}{\text{min}} \quad
+E_{in}(w_t + \eta v)
+\approx
+\underbrace{E_{in}(w_t)}_{\text{known}} +
+\underbrace{\eta}_{\text{given position}}
+v^T
+\nabla
+\underbrace{E_{in}(w_t)}_{\text{known}}
+$$
+
+2. at iteration t, to find $g_t$, solve
+
+$$
+\begin{align*}
+\underset{h}{\text{min}} \quad
+\widehat{E}_{ADA} \quad
+&= \frac{1}{N} \cdot \sum_{n=1}^{N} exp \left( -y_n \sum_{\tau =1}^{t-1} \alpha_{\tau} g_{\tau} (x_n) + \eta h(x_n) \right) \\
+&= \sum_{n=1}^{N} u_{n}^{(t)} exp (-y_n \eta h(x_n)) \\
+& \overset{\text{taylor}}{\approx} \sum_{n=1}^{N} u_{n}^{(t)} (1 -y_n \eta h(x_n) )
+= \sum_{n=1}^{N} u_{n}^{(t)} - \eta \sum_{n=1}^{N} u_{n}^{(t)} y_n h(x_n)
+\end{align*}
+$$
+
+3. good $h$: minimize $\sum_{n=1}^{N} u_{n}^{(t)} (-y_n h(x_n))$
+
+### Learning Hypothesis as Optimization
+
+1. finding good $h$ (function direction) $\Leftrightarrow$ minimize
+    $\sum_{n=1}^{N} u_{n}^{(t)} ( -y_n h(x_n) )$
+    
+2. for binary classification, where $y_n$ and $h(x_n)$ both $\in \{-1,+1\}$
+
+$$
+\begin{align*}
+\sum_{n=1}^{N} u_{n}^{(t)} (-y_n h(x_n)) &=
+\sum_{n=1}^{N} u_{n}^{(t)} \cdot
+\begin{cases}
+-1 & \text{if } y_n = h(x_n)\\
++1 & \text{if } y_n \ne h(x_n)\\
+\end{cases}
+\\
+&= -\sum_{n=1}^{N} u_{n}^{(t)} +
+\sum_{n=1}^{N} u_{n}^{(t)} \cdot
+\begin{cases}
+0 & \text{if } y_n = h(x_n)\\
+2 & \text{if } y_n \ne h(x_n)\\
+\end{cases}
+\\
+&= -\sum_{n=1}^{N} u_{n}^{(t)} + 2 \cdot E_{in}^{u(t)}(h)
+\end{align*}
+$$
+
+3. Who minimizes $E_{in}^{u(t)}(h)$ ? $\mathcal{A}$ in AdaBoost!
+4. $\mathcal{A}: \text{good } g_t = h$ for 'gradient descent'
+
+### Deciding blending weight as optimization
+
+1. AdaBoost finds $g_t$ by approximately
+    $\underset{h}{\text{min}} \widehat{E}_{ADA} = \sum_{n=1}^{N} u_{n}^{(t)} exp (-y_n \eta h(x_n))$
+2. After finding $g_t$, how about
+    $\underset{\eta}{\text{min}} \widehat{E}_{ADA} = \sum_{n=1}^{N} u_{n}^{(t)} exp (-y_n \eta g_t(x_n))$
+3. Optimal $\eta_t$ somewhat 'greedily faster' than fixed (small) $\eta$ - called steepest
+    descent for optimization
+4. Two cases inside summation:
+    * $y_n = g_t(x_n): u_n^{t}exp(-\eta)$ (correct)
+    * $y_n = g_t(x_n): u_n^{t}exp(+\eta)$ (incorrect)
+
+5. $\widehat{E}_{ADA} = (\sum_{n=1}^{N} u_{n}^{(t)}) \cdot ((1-\epsilon_t) exp(-\eta) + \epsilon_t exp(+\eta))$
+6. $\frac{\partial \widehat{E}_{ADA}}{\partial \eta} = 0$, steepest
+$\eta = \ln(\sqrt{\frac{1-\epsilon_t}{\epsilon_t}}) = \alpha_t$
+7. Adaboost: Steepest descent with approximate functional gradient
+
+## Gradient Boosting
+
+### Gradient Boosting for Arbitrary Error Function
+
+* AdaBoost with binary-output hypothesis
+
+$$
+\underset{\eta}{\text{min}}
+\underset{h}{\text{min}}
+\frac{1}{N} \cdot \sum_{n=1}^{N} \exp \left( -y_n 
+\left( 
+\sum_{\tau =1}^{t-1} \alpha_{\tau} g_{\tau} (x_n) + \eta h(x_n)
+\right)
+\right)
+$$
+
+* 同样的概念能不能对不同的error function做最佳化？
+* Gradient boost, as long as the error function is smooth.
+
+$$
+\underset{\eta}{\text{min}}
+\underset{h}{\text{min}}
+\frac{1}{N} \cdot \sum_{n=1}^{N} \text{err} 
+\left( 
+\sum_{\tau =1}^{t-1} \alpha_{\tau} g_{\tau} (x_n) + \eta h(x_n)
+, y_n
+\right)
+$$
+
+* with any hypothesis $h$, (usually real-output hypothesis)
+* allows extension to different err for regression / soft classification / etc.
+
+### Gradient Boost for Regression
+
+$$
+\underset{\eta}{\text{min}}
+\underset{h}{\text{min}}
+\frac{1}{N} \cdot \sum_{n=1}^{N} \text{err} 
+\left( 
+\underbrace{\sum_{\tau =1}^{t-1} \alpha_{\tau} g_{\tau} (x_n)}_{s_n} + \eta h(x_n)
+, y_n
+\right)
+\text{ with err} (s,y) = (s-y)^2
+$$
+
+* 
+
+$$
+\begin{align*}
+\underset{h}{\text{min}} \dots
+ & \overset{\text{taylor}}{\approx} 
+ \frac{1}{N} \cdot \sum_{n=1}^{N} 
+\underbrace{\text{err} (s_n, y_n)}_{\text{constant}}
++
+\frac{1}{N} \sum_{n=1}^{N} \eta h(x_n)
+\left. \frac{\partial \text{err} (s, y_n) }{ \partial s } \right|_{s = s_n} \\
+& = \underset{h}{\text{min}} \text{ constants } + \frac{\eta}{N}
+\sum_{n=1}^{N} h(x_n) \cdot 2(s_n - y_n)
+\end{align*}
+$$
+
+1. Naive solution $h(x_n) = -\infty(s_n - y_n)$ if no constraint on $h$
+
+### Learning Hypothesis as Optimization
+
+$$
+\underset{h}{\text{min}} \text{ constants } + \frac{\eta}{N}
+\sum_{n=1}^{N} h(x_n) \cdot 2(s_n - y_n)
+$$
+
+1. magnitude of h does not matter: because $\eta$ will be optimized next
+2. penalize large magnitude to avoid naive solution.
+
+$$
+\begin{align*}
+\underset{h}{\text{min}}
+& \quad \text{ constants } + \frac{\eta}{N}
+\sum_{n=1}^{N} h(x_n) \cdot 2(s_n - y_n) + (h(x_n))^2 \\
+& = \text{ constants } + \frac{\eta}{N}
+\sum_{n=1}^{N} \text{ constant } + (h(x_n) - (y_n - s_n))^2
+\end{align*}
+$$
+
+3. solution of penalized approximate functional gradient: squared-error regression on
+  $\{(x_n, \underbrace{y_n-s_n}_{residual})\}$
+4. GradientBoost for regression: find $g_t = h$ by regression with residuals.
+
+### Deciding Blending Weight as Optimization
+
+1. After finding $g_t=h$,
+$$
+\underset{\eta}{\text{min}}
+\frac{1}{N} \cdot \sum_{n=1}^{N} \text{err} 
+\left( 
+\sum_{\tau =1}^{t-1} \alpha_{\tau} g_{\tau} (x_n) + \eta g_t(x_n)
+, y_n
+\right)
+\text{ with err}(s,y) = (s-y)^2
+$$
+
+$$
+\underset{\eta}{\text{min}}
+\frac{1}{N} \cdot \sum_{n=1}^{N} 
+( 
+s_n + \eta g_t(x_n) - y_n
+)^2
+= \frac{1}{N} \sum_{n=1}^{N}
+((y_n-s_n) - \eta g_t(x_n))^2
+$$
+
+2. one-variable linear regression on {($g_t$-transformed input, residual)}
+3. GradientBoost for regression: $\alpha_t$ = optimal $\eta$ by $g_t$-transformed linear
+  regression.
+ 
+## Summary of Aggregation Models
+
+### Map of Blending Models
+
+1. blending: aggregate after getting diverse $g_t$
+
+* uniform: simple voting/averaging of $g_t$
+* non-uniform: linear model on $g_t$-transformed inputs
+* conditional: nonlinear model on $g_t$-transformed inputs
+* uniform for 'stability'
+* non-uniform/conditional carefully for 'complexity'
+
+### Map of Aggregation-Learning Models
+
+Learning: aggregate as well as getting diverse $g_t$
+
+* Bagging: diverse $g_t$ by bootstrapping; uniform vote by nothing
+* AdaBoost: diverse $g_t$ by reweighting; linear vote by steepest search
+* Decision Tree: diverse $g_t$ by data splitting; conditional vote by branching
+* GradientBoost: diverse $g_t$ by residual fitting; linear vote by steepest search
+* Boosting-like algorithms most popular 
+
+### Map of Aggregation of Aggregation Models
+
+* Random forest: Randomized bagging + 'strong' DTree
+* AdaBoost Dtree: AdaBoost + 'weak' Dtree
+* GradientBoost + 'weak' Dtree
+* All three frequently used in practice
+
+### Specialty of Aggregation Models
+
+1. cure underfitting: $G(x)$ 'strong'.
+2. aggregation => feature transform
+3. cure overfitting: $G(x)$ 'moderate'.
+4. aggregation => regularization
+5. proper aggregation (a.k.a ensemble) => better performance
+
+### Summary
+
+* Adaptive Boosted Decision Tree: sampling and pruning for weak trees
+* Optimization View of AdaBoost: functional gradient descent on exponential error
+* Gradient Boosting: iterative steepest residual fitting
+* Summary of Aggregation Models: some cure underfitting; some cure overfitting.
