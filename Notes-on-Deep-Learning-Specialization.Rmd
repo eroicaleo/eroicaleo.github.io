@@ -1,0 +1,327 @@
+---
+title: "DeepLearningSpecialization"
+author: "Yang Ge"
+date: "10/23/2017"
+output:
+  html_document:
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Course 1
+
+## Week 1
+
+### Welcome
+
+* What you will learn:
+
+1. Neural networks and Deep Learning
+2. Improving Deep Neural Networks: Hyperparameter tuning, Regularization and Optimization.
+3. Structuring your Machine Learning Project:
+    * Train/dev/test model has changed
+    * What if your training set and testing set come from a different distrbution?
+      How to deal with it?
+    * end to end deep learning, when to use and when not to use?
+    * unique: share hard one lessons.
+4. Convolutional Neural Networks (CNN)
+    * Often apply to images
+5. Natural Language Processing: Building Sequence models
+    * RNN
+    * LSTM (Long short term memory model)
+    * Apply to speech recognition
+
+### What is a neural network?
+
+* 'Deep learning' refers to train (sometimes very large) neural networks
+* House price prediction
+    * Linear regression: Straight line
+    * Very simple NN: Size(x) -> Cycle -> Price(y)
+    * Cycle is neuron: Input the size, compute the linear function, output the price.
+    * ReLu function: Rectified Linear Unit, takes maximum or 0
+    * Large neural is taking many single neurons and stacking together
+* House price prediction 2
+    * size and # bdrm -> family size
+    * zip code -> walkability
+    * zip code + wealth -> school quality
+    * family size + walkability + school quality -> price
+    * The power and magic of NN: just need to give X and y, all the things in the middle
+      will be figured out by itself.
+    * Given enough training examples, NN good at finding functions
+    
+### Supervised learning with NN
+
+* Supervised Learning
+
+| Input(x)     | Output(y)     | Application |
+| :------------- | :------------- | :--------|
+| Home features | Price   | Real Estate (Standard NN) |
+| Ad, user info | Click on ad? (0/1) | Online Advertising (Standard NN) |
+| Image | Object(1, ..., 1000) | Photo tagging (CNN) |
+| Audio | Text Transcript | Speech recognition (RNN) |
+| English | Chinese | Machine translation (sequence data: complex RNN) |
+| Image, Radar info | Position of a car | Autonomous driving (custom/hybrid architecture) |
+
+* Needs to cleverly select what needs to be X and y
+* Neural network examples
+* Structured Data (database of data, housing, AD)
+* Unstructured Data (raw audio, images, text)
+    * Hard to computer to understand historically
+    * Human is good to understand this
+    * Thanks to deep learning, computers are much better than years ago
+    
+### Why is deep learning taking off
+
+* Scale drives deep learning progress
+    * SVM, logistical regression: Performance saturated even data scales
+    * Train very large NN: performance keeps getting better and better
+* Need 2 things to get very good performance:
+    * Very big NN
+    * Do need a lot of data
+* Use `m` in lower case to denote amount of data
+* For small training set, SVM might do better than NN.
+* Large training set, large NN dominate performance.
+* At the beginning, large training set + faster machines help.
+* Recent years, algorithm innovation helps.
+    * A lot of algorithm helps NN run faster.
+    * One example: sigmoid function to ReLu function. Because at the two end of sigmoid function,
+      the slop is flat, the gradient decent is slow.
+* Idea -> Code -> Experiment -> Idea, so fast computation is really important.
+    * Now can get results in 1day/10min, before it can be 1mon
+    * This way can do much more experiments
+    
+### About this course
+
+* Week1 Introduction
+* Week2 Basic NN programming
+    * Will code backward/forward propogation
+* Week3 One single layer NN
+* Week4 Deep NN
+
+### Course resources
+
+* Discussion forums
+    * Question, tech details, bugs.
+* [feedback,enterprise,academic]@deeplearning.ai
+
+## Week2 Logistic Regression as a NN
+
+### 2.1 Binary Classification
+
+* In NN implementation, we don't want iterate the `m` training set with an explicit for loop.
+* We will learn why computation can be organized as forward propogation + backward propogation
+* How Computer store image: red/green/color channel
+    * 64x64 picture, then 3 64x64 matrices.
+    * Unroll all the pixels, input vector dimension: 12288 $n= n_x = 12288$
+
+#### Notation
+
+$$
+(x,y), x \in R^{n_x}, y \in \{0,1\} \\
+\{(x^{(1)}, y^{(1)}),\dots\} \\
+M_{\text{train}}, M_{\text{test}} \\
+X = [x^{(1)}, \dots, x^{(m)}], n_x \text{ by } m, \in R^{n_x \times m} \\
+Y = [y^{(1)}, \dots, y^{(m)}] \in R^{1 \times m}
+$$
+
+* python cmd: `X.shape, Y.shape`
+
+### 2.2 Logistic Regression
+
+1. Given $x \in R^{n_x}$, want $\hat{y} = P(y=1|x)$
+2. Parameters: $w \in R^{n_x}, b \in R$
+3. Doesn't work output: $\hat{y} = w^Tx + b$
+4. Output: $\hat{y} = \sigma(w^Tx + b)$, sigmoid function
+
+$$
+\sigma(z) = \frac{1}{1+e^{-z}}
+$$
+
+5. When z large, it's 1, when z large negative, then it's 0.
+6. Note: In programming NN, we usually keep w and b separate. It's easier for NN implementation.
+
+### 2.3 Logistic Regression Cost Function
+
+1. Given $\{(x^{(1)}, y^{(1)}),\dots\, (x^{(m)}, y^{(m)})\}$, want $\hat{y}^{(i)} \approx y^{(i)}$
+2. Loss error function: $L(\hat{y}, y) = 0.5(\hat{y} - y)^2$ Not working well
+3. Working well: $L(\hat{y}, y) = -(y \log \hat{y} + (1-y) \log (1-\hat{y}))$
+
+$$
+y =1 \implies L(\hat{y}, y) = -\log \hat{y} \implies \log \hat{y} \text{ large }
+\implies \hat{y} \text{ large } \\
+y = 0 \implies L(\hat{y}, y) = -\log (1-\hat{y}) \implies \log (1- \hat{y}) \text{ large }
+\implies \hat{y} \text{ small }
+$$
+4. Loss functino is defined in a single training example, but cost function is defined for
+   measuring how well it's doing for entire training functions.
+
+$$
+J(w, b) = \frac{1}{M} \sum_{i=1}^m L(\hat{y}^{(i)}, y^{(i)}) \\
+= -\frac{1}{M} \sum_{i=1}^m 
+y^{(i)} \log \hat{y}^{(i)} + 
+(1-y^{(i)}) \log (1-\hat{y}^{(i)})
+$$
+
+5. Logistic regression can be viewed as very small neural network.
+   
+### 2.3 Gradient Descent
+
+* Recap
+
+$$
+\hat{y} = \sigma(w^Tx + b) \\
+\sigma(z) = \frac{1}{1+e^{-z}} \\
+J(w, b) = \frac{1}{m} \sum_{i=1}^m L(\hat{y}^{(i)}, y^{(i)})
+= -\frac{1}{m} \sum_{i=1}^m 
+y^{(i)} \log \hat{y}^{(i)} + 
+(1-y^{(i)}) \log (1-\hat{y}^{(i)})
+$$
+
+1. Want to find w, b to minimize J(w, b), which is a convex function, one of huge reason to use
+    such function as cost function.
+2. Initialize $w,b = 0$
+
+
+1. Repeat {
+2.   $w := w - \alpha \frac{\partial J(w,b)}{\partial w}$
+3.   $b := b - \alpha \frac{\partial J(w,b)}{\partial b}$
+4. }
+
+
+1. alpha is learning rate
+2. `dw, db` to be variable for derivative term in coding python.
+3. $ \frac{\partial J(w)}{\partial w}$ slope of the function
+
+### 2.4 Derivatives
+
+1. Think derivatives as slope of the function
+2. height / width.
+
+### 2.5 More Derivative Examples
+
+### 2.6 Computation graph
+
+$$
+J(a, b, c) = 3a + bc
+$$
+
+1. Computation graph comes into handy when you have a function to optimize
+2. Computation graph organize the computation with the blue arrow from left to right
+
+### 2.7 Derivatives with a Computation Graph
+
+1. Chain rule: a -> v -> J
+2. dFinalOutputVar / dVar, but in code: `dvar`, like `dv, da`
+
+### 2.8 Logistic Regression Gradient Descent
+
+$$
+da = \frac{dL(a, y)}{da} = -\frac{y}{a} + \frac{1-y}{1-a} \\
+dz = a - y \\
+dw1 = x_1 \cdot dz, dw2 = x_2 \cdot dz, db = dz
+$$
+
+### 2.9 Gradient Descent on m Examples
+
+1. J = 0, dw1 = 0, dw2 = 0, db = 0
+2. for i = 1 to m
+3.     $z^{(i)} = w^Tx^{(i)}+b$
+4.     $a^{(i)} = \sigma(z^{(i)})$
+5.     $J += -[y^{(i)} \log a^{(i)} + (1- y^{(i)}) \log (1 - a^{(i)})]$
+6.     $dz^{(i)} = a^{(i)} - y^{(i)}$
+7.     $dw_1 += x_1^{(i)} dz^{(i)}$
+8.     $dw_2 += x_2^{(i)} dz^{(i)}$
+9.     $db += dz^{(i)}$
+10. J/=m, dw1 /= m, dw2 /= m, db /= m
+11. w1 := w1 - alpha dw1 and so on
+
+* Two weakness:
+
+1. For loop training ex
+2. For loop for features.
+3. Without using for loop helps scaling to bigger data set
+4. In deep-learning era, vectorization is a must.
+
+### 2.10 Vectorization
+
+1. What is vectorization?
+2. $z = w^Tx+b$
+3. python: `z = np.dot(w, x) + b` 100X faster than for loop in python
+4. both GPU and CPU have SIMD
+5. Whenever possible, avoid use explicit for loop
+
+### 2.11 More Vectorization Examples
+
+1. Rule of Thumb: whenever possible, avoid explicit for-loops
+2. `u = np.dot(a, v)`
+3.
+
+```
+import numpy as np
+u = np.exp(v)
+np.log(v)
+np.abs(v)
+np.maximum(v, 0)
+v**2
+1/v
+```
+
+4. Logistic regression derivatives
+
+```
+dw = np.zeros((n_x, 1))
+dw += x * dz
+dw /= m
+```
+
+### 2.12 Vectorizing Logistic Regression
+
+$$
+z^{(1)} = w^Tx^{(1)}+b \\
+a^{(1)} = \sigma(z^{(1)}) \\
+z^{(2)} = w^Tx^{(2)}+b \\
+a^{(2)} = \sigma(z^{(2)}) \\
+z^{(3)} = w^Tx^{(3)}+b \\
+a^{(3)} = \sigma(z^{(3)}) \\
+$$
+
+$$
+[z^{(1)}, z^{(2)}, \cdots, z^{(m)}] = w^T X + [b, b, \cdots, b]
+$$
+
+* python code
+
+```
+Z = np.dot(w.T, X) + b
+```
+
+* Compute a leave to programming assignment.
+
+### 2.13 Vectorizing Logistic Regression's Gradient Output
+
+$$
+dZ = [dz^{(1)}, dz^{(2)}, \cdots, dz^{(m)}]
+dZ = A - Y
+$$
+
+* python code for db and dw
+
+```
+db = 1/m * np.sum(dZ)
+dw = 1/m * np.dot(X, dZ.T)
+```
+
+* Implementing Logistic Regression
+
+$$
+Z = w^T X + b \\
+A = \sigma (Z) \\
+dZ = A - Y \\
+dw = 1 / m  X (dZ)^T \\
+db = 1 / m \sum dZ
+$$
+
+* Still need to do for loop over iterations and no way to get rid of it.
