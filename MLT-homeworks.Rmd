@@ -1,0 +1,126 @@
+---
+title: "MLT-homeworks"
+author: "Yang Ge"
+date: "10/16/2017"
+output:
+  html_document:
+      keep_md: false
+      toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+# HW03
+
+* Boosting
+
+## 3.1
+
+Assume that linear regression (for classification) is used within AdaBoost. That is, we need to solve the weighted-$E_{in}$ optimization problem.
+
+$$
+\underset{w}{\text{min}} E_{in}^{u}(w) =
+\frac{1}{N}
+\sum_{n=1}^{N}
+u_n(y_n - w^Tx_n)^2
+$$
+
+The optimization problem above is equivalent to minimizing the usual $E_{in}$ of linear
+regression on some “pseudo data” $\{(\tilde{x_n}, \tilde{y_n})\}_{n=1}^N$.
+Write down your pseudo data $\{(\tilde{x_n}, \tilde{y_n})\}$ and prove your answer.
+
+* Solution:
+
+Simply set $\tilde{x_n} = \sqrt{u_n} x_n, \tilde{y_n} = \sqrt{u_n} y_n$ will do it.
+
+## 3.2
+
+Consider applying the AdaBoost algorithm on a binary classification data set where 99% of the
+examples are positive. Because there are so many positive examples, the base algorithm within
+AdaBoost returns a constant classifier $g (x) = +1$ in the first iteration. Let $u^{(2)}_{+}$ be the individual
+example weight of each positive example in the second iteration, and $u^{(2)}_{-}$ be the individual example −
+weight of each negative example in the second iteration. What is $u^{(2)}_{+}/u^{(2)}_{-}$ Prove your answer.
+
+* Solution
+
+$$
+u^{(2)}_{+} = \epsilon_1 \cdot u^{(1)}= 0.01 \\
+u^{(2)}_{-} = (1-\epsilon_1) \cdot u^{(1)} = 0.99 \\
+u^{(2)}_{+}/u^{(2)}_{-} = 0.01 / 0.99 = 0.01010101
+$$
+
+## 3.3 (skip for now)
+## 3.4 (skip for now)
+
+* Decision Tree
+
+* Impurity functions play an important role in decision tree branching. For binary classification problems,
+let μ+ be the fraction of positive examples in a data subset, and μ− = 1 − μ+ be the fraction of negative
+examples in the data subset.
+
+## 3.5 
+
+The Gini index is $1 − μ^2_+ − μ^2_−$ . What is the maximum value of the Gini index among all $μ_+ \in [0, 1]$?
+Prove your answer.
+
+* The maximum value is 0.5 at $x = 0.5$ as shown below.
+
+$$
+f(x) = 1 - x^2 - (1-x)^2 \\
+f'(x) = -2x+2(1-x) = 0 \\
+$$
+
+```{r}
+x <- seq(0, 1, 0.01)
+y <- 1 - x^2 - (1-x)^2
+d <- data.frame(x = x, y = y)
+ggplot(d, aes(x, y)) +
+  geom_line()
+```
+
+## 3.6
+
+* a.
+
+```{r}
+x <- seq(0, 1, 0.01)
+y <- 1 - x
+error <- 2 * pmin(x, y)
+d <- tibble(x = x, error = error)
+ggplot(d, aes(x, error)) + geom_line()
+```
+
+b. the squared regression error (used for branching in classification data sets), which is by defi-
+nition:
+
+$$
+μ_+(1 − (μ_+ − μ_−))^2 + μ_−(−1 − (μ_+ − μ_−))^2.
+$$
+
+```{r}
+x <- seq(0, 1, 0.01)
+y <- 1 - x
+raw_error <- x*(1-(x-y))^2 + y*(-1-(x-y))^2
+d <- tibble(x = x, raw_error = raw_error)
+ggplot(d, aes(x, raw_error)) + geom_line()
+```
+
+* As show above, since the max is 1.0, then raw_error is the same as normalized error.
+
+c. the entropy,which is $−μ_+ \ln μ_+ −μ_− \ln μ_−$, with $0\log0 ≡0$.
+
+```{r}
+x <- seq(0.01, 0.99, 0.01)
+y <- 1 - x
+raw_error <- -x * log(x) - y * log(y)
+d <- tibble(x = x, raw_error = raw_error)
+ggplot(d, aes(x, raw_error)) + geom_line()
+error <- raw_error / max(raw_error)
+d <- tibble(x = x, error = error)
+ggplot(d, aes(x, error)) + geom_line()
+```
+
+
