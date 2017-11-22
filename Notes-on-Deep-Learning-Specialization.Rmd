@@ -775,3 +775,511 @@ $$
     * Try every several months
 
 ### 4-8 What does this have to do with the brain?
+
+# Course 2
+
+## Week 1 Practical aspects of Deep Learning
+
+### 1-1 Train / Dev / Test sets
+
+1. Applied ML is a highly iterative process: # of layers, # of hidden units, learning rate
+    activation functions
+2. Idea -> Code -> Experiment
+3. Intuition from one domain, often do not transfer to another.
+4. Almost impossible to correctly guess all the parameters very first time.
+5. Train/dev/test sets
+6. Previous example: 60/20/20 for 100/1000/10000 samples.
+7. Big data: 1M samples, 10000 might be more than enough for dev and test, 98/1/1%
+
+* Mismatched train/test distribution
+
+1. Training set: Cat pictures from web, HD, clear
+2. Dev/test set: from uploaded users, low resolution, etc
+3. Rule of Thumb: dev and test come from same distribution
+4. Not having a test set might be OK.
+
+### 1-2 Bias / Variance
+
+1. High bias: underfitting
+2. High variance: overfitting
+3. Train set / Dev set error: 
+    * 1/11% high variance
+    * 15/16% high bias
+    * 15/30% both high variance + bias
+4. But it depends also on optimal (bayes) error, blurry image.
+5. Assumptions: 1. bayes error is small 2. draw from the same distribution
+6. What does a high variance + bias look like?
+    * Don't have flexibility for most data, e.g. a straight line
+    * Have great flexibility for outliers.
+
+### 1-3 Basic Recipe for Machine Learning
+
+1. Does it has high bias? training set performance?
+    1. Bigger network (always work better)
+    2. Train longer (not always, but doesn't hurt)
+    3. Neural network architecture (might not work)
+2. Does it have high variance (after Q1 is solved)? Dev set performance?
+    1. Get more data (pretty much always work)
+    2. Regularization
+    3. Neural network architecture (might not work)
+3. Hopefully, find something low bias + low variance, DONE :)
+4. high bias, not gonna help
+5. Earlier ML, discussion about "Bias variance tradeoff".
+6. Modern deep learning big data era, we can reduce without increasing other one.
+7. Regularization might increase bias a little bit, but won't be too much.
+
+### 1-4 Regularization
+
+* Logistic regression
+
+$$
+\underset{w,b}{\text{min } } J(w, b) = 
+\frac{1}{m} \sum_{i = 1}^{m} L(\hat{y}^{(i)}, y^{(i)}) +
+\frac{\lambda}{2m} ||w||^2_2 \\
+\text{L2 regularization: } ||w||^2_2 = w^Tw \\
+\text{L1 regularization: } ||w||_1 = \sum_{i = 1}^{n_x} |w|
+$$
+
+1. In practise, $b$ is usually not included.
+2. L1 will make $w$ sparse, not used that much.
+3. L2 is much much often.
+3. $\lambda$ regularization parameter, determined by dev set.
+4. In programming exercises, use `lambd`
+
+* Neural network
+
+$$
+J(W^{[1]}, b^{[1]}, \dots, W^{[L]}, b^{[L]}) =
+\frac{1}{m} \sum_{i = 1}^{m} L(\hat{y}^{(i)}, y^{(i)}) +
+\frac{\lambda}{2m} \sum_{i = 1}^{m} ||W^{[L]}||^2_F \\
+dW^{[L]} = \text{( from back propogation )} + \frac{\lambda}{m} W^{[L]}
+$$
+
+1. It's also called weight decay.
+
+### 1-5 Why regularization reduces overfitting?
+
+1. When $\lambda$ is big, $W^{[L]} \approx 0$, NN becomes simpler and reduce overfitting and
+  close to linear model.
+2. $z^{[L]} = W^{[L]}a^{[L-1]} + b^{[L]}$, $W^{[L]}$ is small then $z^{[L]}$ is small and will
+  be in the linear region. Then every neoron is linear, the whole model is linear.
+3. implementation tip for debugging, plot the cost function with the iteration.
+  When you include regularization, needs to plot the whole cost function, not just the loss 
+  function.
+
+### 1-6 Dropout Regularization
+
+1. For each training example, remove some nodes with certain probability.
+
+* Implementing dropout ("Invert dropout")
+
+```
+# keep_prob = 0.8 in this example
+# d3 will be a boolean array
+d3 = np.random.rand(a3.shape[0], a3.shape[1]) < keep_prob
+a3 = np.multiply(a3, d3)
+a3 /= keep_prob # bump 
+```
+
+* 问题：看起来以上的implementation，for different training examples, it has different
+  dropout. How to do backward propogation??
+
+1. The reason for division: 50 units -> 10 units shut off, want to keep the expectation
+  of $a^{[4]}$ the same
+
+$$
+z^{[4]} = W^{[4]} \cdot a^{[3]} + b^{[4]}
+$$
+
+* Making predictions at test time: There is no drop out.
+
+### 1-7 Understanding Dropout
+
+1. Intuition: can't rely on any one feature, so have to spread out weights.
+2. So if won't put too much weight on any one input.
+3. Shrink the squared norm weight.
+4. Dropout has a similar effect as the L2 regularization.
+5. Errata: 2:50 the size of the matrix
+6. For matrix with big size, apply higher drop out.
+7. The input layer can also have dropout, but usually don't do that.
+8. Computer vision has successful application. Input is so big, never have enough data.
+9. Downside: $L$ is no longer well defined. So loosing the debugging tool.
+10: Andrew recommend: first turn off drop out, make sure bug-free. Then turn on drop out.
+
+### 1-8 Other regularization methods
+
+* Data augmentation, because we want to get more data.
+    * flipping image
+    * randomly distortion and transformation, e.g. zooming in, rotation
+* Early stopping
+    * plot training error or J.
+    * Also plot dev set, decrease first than increase.
+    * Reason: at beginning, $|W|$ tends to be small, in later interation, $|W|$ gets bigger
+      and bigger.
+    * stop half way, $||W^{[L]}||^2_F$ won't be too big.
+* Andrew's experience, orthogonalization, divide ML to 2 tasks, focus one at a time
+    * Optimize cost function J
+    * Not overfit
+    * Use early stopping cannot decouple the 2 tasks because trying to do the 2 together
+    * L2 regularization can decouple the 2 tasks, but need to try different lambda
+
+### 1-9 Normalizing inputs
+
+1. substract mean
+
+$$
+\text{ mean: } \\
+\mu = \frac{1}{m} \sum_{i=1}^m x^{(i)} \\
+x = x - \mu \\
+\text{ Normalize variance: } \\
+\sigma^2 = \frac{1}{m} \sum_{i=1}^m x^{(i)} ** 2 \\
+x = x / \sigma^2
+$$
+
+2. Needs to use same training set and test set
+
+* Why normalize inputs?
+
+1. Not normalized, conture will be elongated, gradient descent will go back and forth.
+2. Normalized, conture will be more symmetric, gradient descent will go straight to minimum.
+
+* Never does any harm
+
+### 1-10 Vanishing / Exploding gradients
+
+1. Sometimes the gradient can be very very big or very very small.
+2. If $w > 1$, then very deep network $w^L$ will be exponential big. The same thing will be when
+    $w < 1$
+3. The same argument can be said for the derivatives.
+4. This was a major barrier before.
+
+### 1-11 Weight Initialization for Deep Networks
+
+* Single neuron example
+
+$$
+z = w_1 x_1 + w_2 x_2 + \dots + w_n x_n
+$$
+
+1. We would like to have the larger n, the smaller $w$. What we can do is to set $var(w) = \frac{1}{n}$ for sigmoid and tanh activation, and $var(w) = \frac{2}{n}$ for relu .
+2. Python code as follows
+
+```
+WL = np.random.randn(shape) * np.sqrt(1/n[l-1]) # for sigmoid and tanh
+WL = np.random.randn(shape) * np.sqrt(2/n[l-1]) # for Relu function
+```
+
+### 1-12 Numerical approximation of gradients
+
+1. Check your derivative computation
+2. Use 2 sides difference, error is $O(\epsilon^2)$
+3. Use 1 side difference, error is $O(\epsilon)$
+
+### 1-13 Gradient checking
+
+1. Helps Andrew a lot to find bugs.
+2. Take $W^{[1]}, b^{[1]}, \dots, W^{[L]}, b^{[L]}$ into a giant vector $\theta$
+3. Take $dW^{[1]}, db^{[1]}, \dots, dW^{[L]}, db^{[L]}$ into a giant vector $d\theta$
+
+* Gradient checking (Grad check)
+
+$$
+\text{for each } i: \\
+d\theta_{approx}[i] = \frac
+{J(\theta_1, \theta_2, \dots, \theta_i + \epsilon, \dots)
+- J(\theta_1, \theta_2, \dots, \theta_i - \epsilon, \dots)}
+{2 \epsilon} \approx
+d\theta[i] = 
+\frac{\partial J}
+{\partial\theta_i} \\
+\text{ check } \\
+\frac{||d\theta_{approx} - d\theta||_{2}}
+{||d\theta_{approx}||_2 + ||d\theta||_2}
+\approx \epsilon = 10^{-7}
+$$
+
+1. If the $\epsilon >= 10^{-3}$, most likely there is a bug.
+2. Help Andrew a lot in finding bugs.
+
+### 1-14 Gradient Checking Implementation Notes
+
+1. Don't use in training - only to debug
+2. If algorithm fails grad check, look at components to try to identify bug.
+    1. E.g. $db^{[l]}$ is off, but $dW^{[l]}$ is close, then check how to compute $db^{[l]}$
+3. Remember regularization term: include it in gradient descent if use regularization.
+4. Doesn't work with dropout
+    1. Turn on grad check without drop out.
+    2. Turn off grad and turn on drop out, hope for the best.
+    3. Could do but Andrew don't usually do: Fix pattern of drop out.
+5. Run a random initialization. run it again after some training.
+
+### 1-15 Programming assignment
+
+* Initialization:
+
+<font color='blue'>
+**What you should remember**:
+- The weights $W^{[l]}$ should be initialized randomly to break symmetry. 
+- It is however okay to initialize the biases $b^{[l]}$ to zeros. Symmetry is still broken so long as $W^{[l]}$ is initialized randomly.
+
+**Observations**:
+- The cost starts very high. This is because with large random-valued weights, the last activation (sigmoid) outputs results that are very close to 0 or 1 for some examples, and when it gets that example wrong it incurs a very high loss for that example. Indeed, when $\log(a^{[3]}) = \log(0)$, the loss goes to infinity.
+- Poor initialization can lead to vanishing/exploding gradients, which also slows down the optimization algorithm. 
+- If you train this network longer you will see better results, but initializing with overly large random numbers slows down the optimization.
+
+<font color='blue'>
+**In summary**:
+- Initializing weights to very large random values does not work well. 
+- Hopefully intializing with small random values does better. The important question is: how small should be these random values be? Lets find out in the next part! 
+
+<font color='blue'>
+**What you should remember from this notebook**:
+- Different initializations lead to different results
+- Random initialization is used to break symmetry and make sure different hidden units can learn different things
+- Don't intialize to values that are too large
+- He initialization works well for networks with ReLU activations. 
+
+* Regularization
+
+**Observations**:
+- The value of $\lambda$ is a hyperparameter that you can tune using a dev set.
+- L2 regularization makes your decision boundary smoother. If $\lambda$ is too large, it is also possible to "oversmooth", resulting in a model with high bias.
+
+**What is L2-regularization actually doing?**:
+
+L2-regularization relies on the assumption that a model with small weights is simpler than a model with large weights. Thus, by penalizing the square values of the weights in the cost function you drive all the weights to smaller values. It becomes too costly for the cost to have large weights! This leads to a smoother model in which the output changes more slowly as the input changes. 
+
+<font color='blue'>
+**What you should remember** -- the implications of L2-regularization on:
+- The cost computation:
+    - A regularization term is added to the cost
+- The backpropagation function:
+    - There are extra terms in the gradients with respect to weight matrices
+- Weights end up smaller ("weight decay"): 
+    - Weights are pushed to smaller values.
+
+**Note**:
+- A **common mistake** when using dropout is to use it both in training and testing. You should use dropout (randomly eliminate nodes) only in training. 
+- Deep learning frameworks like [tensorflow](https://www.tensorflow.org/api_docs/python/tf/nn/dropout), [PaddlePaddle](http://doc.paddlepaddle.org/release_doc/0.9.0/doc/ui/api/trainer_config_helpers/attrs.html), [keras](https://keras.io/layers/core/#dropout) or [caffe](http://caffe.berkeleyvision.org/tutorial/layers/dropout.html) come with a dropout layer implementation. Don't stress - you will soon learn some of these frameworks.
+
+<font color='blue'>
+**What you should remember about dropout:**
+- Dropout is a regularization technique.
+- You only use dropout during training. Don't use dropout (randomly eliminate nodes) during test time.
+- Apply dropout both during forward and backward propagation.
+- During training time, divide each dropout layer by keep_prob to keep the same expected value for the activations. For example, if keep_prob is 0.5, then we will on average shut down half the nodes, so the output will be scaled by 0.5 since only the remaining half are contributing to the solution. Dividing by 0.5 is equivalent to multiplying by 2. Hence, the output now has the same expected value. You can check that this works even when keep_prob is other values than 0.5.  
+
+<font color='blue'>
+**What we want you to remember from this notebook**:
+- Regularization will help you reduce overfitting.
+- Regularization will drive your weights to lower values.
+- L2 regularization and Dropout are two very effective regularization techniques.
+# Python functions used through the courses
+
+## Week 2 Optimization algorithms
+
+### 2-1 Mini-batch gradient descent
+
+1. Vectorization allows you to efficiently compute on m examples.
+2. When m = 5000000, vectorization can still be very slow.
+3. Take mini-batch of 1000 examples. Then we have 5000 mini-batches.
+
+$$
+X = [x^{(1)}, \dots, x^{(5000000)}] \\
+X^{\{1\}} = [x^{(1)}, \dots, x^{(1000)}] (n_x, 1000) \\
+X^{\{2\}} = [x^{(1001)}, \dots, x^{(2000)}] (n_x, 1000) \\
+\dots \\
+X^{\{5000\}} = [x^{(4995000)}, \dots, x^{(5000000)}] (n_x, 1000) \\
+$$
+
+* Mini-batch gradient descent
+
+$$
+\text{ for } t = 1, ..., 5000 \\
+    \quad \text{ Forward prop on } X^{\{t\}} \\
+    Z^{[1]} = W^{[1]} X^{\{t\}} + b^{[1]} \\
+    A^{[1]} = g^{[1]}(Z^{[1]}) \\
+    \dots \\
+    A^{[L]} = g^{[L]}(Z^{[L]}) \\
+    J^{\{t\}} = \frac{1}{1000} \sum_{i=1}^{1000} L(\hat{y}^{(i)}, y^{(i)})
+    + \frac{\lambda}{2\cdot1000} \sum_{l} ||W^{[l]}||_F^2 \\
+    \text{ Backward prop on wrt } J^{\{t\}} (X^{\{t\}}, Y^{\{t\}}) \\
+    W^{[l]} := W^{[l]} - \alpha dW^{[l]} \\
+    b^{[l]} := b^{[l]} - \alpha db^{[l]}
+$$
+
+1. This is called "1 epoch" passing through training set.
+
+### 2-2 Understanding mini-batch gradient descent
+
+* Training with mini batch gradient descent
+
+1. The cost goes down every iteration, even one goes up then something is wrong, e.g.
+  learning rate is too big.
+2. It maynot decrease in every iteration, but the trend should go down.
+
+* Choosing your mini-batch size
+
+1. size = m, batch gradient descent
+2. size = 1, stochastic gradient descent: every example is it's own mini batch
+3. stochastic gradient descent can be extremely noisy can take to wrong direction, won't ever
+  converge.
+4. In practice: somewhere in between.
+5. batch: too long iteration, stochastic, lose speedup from vectorization
+6. In between: fastest learning
+    * vectorization
+    * Make progress
+
+* Choosing your mini-batch size
+
+1. Small training set (< 2000): Just use batch
+2. Typical mini-batch sizes: 64, 128, 256, 512
+3. Make sure mini-batch fit in (CPU/GPU) memory
+4. This is another hyper-parameter
+
+### 2-3 Exponentially weighted averages
+
+* Temperature in London
+
+$$
+V_0 = 0 \\
+V_1 = 0.9 V_0 + 0.1 \theta_1 \\
+V_2 = 0.9 V_1 + 0.1 \theta_2 \\
+\cdots \\
+V_t = 0.9 V_{t-1} + 0.1 \theta_t \\
+V_1 = \beta V_0 + (1- \beta) \theta_1 \\
+V_t \text{ as approximately average over } \approx \frac{1}{1-\beta} \text{ days temperature }
+$$
+1. $\beta = 0.9 \approx $ 10 days temperature
+2. $\beta = 0.98 \approx $ 50 days temperature, less wigglely but adapt slowly.
+3. $\beta = 0.5 \approx $ 2 days
+
+### 2-4 Understanding exponentially weighted averages
+
+$$
+V_1 = \beta V_0 + (1- \beta) \theta_1 \\
+V_{t} = (1- \beta) V_{t-1} + (1- \beta)\beta V_{t-2} + (1- \beta)\beta^2 V_{t-2} + \cdots \\
+(1 - \epsilon) ^ {\frac{1}{\epsilon}} = \frac{1}{e}
+$$
+
+* Implementing exponentially weighted averages
+
+1. requires very less memory than the regular average: `vtheta = beta * vtheta + (1-beta) * thetat`
+
+### 2-5 Bias correction in exponentially weighted averages
+
+1. Bias correction: change from $V_t$ to $V_t / (1 - \beta^t)$
+
+### 2-6 Gradient descent with momentum
+
+1. Almost always works faster than normal gradient descent
+2. On each iteration t: compute dW and db on current mini-batch
+3. compute $V_{dW} = \beta V_{dW} + (1- \beta)dW$, similar for $V_{db}$
+4. $W = W - \alpha V_{dW}, b = b - \alpha V_{db}$
+5. The steps moving more horizontally toward minimum.
+
+* Implementation details
+
+$$
+v_{dw} = \beta v_{dw} + (1-\beta)dW \\
+v_{db} = \beta v_{db} + (1-\beta)db \\
+W = W - \alpha v_{dw} \\
+b = b - \alpha v_{db} \\
+\text{In practice, someone does the following, Andrew does not prefer:} \\
+v_{dw} = \beta v_{dw} + dW
+$$
+
+1. Hyperparameters: $\alpha, \beta$, $\beta = 0.9$ works very well.
+2. In practice, don't see people use bias correction, because after 10 iterations,
+    The average warms up.
+
+### 2-7 RMSprop
+
+1. Root mean square prop
+2. On iteration t: compute dW, db on current mini-batch
+
+$$
+S_{dW} = \beta S_{dW} + (1-\beta) dW^2 \text{ (element-wise) } \\
+S_{db} = \beta S_{db} + (1-\beta) db^2 \text{ (element-wise) } \\
+W = W - \alpha \frac{dW}{\sqrt{S_{dW}} + \epsilon} \\
+b = b - \alpha \frac{db}{\sqrt{S_{db}} + \epsilon} \\
+$$
+
+3. $\epsilon$ is for numerical stability.
+
+### 2-8 Adam optimization algorithm
+
+1. A lot of optimization algorithm proposed not well generalized.
+
+$$
+V_{dW} = 0, S_{dW} = 0, V_{db} = 0, S_{db} = 0 \\
+V_{dW} = \beta_1 V_{dW} + (1 - \beta_1) dW, V_{db} = \beta_1 V_{db} + (1-\beta_1) db \\
+S_{dW} = \beta_2 S_{dW} + (1-\beta_2) dW^2 \text{ (element-wise) } \\
+S_{db} = \beta_2 S_{db} + (1-\beta_2) db^2 \text{ (element-wise) } \\
+V_{dW}^{corrected} = V_{dW} / (1 - \beta^t_1), V_{db}^{corrected} = V_{db} / (1 - \beta^t_1) \\
+S_{dW}^{corrected} = S_{dW} / (1 - \beta^t_1), S_{db}^{corrected} = S_{db} / (1 - \beta^t_1) \\
+W = W - \alpha \frac{V_{dW}^{corrected}}{\sqrt{S_{dW}^{corrected}} + \epsilon} \\
+b = b - \alpha \frac{V_{db}^{corrected}}{\sqrt{S_{db}^{corrected}} + \epsilon} \\
+
+$$
+
+* Hyperparameter choice
+
+1. $\alpha$
+2. $\beta_1 = 0.9$
+3. $\beta_2 = 0.999$
+4. $\epsilon = 10^{-8}$
+
+* Adam: Adaptive moment estimation
+
+### 2-9 Learning rate decay
+
+1. 1 epoch is 1 pass through the data
+
+$$
+\alpha = \frac{1}{1+\text{decay rate} \times \text{epoch_num}} \alpha_0 \\
+\alpha = \frac{k}{\sqrt{\text{epoch_num}}} \alpha_0 \\
+\alpha = 0.95^{\text{epoch_num}} \alpha_0
+$$
+
+2. manual decay: only works for training small # of models.
+3. Learning rate can really help.
+
+## 2-10 The problem of local optima
+
+1. The intuition about local optima previously is not correct
+2. Most local optima are settle points
+3. A lot of intuition we learnt from low dimension doesn't apply to high dimension.
+
+* Problem of plateaus
+
+1. unlikely to get stuck in a bad local optimal
+2. Plateaus can make learning slow
+
+## 2-11 Programming assignment
+
+<font color='blue'>
+**What you should remember**:
+- The difference between gradient descent, mini-batch gradient descent and stochastic gradient descent is the number of examples you use to perform one update step.
+- You have to tune a learning rate hyperparameter $\alpha$.
+- With a well-turned mini-batch size, usually it outperforms either gradient descent or stochastic gradient descent (particularly when the training set is large).
+
+<font color='blue'>
+**What you should remember**:
+- Momentum takes past gradients into account to smooth out the steps of gradient descent. It can be applied with batch gradient descent, mini-batch gradient descent or stochastic gradient descent.
+- You have to tune a momentum hyperparameter $\beta$ and a learning rate $\alpha$.
+
+
+# numpy functions
+
+```
+np.sum
+np.square
+np.zeros
+np.random.randn
+np.random.rand
+np.multiply
+np.linalg.norm
+np.copy
+```
+
