@@ -1269,6 +1269,297 @@ $$
 - Momentum takes past gradients into account to smooth out the steps of gradient descent. It can be applied with batch gradient descent, mini-batch gradient descent or stochastic gradient descent.
 - You have to tune a momentum hyperparameter $\beta$ and a learning rate $\alpha$.
 
+## Week 3 Hyperparameter tuning, Batch Normalization and Programming Frameworks
+
+### 3-1 Tuning process
+
+* Hyperparameters
+
+1. learning rate $\alpha$
+2. momemtum $\beta = 0.9$
+2. Adam $\beta_1 = 0.9, \beta_2 = 0.999, \epsilon = 10^{-8}$
+2. # layers
+3. # hidden units
+4. learning rate decay
+5. mini-batch
+
+* In deep learning era, try random values, don't use grid.
+  Because you don't know which parameter is important. Try random values can cover
+  more values than grid.
+
+* Another common practices: Coarse to fine
+
+1. Find a region with good results.
+2. Then focus more on this region.
+
+### 3-2 Using an appropriate scale to pick hyperparameters
+
+* Picking hyperparameters at random
+
+1. $n^{[l]} = 50, \dots, 100$, then use random search.
+2. # of layers $L$: 2 - 4, use grid search, try 2, 3, 4.
+
+* Appropriate scale for hyperparameters
+
+1. You suspect $\alpha = 0.0001, \dots, 1$
+2. If sample uniformly, then 90% will be between 0.1 and 1, only 10% will be between
+    0.0001 and 0.1
+3. Then in this case, more reasonable to search in log scale.
+
+* Hyperparameters for exponentially weighted averages
+
+1. $\beta = 0.9, \dots, 0.999$, doesn't make sense to search uniformly.
+2. So $1-\beta = 0.1 (10^{-1}), \dots, 0.001(10^{-3})$, so sample r uniformly between
+  $[-3, -1]$
+3. When beta changes from 0.9 to 0.9005, doesn't make too much difference, both are about
+  averaging 10 last.
+4. But if change from 0.999 to 0.9995, it's changing from 1000 to 2000.
+5. forces us to sample more densely when $\beta$ is close to 1.
+
+### 3-3 Hyperparameters tuning in practice: Pandas vs. Caviar
+
+* Re-test hyperparameters occasionally
+
+1. methods work well in one application domain can be applied to another.
+2. Intuition do get scale.
+
+* Babysitting one model (Panda approach, not enough resource)
+
+1. May be have a lot of data, but less computing resources.
+2. Can only afford to train one model, then babysit with this model.
+3. check every day results and adjust the parameters accordingly. Nudging rate up and down.
+
+* Training many models in parallel (Caviar approach, enough computing resource)
+
+### 3-4 Normalizing activations in a network
+
+1. It makes hyperparameter search much easier and more robust
+
+* Normalizing inputs to speed up learning
+
+1. Previously we normalize input $x$, can we also normalize $a^{[1]}, a^{[2]}, \dots$
+  and so on, so as to train $W^{[3]}, b^{[3]}$ faster?
+2. In practice, Andrew suggests to normalize $Z^{[2]}$ instead of $A^{[2]}$
+
+* Implementing Batch Norm
+
+1. Give some intermdiate values $z^{[l](i)} = \{z^{[1]}, \dots, z^{[m]}\}$
+
+$$
+\mu = \frac{1}{m} \sum_i z^{(i)} \\
+\sigma ^2 =  \frac{1}{m} \sum_i (z_i - \mu)^2 \\
+z_{\text{norm}}^{(i)} = \frac{z^{(i)} - \mu}{\sqrt{\sigma ^2 + \epsilon}} \\
+\tilde{z^{(i)}} = \gamma  z_{\text{norm}}^{(i)} + \beta \text{ learnable parameters of model} \\
+$$
+
+2. if $\gamma = \sqrt{\sigma ^2 + \epsilon}$ and $\beta = \mu$,
+  then $\tilde{z^{(i)}} = z^{(i)}$
+3. Use $\tilde{z^{(i)}}$ instead of $z^{(i)}$
+
+### 3-5 Fitting Batch Norm into a neural network
+
+* Adding Batch Norm to a network
+
+$$
+X \xrightarrow{W^{[1]}, b^{[1]}} Z^{[1]}
+\xrightarrow[\text{batch Norm (BN)}]{\beta^{[1]}, \gamma^{[1]}} \tilde{Z}^{[1]}
+\rightarrow A^{[1]} = g^{[1]}(\tilde{Z}^{[1]})
+\xrightarrow{W^{[2]}, b^{[2]}} Z^{[2]}
+\xrightarrow[\text{batch Norm (BN)}]{\beta^{[2]}, \gamma^{[2]}} \tilde{Z}^{[2]}
+$$
+
+* Parameters
+
+$$
+W^{[1]}, b^{[1]}, \dots, W^{[L]}, b^{[L]} \\
+\beta^{[1]}, \gamma^{[1]}, \dots \beta^{[L]}, \gamma^{[L]}
+$$
+
+1. Note that this $\beta$ is not the same as the in the momemtum and RMS drop.
+2. Then you can use any optimization algorithm, like gradient descent, momentum, Adam.
+3. If use a deep learning framework, usually don't have to implement yourself.
+
+* Working with mini-batches
+
+1. The parameter $b^{[l]}$ is no longer needed, since the mean will be substracted.
+  It is replaced by $\beta^{[l]}$.
+2. The size of $\beta^{[l]}, \gamma^{[l]}$ are all $n^{[l]}, 1$
+
+* Implementing gradient descent 
+
+$$
+\text{ for } t = 1, ..., \# \\
+    \quad \text{ Forward prop on } X^{\{t\}} \\
+    \text{ In each hidden layer, use BN to replace } Z^{[l]} \text{ with } \tilde{Z}^{[l]} \\
+    \text{ Use backward prop to compute } dW{[l]}, d\beta^{[l]}, d\gamma^{[l]}, (db^{[l]}
+    \text{ is gone }) \\
+    \text{updates parameters:} \\
+    W := W - \alpha dW{[l]} \\
+    \beta := \beta - \alpha d\beta^{[l]} \\
+    \gamma := \gamma - \alpha d\gamma^{[l]}
+$$
+
+* It also works with momemtum, RMSprop, and Adam.
+
+### 3-6 Why does Batch Norm work?
+
+1. We have already seen normalize input features can speed up learning.
+
+* Learning on shifting input distribution
+
+1. Makes the deeper layer more robust to the changes in earlier layer.
+2. Model trained based on one data set (black cat), might not work well
+  for another data set (color cat), because the distribution is different.
+3. This problem is called "Covariant shift"
+
+* Why this is a problem with neural networks?
+
+1. it limits the amount to which updating the parameters in the earlier layers
+  can affect the distribution of values that the third layer now sees and therefore
+  has to learn on.
+2. Take away, from the perspective of later layers. The earlier layer doesn't shift much.
+
+* Batch norm as regularization
+
+1. Each mini-batch is scaled by the mean/variance of just that mini-batch
+2. This adds noise to the values of $z^{[l]}$ within that mini-batch. So similar to dropout,
+    it adds some noise to each hidden layer's activations.
+3. This has a slight regularzation effect.
+4. Using large mini-batch size, reduces noise then reduces regularization effect.
+
+### 3-7 Batch Norm at test time
+
+$$
+\mu = \frac{1}{m} \sum_i z^{(i)} \\
+\sigma ^ 2 = \frac{1}{m} \sum_i (z^{(i)} - \mu)^2 \\
+z^{(i)}_{\text{norm}} = \frac{z^{(i)} - \mu}{\sqrt{\sigma ^ 2 + \epsilon}} \\
+\tilde{z}^{(i)} = \gamma z^{(i)}_{\text{norm}} + \beta
+$$
+
+1. Then at test time, how do we choose $\mu, \sigma$? We do exponential average over
+  $\mu^{\{1\}[l]}, \mu^{\{2\}[l]}, \mu^{\{3\}[l]}$,
+  $\sigma^{\{1\}[l]}, \sigma^{\{2\}[l]}, \sigma^{\{3\}[l]}$, and take whatever is the latest
+2. Although this is only an approximation, it's pretty robust
+
+### 3-8 Softmax Regression
+
+* Cats, dogs and baby chicks
+
+1. C = # of classes $0, 1, \dots, C-1$
+2. $n^{[L]} = 4$, $\hat{y}$ is 4 by 1 vector
+
+* Softmax layer
+
+$$
+z^{[L]} = W^{[L]} a^{[L-1]} + b^{[L]} \\
+\text{Activation function:} \\
+t = e^{z^{[L]}} \\
+a^{[L]} = \frac{e^{z^{[L]}}}{\sum_j^4 t_j} \\
+a^{[L]} = g^{[L]}(z^{[L]})
+$$
+
+* Softmax examples
+
+1. For a network with only one output layer, the decision boundary is all linear.
+
+### 3-9 Training a softmax classifier
+
+* Understanding softmax
+
+$$
+z^{[L]} = 
+\begin{bmatrix}
+5 \\
+2 \\
+-1 \\
+3 \\
+\end{bmatrix}
+t =
+\begin{bmatrix}
+e^5 \\
+e^2 \\
+e^{-1} \\
+e^{3} \\
+\end{bmatrix}
+a^{[L]} = g^{[L]}(z^{[L]}) =
+\begin{bmatrix}
+0.842 \\
+0.042 \\
+0.002 \\
+0.114 \\
+\end{bmatrix}
+$$
+
+1. Softmax regression generalizes logistic regression to C classes
+2. If C = 2, softmax regression reduces to logistic regression.
+
+* Loss function
+
+$$
+y =
+\begin{bmatrix}
+0 \\
+1 \\
+0 \\
+0 \\
+\end{bmatrix}
+
+a^{[L]} = \hat{y} =
+\begin{bmatrix}
+0.3 \\
+0.2 \\
+0.1 \\
+0.4 \\
+\end{bmatrix}
+\\
+L(\hat{y}, y) = - \sum y_j \log \hat{y_j} \\
+J = \frac{1}{m} \sum L(\hat{y}^{(i)}, y^{(i)}) \\
+Y = [y^{(1)}, y^{(2)}, \dots, y^{(m)}] \text{ 4 by m matrix } \\
+\hat{Y} = [\hat{y}^{(1)}, \hat{y}^{(2)}, \dots, \hat{y}^{(m)}] \text{ 4 by m matrix } \\
+$$
+
+* Gradient descent with softmax: back prop
+
+$$
+dz^{[L]} = \hat{y} - y
+$$
+
+### 3-10 Deep learning frameworks
+
+* Caffe/Caffe2
+* CNTK
+* DL4J
+* Keras
+* Lasagne
+* mxnet
+* PaddlePaddle
+* TensorFlow
+* Theano
+* Torch
+
+* Criterion to choose
+    * Ease of programming
+    * Running speed
+    * Truely open (open source with good governance)
+
+### 3-11 TensorFlow
+
+* Motivating problem
+
+$$
+f(w) = w^2 - 10w + 25
+$$
+
+### 3-12 Programming exercises
+
+Great! To summarize, remember to initialize your variables, create a session and run the operations inside the session.
+
+<font color='blue'>
+**To summarize, you how know how to**:
+1. Create placeholders
+2. Specify the computation graph corresponding to operations you want to compute
+3. Create the session
+4. Run the session, using a feed dictionary if necessary to specify placeholder variables' values.
 
 # numpy functions
 
@@ -1281,5 +1572,19 @@ np.random.rand
 np.multiply
 np.linalg.norm
 np.copy
+# random sample in log scale
+r = -4 * np.random.rand()
+alpha = 10 ** r
+```
+
+# tensorflow functions
+
+```
+tf.matmul(..., ...)
+tf.add(..., ...)
+np.random.randn(...)
+tf.one_hot(labels, depth, axis)
+tf.ones()
+tf.zeros()
 ```
 
