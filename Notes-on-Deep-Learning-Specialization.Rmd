@@ -410,6 +410,8 @@ You've implemented several functions that:
 2. You implemented each function separately: initialize(), propagate(), optimize(). Then you built a model().
 3. Tuning the learning rate (which is an example of a "hyperparameter") can make a big difference to the algorithm. You will see more examples of this later in this course!
 
+<font color='black'>
+
 ## Week 3 Shallow NN
 
 ### 3-1 Neural Networks Overview
@@ -1075,6 +1077,8 @@ L2-regularization relies on the assumption that a model with small weights is si
 - Regularization will drive your weights to lower values.
 - L2 regularization and Dropout are two very effective regularization techniques.
 # Python functions used through the courses
+
+<font color='black'>
 
 ## Week 2 Optimization algorithms
 
@@ -2147,6 +2151,404 @@ $$
 3. Carefully choose X-> y depending what tasks you can get data for.
 4. End to End, image -> steering approach is less promising.
 
+# Course 4 Convolutional Neural Networks
+
+## Week 1 Foundations of Convolutional Neural Networks
+
+### 1-1 Computer Vision
+
+* Self-driving cars / Face recognition
+* Exciting parts:
+    * Brand new applications.
+    * Other fields can benefit from computer vision research community.
+
+* Computer vision Problems
+
+1. Image classification
+2. Object detection: draw boxes around an object, e.g. cars.
+3. Neural Style Transfer: normal picture to Picasso style
+
+* Deep Learning on large images
+
+1. Previous course image size: 64x64, 12288 vector
+2. Large image: 1000x1000, 3M vector, even the 1st layer has only 1000 hidden units,
+  the size of the matrix $W^{[1]}$ is $[1000, 3000000]$
+3. Then cannot get enough data to prevent overfitting. Also the training time is very long.
+
+### 1-2 Edge Detection Example
+
+* Computer Vision Problem
+
+1. Detect vertical edges
+2. Detect horizontal edges
+
+* Vertical edge detection
+
+1. Given 6x6 matrix $M$, which is one RGB channel
+2. Use 3x3 filter
+
+$$
+\begin{bmatrix}
+1 & 0 & -1 \\
+1 & 0 & -1 \\
+1 & 0 & -1 \\
+\end{bmatrix}
+$$
+
+3. Convolve $M$ with filter matrix, output will be 4x4 matrix by doing element-wise
+  product and then addition.
+4. In implementation:
+    1. programming ex: conv_forward
+    2. tensor-flow: tf.nn.conv2d
+    3. keras: conv2D
+
+* Why this method work?
+
+1. one simple example:
+
+$$
+\begin{bmatrix}
+10 & 10 & 10 & 0 & 0 & 0 \\
+10 & 10 & 10 & 0 & 0 & 0 \\
+10 & 10 & 10 & 0 & 0 & 0 \\
+10 & 10 & 10 & 0 & 0 & 0 \\
+10 & 10 & 10 & 0 & 0 & 0 \\
+10 & 10 & 10 & 0 & 0 & 0 \\
+\end{bmatrix}
+*
+\begin{bmatrix}
+1 & 0 & -1 \\
+1 & 0 & -1 \\
+1 & 0 & -1 \\
+\end{bmatrix}
+= 
+\begin{bmatrix}
+0 & 30 & 30 & 0 \\
+0 & 30 & 30 & 0 \\
+0 & 30 & 30 & 0 \\
+0 & 30 & 30 & 0 \\
+\end{bmatrix}
+$$
+
+2. Then we get bright region in the middle.
+
+### 1-3 More edge detection
+
+1. What if color is flipped from previous example?
+
+$$
+\begin{bmatrix}
+0 & 0 & 0 & 10 & 10 & 10  \\
+0 & 0 & 0 & 10 & 10 & 10  \\
+0 & 0 & 0 & 10 & 10 & 10  \\
+0 & 0 & 0 & 10 & 10 & 10  \\
+0 & 0 & 0 & 10 & 10 & 10  \\
+0 & 0 & 0 & 10 & 10 & 10  \\
+\end{bmatrix}
+*
+\begin{bmatrix}
+1 & 0 & -1 \\
+1 & 0 & -1 \\
+1 & 0 & -1 \\
+\end{bmatrix}
+= 
+\begin{bmatrix}
+0 & -30 & -30 & 0 \\
+0 & -30 & -30 & 0 \\
+0 & -30 & -30 & 0 \\
+0 & -30 & -30 & 0 \\
+\end{bmatrix}
+$$
+
+2. The negative number means the dark to light transition.
+
+* Vertical and Horizontal Edge Detection
+
+$$
+V =
+\begin{bmatrix}
+1 & 0 & -1 \\
+1 & 0 & -1 \\
+1 & 0 & -1 \\
+\end{bmatrix}
+,
+H = 
+\begin{bmatrix}
+1 & 1 & 1 \\
+0 & 0 & 0 \\
+-1 & -1 & -1 \\
+\end{bmatrix}
+$$
+
+2. One little bit complex image:
+
+$$
+\begin{bmatrix}
+10 & 10 & 10 & 0 & 0 & 0 \\
+10 & 10 & 10 & 0 & 0 & 0 \\
+10 & 10 & 10 & 0 & 0 & 0 \\
+0 & 0 & 0 & 10 & 10 & 10  \\
+0 & 0 & 0 & 10 & 10 & 10  \\
+0 & 0 & 0 & 10 & 10 & 10  \\
+\end{bmatrix}
+*
+\begin{bmatrix}
+1 & 1 & 1 \\
+0 & 0 & 0 \\
+-1 & -1 & -1 \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+0 & 0 & 0 & 0 \\
+30 & 10 & -10 & -30 \\
+30 & 10 & -10 & -30 \\
+0 & 0 & 0 & 0 \\
+\end{bmatrix}
+$$
+
+* Learning to detect edges
+
+1. Ohter options for filter matrix
+2. Sobel filter
+
+$$
+\begin{bmatrix}
+1 & 0 & -1 \\
+2 & 0 & -2 \\
+1 & 0 & -1 \\
+\end{bmatrix}
+$$
+
+3. Sharr filter
+
+$$
+\begin{bmatrix}
+3 & 0 & -3 \\
+10 & 0 & -10 \\
+3 & 0 & -3 \\
+\end{bmatrix}
+$$
+
+4. Maybe you can just learn them. Let all the weights be parameters.
+  This is one of the most powerful ideas in computer vision.
+
+$$
+\begin{bmatrix}
+w_1 & w_2 & w_3 \\
+w_4 & w_5 & w_6 \\
+w_7 & w_8 & w_9 \\
+\end{bmatrix}
+$$
+
+### 1-4 padding
+
+1. nxn matrix + fxf filter = (n-f+1)x(n-f+1) matrix
+2. Downside 1: image shrinks every time
+    1. You don't want this because for very deep NN, images shrinks every layer
+      So you end up with very small image.
+3. Downside 2: pixels in the corners are used only once, whereas pixels in the center
+  are used multiple times.
+    1. Throwing away a lot of edges in the image.
+4. padding, convert 6x6 to 8x8, then after shrinkage, still is 6x6.
+  The general equation is: (n+2p-f+1) x (n+2p-f+1)
+
+* Valid and Same convolutions
+
+1. Valid: no padding, nxn * fxf = (n-f+1)x(n-f+1)
+2. Same: output size is the same as input size. p = (f-1)/2.
+  f is usually odd. Andrew recommended 3/5/7
+
+### 1-5 Strided Convolutions
+
+1. If do stride = 2, then move the filter 2 pixels at a time.
+2. 7x7 matrix, 3x3 filter, stride 2, get 3x3 matrix.
+
+$$
+n \times n \\
+f \times f \\
+p \\
+s \\
+(\lfloor \frac{n + 2p - f}{s} \rfloor + 1) \times
+(\lfloor \frac{n + 2p - f}{s} \rfloor + 1) 
+$$
+
+* Techinical note on cross-correlation v.s. convolution
+
+1. Convolution in math text book: flip filter horizontal and vertically first.
+2. What we are doing is called cross-correlation, but in DL, we still call it convolution.
+3. In signal processing, with mirror operation, the convolution is associative,
+  but doesn't matter for DL.
+
+### 1-6 Convolutions Over Volume
+
+1. Previous 2-D images, this section 3-D volumns .
+
+* Convolutions on RGB images
+
+1. Images: 6x6x3, filter 3x3x3
+2. No. of images must match no. of channels, 3rd dimension has to be the same.
+3. Output is 4x4 image .
+4. Element-wise multiplication of the 27 numbers and then add them together.
+
+* Multiple filters
+
+1. Use 2 filters at the same time, then can output 2 4x4 images.
+2. Summary
+
+$$
+n \times n \times n_c \\
+f \times f \times n_c \\
+(n-f+1) \times (n-f+1) \times n_c' \ (\text{no of filters})
+$$
+
+3. No of channels is also called the depth in the literatrure, but Andrew found it's
+  more confusing.
+  
+### 1-7 One layer of a Convolutional Network
+
+* Example of a layer
+
+1. Convolution + adding bias + apply relu operation, then from 6x6x3 $a^{[0]}$ to
+  4x4x2 $a^{[1]}$.
+  
+* Number of parameters in one layer
+
+1. 10 filters that are 3x3x3 in one layer, how many parameters?
+2. 27 * 10 = 270 $w$ and 10 $b$.
+3. So even apply to very large images, the no of parameters are still 280.
+
+* Summary of notation
+
+1. $f^{[l]}$ is the filter size
+2. $p^{[l]}$ is the padding
+3. $s^{[l]}$ is the stride
+3. $n_c^{[l]}$ is the number of filters
+3. Each filter is: $f^{[l]} \times f^{[l]} \times n^{[l-1]}_c$
+3. Input: $n^{[l-1]}_H \times n^{[l-1]}_W \times n^{[l-1]}_c$
+4. output: $n^{[l]}_H \times n^{[l]}_W \times n^{[l]}_c$
+5. activations: $a^{[l]} \rightarrow n^{[l]}_H \times n^{[l]}_W \times n^{[l]}_c$
+6. Vectorization: $A^{[l]} \rightarrow m \times n^{[l]}_H \times n^{[l]}_W \times n^{[l]}_c$
+7. weights: $f^{[l]} \times f^{[l]} \times n^{[l-1]}_c \times n^{[l]}_c $
+8. bias: $n^{[l]}_c - (1,1,1,n^{[l]}_c)$
+9. Ordering may be different in different implementations and there is no standard.
+
+$$
+n^{[l]}_H = \lfloor
+\frac{n^{[l-1]}_H + 2p^{[l]} - f^{[l]} }{ s^{[l]} } + 1
+\rfloor \\
+n^{[l]}_W = \lfloor
+\frac{n^{[l-1]}_W + 2p^{[l]} - f^{[l]} }{ s^{[l]} } + 1
+\rfloor \\
+$$
+
+### 1-8 Simple Convolutional Network Example
+
+* Example ConvNet
+
+1. Take away: starts with large images and gradually trend down, whereas the no of channels
+  will gradually increase.
+  
+* Types of layer in a convnet
+
+1. Convolution layer (CONV)
+2. Pooling (Pool)
+3. Fully connected (FC)
+
+### 1-9 Pooling layers
+
+* Pooling layer: Max pooling
+
+1. 4x4 matrix, divided to 4 regions, pick the max in each region.
+2. Parameters filter and stride: $f=2, s=2$
+
+$$
+\begin{bmatrix}
+1 & 3 & 2 & 1 \\
+2 & 9 & 1 & 1 \\
+1 & 3 & 2 & 3 \\
+5 & 6 & 1 & 2 \\
+\end{bmatrix}
+\rightarrow
+\begin{bmatrix}
+9 & 2 \\
+6 & 3 \\
+\end{bmatrix}
+$$
+
+3. A large number means a particular feature has been detected. Then the upper
+  left quadrant has this particular feature, maybe a vertical line / whisker.
+  If these features detected anywhere in this filter, then keep a high number.
+  If these features doesn't exist, then the number is quite small.
+4. It's working well. But don't know anyone who fully understand the reason.
+
+* Pooling layer: Max pooling
+
+1. input $5 \times 5 \times n_c$ and filter $3 \times 3 \times n_c$, output is
+  $3 \times 3 \times n_c$
+
+* Pooling layer: Average pooling
+
+1. Not used often.
+2. Very deep NN, use average pooling to collapse your representation.
+  $7 \times 7 \times 1000$ to $1 \times 1 \times 1000$.
+  
+* Summary of pooling
+
+1. Hyperparameters:
+2. f filter size, f=2 and s=2 quite often. Or f = 3 and s = 2.
+3. s stride
+4. Max or average pooling
+5. p: padding, max pooling usually doesn't use padding.
+
+$$
+\lfloor
+\frac{n^{[l-1]}_H - f^{[l]} }{ s^{[l]} } + 1
+\rfloor
+\times
+\lfloor
+\frac{n^{[l-1]}_W - f^{[l]} }{ s^{[l]} } + 1
+\rfloor \\
+$$
+
+### 1-10 CNN Example
+
+* Neural network example (LeNet-5)
+
+1. Input image $32 \times 32 \times 3$, apply 6 filters with $f=5,s=1$
+2. The 2nd layer is conv 1 $28 \times 28 \times 6$, apply max pool $f=2,s=2$
+3. The 3rd layer is pool 1 $14 \times 14 \times 6$, apply 16 filters with $f=5,s=1$
+4. The 4th layer is conv 2 $10 \times 10 \times 16$, apply max pool $f=2,s=2$
+5. The 5th layer is pool 2 $5 \times 5 \times 16$
+6. Fully connected 3 layer, Then flaten it to $400 \times 1$,
+  and $W^{[3]} (120 \times 400)$ and $b^{[3]} (120 \times 1)$
+7. Fully connected 4 layer, $W^{[4]} (84 \times 120)$ and $b^{[4]} (84 \times 1)$
+8. Final layer is softmax (10 outputs)
+9. One common guide line, not to invent your own settings, refer to existing literature.
+10. Usually the height and width decreases: $n_H, n_W \downarrow$ whereas the number of
+  channels increase $n_c \uparrow$
+11. (1 or more) conv layer - Pooling layer - (1 or more) conv layer - Pooling layer -
+  (a couple of more) FC layer - softmax layer
+
+### 1-11 Why Convolutions
+
+1. Parameters sharing and sparsity connections
+2. Example: 32x32x3, apply 6 filters with f = 5, we get 28x28x6 image.
+  The initial image is 3072, and the 1st layer image is 4704
+3. If fully connected, then 14M parameters.
+4. But with convolution, it's just (5x5+1)x6 = 156 parameters.
+
+* Parameter sharing:
+
+1. A feature detector (such as vertical edge detector) that's useful in one part
+  of the image is probably useful in another part of the image.
+2. Remains true for low level features as well as high level features.
+3. Sparsity of connections: In each layer, each output value depends only on a small
+  number of inputs.
+4. Good at capturing translation invariance: a picture of a cat shifted a couple of
+  pixels to the right.
+    1. The convolutional structure helps NN to encode the fact that an image shifted
+      a few pixels should result in similar features.
+
 # numpy functions
 
 ```
@@ -2161,6 +2563,10 @@ np.copy
 # random sample in log scale
 r = -4 * np.random.rand()
 alpha = 10 ** r
+
+# Implement the following function, which pads all the images of a batch of examples X with zeros. Use np.pad. Note if you want to pad the array "a" of shape  (5,5,5,5,5)(5,5,5,5,5)  with pad = 1 for the 2nd dimension, pad = 3 for the 4th dimension and pad = 0 for the rest, you would do:
+
+a = np.pad(a, ((0,0), (1,1), (0,0), (3,3), (0,0)), 'constant', constant_values = (..,..))
 ```
 
 # tensorflow functions
@@ -2173,4 +2579,3 @@ tf.one_hot(labels, depth, axis)
 tf.ones()
 tf.zeros()
 ```
-
