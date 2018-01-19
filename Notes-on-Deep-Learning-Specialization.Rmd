@@ -2549,6 +2549,372 @@ $$
     1. The convolutional structure helps NN to encode the fact that an image shifted
       a few pixels should result in similar features.
 
+## Week 2 Deep convolutional models: case studies
+
+### 2-1 Why look at case studies?
+
+* A convnet works well on somebody else's task might work well on your task as well.
+
+* outline:
+
+1. Classic networks:
+    1. LeNet-5
+    2. AlexNet
+    3. VGG
+2. ResNet (Residual Net) 152 layer.
+3. Inception network.
+
+### 2-2 Classic Networks
+
+* LeNet 5: Gradient-based learning applied to document recognition.
+
+$$
+37 \times 37 \times 1
+\xrightarrow{\substack{5 \times 5 \\s=1}}
+28 \times 28 \times 6
+\xrightarrow[\text{avg pool}]{\substack{f=2 \\ s=2}}
+14 \times 14 \times 6
+\xrightarrow{\substack{5 \times 5 \\s=1}}
+10 \times 10 \times 16
+\xrightarrow[\text{avg pool}]{\substack{f=2 \\ s=2}}
+5 \times 5 \times 16 \\
+\xrightarrow{\text{ FC }} 120
+\xrightarrow{\text{ FC }} 84
+\xrightarrow{} \hat{y}
+$$
+
+1. Small by modern standard, only 60K parameters.
+2. Today usually see 10M to 100M .
+3. As network goes deeper, $n_H, n_W \downarrow n_c \uparrow$
+4. Advanced, people use sigmod/tanh, not ReLu back that time.
+5. Also since computer was slow at that time, there were complicated way to compute
+  filters. Not needed for today.
+6. If read this paper, focus on section II and take a quick look at section III.
+
+* AlexNet: ImageNet classification with deep convolutional neural networks
+
+$$
+227 \times 227 \times 3
+\xrightarrow{\substack{11 \times 11 \\s=4}}
+55 \times 55 \times 96
+\xrightarrow[\text{Max pool}]{\substack{f=3 \\ s=2}}
+27 \times 27 \times 96
+\xrightarrow{\substack{5 \times 5 \\ \text{same}}}
+27 \times 27 \times 256
+\xrightarrow[\text{max pool}]{\substack{3 \times 3 \\ s=2}}
+13 \times 13 \times 256 \\
+\xrightarrow{\substack{3 \times 3 \\ \text{same}}}
+13 \times 13 \times 384 \\
+\xrightarrow{3 \times 3 }
+13 \times 13 \times 384 \\
+\xrightarrow{3 \times 3 }
+13 \times 13 \times 256 \\
+\xrightarrow[\text{max pool}]{\substack{3 \times 3 \\ s=2}}
+6 \times 6 \times 256 \xrightarrow[\text{unroll}]{} 9216\\ 
+\xrightarrow{\text{ FC }} 4096
+\xrightarrow{\text{ FC }} 4096
+\xrightarrow{\text{ softmax 1000 }} \hat{y}
+$$
+
+1. Similar to LeNet, but much bigger. Has 60M parameters.
+2. Relu activation function.
+3. If read the paper, having complicated way on training 2 GPUs.
+4. If read the paper, local response normalization layer, didn't use much.
+5. It was really this paper to convince computer vision community to seriously look into
+  deep learning.
+6. one of the Easier ones to read.
+
+* VGG - 16: Very deep convolutional networks for large-scale image recognition
+
+1. CONV = 3x3 filters, s = 1, same
+2. Max-pool = 2x2, s = 2
+3. 16 refers 16 layers have weights, pretty large: 138M parameters even by modern
+  standard.
+3. Doubling the filters on every step when you have new set of conv layers.
+4. $n_H, n_W \downarrow n_c \uparrow$ very systematically, so it's very attractive.
+
+$$
+224 \times 224 \times 3
+\xrightarrow{\substack{ \text{CONV64} \\ \times 2}}
+224 \times 224 \times 64
+$$
+
+* Reading order: Alex -> VGG -> LeNet
+
+### 2-3 Residual Network
+
+* Residual block: Deep residual networks for image recognition
+
+1. Main path
+
+$$
+z^{[l+1]} = W^{[l+1]} a^{[l]} + b^{[l+1]} \\
+a^{[l+1]} = Relu(z^{[l+1]}) \\
+z^{[l+2]} = W^{[l+2]} a^{[l+1]} + b^{[l+2]} \\
+a^{[l+2]} = Relu(z^{[l+2]}) \\
+$$
+
+2. "short cut"
+    1. 问题：what if the dimensions are not the same.
+
+$$
+a^{[l+2]} = Relu(z^{[l+2]} + a^{[l]})
+$$
+
+* Residual network
+
+1. Although in theory, the errors should go down with more layers.
+    However, the authors found the training errors can go up.
+2. But with redidual network, the errors are indeed going down with more layers.
+
+### 2-4 Why ResNets Work
+
+* Why do residual networks work?
+
+1. X ----> Big NN ----> $a^{[l]}$
+
+$$
+X \rightarrow \text{Big NN}\rightarrow a^{[l]}
+\rightarrow \text{Res block} \rightarrow a^{[l+2]} \\
+a^{[l+2]} = Relu(z^{[l+2]} + a^{[l]}) = g(W^{[l+2]} a^{[l+1]} + b^{[l+2]} + a^{[l]}) \\
+\text{Assume } W^{[l+2]} = 0, b^{[l+2]} = 0, \text{then } \\
+a^{[l+2]} = g(a^{[l]}) = a^{[l]} (\text{because applying relu on non-negative is the 
+same}) \\
+$$
+
+2. The observation: identity function is easy for residule block to learn.
+3. What's wrong with normal very deep network: difficult to learn even identity functions.
+4. With residual net, it can guarantee at least learn identity functions. And we can hope
+  sometimes to improve performance.
+5. $a^{[l+2]}$ and $a^{[l]}$ same dimension, answered my questions before. If the 
+  dimensions are different, you can use padding or multiply a matrix.
+
+### 2-5 Networks in Networks and 1x1 Convolutions: "network in network"
+
+* Why does a 1x1 convolution do?
+
+1. If only has 6x6x1 image and 1x1x1 filter, is not very useful
+2. If has 6x6x32 image and 1x1x32 filter, then it is different. Then output is
+  6x6x # filters.
+3. The details are not widely used, but ideas inspire other ideas.
+4. One use is to shrink the # of channels as following.
+5. 1x1 also does something non-trival: adding non-linearity, decrease/keep/increase
+  # of channels.
+
+$$
+28 \times 28 \times 192
+\xrightarrow[\text{ Relu }]{\substack{ \text{CONV 1x1} \\ 32 \text{ filters } }}
+28 \times 28 \times 32
+$$
+
+### 2-6 Inception Network Motivation: "going deeper with convolutions"
+
+* Motivation for inception network
+
+1. Why do we have to decide which size of filter 1x1, 3x3 or 5x5? Use them all.
+
+$$
+28 \times 28 \times 192
+\xrightarrow{
+\substack{ 
+  1 \times 1 \\
+  3 \times 3 \text{ same} \\
+  5 \times 5 \text{ same} \\
+  \text{Max-Pool} \\
+}
+}
+\begin{bmatrix}
+  28 \times 28 \times 64 \\
+  28 \times 28 \times 128 \\
+  28 \times 28 \times 32 \\
+  28 \times 28 \times 32 \\
+\end{bmatrix}
+$$
+
+2. 问题：why the max pooling above is not same depth? (192 -> 32, 192/32 = 6)?
+3. The max pooling above needs to use padding to keep same dimension (28x28) and s = 1.
+4. Instead of you needing to pick one filter sizes, you can do them all and concatenate
+  all outputs.
+
+* The problem of computational cost
+
+$$
+28 \times 28 \times 192
+\xrightarrow{
+\substack{ 
+  \text{ CONV} \\
+  5 \times 5 \text{ same} \\
+  32 \text{ filters} \\
+}
+}
+28 \times 28 \times 32 \\
+\text{cost: } 32 \text{ filters} \times (5 \times 5 \times 192) \\
+\text{total multiplication: } 28 \times 28 \times 32 \times (5 \times 5 \times 192) = 120M
+$$
+
+* Use 1x1 Convolution
+
+$$
+28 \times 28 \times 192
+\xrightarrow{
+\substack{ 
+  \text{ CONV} \\
+  1 \times 1, \\
+  16 \text{ filters}, \\
+  1 \times 1 \times 192
+}
+}
+28 \times 28 \times 16 \text{ (bottle neck layer)}
+\xrightarrow{
+\substack{ 
+  \text{ CONV} \\
+  5 \times 5, \\
+  32 \text{ filters}, \\
+  5 \times 5 \times 16
+}
+}
+28 \times 28 \times 32 \\
+\text{cost: } 28 \times 28 \times 192 \times 192 + 28 \times 28 \times 32 \times 5 \times 
+5 \times 16 = 12.4M
+$$
+
+* The shrink down does not hurt the performance.
+
+### 2-7 Inception Network
+
+* Inception module
+
+1. Previous Activation -> 1X1 conv
+2. Previous Activation -> 1X1 conv -> 3X3 conv
+3. Previous Activation -> 1X1 conv -> 5X5 conv
+4. Maxpool is little big tricky and funny, first it's same, 2nd it needs to go to
+  another 1x1 CONV layer.
+
+$$
+\text{Previous Activation } 28 \times 28 \times 192 \xrightarrow{}
+\text{MAXPOOL } 3 \times 3, s=1 \text{ same } 28 \times 28 \times 192 \\
+\xrightarrow{}
+\text{1 x 1 CONV } 28 \times 28 \times 32
+$$
+
+5. Then channel concat.
+
+* Inception network
+
+1. If look at the figure in the paper, it's complicated. But there are a lot of
+  repeating block.
+2. In the original paper, there are side branches to make prediction.
+
+### 2-8 Using Open-Source Implementation
+
+* If you heard some work, look for the implementation from internet rather than starting
+  from scratch.
+* Some of them may have pre-trained the network, so you don't need to spend long time
+  to train.
+
+### 2-9 Transfer Learning
+
+* Training becomes much faster if someone save the weights.
+* ImageNet, MS COCO
+* Use other's weight as initialization.
+
+* Training set small.
+
+1. Tigger/Misty/Neither, training data is small. What do you do?
+2. Download not only the code but also the weights.
+3. Just get rid of the last existing softmax layer, make a new Tigger/Misty/Neither
+  softmax layer.
+4. Freeze all the parameters in the previous layers, just train softmax layer. Might get
+  good performance even with small dataset.
+5. DL framework has `trainableParameter = 0` or `freeze = 1`
+6. A trick to speed up training, precompute Given input X, compute the activation
+  up to the last new softmax layer and save to disk. Then just train the softmax layer.
+
+* What if you have large training data set?
+
+1. Freeze the first several hidden layers, then
+    1. Either retrain the last several few layers, use the weights as initialized weights
+    2. Or just blow away the last several few layers, build own hidden layers.
+2. More data, freeze less, train more layers.
+
+* If you really have a lot data
+
+1. Use weights as initialization, then updating all the networks.
+
+* In all different applications of DL, computer vision is one where transfer learning
+  should always do.
+
+### 2-10 Data augmentation
+
+* In computer vision, having more data is almost always help. Can not always get enough
+  data.
+
+* Common augmentation method
+
+1. Mirroring
+2. Random cropping, 问题：如果猫的头没有被截图到怎么办？
+    1. In practice works well, if random crops are reasonably large subset of actual image
+3. The following is used a little bit less perhaps because of the complexity.
+    1. Rotation/Shearing/Local warping
+
+* Color shifting
+
+1. Given picture, adding different distortion to RGB channels.
+2. In practice, draw RGB from some distribution that could be small.
+3. Advanced: PCA (ml-class.org)
+    1. AlexNet paper "PCA color augmentation": If has big red/blue, less green, PCA
+      will do the same.
+
+* Implementing distortions during training
+
+1. If has a large training set
+2. Use one tread to read the image, do the distortion
+3. The pass the data to another CPU thread or GPU to do training.
+4. The last 2 steps can run in parallel.
+5. A good start to use someone else's implementation
+6. If that does not capture the variance you need, then use the hyperparameters your
+  self.
+
+### 2-11 State of Computer Vision
+
+* Data v.s. hand engineering
+
+1. Speech recognition (reasonablely large amount of data)
+2. Image recognition (even though there are a lot of data, still wish to have more data)
+3. Object detection (even less data): given a picture, find bounding box, which is
+  more expensive.
+4. When you have lots of data, you can have simpler algorithms and less hand engineering.
+5. When you have little data, people has more hand engineering ("hacks").
+
+* Two sources of knowledge
+
+1. Labeled data $(x, y)$
+2. Hand engineered features/network architecture/other components
+3. CV has complex architectures because in the absence of more data.
+4. Hand engineering is very difficult and skillful, needs insight
+5. One thing helps is transfer learning.
+    1. Tigger/Misty/neither has so little data.
+
+* Tips for doing well on benchmarks/winning competitions
+
+1. Positive side: figure out the most effective algorithms
+2. Negtive side: people do things on benchmark which is not used in production.
+3. Ensembling
+    1. Train several networks independently and average their outputs $\hat{y}$
+        not their weights. 1% or 2% better.
+    2. 3 ~ 15 networks, so slow down by a factor of 3 ~ 15.
+    3. So almost never used in production to serve customer.
+4. Multi-crop on test time
+    1. Run classifier on multiple versions of test images and average results
+    2. 10-crop, crop in the middle and 4 corners for original and mirrored
+    3. More often used in benchmarks than in production systems.
+
+* Use open source code
+
+1. Use architectures of networks published in the literature
+2. Use open source implementation if possible
+3. Use pretrained models and fine-tune on your dataset.
+
 # numpy functions
 
 ```
