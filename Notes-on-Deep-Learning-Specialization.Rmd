@@ -2915,6 +2915,639 @@ $$
 2. Use open source implementation if possible
 3. Use pretrained models and fine-tune on your dataset.
 
+## Week 3 Object Detection
+
+### 3-1 Object Localization
+
+* What are localization and detection?
+
+1. Image classification: just need to label a image as car
+2. Classification with localization: label a image as car, put a bounding box around it.
+3. Detection: multiple objects, detect them all and localize all.
+
+* Classification with localization
+
+1. softmax layer to decide pedestrian/car/motorcycle/background(nothing).
+2. How to add localization? Add more layers and output 4 bounding box:
+
+$$
+b_x, b_y, b_h, b_w
+$$
+
+3. In this course, up left corner coordinates (0, 0), lower right (1, 1).
+4. $b_x, b_y$ is the center of the bounding box.
+
+* Defining the target label y
+
+1. (1)pedestrian/(2)car/(3)motorcycle/background(nothing)
+2. output $b_x, b_y, b_h, b_w$ class label (1-4)
+
+$$
+y = \begin{bmatrix}
+P_c \text{ (is there any object?) } \\
+b_x \\
+b_y \\
+b_w \\
+b_h \\
+C_1 \text{ (class 1?) } \\
+C_2 \text{ (class 2?) } \\
+C_3 \text{ (class 3?) } \\
+\end{bmatrix}
+$$
+
+3. If a image has no object
+
+$$
+y = \begin{bmatrix}
+0 \text{ (no object?) } \\
+? \text{ (don't care) } \\
+? \\
+? \\
+? \\
+? \\
+? \\
+? \\
+\end{bmatrix}
+$$
+
+4. Loss function
+
+$$
+L(\hat{y}, y) =
+\begin{cases}
+\sum_i (\hat{y}_i - y_i)^2 & \text{ if } y_1 = 1 \\
+(\hat{y}_1 - y_1)^2 & \text{ if } y_1 = 0
+\end{cases}
+$$
+
+5. The squared error is just for simplification, in practice, you can use
+  log likely hood loss for $C_1, C_2, C_3$ and squared error for bounding box.
+  For $P_c$ you can use logistic regression loss.
+
+### 3-2 Landmark Detection
+
+1. output, l stands for landmark.
+
+$$
+\begin{bmatrix}
+\text{face?} \\
+l_{1x} \\
+l_{1y} \\
+\vdots \\
+l_{64x} \\
+l_{64x} \\
+\end{bmatrix}
+$$
+
+2. Someone needs to go through and annotate these marks.
+3. Can also work for pose detection.
+4. Label has to be consistent across different images, meaning 1st point must be
+  the left corner of the left eye, 2nd point must be right corner of the left eye.
+  
+
+### 3-3 Object detection
+
+* Car detection example
+
+1. Start with closely cropped images training set.
+2. Then train a conv net, given cropped images, predict if it's a car or not.
+
+* Sliding windows detection
+
+1. Passing a squared region 1 by 1.
+2. Slide the window until it goes through the entire image.
+3. Resize the square region to bigger one.
+4. Sliding the window over using some stride.
+5. 3rd time using even larger windows.
+6. Hopefully in some windows, you can find the car.
+7. Huge disadvantage: computational cost.
+8. If use big stride, then less image, but the coarse will hurt performance.
+
+### 3-4 Convolutional Implementation of Sliding Windows
+
+* Turning FC layer into convolutional layers
+
+$$
+14 \times 14 \times 3
+\xrightarrow{
+\substack{ 
+  \text{ CONV} \\
+  5 \times 5, \\
+  16 \text{ filters}, \\
+}
+}
+10 \times 10 \times 16
+\xrightarrow{
+\substack{ 
+  \text{ MAXPOOL} \\
+  2 \times 2, \\
+  16 \text{ filters}, \\
+}
+}
+5 \times 5 \times 16
+\xrightarrow{
+FC
+}
+400
+\xrightarrow{
+FC
+}
+400
+\xrightarrow{}
+y \text{ softmax (4) }
+$$
+2. Another way to think
+
+$$
+14 \times 14 \times 3
+\xrightarrow{
+\substack{ 
+  \text{ CONV} \\
+  5 \times 5, \\
+  16 \text{ filters}, \\
+}
+}
+10 \times 10 \times 16
+\xrightarrow{
+\substack{ 
+  \text{ MAXPOOL} \\
+  2 \times 2, \\
+  16 \text{ filters}, \\
+}
+}
+5 \times 5 \times 16
+\xrightarrow{
+\substack{ 
+  5 \times 5, \\
+  400 \text{ filters}, \\
+}
+}
+1 \times 1 \times 400
+\xrightarrow{
+\substack{
+  1 \times 1, \\
+  400 \text{ filters}, \\
+}
+} \\
+1 \times 1 \times 400
+\xrightarrow{
+\substack{
+  1 \times 1, \\
+  4 \text{ filters}, \\
+}
+}
+1 \times 1 \times 4
+$$
+
+* Convolutional Implementation of Sliding Windows (Overfeat: Integrated recognition)
+
+$$
+16 \times 16 \times 3
+\xrightarrow{
+\substack{ 
+  \text{ CONV} \\
+  5 \times 5, \\
+  16 \text{ filters}, \\
+}
+}
+12 \times 12 \times 16
+\xrightarrow{
+\substack{ 
+  \text{ MAXPOOL} \\
+  2 \times 2, \\
+  16 \text{ filters}, \\
+}
+}
+6 \times 6 \times 16
+\xrightarrow{
+\substack{ 
+  5 \times 5, \\
+  400 \text{ filters}, \\
+}
+}
+2 \times 2 \times 400
+\xrightarrow{
+\substack{
+  1 \times 1, \\
+  400 \text{ filters}, \\
+}
+} \\
+2 \times 2 \times 400
+\xrightarrow{
+\substack{
+  1 \times 1, \\
+  4 \text{ filters}, \\
+}
+}
+2 \times 2 \times 4
+$$
+
+1. The resulted 2x2 is the same as doing 4 sliding window. So instead of doing forward
+  propogation 4 times, we just need to do it once.
+  
+### 3-4 Bounding Box Predictions
+
+1. The problem with section 3-3 is that it's not outputing the most accurate
+  bounding box.
+
+* output accurate bounding box
+
+1. One problem is that none of the sliding window matches perfectly with the car
+
+* YOLO algorithm: You only look once: Unified real-time object detection
+
+1. First place a grid on the image
+2. Labels for training, for each grid cell:
+
+$$
+y = \begin{bmatrix}
+P_c \text{ (is there any object?) } \\
+b_x \\
+b_y \\
+b_w \\
+b_h \\
+C_1 \text{ (class 1?) } \\
+C_2 \text{ (class 2?) } \\
+C_3 \text{ (class 3?) } \\
+\end{bmatrix}
+$$
+
+2. In the left and right image of 2nd row, it has car, YOLO algorithm will assign
+  label for them. For the center image of 2nd row, although, it has partial cars,
+  but since the center of the bounding box is not in them, YOLO algorithm will just
+  assign don't care.
+  
+3. The target output will be 3x3x8, because we divide the image to 9 grids.
+4. The advantage is the algorithm output precise bounding box.
+5. In practice, you might use finer grid 19x19, reducing the chance of assigning
+  multiple objects to the same grid.
+6. The way you assign an object to grid cell as you look at the midpoint of an object and then you assign that object to whichever one grid cell contains the midpoint of the object.
+7. Two things: this is more like image classification and localization algorithm.
+8. second, this is a convolutional implementation. Just run convolution once.
+
+* Specify the bounding boxes
+
+1. For each grid, still the up left corner is (0, 0), lower right is (1,1)
+2. There are more complex parameterization in the original paper
+3. Warning: YOLO paper is hard to read even for Andrew
+$$
+y = \begin{bmatrix}
+P_c \text{ (is there any object?) } \\
+b_x \approx 0.4 \\
+b_y \approx 0.3 \\
+b_w = 0.9 \text{ could be greater than 1 } \\
+b_h = 0.5 \\
+C_1 \text{ (class 1?) } \\
+C_2 \text{ (class 2?) } \\
+C_3 \text{ (class 3?) } \\
+\end{bmatrix}
+$$
+
+### 3-5 Intersection Over Union
+
+1. How do you tell if your object detection algorithm is working well?
+
+* Evaluating object localization
+
+1. Intersection over union (IoU)
+
+$$
+\frac{\text{size of intersection (i.e. ground truth bounding box & the bounding box from prediction) }}
+{\text{size of union}}
+$$
+
+2. "correct" if IoU >= 0.5, if want to be more stringent, then >= 0.6.
+3. 0.5, 0.6 are just human chosen convention and no particular reason.
+4. Andrew sometimes see people use more than 0.6, but rarely see use less than 0.5 .
+5. More generally, IoU is a measure of the overlap between two bounding boxes.
+
+### 3-6 Non-max Suppression
+
+1. One problem with object detection: multiple detection of the same objects.
+2. This algorithm makes sure detect each object only once.
+
+* Non-max suppression example
+
+1. Given 19x19 grid, the 2 car objects are bigger than the grid, so multiple grid
+  would think it detects the car.
+2. For each car object, algorithm might output multiple bounding box with different
+  $P_c$, only hightlight the box with max $P_c$ and darken the others.
+
+* Non-max suppression detail
+
+1. Place a 19x19 grid on the picture, going to get 19x19x8 output.
+2. But in this example, to simplify, you are only going to do car detection, so only
+  get the following:
+
+$$
+y = \begin{bmatrix}
+P_c \\
+b_x \\
+b_y \\
+b_w \\
+b_h \\
+\end{bmatrix}
+$$
+
+3. Discard all boxes with $P_c \le 0.6$
+4. While there are any remaining boxes: 
+    1. pick the box with the largest $P_c$, output that as a prediction.
+    2. Discard any remaining boxes with IoU >= 0.5 with the box output in the previous
+      step.
+5. Previous example only has one object, if has 3 object, carry the algorithm 3 times,
+  one on each of the output classes.
+
+### 3-7 Anchor Boxes
+
+1. One of the problems is that each of the grid can only detect one object.
+2. How one grid cell detects multiple objects.
+
+* Overlapping objects:
+
+1. With this output, you can only output 1 class.
+
+$$
+y = \begin{bmatrix}
+P_c \\
+b_x \\
+b_y \\
+b_w \\
+b_h \\
+c_1 \\
+c_2 \\
+c_3 \\
+\end{bmatrix}
+$$
+
+2. If stack 2 outputs together. First is for anchor box 1 and second is for anchor box 2.
+
+
+$$
+y = \begin{bmatrix}
+P_c \\
+b_x \\
+b_y \\
+b_w \\
+b_h \\
+c_1 \\
+c_2 \\
+c_3 \\
+P_c \\
+b_x \\
+b_y \\
+b_w \\
+b_h \\
+c_1 \\
+c_2 \\
+c_3 \\
+\end{bmatrix}
+$$
+
+* Anchor box algorithm
+
+1. Previously: each object in training image is assigned to grid cell that contains
+  that object's midpoint.
+    Output y: 3x3x8
+2. With two anchor boxes: Each object in training image is assigned to grid cell that
+  contains object's midpoint and anchor box for the grid cell with highest IoU.
+    Output y: 3x3x16 or 3x3x2x8
+
+* Anchor box example
+
+1. If one grid has both people and car, then y would be:
+
+$$
+y = \begin{bmatrix}
+1 \\
+b_x \\
+b_y \\
+b_w \\
+b_h \\
+1 \\
+0 \\
+0 \\
+1 \\
+b_x \\
+b_y \\
+b_w \\
+b_h \\
+0 \\
+1 \\
+0 \\
+\end{bmatrix}
+$$
+
+2. If it is car only
+
+$$
+y = \begin{bmatrix}
+0 \\
+? \\
+? \\
+? \\
+? \\
+? \\
+? \\
+? \\
+1 \\
+b_x \\
+b_y \\
+b_w \\
+b_h \\
+0 \\
+1 \\
+0 \\
+\end{bmatrix}
+$$
+
+3. Two corner cases, this algorithm doesn't handle well.
+    1. If one grid has more than 2 objects
+    2. If one grid has same shape of anchor boxes.
+4. In practice, 2 objects in the same grid happens rarely, especially when we use
+  19x19 grid.
+
+### 3-8 YOLO Algorithm
+
+* Training: You only look once: Unified real-time object detection
+
+$$
+\text{label} = \begin{bmatrix}
+1 \text{ pedestrian} \\
+2 \text{ car}\\
+3 \text{ motorcycle}\\
+\end{bmatrix}
+$$
+
+1. y is 3 x 3 x 2 (# of anchors) x 8 (5 + # of classes)
+2. 
+
+$$
+y = \begin{bmatrix}
+p_c \\
+b_x \\
+b_y \\
+b_w \\
+b_h \\
+c_1 \\
+c_2 \\
+c_3 \\
+p_c \\
+b_x \\
+b_y \\
+b_w \\
+b_h \\
+c_1 \\
+c_2 \\
+c_3 \\
+\end{bmatrix}
+$$
+
+3. The upper left corner will be
+
+$$
+y = \begin{bmatrix}
+0 \\
+? \\
+? \\
+? \\
+? \\
+? \\
+? \\
+? \\
+1 \\
+b_x \\
+b_y \\
+b_w \\
+b_h \\
+0 \\
+1 \\
+0 \\
+\end{bmatrix}
+$$
+
+4. But for the green box
+
+$$
+y = \begin{bmatrix}
+0 \\
+? \\
+? \\
+? \\
+? \\
+? \\
+? \\
+? \\
+0 \\
+? \\
+? \\
+? \\
+? \\
+? \\
+? \\
+? \\
+\end{bmatrix}
+$$
+
+5. In practice, it would be 19x19x16 grid, or even 19x19x5x8, which is 5 anchor boxes.
+6. 
+
+$$
+100 \times 100 \times 3
+\xrightarrow{\text{CONVNet}}
+3 \times 3 \times 16
+$$
+
+* Makeing predictions
+
+1. Hopefully the prediction of upper left corner will be:
+
+$$
+y = \begin{bmatrix}
+0 \\
+\dots \\
+\dots \\
+\dots \\
+\dots \\
+\dots \\
+\dots \\
+\dots \\
+0 \\
+\dots \\
+\dots \\
+\dots \\
+\dots \\
+\dots \\
+\dots \\
+\dots \\
+\end{bmatrix}
+$$
+
+2. The box with cars will be
+
+$$
+y = \begin{bmatrix}
+0 \\
+\dots \\
+\dots \\
+\dots \\
+\dots \\
+\dots \\
+\dots \\
+\dots \\
+1 \\
+b_x \\
+b_y \\
+b_w \\
+b_h \\
+0 \\
+1 \\
+0 \\
+\end{bmatrix}
+$$
+
+* Outputting the non-max supressed outputs
+
+1. For each grid cell, get 2 predicted bounding boxes.
+2. Get rid of low probablity predictions.
+3. For each class (pedestrian, car, motocycles) use non-max suppression to generate
+  final predictions.
+
+* YOLO algorithm summary
+
+1. It encompasses many of the best ideas across the entire computer vision literature that relate to object detection.
+
+### 3-9 Region Proposals
+
+* Introduction
+
+1. Andrew uses this algorithm a little bit less often, but it has been an influential body
+  of work
+
+* Region proposal: R-CNN (Rich feature hierachies for accurate object detection and
+  semantic segmentation)
+
+1. The downside of this algorithm that it crossfires a lot of regions that clearly has no
+  objects.
+2. Segmentation algorithm, what you do:
+    1. find maybe 2000 blobs
+    2. Place bounding boxes around the 2000 blobs
+    3. run your classifiers on just those blobs
+    4. Much smaller number than convolutional classifier
+
+* Faster Algorithms
+
+1. R-CNN is still quiet slow
+2. R-CNN: Propose regions. Classify proposed regions one at a time. Output label + bounding box.
+3. Fast R-CNN: Propose regions. Use convolution implementation of sliding windows to
+  classify all the proposed regions.
+4. Faster R-CNN: Towards real-time object detection with region proposal networks. Use
+  convolutional network to propose regions. Andrew thinks it's still slower than YOLO
+    algorithm.
+
+* Conclusion
+
+1. Andrew thinks YOLO is more promising than the 2-step region proposal algorithm.
+
 # numpy functions
 
 ```
