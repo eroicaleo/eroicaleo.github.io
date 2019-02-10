@@ -3573,6 +3573,283 @@ $$
 
 <font color='black'>
 
+## Week 4 Face Recognition
+
+### 4-1 What is face recognition
+
+* Face verification vs. face recognition
+
+1. Verification 1 to 1 problem
+    1. Input image, name/ID
+    2. Output whether the input image is that of the claimed person
+2. Recognition (much harder 1 to K problem)
+    1. Has a database of K persons
+    2. Get an input image
+    3. Output ID if the image is any of the K persons (or "not recognized")
+3. We will first start with face verification system
+
+### 4-2 One shot Learning
+
+* Introduction
+
+1. Challenge: need to recognize a person just one single image.
+2. historically: deep learning doesn't work well if only have one training example.
+
+* One-shot learning
+
+1. Learning from one example to recognize the person again.
+2. One approach: picture -> CNN -> softmax (5)
+3. Doesn't work well, because training set is too small.
+4. Also cannot handle the case when a new person joins the team
+
+* Learning a similarity function
+
+1. d(img1,img2) = degree of difference between images
+2. d(img1,img2) $\le \tau$ "same"
+3. d(img1,img2) $> \tau$ "different"
+
+### 4-3 Siamese Network (DeepFace closing the gap to human level performance)
+
+* Siamese network
+
+1. Input image after convolution -> max pooling -> fully connected layer.
+2. The fully connected layer is called "encoding of the picture"
+3. Define $d(x^{(1)}, x^{(2)}) = || f(x^{(1)}) - f(x^{(2)})||_2^2$
+
+* Goal of learning
+
+1. Parameters of NN define an encoding $f(x^{(i)})$
+2. Learn parameters so that:
+    1. If same person, then distance is small
+    2. If diff person, then distance is large
+
+### 4-4 Triplet loss (FaceNet: A unified embedding for face recognition and clustering)
+
+* Learning objective
+
+1. Triplet loss: you'll always be looking at three images at a time.
+2. Anchor image (A), Positive image (P), Negtive image (N)
+3. $d(A,P) \le d(A,N)$
+4. $||f(A) - f(P)||^2 - ||f(A) - f(N)||^2 \le 0$
+5. A trivial solution would be having all f(img) = 0
+6. To avoid this, $||f(A) - f(P)||^2 - ||f(A) - f(N)||^2 + \alpha \le 0$, $\alpha$ is called
+    margin.
+
+* Loss function
+
+1. Given 3 images $A, P, N$
+2. $L(A, P, N) = \max (||f(A) - f(P)||^2 - ||f(A) - f(N)||^2 + \alpha, 0)$
+3. Cost function
+
+$$
+J = \sum_{i=1}^M L(A^{(i)}, P^{(i)}, N^{(i)})
+$$
+
+4. Training set: 10k pictures of 1k persons. You do need multiple pictures for the same
+  person.
+
+* Choosing the triplets A, P, N
+
+1. During training, if A,P,N are chosen randomly, $d(A,P)+\alpha \le d(A,N)$ is easily
+satisfied.
+2. Choose triplets that'are "hard" to train on.
+3. $d(A,P) \approx d(A,N)$
+
+* Training set using triplet loss
+
+1. Commercial face recognition system trained at very large dataset. 10M, 100M images.
+2. Some companies have trained on these sets and posted parameters online.
+
+* Conclusion
+
+1. Andrew feels it's a nice paper.
+
+### 4-5 Face Verification and Binary Classification (DeepFace closing the gap to human level performance)
+
+* Learning the similarity function
+
+1. Let the 2 image pass through the siamese network and get 2 embedding vectors
+2. Then feed these 2 vectors to a logistic regression unit and make it a binary
+  classification problem.
+
+$$
+\hat{y} = \text{sigmoid} (\sum_{k=1}^{128} w_k |f(x^{(i)})_k - f(x^{(j)})_k| + b)
+$$
+
+3. $\chi^2$ formula, similarity
+
+$$
+\hat{y} = \text{sigmoid} (\sum_{k=1}^{128} w_k
+\frac{(f(x^{(i)})_k - f(x^{(j)})_k)^2}{f(x^{(i)})_k + f(x^{(j)})_k} + b)
+$$
+
+4. For the image in the database, pre-compute the embeddings
+
+### 4-6 What is neural style transfer
+
+* Introduction
+
+1. Content: Stanford university picture (C)
+2. Style: Van Gogh's starry night (S)
+3. Generated image (G)
+
+4. Another example
+5. Content: Golden gate bridge
+6. Style: Picasso
+7. Generated image
+
+### 4-7 What are deep ConvNets learning
+
+* Visualizing what a deep network is learning
+  (Visualizing and understanding convolutional networks)
+
+$$
+224 \times 224 \times 3
+\xrightarrow{}
+110 \times 110 \times 96
+\xrightarrow{}
+55 \times 55 \times 96
+\xrightarrow{}
+26 \times 26 \times 256
+\xrightarrow{}
+13 \times 13 \times 256 \\
+\xrightarrow{}
+13 \times 13 \times 384 \\
+\xrightarrow{}
+13 \times 13 \times 384 \\
+\xrightarrow{}
+6 \times 6 \times 256 \\
+\xrightarrow{\text{ FC }} 4096 \\
+\xrightarrow{\text{ FC }} 4096
+\xrightarrow{} \hat{y}
+$$
+
+1. Pick a unit in layer 1. Find the nine image patches that maximize the unit's
+activation.
+2. Repeat for other units.
+3. Read the paper, they have more sophisticated way of visualizing the ConvNet.
+4. Later units are going to see larger images.
+
+* Visualizing deep layers: Layer 2/3/4/5
+
+1. Edge in layer 1
+2. Texture in layer 2
+3. More complex pattern in deeper layers.
+
+### 4-8 Cost function
+
+* Neural style transfer const function (A neural algorithm of artistic style)
+
+1. $J(G) = \alpha J_{\text{content}}(C, G) + \beta J_{\text{style}}(S, G)$
+2. The paper is not too hard to read, Andrew encourages to read it.
+
+* Find the generated image G
+
+1. Initiate G randomly: G: 100x100x3
+2. Use gradient descent to minimize J(G): $G := G - \frac{\partial J(G)}{\partial G}$
+
+### 4-9 Content Cost Function
+
+* Content cost function
+
+1. $J(G) = \alpha J_{\text{content}}(C, G) + \beta J_{\text{style}}(S, G)$
+2. Say you use hidden layer l to compute content cost
+3. Use pre-trained ConvNet network (E.g. VGG network)
+4. Let $a^{[l](C)}$ and $a^{[l](G)}$ be the activation of layer $l$ on the images.
+5. If $a^{[l](C)}$ and $a^{[l](G)}$ are similar, both images have similar content.
+6. $J_{\text{content}}(C, G) = \frac{1}{2} || a^{[l](C)} - a^{[l](G)} ||^2$
+
+### 4-10 Style Cost Function
+
+* Meaning of the "style" of an image
+
+1. Say you are using layer l's activation to measure "style."
+2. Define style as correlation between activations across channels.
+3. How correlated are the activations across different channels $n_H \times n_W \times n_C$
+
+* Intuition about style of an image
+
+1. And so the correlation tells you which of these high level texture components tend to occur or not occur together in part of an image
+2. Style matrix, $a_{i,j,k}^{[l]}$ = activation at $(i,j,k)$.
+3. $G^{[l]}$ is $n_c^{l} \times n_c^{l}$, the matrix element $g_{kk'}^[l]$ is the 
+  correlation between channel k and k', $k = 1, \dots, n_c$
+
+$$
+g_{kk'}^{[l](S)} = \sum_{i=1}^{n_H^{[L]}} \sum_{j=1}^{n_W^{[L]}} a_{i,j,k}^{[l](S)} a_{i,j,k'}^{[l](S)} \\
+g_{kk'}^{[l](G)} = \sum_{i=1}^{n_H^{[L]}} \sum_{j=1}^{n_W^{[L]}} a_{i,j,k}^{[l](G)} a_{i,j,k'}^{[l](G)} \\
+$$
+
+4. In linear algebra, it's called "gram matrix"
+
+$$
+J_{\text{style}}(S, G) = ||G^{[L](S)} - G^{[L](G)}||^2_F \\
+= \sum_k \sum_{k'} (G^{[L](S)} - G^{[L](G)})^2
+$$
+
+* Style cost function
+
+$$
+J_{\text{style}}^{[l]}(S, G) =  \frac{1}{(2n_H^{[l]}n_W^{[l]}n_C^{[l]})^2}
+\sum_k \sum_{k'} (G^{[L](S)} - G^{[L](G)})^2 \\
+J_{\text{style}}(S, G) = \sum_l \lambda^{[l]} J_{\text{style}}^{[l]}(S, G)
+$$
+
+### 4-11 1D and 3D Generalizations
+
+* Introduction
+
+1. The conv net can also be applied 1-D and 3-D data.
+
+* Convolutions in 2D and 1D
+
+$$
+14 \times 14 \times 3
+\xrightarrow[16]{5 \times 5 \times 3}
+10 \times 10 \times 16
+\xrightarrow[32]{5 \times 5 \times 16}
+6 \times 6 \times 32
+$$
+
+2. EKG signal (heart beating)
+
+$$
+14 \times 1 \star 5 \times 1
+\xrightarrow{6 \text{ filters}}
+10 \times 16 \star 5 \times 16
+\xrightarrow{} 6 \times 32
+$$
+
+* 3D data
+* 3D convolution
+
+1. 3D volumn * 3D filter
+
+$$
+14 \times 14 \times 14 \times 1
+\xrightarrow[16 \text{ filters}]{5 \times 5 \times 5 \times 1}
+10 \times 10 \times 10 \times 16
+\xrightarrow[32 \text{ filters}]{5 \times 5 \times 5 \times 16}
+6 \times 6 \times 6 \times 32
+$$
+
+### 4-12 Notes from Programming Exercises
+
+<font color='blue'>
+**What you should remember**:
+- Face verification solves an easier 1:1 matching problem; face recognition addresses a harder 1:K matching problem. 
+- The triplet loss is an effective loss function for training a neural network to learn an encoding of a face image.
+- The same encoding can be used for verification and recognition. Measuring distances between two images' encodings allows you to determine whether they are pictures of the same person. 
+
+<font color='blue'>
+What you should remember:
+- Neural Style Transfer is an algorithm that given a content image C and a style image S can generate an artistic image
+- It uses representations (hidden layer activations) based on a pretrained ConvNet. 
+- The content cost function is computed using one hidden layer's activations.
+- The style cost function for one layer is computed using the Gram matrix of that layer's activations. The overall style cost function is obtained using several hidden layers.
+- Optimizing the total cost function results in synthesizing new images. 
+
+<font color='black'>
+
 # numpy functions
 
 ```

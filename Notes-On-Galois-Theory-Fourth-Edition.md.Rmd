@@ -1,0 +1,59 @@
+---
+title: "Notes-on-Galois-Theory-Fourth-Edition"
+author: "Yang Ge"
+date: "2/9/2019"
+output:
+  html_document:
+    toc: true
+---
+
+# Chapter 3 Factorisation of Polynomials
+
+## 3.1 The Euclidean Algorithm
+
+* Proposition 3.1 (Division Algorithm) Let $f$ and $g$ be polynomials over $K$, and
+suppose that $f$ is non-zero. Then there exists unique polynomials $q$ and $r$ over $K$,
+such that $g = fq+r$ and $\partial r$ < $\partial f$ .
+
+* Existence: by induction. $K$ is a field is very important in the proof.
+* Uniqueness: Assume
+
+$$
+g = fq_1+r_1 = fq_2+r_2
+$$
+Then
+
+$$
+f(q_1-q_2) = r_1-r_2
+$$
+Then if $q_1-q_2 \neq 0$, the degree of left side is strictly greater than the right side.
+The equation can not holds.
+
+* Definition for $g|f$ and $g \nmid f$
+* Definition for highest common factor (hcf).
+
+* Lemma 3.5 (hcf is unique except a constant factors)
+
+* Proof: assume $d, e$ are all hcf of $f, g$. Then
+
+$$
+e|d \implies d = ke
+$$
+Then the degree of $d$ is higher or equal than that of $e$. For the same reason,
+the degree of $e$ is higher or equal than that of $d$. Then $k$ must be a constant.
+
+* Algorithm 3.6 Euclid's algorithm to find hcf.
+
+$$
+f= r_{-1} = q_1r_0+r_1 \\
+r_0 = q_2r_1+r_2 \\
+\cdots \\
+r_i = q_{i+2} r_{i+1} + r_{i+2}
+$$
+
+* Theorem 3.7 $r_{s+1}$ is the hcf of $f,g$
+* Theorem 3.9 if $d$ is hcf of $f,g$, we can express $d = af+bg$.
+
+* Both of the proof just need to use Euclid's algorithm.
+
+## 3.2 Irreducibility
