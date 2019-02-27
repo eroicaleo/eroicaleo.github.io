@@ -48,7 +48,9 @@ $$
 f= r_{-1} = q_1r_0+r_1 \\
 r_0 = q_2r_1+r_2 \\
 \cdots \\
-r_i = q_{i+2} r_{i+1} + r_{i+2}
+r_i = q_{i+2} r_{i+1} + r_{i+2} \\
+\dots \\
+r_s = q_{s+2}r_{s+1}
 $$
 
 * Theorem 3.7 $r_{s+1}$ is the hcf of $f,g$
@@ -57,3 +59,43 @@ $$
 * Both of the proof just need to use Euclid's algorithm.
 
 ## 3.2 Irreducibility
+
+* **_Definition 3.10_** : A non-constant polynomial $f$ over a subring $R$ of $\mathbb{C}$ is reducible
+  if it's a product of two polynomials over $R$ of smaller degree. Otherwise, it's irreducible.
+* **_Theorem 3.12_** : A non-zero polynomial over a subring $R$ of $\mathbb{C}$ is a product of
+  irreducible polynomials over $R$
+* *_Proof_*: by induction. Either $g$ is irreducible or $g=hk$ such that
+  $\partial{h} < \partial{g}$ and $\partial{k} < \partial{g}$.
+
+* **_Definition 3.14_** : If $f$ and $g$ are polynomials over $K$ of $\mathbb{C}$ with hcf
+  equals to 1, then we say $f$ and $g$ are coprime, or $f$ is prime to $g$ .
+
+* **_Lemma 3.15_** : Let $K$ be a subfield of $\mathbb{C}$, $f$ is a irreducible polynomial
+  over $K$, $g, h$ are polynomials over $K$. If $f | gh$, then either $f|g$ or $f|h$.
+
+* **_Proof_** : We need to use Theorem 3.9. Assume $f \nmid g$, then
+  We can find $a, b$ such that $1 = af+bg$.
+  Then $h = afh + bgh$, $f|afh$ and $f|bgh$. So $f|h$.
+
+* **_Theorem 3.16_** : For any subfield $K$ of $\mathbb{C}$, factorization of polynomials over $K$
+  into irreducible polynomials is unique up to constant factors.
+
+* **_Proof_** : We need to use Lemma 3.15. Assume $h = f_1\dots f_r = g_1 \dots g_s$, where
+  $f_i, g_i$ are irreducible polynomials. Then from lemma 3.15 $f_1 | g_i$ for some i, say
+  $i = 1$. Then $g_1 = k_1 f_1, k_1 \in K$. For the same reason $g_i = k_i, k_i \in K$ for
+  all $i = 1, \dots, r$. And we must have $r = s$ also.
+
+## 3.3 Gauss's Lemma
+
+* **_Lemma 3.15 (Gauss's Lemma)_** : Let $f$ be an irreducible polynomial over $\mathbb{Z}$,
+  then $f$, considered as an polynomial over $\mathbb{Q}$, is also irreducible over $\mathbb{Q}$.
+
+* **_Proof_** : Assume $g, h$ are polynomials over $\mathbb{Q}$, and $f = gh$. Then we can find
+  an integer $n$ such that $nf = g'h'$ such that $g', h' \in \mathbb{Z}[t]$.
+  Assume the following:
+
+$$
+g' = g_0 + g_1t + \dots + g_r t^r \\
+h' = h_0 + h_1t + \dots + h_s t^s
+$$
+
