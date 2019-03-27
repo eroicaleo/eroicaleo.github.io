@@ -1,0 +1,52 @@
+---
+title: "Notes-on-Understanding-Analysis"
+author: "Yang Ge"
+date: "9/28/2017"
+output:
+  html_document:
+    keep_md: false
+    toc: true
+---
+
+# Chapter 1
+## section 1.3 The Axiom of Completeness
+
+* **_1.3.0 Axiom of Completeness_** Every non empty set of real numbers that is bounded
+  above has a least upper bound.
+
+* **_Lemma 1.3.8_** Assume $s \in R$ is an upper bound for a set $A \$
+
+### Exercises
+
+* **_Exercise 1.3.3_**
+
+(a) 3 For any $a \in A$, a is an upper bound of $B$, thus $\sup B <= a$. Thus $\sup B$ is a lower
+bound of $A$. For any lower bound of A $b \in B, b <= \sup B$, thus $\sup B = \inf A$.
+(b) The greatest lower bound can be deduced from (a)
+
+* **_Exercise 1.3.9_**
+
+(a) Assume $\epsilon = \sup B - \sup A > 0$, according to lemma 1.3.8, there is $b \in B$ such
+    that $b > \sup B - \epsilon = \sup A$. So $b$ is an upper bound of $A$.
+(b)
+
+* **_Exercise 1.3.10 (Cut Property)_**
+
+(a) Let $c = \sup A$. Then for $x \in A, x <= c$. For $b \in B$, because $a < b, \forall a \in A$,
+    Then $b$ is an upper bound of $A$, therefore, $c \le b$.
+(b) The other way. Let $B$ be the set of all upper bounds of $A$. $c$ is the cut, then $c \ge a$
+    for all $a \in A$. Then $c$ is an upper bound of $A$. Let $b$ be an upper bound, then $b \in B$. Then $c \le b$, then $c = \sup A$.
+(c) Let $A = \{a|a^2<2\}, B = \{b|b^2>2\}$.
+
+* **_Exercise 1.3.11_**
+
+(a) True. For $a \in A$, we have $a \in B$, then $a <= \sup B$. So $\sup B$ is an upper bound
+    of $A$. Therefore $\sup A \le \sup B$.
+(b) True. Let $c = (\sup A + \inf B) / 2$, the $\inf B > c > \sup A$. So
+$$
+a \le \sup A < c < \inf B \le b
+$$
+
+(c) False. Let $A = \{a| a \in \mathbb{Q}, a^2 < 2\}$, $B = \{b| b \in \mathbb{Q}, b^2 > 2\}$ and
+    $c = 2$. Then $\sup A = \inf B = \sqrt{2}$ .
+

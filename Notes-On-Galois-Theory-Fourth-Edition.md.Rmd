@@ -87,7 +87,7 @@ $$
 
 ## 3.3 Gauss's Lemma
 
-* **_Lemma 3.15 (Gauss's Lemma)_** : Let $f$ be an irreducible polynomial over $\mathbb{Z}$,
+* **_Lemma 3.17 (Gauss's Lemma)_** : Let $f$ be an irreducible polynomial over $\mathbb{Z}$,
   then $f$, considered as an polynomial over $\mathbb{Q}$, is also irreducible over $\mathbb{Q}$.
 
 * **_Proof_** : Assume $g, h$ are polynomials over $\mathbb{Q}$, and $f = gh$. Then we can find
@@ -99,3 +99,255 @@ g' = g_0 + g_1t + \dots + g_r t^r \\
 h' = h_0 + h_1t + \dots + h_s t^s
 $$
 
+Assume $p$ is a prime number and $p | n$, $i,j$ are the smallest indecies such that
+$p \nmid g_i, p\nmid h_j$.
+
+$$
+nf_{i+j} = g_0 h_{i+j} + g_ih_j+ g_{i+j}h_0
+$$
+
+Then $p$ can divide the left side and every item on the right side. So we have $p | g_ih_j$.
+Then we have either $p | g_i$ or $p | h_j$. Then we have a contradiction. So $p$ can either
+divide all coeffections of $g'$ or those of $h'$. By continuing this process, we can prove it.
+
+* **_Corollary 3.18_** : Let $f \in \mathbb{Z}[t]$ and $f = g_1\dots g_s$ is a factorization
+  over $\mathbb{Q}[t]$. Then there are $a_1,\dots,a_s \in \mathbb{Q}$ such that $a_ig_i \in  
+  \mathbb{Z}[t]$, and $a_1a_2\cdots a_s = 1$.
+
+* **_Proof_** : We need to use lemma 3.17 and theorem 3.16. First from 3.17, there must be a
+  factorization $f=r_1\dots r_r$ over $\mathbb{Z}[t]$. Then by theorem 3.16, consider it's a
+  factorization over $\mathbb{Q}[t]$, then it's unique. So we must have $r_i = a_ig_i$.
+  $a_1g_1\dots a_sg_s = g_1 \dots g_s$ and $a_1\dots a_s = 1$.
+
+## 3.4 Eisenstein's Criterion
+
+* **_Theorem 3.19 (Eisenstein's Criterion)_** : let $f \in \mathbb{Z}[t]$ and $q$ a prime.
+
+$$
+f(t) = a_0 + a_1 t + \cdots + a_n t^n \\
+q \nmid a_n \\
+q | a_i (i = 0, \dots , n-1) \\
+q^2 \nmid a_0
+$$
+
+The $f$ is irreducible over $\mathbb{Q}[t]$.
+
+* **_Proof_** : Assume.
+
+$$
+f(t) = g(t)h(t) \\
+g(t) = g_0 + g_1t + \dots + g_r t^r \\
+h(t) = h_0 + h_1t + \dots + h_s t^s
+$$
+
+Then we have
+
+$$
+a_0 = g_0h_0 \\
+q \nmid g_0 \text{ or } q \nmid h_0 \\
+q \nmid g_r \text{ and } q \nmid h_s
+$$
+
+Assume $q \nmid g_0$, and assume $s$ is the min integer s.t. $q \mid h_s$ consider
+
+$$
+a_s = g_0 h_s + g_1h_{s-1} + \cdots+ g_rh_{s-r}
+$$
+
+Then $q | a_s$, but $q \nmid g_0 h_s$. We have contradiction.
+
+* **_Lemma 3.21_** : if $p$ is prime, $\binom{p}{r}=\frac{p!}{r!(p-r)!}$.
+  And $1 \le p \le (p-1)$. Then $p | \binom{p}{r}$.
+
+* **_Proof_** : Assume $r!(p-r)!=a$ and $\binom{p}{r}=b$. Then $p | ab$ and $p \nmid a$,
+  so $p | b$.
+
+* **_Lemma 3.22_** : if $p$ is prime, then $f(t) = x^{p-1}+\cdots+1$ is irreducible over $Q$.
+
+* **_Proof_** : $f(t)$
+
+## Exercises 3
+
+* 3.4
+* (a) First, there are no real roots. So even if it's reducible, it's gotta be
+      2 times 2. Assume
+
+$$
+(x^2+ax+b)(x^2+cx+d) = x^4+1 \\
+ax^3+cx^3=0 \implies c=-a \\
+(x^2+ax+b)(x^2-ax+d) = x^4+1 \\
+(b+d-a^2)=0 \\
+a^2 = 2
+$$
+
+Then it's irreducible in $\mathbb{Q}$.
+
+* (c) no. according to Eisenstein's criterion. 
+* (d) no. according to lemma 3.20
+* (e) 1 is one real root. So it's reducible over $\mathbb{Q}$. $(t-1)(t^2-6t-3)$
+
+* 3.5
+
+(a) Lemma 3.20, $p=5$
+(b) -1 is a root. $(t+1)(t^4+t^2+1)$
+(c) Lemma 3.20, $p=7$
+
+* 3.6 see 3.5
+
+* 3.8 
+
+(a) $t^3+1 = (t+1)(t^2-t+1)$, and $t^2-t+1=(t-1/2)^2+3/4=0$, so $t=\frac{1\pm \sqrt{3} i}{2}$
+
+(b) 1 is a root. So $t^3-6t^2+11t-6=(t-1)(t^2-5t+6)=(t-1)(t-2)(t-3)$
+
+(c) $t^5+t+1=(t-a)(t^4+bt^3+ct^2+dt-a^{-1})$, we have $d = ac, c=ab, b=a$, so we have
+$t^5+t+1 = (t-a)(t^4+at^3+a^2t^2+a^3t-a^{-1})$, so $a^4+1/a=-1$. No idea then.
+
+(d) $\pm i$
+
+(e) $e^{\frac{2k\pi}{5}},k=1,2,3,4$, because $f(t) = (t^5-1)/(t-1)$
+
+(f) $(t^2-3)^2+2=0$, then we have $t^2 = 3 \pm \sqrt{2} i$
+
+* 3.9
+
+(a) false: $(t-1)^2$
+
+(b) true
+
+(c) false, see (a)
+
+(d) false, consider $f, g= 2t,4t$.
+
+(e) true
+
+(f) true
+
+(g) false
+
+(h) true, Gauss's lemma
+
+(i) false, $x^2-2$ not reducible in $Q$, but reducible in $R$.
+
+(j) false, $x^2+1$ not reducible in $R$, but reducible in $C$.
+
+
+## Exercises 4
+
+* 4.5 Only proves the second step. $a(\alpha)+b$ is countable,
+  $\frac{a(\alpha)+b}{cq(\alpha)+d}$ is also countable. $a_n\alpha^n+\dots+a_0$ is countable.
+  $\mathbb{Q}(\alpha)$ is the union of of all $n$. And countable union
+  of countable set is countable.
+
+* 4.6
+
+$$
+(p + qi + r\sqrt{5}+si\sqrt{5})(p+qi-(r+si)\sqrt{5})=\\
+(p+qi)^2-5(r+si)^2=(p^2-q^2-5r^2+5s^2) + (2pq-10rs)i \\
+((p^2-q^2-5r^2+5s^2) + (2pq-10rs)i)((p^2-q^2-5r^2+5s^2) - (2pq-10rs)i) = \\
+(p^2-q^2-5r^2+5s^2)^2-(2pq-10rs)^2
+$$
+
+The last number is a rational number.
+
+* 4.7 Assume the following
+
+
+$$
+(a+b\alpha+c\alpha^2)(p+q\alpha+r\alpha^2)=1 \\
+(ap+2br+2cq) + (aq+bp+2cr)\alpha+(ar+bq+cp)\alpha^2 = 1
+$$
+
+and
+
+$$
+\begin{pmatrix}
+p & 2r & 2q \\
+q & p & 2r \\
+r & q &p
+\end{pmatrix}
+\begin{pmatrix}
+a \\ b \\ c
+\end{pmatrix}
+= \begin{pmatrix}
+1 \\ 0 \\ 0
+\end{pmatrix}
+$$
+
+$$
+aq +bp+2cr=0 \implies c = -\frac{aq+bp}{2r} \\
+ar+bq+cp = ar+bq - \frac{aq+bp}{2r}p = 0 \\ \implies
+(2r^2-pq)a + (2qr-p^2)b = 0 \implies b = \frac{(pq-2r^2)}{(2qr-p^2)}a \\
+q(2qr-p^2) - p(2r^2-pq) = 2q^2r-p^2q-2pr^2+p^2q=2q^2r-2pr^2 \\
+c = \frac{(pr-q^2)}{2qr-p^2}a \\
+ap + 2r\frac{(pq-2r^2)}{(2qr-p^2)}a + 2q\frac{(pr-q^2)}{(2qr-p^2)}a =1 \\
+p(2qr-p^2) + 2r(pq-2r^2) + 2q(pr-q^2) = 2pqr-p^3+2pqr-4r^3+2pqr-2q^3 \\
+$$
+
+# Chapter 5 Simple Extension
+
+* **_Definition 5.1_** : K be a subfield of $\mathbb{C}$. $\alpha$ is algebraic over $K$, if
+  there is a non-zero polynomial $p$, such that $p(\alpha)=0$. Otherwise $\alpha$ is
+  transcendental.
+
+* **_Definition 5.4 (Monic polynomial)_** : $f(t) = a_nx^n +\cdots a_1x+a_0$ is a polynomial
+  over $K \subset \mathbb{C}$ is monic if $a_n = 1$.
+  
+* **_Definition 5.5 (Minimal polynomial)_** : $\alpha$ is algebraic over $K$, then the minial
+  polynomial of $\alpha$ over $K$ is the unique polynomial $m$ of the smallest degree, such
+  that $m(\alpha)=0$ .
+
+$m$ is unique. Because if $m_1,m_2$ are two monic polynomials and have the same
+degree, then degree of $m_1-m2$ is less than both of them. Then $m1-m2$ must be 0.
+So $m$ is unique.
+
+* **_Lemma 5.6 (Irreducibility of minimal polynomial)_** If $\alpha$ is algebraic over $K$,
+  then the minial polynomial of $\alpha$ over $K$ is irreducible over $K$. It divides all
+  polynomial of which $\alpha$ is a zero.
+
+* **_Proof_**: if $m(t) = p(t)q(t)$, then $0 = m(\alpha) = p(\alpha)q(\alpha)$. Then either
+  $p(\alpha) = 0$, or $q(\alpha) = 0$.
+
+if $m'(\alpha)=0$, then consider $m'(t) = q(t)m(t)+r(t)$, then $r(\alpha)=0$, $r$ has to be 0
+so $m|m'$.
+
+## Exercises
+
+1. Consider this
+
+$$
+(\sqrt{5}+\sqrt{7})^3 = 5\sqrt{5} + 15\sqrt{7}+21\sqrt{5}+7\sqrt{7}=26\sqrt{5} +22\sqrt{7}\\
+\sqrt{5} = \frac{1}{4} ((\sqrt{5}+\sqrt{7})^3 - 22(\sqrt{5}+\sqrt{7})) \\
+\sqrt{7} = -\frac{1}{4} ((\sqrt{5}+\sqrt{7})^3 - 26(\sqrt{5}+\sqrt{7}))
+$$
+
+Therefore $Q(\sqrt{5},\sqrt{7}) = Q(\sqrt{5}+\sqrt{7})$.
+It's a simple extension.
+
+a cleaner approach from [here](https://math.stackexchange.com/questions/93463/is-mathbfq-sqrt2-sqrt3-mathbfq-sqrt2-sqrt3?noredirect=1&lq=1)
+
+2. 
+
+(a) $x^2+1$
+(b) $x^2+1$
+(c) $x^2+2$
+(d) $x^2-x-1$
+(e) $x^2+x+1$
+
+3. There is an answer [here](https://math.stackexchange.com/questions/1923104/showing-isomorphism-of-field-extensions)
+
+$$
+\alpha = \pm \sqrt{2} \\
+\beta = 2 \pm \sqrt{2}
+$$
+So $Q(\alpha)=Q(\beta)$. Just make the $\lambda,\mu$ to be the identity map.
+
+4. For $\alpha$ has minimal polynomial $m(t)$, according to Lemma 5.6, $m(t)$ must be irreducible
+   over $K$.
+
+(a) $m(t)$ reducible over $R$
+(b) $m(t)$ reducible over $R$
+(c) $m(t)$ irreducible over $Q$, so yes
+(d) $m(t)$ has a zero of 1, so reducible over $R$. 
+
+7. There is an answer [here](https://math.stackexchange.com/questions/29846/is-mathbbq-sqrt-2-sqrt-3-sqrt-5-a-simple-extension) and more general case [here](https://math.stackexchange.com/questions/93453/how-to-prove-that-mathbbq-sqrtp-1-sqrtp-2-ldots-sqrtp-n-mat)

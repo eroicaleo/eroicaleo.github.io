@@ -1,0 +1,52 @@
+---
+title: "Notes-on-Differential-Geometry-of-Curves-and-Surfaces"
+author: "Yang Ge"
+date: "2/28/2019"
+output: html_document
+---
+
+The book link can be found [here](http://www2.ing.unipi.it/griff/files/dC.pdf)
+
+# Chapter 1 Curves
+
+## 1.2 Parameterized Curves
+
+* A real function of a real variable is differentiable if it has, at all points, derivatives
+  of all orders.
+
+* **_Definition 1.2.1 Parameterized Differentiable Curves_** : it's a differntiable map
+  $\alpha : I \rightarrow R^3$ of an open interval $I = (a,b)$ of the real line $R$ into
+  $R^3$. It maps each $t \in I$, to a point $\alpha(t) = (x(t), y(t), z(t))$ such that
+  $x(t), y(t), z(t)$ are differntiable. 
+
+* The vector $\alpha'(t) = (x'(t), y'(t), z'(t))$ is called tangent vector or velocity vector
+  of $\alpha$ at $t$.
+
+* $\alpha(I) \in R^3$ is called the trace of $\alpha$, note trace is a set, curve is a map.
+
+* **_Definition 1.2.2 inner product_** : Let $u=(u_1, u_2, u_3), v=(v_1, v_2, v_3)$. The norm
+  is defined as $|u|=\sqrt{u_1^2 + u_2^2 + u_3^2}$. The inner product is defined as
+  $u\cdot v = |u||v|cos \theta$.
+
+* **_Properties 1.2.2 inner product properties_** :
+
+$$
+u \cdot v = 0 \iff u \perp v \\
+u\cdot v = v\cdot u \\
+\lambda(u\cdot v) = (\lambda u)\cdot v = u \cdot (\lambda v) \\
+u \cdot (v+w) = u \cdot v + u \cdot w
+$$
+
+* **_Proof_** : The first 3 are obvious. Assume $|v+w|=b$, the norm of $u$ project on
+  $v+w$ is $a$. The angle between $v+w$ and $v$ is $\theta_1$, The angle between $w$ and $v$
+  is $\theta_2$. The left side of 4 is just $ab$. We compute the right side as below. And this
+  proves the property 4.
+
+$$
+a\cos(\theta_2-\theta_1)b\sin(\theta_1)/\sin(\theta_2) +
+a\cos(\theta_1)(b\cos(\theta_1)-b\sin(\theta_1)/\sin(\theta_2)\cos(\theta_2)) \\
+= a(\cos(\theta_1)\cos(\theta_2)+\sin(\theta_1)\sin(\theta_2))b\sin(\theta_1)/\sin(\theta_2)
++ a\cos(\theta_1)b\cos(\theta_1)-a\cos(\theta_1)b\sin(\theta_1)/\sin(\theta_2)\cos(\theta_2)) \\
+= ab\cos^2(\theta_1)+ab\sin^2(\theta_1)=ab
+$$
+

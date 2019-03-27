@@ -1,0 +1,108 @@
+---
+title: "Notes-on-Abstract-Algebra-Dummit-Exercises"
+author: "Yang Ge"
+date: "9/28/2017"
+output:
+  html_document:
+    keep_md: false
+    toc: true
+---
+
+# Chapter 1
+## section 1.1
+
+### ex01
+
+* a. No
+* b. Yes
+
+$$
+(ab)c = (a+b+ab)c = (a+b+ab+c+ac+bc+abc) \\
+a(bc) = a(b+c+bc) = (a+b+c+bc+ab+ac+abc)
+$$
+
+* c. No
+* d. Yes
+
+$$
+((a, b)(c,d))(e,f) = (ad+bc,bd)(e,f) = (adf+bcf+bde,bdf)\\
+(a, b)((c,d)(e,f)) = (a,b)(cf+de, df) = (adf+bcf+bde, bdf)
+$$
+
+* e. No
+
+### ex03
+
+According definition
+$$
+\bar{a} + (\bar{b} + \bar{c}) = \bar{a} + \overline{b+c} = \overline{a+b+c} \\
+(\bar{a} + \bar{b}) + \bar{c} = \overline{a+b} + \overline{c} = \overline{a+b+c}
+$$
+
+### ex04
+
+Same as ex03
+
+### ex05
+
+Condier $\bar{0}$, it does not have inverse.
+First it is not identity, because $\bar{1}$ is.
+Then the product of it with other elements is itself, not $\bar{1}$.
+
+### ex06
+
+* (a) yes. Assume this set is $G$, then
+
+$$
+\frac{p_1}{q_1} + \frac{p_2}{q_2} = \frac{p_1q_2+p_2q_1}{q_1q_2} \in G
+$$
+
+The associativity can be satisfied. Inverse and identity are all in $G$.
+
+* (b) no. Assume this set is $G$. $1/6 \in G$, but $1/6+1/6=1/3 \notin G$.
+
+* (c) no. $1/2 \in G$, but $1/2+1/2=1 \notin G$.
+
+* (d) no. $2.1 \in G, -1.2 \in G$, but $2.1 - 1.2 = 0.9 \notin G$.
+
+* (e) yes.
+
+* (f) no. $1/2+1/3=5/6 \notin G$
+
+### ex07
+
+* We try to prove the following
+
+$$
+(a \star b) \star c = a+b+c - [a+b+c]
+$$
+
+We distiguish 2 cases:
+
+* case 1: $a+b<1$. In this case we have:
+
+$$
+(a \star b) \star c = (a+b) \star c = a+b+c - [a+b+c]
+$$
+
+* case 2: $a+b \ge 1$. In this case we have:
+
+$$
+(a \star b) \star c = (a+b-1) \star c = (a+b-1)+c - [(a+b-1)+c] \\
+= a+b+c - 1 - ([a+b+c]-1) = a+b+c - [a+b+c]
+$$
+
+For the same reason, we also have
+
+$$
+a \star (b \star c) = a+b+c - [a+b+c]
+$$
+
+Then it's associative. It's easy to see it's commutative.
+For $a \in G, (1-a)\star a = (1-a+a) -[1-a+a]=1-1=0$ So all have inverse.
+
+### ex08
+
+(a) is trival
+(b) $1 \in G, i \in G$. But $(1+i) \notin G$, because $1+i=\sqrt{2} e^{\pi/4}$. So the norm
+of $1+i$ must be greater than 1.
