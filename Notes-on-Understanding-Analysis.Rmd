@@ -11,8 +11,11 @@ output:
 # Chapter 1
 ## section 1.3 The Axiom of Completeness
 
-* **_1.3.0 Axiom of Completeness_** Every non empty set of real numbers that is bounded
+* **_1.3.0 Axiom of Completeness_:** Every non empty set of real numbers that is bounded
   above has a least upper bound.
+
+* **_1.3.1 Definition of LB and UB_:** $A \subseteq R$ is bounded above if there exists $b$,
+such that $a \le b$ for all $a \in A$. Similar for lower bound.
 
 * **_Lemma 1.3.8_** Assume $s \in R$ is an upper bound for a set $A \$
 
@@ -20,15 +23,45 @@ output:
 
 * **_Exercise 1.3.3_**
 
-(a) 3 For any $a \in A$, a is an upper bound of $B$, thus $\sup B <= a$. Thus $\sup B$ is a lower
+(a) For any $a \in A$, a is an upper bound of $B$, thus $\sup B <= a$. Thus $\sup B$ is a lower
 bound of $A$. For any lower bound of A $b \in B, b <= \sup B$, thus $\sup B = \inf A$.
 (b) The greatest lower bound can be deduced from (a)
+
+* **_Exercise 1.3.4_**
+
+(a) It's the $\max \sup(A_k)$.
+(b) It cannot be generalized to infinite cases. Let $A_n = \{x|x \le n\}$, $\cup_{i=1}^\infty A_n = R$. It's not even bounded above.
+
+* **_Exercise 1.3.6_**
+
+(a) let $c \in A+B$, then $c = a+b$ for some $a \in A, b \in B$.
+    Then $a \le s, b \le t$, then $a+b \le s+t$. $s+t$ is an upper bound of $A+B$.
+(b) First, we show $u-a$ is a upper bound of $B$.
+If $b \in B$, then $a + b \leq u$, then
+    $b \leq u-a$ for $b \in B$. Then $u-a$ is an upper bound of $B$. We have $t \leq u-a$
+(c) Next we show $u-t$ is an upper bound of $A$. This is because for all $a \in A$,
+we have $t \leq u-a$, it means $a \leq u - t$, then $r \leq u-t$. So $r+t \leq u$.
+(d) For any $\epsilon > 0$, We can find $a \in A, a > r - \epsilon / 2$ and $b \in B, b > s - \epsilon / 2$, so $a+b \in A+B$ and $a+b > r+s-\epsilon$.
+    
+* **_Exercise 1.3.7_**
+
+1. $a$ is an upper bound of $A$, then $a \ge \sup A$.
+2. On the other hand, $a \in A$, so $a \le \sup A$.
+3. Together we have $a = \sup A$.
+
+* **_Exercise 1.3.8_**
+
+(a) 0, when $m = 1, n \rightarrow \inf$. 1, when $m = n-1, n \rightarrow \inf$.
+(b) -1, +1
+(c) 1/4, 1/3
+(d) 0, 1
 
 * **_Exercise 1.3.9_**
 
 (a) Assume $\epsilon = \sup B - \sup A > 0$, according to lemma 1.3.8, there is $b \in B$ such
     that $b > \sup B - \epsilon = \sup A$. So $b$ is an upper bound of $A$.
-(b)
+(b) Let $A = [0,1], B=(0,1)$, then $\sup A = \sup B = 1$. If $b \in B$ is an upper bound of $A$,
+    then $b \ge 1$, then $b \notin B$.
 
 * **_Exercise 1.3.10 (Cut Property)_**
 
@@ -49,4 +82,93 @@ $$
 
 (c) False. Let $A = \{a| a \in \mathbb{Q}, a^2 < 2\}$, $B = \{b| b \in \mathbb{Q}, b^2 > 2\}$ and
     $c = 2$. Then $\sup A = \inf B = \sqrt{2}$ .
+
+## section 1.4 The Consequence of the Axiom of Completeness
+
+* **_1.4.1 Nested Interval Property_:** $I_n = [a_n, b_n]$ and $I_n \supseteq I_{n+1}$, then
+
+$$
+\displaystyle\cap_{i=1}^\infty I_i \neq \emptyset.
+$$
+
+* **_proof_:** Let $A = \{a_n\},B=\{b_n\}$. Let $x = \sup A$. Since every $b_n$ is an upper
+bound of $A$, we have $x \le b_n$. Then $a_n \le x \le b_n$.
+For every $n$, $x \in I_n$.
+
+* **_1.4.2 Archimedean Property_:** 
+(i) $x \in R$, then there exists $n \in N, n > x$.
+(ii) $y > 0$, then there exists $n \in N, 1/n < y$.
+
+* **_proof_:**
+(i) Assume $N$ is bounded above, and $\alpha = \sup N$. Then there exists $n > \alpha -1$.
+Then $n + 1 > \alpha$. We got a contradiction.
+(ii) Let $x = 1/y$, and we find $n > x$, then $1/n < 1/x = y$.
+
+* **_1.4.3 Density of Q in R_:** $a < b$, then exist rational number $r$, s.t. $a < r < b$.
+
+(i) from 1.4.2, let $1/n < b-a$. Choose $m > an >= m-1$, then $a < m/n = (m-1)/n + 1/n \le a+1/n < b$.
+
+* **_1.4.5 squre root in R_:** there exists $\alpha \in R$, such that $\alpha^2=2$.
+
+* **_Exercise 1.4.1_** 
+
+(a) Let $a = \frac{p}{q}, b=\frac{r}{s}$, then $a+b= \frac{ps+qr}{qs} \in \mathbb{Q}$.
+(b) Let $b = a+t$, then $t = b + (-a)$. If $b \in \mathbb{Q}$, then $t \in \mathbb{Q}$,
+    we have contradiction.
+(c) Let $s = 2 + \sqrt{2}, t = 2-\sqrt{2},s+t=4,st=2$. $\mathbb{I}$ is not closed
+    under addition and multiplication.
+
+* **_Exercise 1.4.2_**
+
+(a) First to prove $s$ is an upper bound of $A$. Let $a \in A$, if $a > s$, let $\epsilon = a - s > 0$.
+Based on Archimedean Property, we can fine $n, s.t. 1/n < \epsilon$, then $s + 1/n < s + \epsilon=a$.
+We have a contradiction.
+(b) Second, if $s' < s$ is an upper bound, then $\epsilon = s - s'>0$, again we can find
+$n, s.t. 1/n < \epsilon$, so $s'+1/n<s'+\epsilon=s$, so $s'<s-1/n$. Since $s-1/n$ is not an upper
+bound of $A$, $s'$ cannot be as well. We have a contradiction.
+
+* **_Exercise 1.4.3_**
+
+(a) Assume $x \in \cap_{n=1}^{\infty}(0, 1/n)$. First $x \in (0,1)$, so $x > 0$.
+Then according to Archimedean Property, we have $n, x > 1/n$, so $x \notin (0, 1/n)$.
+We have a contradiction.
+
+* **_Exercise 1.4.4_**
+
+(a) Let $x \in [a,b] \cap \mathbb{Q}$, then $x \in [a,b]$, then $x \le b$, b is an upper bound.
+(b) Let $a < c < b$, then according to 1.4.3, there exists $r \in Q$, s.t. $c < r < b$.
+    Then $a < c < r < b$, so $r \in [a,b] \cap \mathbb{Q}$. $c$ is not an upper bound of $T$.
+    Then $b = \sup T$.
+    
+* **_Exercise 1.4.5_** Given any real number $a < b$, there exists an irrational number $r$, such
+that $a < r < b$.
+
+(a) If a is irrational, we can find a rational number $a'$ such that $a < a' < b$. Same argument holds
+for $b$. So we can assume $a, b$ are all rational.
+(b) Now we can find $n$, s.t. $1/n < (b-a)/2$. Then we have $an < an + \sqrt{2} < an+2 < bn$.
+Then we have $a < a + \sqrt{2}/n < b$. Since $a, 1/n$ are all rational, then $a + \sqrt{2}/n$
+is irrational.
+(c) A better proof: $a-\sqrt{2} < r < b-\sqrt{2}$.
+
+* **_Exercise 1.4.6_**
+
+(a) not dense
+(b) dense
+(c) Not dense. We can't find $p,q$ such $0 < p/q < 1/10$, which means $10|p| < q$
+
+* **_Exercise 1.4.7_**
+
+(a) $T = \{t \in R:  t^2 < 2\}$, $\alpha = \sup T$. Assume $\alpha ^ 2 > 2$, then
+    $(\alpha - 1/n)^2 = \alpha^2 - 2\alpha/n + 1/n^2 > \alpha^2 - 2\alpha/n > 2$,
+    if $n$ is big enough.
+(b) On the other hand, we can find $t \in T$, such that $t > \alpha - 1/n$, so
+    $t^2 > (\alpha - 1/n)^2 > 2$. We have a contradiction.
+  
+* **_Exercise 1.4.8_**
+
+(a) Example: $A = \{r, r < 2, r \text{ is rational}\}$, $B = \{r, r < 2, r \text{ is irrational}\}$.
+(b) Example: $J_i = \{ x : (-1/i, 1/i) \}$. We see $0 \in J_i$ and ${0} = \cap_{n=1}^{\infty} J_i$.
+(c) Example: $L_i = [i, \infty)$
+(d) Impossible: let $L_i = \cap_1^i J_i$, they are closed non-empty set, and they are nested.
+    So based on "Nested Interval Property", $\cap_{n=1}^{\infty} J_i = \cap_{n=1}^{\infty} L_i$.
 

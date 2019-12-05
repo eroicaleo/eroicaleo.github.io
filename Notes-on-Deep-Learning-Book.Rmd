@@ -1,0 +1,20 @@
+---
+title: "Notes-On-Deep-Learning-Book"
+author: "Yang Ge"
+date: "9/12/2019"
+output:
+  html_document:
+    keep_md: false
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Introduction
+
+* Rule based strategy doesn't work out well.
+* AI requires machine to extract pattern from raw data.
+    * logistic regression
+    * Naive Bayes: spam email

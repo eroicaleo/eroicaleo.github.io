@@ -1,0 +1,19 @@
+---
+title: "Notes-on-Tao-Analysis"
+author: "Yang Ge"
+date: "4/28/2019"
+output:
+  html_document:
+    keep_md: false
+    toc: true
+---
+
+# Chapter 2 The natural numbers
+
+## 2.1 The Peano axioms
+
+* **_Axiom 2.1_** 0 is a natural number.
+* **_Axiom 2.2_** If $n$ is a natural number, then $n++$ is also a natural number.
+* **_Axiom 2.3_** $0$ is not the successor of any natural number; i.e. we have $n++ \ne 0$
+  for any $n$.
+* **_Axiom 2.4_**  

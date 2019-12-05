@@ -311,6 +311,37 @@ So $m$ is unique.
 if $m'(\alpha)=0$, then consider $m'(t) = q(t)m(t)+r(t)$, then $r(\alpha)=0$, $r$ has to be 0
 so $m|m'$.
 
+* **_Theorem 5.7_** If $K$ is a subfield of $\mathbb{C}$, $m$ is irreducible monic polynomial
+  over $K$, then there exists $\alpha \in \mathbb{C}$, algebraic over $K$, such that $\alpha$
+  has minimal polynomial $m$ over $K$.
+
+* **_Proof_**: Let $\alpha \in \mathbb{C}$ be any zero of $m$, then $\alpha$ is algebraic
+  over $K$. Assume $f$ is the minimal polynomial of $\alpha$ over $K$, then according to
+  lemma 5.6, $f | m$. But $m$ is irreducible and it's monic, so $f=m$.
+
+* **_Definition (Congruent)_**: $a,b,m \in K[t]$ and $m | (a-b)$, then we say $a, b$ are
+  congruent modulo $m$. And we write $a \equiv b \mod m$.
+
+* **_Lemma 5.8_** Suppose $a_1 \equiv a_2 \mod m$ and $b_1 \equiv b_2 \mod m$, then
+  $a_1+a_2 \equiv b_1 + b_2 \mod m$ and $a_1a_2 \equiv b_1b_2 \mod m$.
+
+* **_Proof_**: $a_1a_2-b_1b_2 = a_1a_2-b_1a_2+b_1a_2-b_1b_2=(a_1-b_1)a_2+b_1(a_2-b_2)$.
+
+* **_Lemma 5.9_** Every polynomial $a \in K[t]$ is congruent modulo $m$ to a unique polynomial
+  of degree $< \partial m$
+
+* **_Proof_**: $a = qm + r$. The $\partial r < \partial m$. uniqueness: If
+$a = q_1m + r_1 = q_2m+r_2$, so $m| r_1 - r_2$, but both degree of $r_1$ and $r_2$ are less
+than the degree of $m$. So $r_1 - r_2 = 0$.
+
+* **_Definition_**: The $\equiv$ (module m) is an equivalence relation. (Easy ) So it partitions $K[t]$
+  into equivalent class. We write $[a]$ for the equivalent class of $a\in K[t]$.
+
+$$
+[a] = \{ f \in K[t] : m | (f-a) \}
+$$
+
+
 ## Exercises
 
 1. Consider this
@@ -351,3 +382,18 @@ So $Q(\alpha)=Q(\beta)$. Just make the $\lambda,\mu$ to be the identity map.
 (d) $m(t)$ has a zero of 1, so reducible over $R$. 
 
 7. There is an answer [here](https://math.stackexchange.com/questions/29846/is-mathbbq-sqrt-2-sqrt-3-sqrt-5-a-simple-extension) and more general case [here](https://math.stackexchange.com/questions/93453/how-to-prove-that-mathbbq-sqrtp-1-sqrtp-2-ldots-sqrtp-n-mat)
+
+8. No. Consider the example in the hint. The other two roots of $t^3-2$ is
+
+$$
+t = 2^{1/3}(-\frac{1}{2}\pm\frac{\sqrt{3}}{2} i)
+$$
+
+But $Q(2^{1/3}) \subset R$.
+
+9.
+
+(a)
+(b)
+(c) false. Tanscedental extension, like $\mathbb{Q}(\pi)$.
+(d) false. Cannot give an example now, but here is the one from [stackoverflow](https://math.stackexchange.com/questions/2307407/example-of-a-finite-extension-of-a-field-f-that-isnt-a-simple-extension-of-f)
