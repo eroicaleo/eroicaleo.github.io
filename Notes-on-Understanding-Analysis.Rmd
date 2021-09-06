@@ -163,7 +163,7 @@ is irrational.
     if $n$ is big enough.
 (b) On the other hand, we can find $t \in T$, such that $t > \alpha - 1/n$, so
     $t^2 > (\alpha - 1/n)^2 > 2$. We have a contradiction.
-  
+
 * **_Exercise 1.4.8_**
 
 (a) Example: $A = \{r, r < 2, r \text{ is rational}\}$, $B = \{r, r < 2, r \text{ is irrational}\}$.
@@ -171,4 +171,25 @@ is irrational.
 (c) Example: $L_i = [i, \infty)$
 (d) Impossible: let $L_i = \cap_1^i J_i$, they are closed non-empty set, and they are nested.
     So based on "Nested Interval Property", $\cap_{n=1}^{\infty} J_i = \cap_{n=1}^{\infty} L_i$.
+
+# Chapter 2 Sequences and Series
+
+The crucial question is whether or not properties of addition and equality that are well understood for finite sums remain valid when applied to infinite objects such as equation.
+
+## 2.2 The Limit of a Sequence
+
+**_Definition 2.2.1_**. A sequence is a function whose domain is N.
+
+**_Definition 2.2.3 Convergence of a Sequence)_**. A sequence $(a_n)$ converges to a real number $a$ if, for every positive number $ε$, there exists an $N ∈ \mathbb{N}$ such that whenever $n ≥ N$ it follows that $|a_n − a| < ε$.
+
+**_Definition 2.2.4._** Given a real number $a ∈ R$ and a positive number $ε > 0$, the set
+$$
+V_{ε}(a)=\{x \in \mathbb{R} : |x-a| < ε\}
+$$
+is called the ε-neighborhood of $a$.
+
+***Definition 2.2.3B (Convergence of a Sequence: Topological Version).*** A sequence $(a_n)$ converges to a if, given any ε-neighborhood $V_ε(a)$ of $a$, there exists a point in the sequence after which all of the terms are in $V_ε(a)$. In other words, every ε-neighborhood contains all but a finite number of the terms of $(a_n)$.
+
+### Quantifiers
+
 
