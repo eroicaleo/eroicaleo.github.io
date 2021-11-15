@@ -192,4 +192,59 @@ is called the ε-neighborhood of $a$.
 
 ### Quantifiers
 
+## 2.4 The Monotone Convergence Theorem and a First Look at Infinite Series
+
+***Definition 2.4.1.*** A sequence $(a_{n})$ is *increasing* if $a_{n} \le a_{n+1}$
+for all $n\in \mathbb{N}$ and *decreasing* if $a_{n} \ge a_{n+1}$ for all $n\in \mathbb{N}$. A sequence is *monotone* if it is either increasing or decreasing.
+
+***Theorem 2.4.2 (Monotone Convergence Theorem).*** *If a sequence is monotone and bounded, then it converges.*
+
+*Proof*: Let $s = \sup \{ a_{n} : n \in \mathbb{N} \}$.
+
+***Definition 2.4.3 (Convergence of a Series).*** Let $(b_{n})$ be a sequence. An *infinite sequence* is a formal expression of the form
+
+$$
+\sum_{n=1}^{\infty} b_n = b_1 + b_2 + \cdots
+$$
+
+We define the corresponding *sequence of partial sums* ($s_m$) by
+
+$$
+s_m = b_1 + b_2 + \cdots + b_m,
+$$
+
+and say that the series $\sum_{n=1}^{\infty} b_n$ converges to $B$, if the sequence ($s_m$) converges to $B$. In this case, we write $\sum_{n=1}^{\infty} b_n = B$.
+
+***Example 2.4.4.*** Consider
+$$
+\sum_{n=1}^{\infty} \frac{1}{n^2}
+$$
+We have
+$$
+s_m < (2 - \frac{1}{m}) < 2
+$$
+So we know it will converge.
+
+***Example 2.4.5.*** Consider the so-called *harmonic series*
+$$
+\sum_{n=1}^{\infty} \frac{1}{n}
+$$
+We have
+$$
+s_{2^k} > 1 + k\left(\frac{1}{2}\right)
+$$
+
+
+
+
+# Chapter -1 Commonly used symbols
+
+$$
+\mathbb{R}, \\
+ε \\
+\cap_{n=1}^{\infty} \\
+(a_{n}) , (b_{n}) n\in \mathbb{N} \\
+\sum_{n=1}^{\infty} \\
+\frac{1}{n}, \frac{1}{n^2} \\
+$$
 
