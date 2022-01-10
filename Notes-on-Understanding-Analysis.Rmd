@@ -233,9 +233,66 @@ We have
 $$
 s_{2^k} > 1 + k\left(\frac{1}{2}\right)
 $$
+***Theorem 2.4.6 (Cauchy Condensation Test).*** Suppose $(b_n)$ is decreasing and satisfies $(b_n) \ge 0$ for all $n\in \mathbb{N}$. Then, the series $\sum_{n=1}^{\infty} (b_n)$ converges if and only if the following series converges.
+
+$$
+\sum_{n=0}^{\infty} 2^n b_{2^n}
+=
+b_1 + 2 b_2 + 4 b_4 + \cdots
+$$
+***Corollary 2.4.7.*** The series $\sum_{n=1}^{\infty} 1 / n^p$ converges if and only if $p > 1$.
+
+### Exercises
+
+***Exercise 2.4.9. *** Complete the proof of Theorem 2.4.6 by showing that if the series $\sum_{n=0}^{\infty} 2^n b_{2^n}$ diverges, then so does $\sum_{n=1}^{\infty} (b_n)$.
+
+Proof: We have $2b_1 > s_1-b1, 2(b1 + b2 + b3) > s_2-b1, 2(b1+\cdots+b_7) > s_3-b1$. If $\sum_{n=0}^{\infty} 2^n b_{2^n}$, $\sum_{n=1}^{\infty} (b_n)$ is also unbounded.
+
+***Exercise 2.4.10 (Infinite Products). *** A close relative of infinite series is the infinite product
+
+$$
+\prod_{n=1}^{\infty}
+b_n = b_1 b_2\cdots
+$$
+which is understood in terms of its sequence of partial products
+
+$$
+p_m =
+\prod_{n=1}^{m} b_n
+=
+b_1 b_2 \cdots b_m
+$$
+Consider the special class of infinite products of the form
+
+$$
+\prod_{n=1}^{\infty} (1 + a_n) \quad \text{where } a_n \ge 0.
+$$
+(a) Find an explicit formula for the sequence of partial products in the case where $a_n = 1/n$ and decide whether the sequence converges. Write out the first few terms in the sequence of partial products in the case where $a_n = 1/n^2$ and make a conjecture about the convergence of this sequence.
+
+Solution: 
+
+$$
+p_m = 
+(1 + 1) * (1 + \frac{1}{2}) * \cdots * (1 + \frac{1}{m})
+= 2 \cdot \frac{3}{2} \cdots \frac{m+1}{m} = m+1
+$$
+So it's not converging.
+
+$$
+p_m = (1 + 1) * (1 + \frac{1}{4}) * \cdots * (1 + \frac{1}{m^2}) \\
+= 2 * \frac{5}{4} * \frac{10}{9} * \cdots * \frac{m^2+1}{m^2} \\
+$$
+
+So $p_1 = 2, p_2 = 2.5, p_3 = 2.78, P_4 = 2.95$
 
 
+(b) Show, in general, that the sequence of partial products converges if and only if $\sum_{n=1}^{\infty} (a_n)$ converges. (The inequality $1 + x ≤ 3^x$ for positive x will be useful in one direction.)
 
+Proof: Assume $\sum_{n=1}^{\infty} (a_n)$ converges, then $p_m = \prod_{n=1}^{m} (1 + a_m) < 3^{a_1a_2 \dots a_m} < 3^M$, so $p_m$ is bounded.
+
+On the other hand assume $\prod_{n=1}^{\infty} (1 + a_n)$ converges, then
+$p_m > a_1 + a_2 + \cdots + a_m$, which can be proved by induction. Then
+$a_1 + a_2 + \cdots + a_m$ is bounded and it converges.
 
 # Chapter -1 Commonly used symbols
 
@@ -245,6 +302,7 @@ $$
 \cap_{n=1}^{\infty} \\
 (a_{n}) , (b_{n}) n\in \mathbb{N} \\
 \sum_{n=1}^{\infty} \\
+\prod_{n=1}^{\infty} \\
 \frac{1}{n}, \frac{1}{n^2} \\
 $$
 
