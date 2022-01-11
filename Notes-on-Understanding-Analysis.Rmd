@@ -244,6 +244,81 @@ $$
 
 ### Exercises
 
+***Exercise 2.4.7. (Limit Superior). *** Let $(a_{n})$ be a bounded sequence.
+
+(a) Prove that the sequence defined by $y_n = \sup \{a_k : k ≥ n\}$ converges.
+
+Proof: $y_n$ is a monotonous decreasing. And $y_n \ge \inf \{(a_n)\}$, so
+$y_n$ is bounded. So $y_n$ converges.
+
+(b) The limit superior of $(a_{n})$, or $\lim \sup a_n$ , is defined by
+
+$$
+\lim \sup a_n = \lim y_n
+$$
+
+where $y_n$ is the sequence from part (a) of this exercise. Provide a reason- able definition for $\lim \inf a_n$ and briefly explain why it always exists for any bounded sequence.
+
+Solution: let $x_n = \inf \{a_k : k ≥ n\}$, then define:
+
+$$
+\lim \inf a_n = \lim x_n
+$$
+
+(c) Prove that $\lim \inf a_n ≤ \lim \sup a_n$ for every bounded sequence, and give an example of a sequence for which the inequality is strict.
+
+Proof: Because $x_n \le y_n$, according to Theorem 2.3.4 (Order Limit Theorem),
+we have $\lim \inf a_n ≤ \lim \sup a_n$. Consider the following sequence
+
+$$
+a_n = 
+\begin{cases}
+0 & \quad \text{if } n \text{ is even} \\
+1 & \quad \text{if } n \text{ is odd}
+\end{cases}
+$$
+
+(d) Show that $\lim \inf a_n = \lim \sup a_n$ if and only if $\lim a_n$ exists. In this case, all three share the same value.
+
+Proof: **only if**: let $\lim \inf a_n = \lim \sup a_n = a$, for any $\epsilon$, we can find
+a $N$, such that $a - \epsilon < y_n < a < x_n < a + \epsilon, \forall n > N$, and this means
+$a - \epsilon < a_n < a + \epsilon, \forall n > N$, i.e. $|a_n - a| < \epsilon$ for all $n > N$.
+
+Another kind of problematic method, because $y_n \le a_n \le x_n$, so
+$\lim y_n \le \lim a_n \le \lim x_n$.
+
+**if**: On the other hand, assume $\lim a_n = a$, then for any $\epsilon$, we can find
+$N$ s.t. as long as $n > N$, $a_n < a + \epsilon$, that means $x_n \leq a + \epsilon$ for all $n > N$. So it's not possible that $\lim x_n > a$. So we have $\lim x_n \le a$. For the same reason,
+$\lim y_n \ge a$. Using (c), we have  $\lim x_n \ge \lim y_n$. So we have
+$\lim \inf a_n = \lim \sup a_n = a$.
+
+***Exercise 2.4.8. *** For or each series, find an explicit formula for the sequence of partial sums and determine if the series converges.
+
+(a)
+
+$$
+\sum_{n=1}^{\infty} \frac{1}{2^n}
+$$
+$$
+\sum_{n=1}^{m} \frac{1}{2^n} = 1 - \frac{1}{2^m} \rightarrow 1
+$$
+(b)
+
+$$
+\sum_{n=1}^{\infty} \frac{1}{n(n+1)}
+$$
+$$
+\sum_{n=1}^{m} \frac{1}{n(n+1)} = 1 - \frac{1}{m+1} \rightarrow 1
+$$
+(c)
+
+$$
+\sum_{n=1}^{\infty} \log (\frac{n+1}{n})
+$$
+$$
+\sum_{n=1}^{m} \log (\frac{n+1}{n}) = \log (m+1) \rightarrow \infty
+$$
+
 ***Exercise 2.4.9. *** Complete the proof of Theorem 2.4.6 by showing that if the series $\sum_{n=0}^{\infty} 2^n b_{2^n}$ diverges, then so does $\sum_{n=1}^{\infty} (b_n)$.
 
 Proof: We have $2b_1 > s_1-b1, 2(b1 + b2 + b3) > s_2-b1, 2(b1+\cdots+b_7) > s_3-b1$. If $\sum_{n=0}^{\infty} 2^n b_{2^n}$, $\sum_{n=1}^{\infty} (b_n)$ is also unbounded.
@@ -304,5 +379,12 @@ $$
 \sum_{n=1}^{\infty} \\
 \prod_{n=1}^{\infty} \\
 \frac{1}{n}, \frac{1}{n^2} \\
+\forall n > N 
 $$
+
+## Solution manuals
+
+* [linearalgebras.com](https://linearalgebras.com/solution-understanding-analysis.html)
+* [github](https://github.com/mikinty/Understanding-Analysis-Abbott-Solutions)
+
 
