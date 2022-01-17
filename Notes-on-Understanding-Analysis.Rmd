@@ -244,6 +244,143 @@ $$
 
 ### Exercises
 
+***Exercise 2.4.3.***
+
+(a) Show that 
+
+$$
+\sqrt{2}, \sqrt{2+\sqrt{2}}, \sqrt{2+\sqrt{2+\sqrt{2}}}, \dots
+$$
+converges and find the limit.
+
+Proof: let $b_1 = \sqrt{2}, b_2 = \sqrt{2+\sqrt{2}}$, then in general,
+we have $b_{n+1} = \sqrt{2 + b_n}$. Because $b_2 > b_1$, and assume $b_n > b_{n-1}$, then $b_{n+1} = \sqrt{2 + b_n} > \sqrt{2+b_{n-1}} = b_n$.
+So we prove this sequence is monotonous increasing.
+
+Next, because $b_1 < 2$, and assume $b_n < 2$. Then we have $b_{n+1} = \sqrt{2+ b_n} < \sqrt{2+2} = 2$, so $b_n < 2, \forall n$. So this sequence is bounded.
+So it converges.
+
+Finally,
+
+$$
+b_{n+1}-2 = \sqrt{2+b_n}-2 =
+\frac{2+b_n-4}{\sqrt{2+b_n}+2} =\\
+\frac{b_n-2}{\sqrt{2+b_n}+2} < \\
+\frac{b_n-2}{2} < \frac{b_1 - 2}{2^{n-1}}
+$$
+So we have $\lim b_n = 2$
+
+(b) Does the sequence
+
+$$
+\sqrt{2}, \sqrt{2\sqrt{2}}, \sqrt{2\sqrt{2\sqrt{2}}}, \dots
+$$
+converge? If so, find the limit.
+
+Proof: 
+
+First, we show it's monotonous increasing. let $b1 = \sqrt{2}, b_2 = \sqrt{2\sqrt{2}}, b_3 = \sqrt{2\sqrt{2\sqrt{2}}}$, then in general, we have
+$b_{n+1} = \sqrt{2b_n}$, because $b_2 > b_1$, and assume $b_n > b_{n-1}$, then
+$b_{n+1} = \sqrt{2b_n} > \sqrt{2b_{n-1}} = b_n$.
+
+Next we show it's upper bounded by 2. $b_1 < 2$ and assume $b_n < 2$, then
+$b_{n+1} = \sqrt{2b_n} < \sqrt{2\times2} = 2$.
+
+Finally, we show
+
+$$
+2 - b_{n+1} = 2 - \sqrt{2b_n} =\\
+\frac{4-2b_n}{2+\sqrt{2b_n}} = \\
+\frac{2-b_n}{1+\sqrt{\frac{b_n}{2}}} < \\
+\frac{2-b_n}{1+\sqrt{\frac{b_1}{2}}} < \\
+\frac{2-b_n}{1+\sqrt{\frac{1}{2}}} < \\
+\frac{2-b_1}{(1+\sqrt{\frac{1}{2}})^{n-1}} \rightarrow 0
+$$
+
+***Exercise 2.4.4.*** 
+
+(a) In Section 1.4 we used the Axiom of Completeness (AoC) to prove the Archimedean Property of $\mathbb{R}$ (Theorem 1.4.2). Show that the Monotone Convergence Theorem can also be used to prove the Archimedean Property without making any use of AoC.
+
+**_1.4.2 Archimedean Property_:** 
+(i) $x \in R$, then there exists $n \in N, n > x$.
+(ii) $y > 0$, then there exists $n \in N, 1/n < y$.
+
+Proof: Assume $\mathbb{N}$ is bounded, then we can assume $\lim n = a$.
+Now $a-1$ is not a upper bound for $\mathbb{N}$, we can find $n$, such that
+$n > a-1$, than means $n+1 > a$. We have an contradiction.
+
+(b) Use the Monotone Convergence Theorem to supply a proof for the Nested Interval Property (Theorem 1.4.1) that doesn’t make use of AoC.
+
+* **_1.4.1 Nested Interval Property_:** $I_n = [a_n, b_n]$ and $I_n \supseteq I_{n+1}$, then
+
+$$
+\displaystyle\cap_{i=1}^\infty I_i \neq \emptyset.
+$$
+
+Proof: $\{a_n\}$ is monotonous increasing and bounded, so we can assume $\lim a_n = a$. If $b_m < a$, then we can find $n$, such that $n > m$ and $b_m < a_n < b_n < a$. However, $\{b_n\}$ is monotonous decreasing, so we must have $b_n <= b_m$, then we have a contradiction. Therefore, $b_m >= a, \forall m$.
+So $a \in I_i, \forall i$.
+
+***Exercise 2.4.5 (Calculating Square Roots).*** Let $x_1 = 2$, and define
+
+$$
+x_{n+1} = \frac{1}{2}(x_n + \frac{2}{x_n})
+$$
+
+(a) Show that $x^2$ is always greater than or equal to 2, and then use this to
+prove that $x_{n} − x_{n+1} ≥ 0$. Conclude that $\lim x_n = \sqrt{2}$.
+
+Proof: 
+
+$$
+x_{n+1}^2 - 2 = \frac{1}{2}(x_n + \frac{2}{x_n})^2 - 2
+= \frac{1}{4}(x_n^2 + 4 + \frac{4}{x_n^2}) - 2
+\ge \frac{1}{x_n^2} 
+\ge 0
+$$
+$$
+x_{n} − x_{n+1} = \frac{1}{2}(x_n - \frac{2}{x_n}) \ge 0
+$$
+
+$$
+x_{n+1} - \sqrt{2} = \frac{1}{2}(x_n-2\sqrt{2}+\frac{2}{x_n})
+= \frac{1}{2} (\sqrt{x_n} - \frac{\sqrt{2}}{\sqrt{x_n}})^2\\
+= \frac{1}{2} \frac{(x_n - \sqrt{2})^2}{x_n} \\
+= \frac{1}{2} (x_n - \sqrt{2}) \frac{x_n - \sqrt{2}}{x_n} \\
+\le \frac{1}{2} (x_n - \sqrt{2}) \le \frac{1}{2^{n-1}} (2 - \sqrt{2})
+$$
+
+So $\lim x_n = \sqrt{2}$.
+
+***Exercise 2.4.6. (Arithmetic–Geometric Mean). *** (a) Explain why $\sqrt{xy} \le (x+y)/2$ for any two positive real numbers x and y.
+
+Proof:
+
+$$
+x + y - 2\sqrt{xy} = (\sqrt{x} - \sqrt{y})^2 \ge 0
+$$
+So $\sqrt{xy} \le (x+y)/2$.
+
+(b) Now let $0≤ x_1 ≤ y_1$ and define
+
+$$
+x_{n+1} = \sqrt{x_ny_n} \quad \text{and} \quad y_{n+1} = \frac{x_n+y_n}{2}
+$$
+
+Show $lim x_n$ and $lim y_n$ both exist and are equal.
+
+Proof: $x_{n+1} = \sqrt{x_ny_n} \ge \sqrt{x_nx_n} = x_n$ and 
+$y_{n+1} \le \frac{y_n+y_n}{2} = y_n$, so $x_n$ is monotonous increasing,
+and $y_n$ is monotonous decreasing. And they are bounded.
+So $lim x_n$ and $lim y_n$ both exist.
+
+$$
+y_{n+1} - x_{n+1} = \frac{1}{2}(\sqrt{y_n} - \sqrt{x_n})^2 \le
+\frac{1}{2}(\sqrt{y_n} - \sqrt{x_n})(\sqrt{y_n} + \sqrt{x_n}) =
+\frac{y_n - x_n}{2} \le \frac{y_1 - x_1}{2^{n-1}}
+$$
+
+So $\lim y_n - \lim x_n = 0$.
+
 ***Exercise 2.4.7. (Limit Superior). *** Let $(a_{n})$ be a bounded sequence.
 
 (a) Prove that the sequence defined by $y_n = \sup \{a_k : k ≥ n\}$ converges.
