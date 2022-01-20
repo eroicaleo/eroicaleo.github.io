@@ -574,6 +574,55 @@ On the other hand assume $\prod_{n=1}^{\infty} (1 + a_n)$ converges, then
 $p_m > a_1 + a_2 + \cdots + a_m$, which can be proved by induction. Then
 $a_1 + a_2 + \cdots + a_m$ is bounded and it converges.
 
+## 2.5 Subsequences and the Bolzano–Weierstrass Theorem
+
+***Definition 2.5.1.*** Let $(a_n)$ be a sequence of real numbers, and let $n_1 < n_2 < n_3 < n_4 < n_5 < \dots$ be an increasing sequence of natural numbers. Then the sequence
+
+$$
+(a_{n_1}, a_{n_2},a_{n_3},a_{n_4},a_{n_5},\cdots)
+$$
+is called a subsequence of $(a_n)$ and is denoted by $(a_{n_k})$, where $k ∈ N$ indexes the subsequence.
+
+***Theorem 2.5.2.*** Subsequences of a convergent sequence converge to the same
+limit as the original sequence.
+
+***Theorem 2.5.5 (Bolzano–Weierstrass Theorem).*** *Every bounded sequence contains a convergent subsequence.*
+
+Sketch of proof: Assume $-M \le a_n \le M$. Divide .$[-M, M]$ into $[-M, 0]$ and $[0, M]$. One of them must contain infinite many $a_n$, call it $I_1$.
+Pick one element from $I_1$ and let it be $a_{n_1}$. Then bisect $I_1$, again
+one of the segaments must contain an infinite number of $a_n$, let it be
+$I_2$, and pick $a_{n_2} \in I_2$ and $n_2 > n_1$. Because
+
+$$
+I_1 \supseteq I_2 \supseteq I_3 \supseteq \cdots
+$$
+
+According to Nested Interval Property there exists at least one point $x ∈ R$ contained in every $I_k$. Then we can show $(a_{n_k}) \rightarrow x$.
+
+### Exercises
+
+***Exercise 2.5.9.*** Let $(a_{n})$ be a bounded sequence, and define the set
+
+$$
+S=\{x∈R:x<a_n \text{ for infinitely many terms } a_n\}.
+$$
+Show that there exists a subsequence $(a_{n_k} )$ converging to $s = \sup S$.
+(This is a direct proof of the Bolzano–Weierstrass Theorem using the Axiom of Completeness.)
+
+Proof: Consider $s-1$, then there exists $x_1 \in S$, such that $s \ge x_1 > s-1$, then there are infinitely many terms $a_n > x_1$. If there are infinitely many terms $a_n > s+1$, then $s+1 \in S$, so $s$ cannot be a superum of $S$. so at least there
+is $a_{n_1} \in [s-1, s+1]$.
+
+For the same reason we can find $a_{n_2} \in [s-1/2, s+1/2]$ and $n_2 > n_1$.
+For any $k$, we can find $a_{n_k} \in [s-\frac{1}{k}, s+\frac{1}{k}]$, and
+
+$$
+n_k > n_{k-1} > \cdots > n_2 > n_1
+$$
+
+Then for any given $\epsilon$, we can find $k$ such $\frac{1}{k} < \epsilon$,
+then for any $m > k$, $a_{n_m} \in [s-\frac{1}{k}, s+\frac{1}{k}]$.
+Then $(a_{n_k}) \rightarrow x$.
+
 # Chapter -1 Commonly used symbols
 
 $$
