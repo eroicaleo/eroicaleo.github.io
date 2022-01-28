@@ -11,8 +11,7 @@ output:
 # Chapter 1
 ## section 1.3 The Axiom of Completeness
 
-* **_1.3.0 Axiom of Completeness_:** Every non empty set of real numbers that is bounded
-  above has a least upper bound.
+* **_1.3.0 Axiom of Completeness_:** Every non empty set of real numbers that is bounded above has a least upper bound.
 
 * **_1.3.1 Definition of LB and UB_:** $A \subseteq R$ is bounded above if there exists $b$,
 such that $a \le b$ for all $a \in A$. Similar for lower bound.
@@ -583,8 +582,7 @@ $$
 $$
 is called a subsequence of $(a_n)$ and is denoted by $(a_{n_k})$, where $k ∈ N$ indexes the subsequence.
 
-***Theorem 2.5.2.*** Subsequences of a convergent sequence converge to the same
-limit as the original sequence.
+***Theorem 2.5.2.*** Subsequences of a convergent sequence converge to the same limit as the original sequence.
 
 ***Theorem 2.5.5 (Bolzano–Weierstrass Theorem).*** *Every bounded sequence contains a convergent subsequence.*
 
@@ -600,6 +598,118 @@ $$
 According to Nested Interval Property there exists at least one point $x ∈ R$ contained in every $I_k$. Then we can show $(a_{n_k}) \rightarrow x$.
 
 ### Exercises
+
+***Exercise 2.5.2.*** Decide whether the following propositions are true or false, providing a short justification for each conclusion.
+
+(a) If every proper subsequence of $(x_n)$ converges, then $(x_n)$ converges as well.
+(b) If $(x_n)$ contains a divergent subsequence, then $(x_n)$ diverges.
+(c) If $(x_n)$ is bounded and diverges, then there exist two subsequences of $(x_n)$ that converge to different limits.
+(d) If $(x_n)$ is monotone and contains a convergent subsequence, then $(x_n)$ converges.
+
+Solution:
+
+(a) Consider the subsequence $x_2, x_3, x_4, \dots$, it converges, then 
+$(x_n)$ converges. So it's true.
+
+(b) True.
+
+(c) True. Based on theorem 2.5.5, we can find a subsequence which converges
+to $L$. Since $(x_n)$ diverges, we can find $\epsilon$, such that there are
+infinite many $x_n$, which is outside $(L-\epsilon, L+\epsilon)$, then for
+those $x_n$, we can again use theorem 2.5.5, to find another sequence which
+converges to something other than $L$.
+
+(d) $(x_n)$ is bounded, so it converges. True.
+
+***Exercise 2.5.3.*** (a) Prove that if an infinite series converges, then the associative property holds. Assume a1 + a2 + a3 + a4 + a5 + · · · converges to a limit $L$ (i.e., the sequence of partial sums $(s_n) → L$). Show that any regrouping of the terms
+
+$$
+(a_1 + a_2 + \cdots +a_{n_1})+(a_{n_1+1} +···+a_{n_2})+(a_{n_2+1} +···+a_{n_3})+···
+$$
+
+leads to a series that also converges to $L$.
+
+Proof: 
+
+We have
+
+$$
+s_{n_1} = a_1 + a_2 + \cdots +a_{n_1} \\
+s_{n_2} = (a_1 + a_2 + \cdots +a_{n_1})+(a_{n_1+1} +···+a_{n_2})
+$$
+So any regrouping created a sequence $(s_{n_k})$ is a subsequence of $(s_n)$.
+According to theorem 2.5.2, $(s_{n_k})$ converges to $L$.
+
+***Exercise 2.5.4.*** The Bolzano–Weierstrass Theorem is extremely important, and so is the strategy employed in the proof. To gain some more experience with this technique, assume the Nested Interval Property is true and use it to provide a proof of the Axiom of Completeness. To prevent the argument from being circular, assume also that $(1/2^n) → 0$. (Why precisely is this last assumption needed to avoid circularity?)
+
+Proof: 
+
+Axiom of Completeness: Every non empty set of real numbers that is bounded above has a least upper bound.
+
+Assume the non empty set of real numbers is $A$, which is upper bounded by $M$.
+Let $S = \{ s | s \le M, s \text{ is a upper bound of} \}$. 
+
+Let $a \in A$ and $I_1 = [a, M] = [c_1, d_1]$. The $I_1$ has two properties:
+
+i. $I_1 \cap S \neq \emptyset$
+ii. for any $b < c_1$, $b \notin S$.
+
+Now we can bisect $I_1$, one of the two halves must still satisfy these
+2 properties, and we call it $I_2$. We can continue this process to get
+$I_1 \supset I_2 \supset I_3 \supset \dots$.
+
+Then According to nested interval property, there exists $s \in I_n, \forall n$.
+
+We will prove $s$ is the least upper bound. First we prove it is an upper bound. Assume $a \in A$, and $a > s$. Since we the
+length of $I_n → 0$, we can find $I_n$, such that $a > c, \forall c \in I_n$,
+then $I_n$ does not contain any upper bound. And we achieve a contradiction.
+
+Next we prove if $s' < s$, it's not an upper bound. Again, we can find $I_n$,
+such that $s' < c_n \le s \le d_n$. According to property ii, $s'$ is not
+an upper bound.
+
+So $s$ is the least upper bound.
+
+
+***Exercise 2.5.7.*** Extend the result proved in Example 2.5.3 to the case $|b| < 1$; that is, show $\lim (b^n) = 0$ if and only if $−1 < b < 1$.
+
+Proof: 
+
+if part: When $0 < b < 1$, it's example 2.5.3. When $b = 0$, $b^n = 0, \forall n$, so $\lim (b_n) = 0$.
+
+Now consider $-1 < b < 0$. Given any $\epsilon$, because $0 < -b < 1$, so $((-b)^n)$ converges to 0, so we can find $N$,  such that for all $n > N$,  $|(-b)^n - 0| < \epsilon$, and $|(-b)^n|=|-b|^n=|b|^n = |b^n|$. So $|b^n-0| \le \epsilon$, so $b^n \rightarrow 0$.
+
+only if part: when $b = 1$, $b^n = 1$. so $\lim b^n = 1$. When $b>1$, let $b = 1 + \epsilon$, then $b^n = (1+\epsilon)^n \ge 1 + n \epsilon$, so it's not bounded and it does not converge. 
+
+When $b \le -1$, consider the even terms subsequence. Then they either converge
+to 1 or not bounded, so they cannot converge to 0.
+
+***Exercise 2.5.8.*** Another way to prove the Bolzano–Weierstrass Theorem is to show that every sequence contains a monotone subsequence. A useful device in this endeavor is the notion of a peak term. Given a sequence $(x_n)$, a particular term $x_m$ is a peak term if no later term in the sequence exceeds it; i.e., if $x_m ≥ x_n$ for all $n≥m$.
+
+(a) Find examples of sequences with zero, one, and two peak terms. Find an example of a sequence with infinitely many peak terms that is not monotone.
+
+Solution: 
+
+zero peak terms: $a_n = 1 - \frac{1}{n}$, which is monotonous increaseing.
+
+one peak term: $1, a_1, a_2, \dots$.
+
+two peak terms: $2, 1, a_1, a_2, \dots$.
+
+infinitely many peak terms: $1, -1, 1/2, -1/2, 1/4, -1/4, \dots$.
+
+(b) Show that every sequence contains a monotone subsequence and explain how this furnishes a new proof of the Bolzano–Weierstrass Theorem.
+
+Proof: Assume there are infinitely many peak terms in $(a_n)$, let the first
+be $a_{n_1}$, second be $a_{n_2}$ and so on, then $(a_{n_k})$ is a monotonous
+decreasing sequence.
+
+Assume there are only finite many peak terms in $(a_n)$, and assume when $n > N$, $a_n$ are not peak terms. Find a non peak term $a_{n_1}$ and $n_1 > N$,
+since it's not we can find a non peak term $a_{n_2} > a_{n_1}$, since $a_{n_2}$
+is also non peak term, we can find $a_{n_3} > a_{n_2}$ and $n_3 > n_2$.
+And so on. Then $(a_{n_k})$ is a monotonous increasing sequence.
+
+If $(a_n)$ is bounded, so is $(a_{n_k})$. Then $(a_{n_k})$ converges.
 
 ***Exercise 2.5.9.*** Let $(a_{n})$ be a bounded sequence, and define the set
 
@@ -640,5 +750,5 @@ $$
 
 * [linearalgebras.com](https://linearalgebras.com/solution-understanding-analysis.html)
 * [github](https://github.com/mikinty/Understanding-Analysis-Abbott-Solutions)
-
+* [github UlisseMini](https://github.com/UlisseMini/understanding-analysis-solutions)
 
