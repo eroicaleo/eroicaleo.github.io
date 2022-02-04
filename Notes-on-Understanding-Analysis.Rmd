@@ -703,6 +703,12 @@ an upper bound.
 
 So $s$ is the least upper bound.
 
+***Exercise 2.5.5.*** Assume $(a_n)$ is a bounded sequence with the property that every convergent subsequence of $(a_n)$ converges to the same limit $a ∈ R$. Show that $(a_n)$ must converge to a.
+
+Proof: Given $\epsilon$, if there are infinite many $a_n$ that is outside
+$(a-\epsilon, a+\epsilon)$, say, in the interval $[a+\epsilon, M]$ then we can find a subsequence $(a_{n_k})$ that converges. Since $a_{n_k} \ge a+\epsilon$,
+then $\lim a_{n_k} \ge a+\epsilon$. So we have a contradiction. This idea
+is from linearalgebras.com .
 
 ***Exercise 2.5.7.*** Extend the result proved in Example 2.5.3 to the case $|b| < 1$; that is, show $\lim (b^n) = 0$ if and only if $−1 < b < 1$.
 
