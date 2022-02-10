@@ -772,6 +772,47 @@ Then for any given $\epsilon$, we can find $k$ such $\frac{1}{k} < \epsilon$,
 then for any $m > k$, $a_{n_m} \in [s-\frac{1}{k}, s+\frac{1}{k}]$.
 Then $(a_{n_k}) \rightarrow x$.
 
+## 2.6
+
+### Exercises
+
+***Exercise 2.6.7.*** Exercises 2.4.4 and 2.5.4 establish the equivalence of the Axiom of Completeness and the Monotone Convergence Theorem. They also show the Nested Interval Property is equivalent to these other two in the presence of the Archimedean Property.
+
+(a) Assume the Bolzano–Weierstrass Theorem is true and use it to construct a proof of the Monotone Convergence Theorem without making any appeal to the Archimedean Property. This shows that BW, AoC, and MCT are all equivalent.
+
+Proof: Assume $(a_n)$ is monotone increasing and bounded. And because BW is true, we can find a subsequence $(a_{n_k})$ converge to $a$. Given $\epsilon$,
+we can find $N$ such that $n_k > N$, $|a_{n_k} - a| < \epsilon$.
+
+
+Because $(a_{n_k})$ is also monotone increasing, so $a_{n_k} \le a$.
+Note here, this does not need to use AoC. If $a_{n_k} > a$, then $\forall n_i >= n_k, a_{n_i} > a$, so $\lim a_{n_k} \ne a$.
+
+
+Now consider $n_{k+1} \ge n \ge n_k$.
+Also note here, this does not need to use Archimedean property.
+then $a_{n_k} \le a_n \le a_{n_{k+1}} \le a$, so we have $|a_{n} - a| < \epsilon$.
+
+(b) Use the Cauchy Criterion to prove the Bolzano–Weierstrass Theorem, and find the point in the argument where the Archimedean Property is implicitly required. This establishes the final link in the equivalence of the five characterizations of completeness discussed at the end of Section 2.6.
+
+Proof: We just use the same way to prove Bolzano–Weierstrass Theorem.
+Because all $a_{n_k}$ falls into the same interval. Then
+$$
+|a_{n_k}-a_{n_l}| < \frac{L}{2^n} < \epsilon
+$$
+So the subsequence $(a_{n_k})$ is a Cauchy Sequence.
+
+The Archimedean Property is implicitly required here:
+
+$$
+\frac{L}{2^n} < \epsilon
+$$
+
+(c) How do we know it is impossible to prove the Axiom of Completeness starting from the Archimedean Property?
+
+Solution: If it is possible, then $\mathbb{Q}$ is complete. This is not true.
+We have a contradiction.
+
+
 # Chapter -1 Commonly used symbols
 
 $$
