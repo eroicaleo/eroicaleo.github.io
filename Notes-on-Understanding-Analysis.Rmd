@@ -776,7 +776,59 @@ Then $(a_{n_k}) \rightarrow x$.
 
 ### Exercises
 
-***Exercise 2.6.4.*** Let $(a_n)$ and (bn) be Cauchy sequences. Decide whether each of the following sequences is a Cauchy sequence, justifying each conclusion.
+***Exercise 2.6.1.*** Every convergent sequence is a Cauchy sequence.
+
+Proof: Assume $a_n \rightarrow a$, we can find $N$, such that $m, n > N$,
+then $|a_n - a| < \epsilon$, $|a_m - a| < \epsilon$.
+
+So
+
+$$
+|a_m - a_n| = |a_m - a + a - a_n| \le |a_n - a| + |a_m - a| \le 2 \epsilon
+$$
+
+***Exercise 2.6.2.*** Give an example of each of the following, or argue that such a request is impossible.
+(a) A Cauchy sequence that is not monotone.
+(b) A Cauchy sequence with an unbounded subsequence.
+(c) A divergent monotone sequence with a Cauchy subsequence.
+(d) An unbounded sequence containing a subsequence that is Cauchy.
+
+(a)
+
+$$
+a_n = (-1)^n \frac{1}{n}
+$$
+
+(b) impossible. Cauchy sequence converges, so every subsequence converges.
+
+(c) impossible. If it has a Cauchy subsequence, then this subsequence converges. So the original sequence is bounded.
+
+(d)
+
+$$
+0, 1, 1, 1, 2, 1, 3, 1, 4, 1, \dots
+$$
+
+***Exercise 2.6.3.*** 
+
+(a) Give a direct argument that $(x_n + y_n)$ is a Cauchy sequence that does not use the Cauchy Criterion or the Algebraic Limit Theorem.
+
+(b) Do the same for the product $(x_ny_n)$.
+
+Solution:
+
+(a) Easy.
+
+(b)
+
+$$
+|x_ny_n - x_my_m| = |x_ny_n - x_ny_m + x_ny_m - x_my_m| \\
+\le |x_ny_n - x_ny_m| + |x_ny_m - x_my_m|
+= |y_n - y_m||x_n| + |x_n - x_m||y_m| \\
+\le \epsilon M + \epsilon M
+$$
+
+***Exercise 2.6.4.*** Let $(a_n)$ and $(b_n)$ be Cauchy sequences. Decide whether each of the following sequences is a Cauchy sequence, justifying each conclusion.
 
 (a) $c_n = |a_n − b_n|$
 (b) $c_n = (−1)^na_n$
