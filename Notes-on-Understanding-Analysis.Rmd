@@ -962,18 +962,458 @@ $$
 Solution: If it is possible, then $\mathbb{Q}$ is complete. This is not true.
 We have a contradiction.
 
+## 2.7 Properties of Infinite Series
+
+***Theorem 2.7.2 (Cauchy Criterion for Series).*** The series $\sum_{k=1}^{\infty} a_k$ converges if and only if, given $ε > 0$, there exists an $N ∈ N$ such that whenever $n>m≥N$ it follows that
+$|a_{m+1} +a_{m+2} +···+a_n|<ε$.
+
+***Theorem 2.7.3.*** If the series $\sum_{k=1}^{\infty}a_k$ converges, then $(a_k) → 0$.
+
+***Theorem 2.7.4 (Comparison Test).*** Assume $(a_k)$ and $(b_k)$ are sequences satisfying $0 ≤ a_k ≤ b_k$ for all $k∈N$.
+
+(i) if $\sum_{k=1}^{\infty} b_k$ converges, then $\sum_{k=1}^{\infty} a_k$ converges.
+
+(ii) if $\sum_{k=1}^{\infty} a_k$ diverges, then $\sum_{k=1}^{\infty} b_k$ diverges.
+
+Proof:
+
+$$
+|a_{m+1} +a_{m+2} +···+a_n|≤|b_{m+1} +b_{m+2} +···+b_n|
+$$
+
+***Theorem 2.7.6 (Absolute Convergence Test).*** If the series $\sum_{k=1}^{\infty} |a_k|$ converges, then $\sum_{k=1}^{\infty} a_k$ converges as well.
+
+***Theorem 2.7.7 (Alternating Series Test).*** Let $(a_n)$ be a sequence satisfying,
+
+(i) $a_1 \ge a_2 \ge a_3 \ge \dots \ge a_n \ge a_{n+1} \ge \dots$
+(ii) $(a_n) \rightarrow 0$
+
+Then, the alternating series $\sum_{n=1}^{\infty}(-1)^{n+1}a_n$ converges.
+
+***Definition 2.7.8.*** If $\sum_{k=1}^{\infty} |a_k|$ converges, then we say that the original series $\sum_{k=1}^{\infty} a_k$ converges absolutely.
+If, on the other hand, the series
+$\sum_{k=1}^{\infty} a_k$ converges but the series of absolute values
+$\sum_{k=1}^{\infty} |a_k|$ does not converge, then we
+say that the original series $\sum_{k=1}^{\infty} a_k$ converges conditionally.
+
+
+***Definition 2.7.9.*** Let $\sum_{k=1}^{\infty} a_k$ be a series. A series
+$\sum_{k=1}^{\infty} b_k$ is called a rearrangement of
+$\sum_{k=1}^{\infty} a_k$ if there exists a one-to-one, onto function
+$f:N \rightarrow N$ such that $b_{f(k)} = a_k$ for all $k \in \mathbb{N}$.
+
+***Theorem 2.7.10.*** If a series converges absolutely, then any rearrangement of this series converges to the same limit.
+
+Proof:
+
+Let
+
+$$
+s_n = \sum_{k=1}^{n} a_k \\
+t_m = \sum_{k=1}^{m} b_k
+$$
+Assume $s_n \rightarrow A$.
+
+We can find $N_1$, such that $|s_n - A| < \frac{ε}{2}$ for all $n \ge N_1$.
+
+We can also find $N_2$, such that for all $n > m+1 \ge N_2$
+
+$$
+\sum_{k=m+1}^{n} |a_k| < \frac{ε}{2}
+$$
+
+Let $N = \max \{N_1, N_2\}$ and let
+
+$$
+M = \max \{f(k): 1 \le k \le N\}
+$$
+
+Then for $m \ge M$ consider $t_m - s_N $. It only consists of a finite set of terms, the absolute values of which appear in the tail $\sum_{k=m+1}^{n} |a_k|$.
+
+### Exercises
+
+***Exercise 2.7.1.*** Proving the Alternating Series Test (Theorem 2.7.7) amounts to showing that the sequence of partial sums converges.
+
+$$
+s_n = a_1 − a_2 + a_3 − · · · ± a_n
+$$
+(a) Prove the Alternating Series Test by showing that $(s_n)$ is a Cauchy
+sequence.
+
+Proof: Consider $m > n > N$, if $n, m$ are both odd or even.
+
+$$
+|a_m - a_n | = |a_{n+1} - a_{n+2} + \dots + a_{m-1} - a_m| \\
+= a_{n+1} - a_{n+2} + \dots + a_{m-1} - a_m \\
+$$
+Note that
+
+$$
+|a_m - a_n | = a_{n+1} - a_{n+2} + \dots + a_{m-1} - a_m
+\le a_{n+1}
+$$
+
+Since $(a_n) \rightarrow 0$, then $| a_m - a_n | \rightarrow 0$.
+
+Now consider $m > n > N$, if one of $n, m$ is odd, and the other is even.
+
+$$
+| a_m - a_n | = |a_{n+1} - a_{n+2} + \dots - a_{m-1} + a_m| \\
+$$
+Since $a_{n+1} - a_{n+2} + \dots - a_{m-1} + a_m > 0$, then
+
+$$
+| a_m - a_n | = a_{n+1} - a_{n+2} + \dots - a_{m-1} + a_m \\
+= a_{n+1} - (a_{n+2} - a_{n+3}) - \cdots - (a_{m-1} - a_m) \\
+\le a_{n+1}
+$$
+Then $| a_m - a_n | \rightarrow 0$
+
+(b) Supply another proof for this result using the Nested Interval Property
+(Theorem 1.4.1).
+
+Proof: consider intervals
+
+$$
+I_1 = [s_2, s_1], \\
+I_2 = [s_4, s_3], \dots \\
+I_n = [s_{2n}, s_{2n-1}] \\
+$$
+The length of $I_n$ = $a_{2n} \rightarrow 0$. Let $s$ belongs all these
+intervals, then $(s_n) \rightarrow s$.
+
+(c) Consider the subsequences $(s_{2n})$ and $(s_{2n+1})$, and show how the Monotone Convergence Theorem leads to a third proof for the Alternating Series Test.
+
+Proof: 
+
+$$
+s_{2n+2} - s_{2n} = a_{2n+1} - a_{2n+2} \ge 0
+$$
+
+and
+
+$$
+s_{2n+3} - s_{2n+1} = a_{2n+3} - a_{2n+2} \le 0
+$$
+
+And also
+
+$$
+s_{2n+1} \ge s_{2n} \ge s_2 \\
+s_{2n} \le s_{2n-1} \le s_1
+$$
+
+So both $(s_{2n})$ and $(s_{2n+1})$ converges. Also
+
+$$
+\lim s_{2n+1} - s_{2n} = \lim a_{2n+1} = 0
+$$
+
+So they converge to the same limit $s$. And it can show the original sequence
+also converges.
+
+***Exercise 2.7.4.*** Give an example of each or explain why the request is impossible referencing the proper theorem(s).
+
+(a) Two series $\sum x_n$ and $\sum y_n$ that both diverge but where
+$\sum x_ny_n$ converges.
+
+Solution: Consider $x_n = y_n = \frac{1}{n}$
+
+(b) A convergent series $\sum x_n$ and a bounded sequence $(y_n)$ such that $\sum x_ny_n$ diverges.
+
+Solution: Consider 
+
+$$
+x_n = (-1)^n\frac{1}{n}, y_n = (-1)^n
+$$
+
+Then $\sum x_ny_n$ is the harmonic series and diverges.
+
+(c) Two sequences $(x_n)$ and $(y_n)$ where $\sum x_n$ and $\sum x_n + y_n$ both converge but $(y_n)$ diverges.
+
+Solution: impossible, due to algebraic limit theorem for series.
+
+(d) A sequence $(x_n)$ satisfying $0 ≤ x_n ≤ 1/n$ where $\sum(−1)^nx_n$ diverges.
+
+Solution: Consider
+
+$$
+1, 0, \frac{1}{3}, 0, \frac{1}{5}, \dots
+$$
+
+***Exercise 2.7.5.*** Now that we have proved the basic facts about geometric series, supply a proof for Corollary 2.4.7, i.e. The series $\sum_{n=1}^{\infty} \frac{1}{n^p}$ converges if and only if $p > 1$.
+
+***Exercise 2.7.6.*** Let’s say that a series *subverges* if the sequence of partial sums contains a subsequence that converges. Consider this (invented) definition for a moment, and then decide which of the following statements are valid propositions about subvergent series:
+
+***Exercise 2.7.8.*** Consider each of the following propositions. Provide short proofs for those that are true and counterexamples for any that are not.
+
+(a) If $\sum a_n$ converges absolutely, then $\sum a_n^2$ also converges absolutely.
+
+(b) If $\sum a_n$ converges and $(b_n)$ converges, then $\sum a_nb_n$ converges.
+
+(c) If $\sum a_n$ converges conditionally, then $\sum n^2 a_n$ diverges.
+
+Solution:
+
+(a) True.
+
+(b) False. Consider the following alternating sequence
+
+$$
+1, -\frac{1}{\sqrt{2}}, \frac{1}{\sqrt{3}}, -\frac{1}{\sqrt{4}}
+$$
+According to Theorem 2.7.7 (Alternating Series Test), $\sum a_n$ converges.
+
+Now consider $(b_n) = (a_n)$, Then $(a_nb_n)$ is
+
+$$
+1, \frac{1}{2}, \frac{1}{3}, \dots
+$$
+
+And $\sum a_nb_n$ doesn't converge.
+
+(c) need more time to work on.
+
+***Exercise 2.7.9 (Ratio Test).*** Given a series $\sum_{n=1}^{\infty} a_n$ with $a_n \ne 0$, the Ratio Test states that if $(a_n)$ satisfies
+
+$$
+\lim |\frac{a_{n+1}}{a_n}| = r < 1
+$$
+
+then the series converges absolutely.
+
+(a) let $r < r' < 1$, why there exists an $N$ such that $n≥N$ implies $|a_{n+1}| ≤ |a_n|r′$.
+
+Proof: Assume $r' \ge r + \epsilon$, then there exists an $N$ such that $n≥N$
+and $|\frac{a_{n+1}}{a_n}| < r + \epsilon \le r'$, so $|a_{n+1}| ≤ |a_n|r′$.
+
+(b) Why does $|a_N|\sum (r′)^n$ converge?
+
+Proof: because it's geometric series and $0 < r' < 1$.
+
+(c) Now, show that $\sum |a_n|$ converges, and conclude that $\sum a_n$ converges.
+
+Proof: Because $0 < |a_n| \le |a_N| (r')^n$, and according to Comparison Test,
+$\sum |a_n|$ converges. So does $\sum a_n$.
+
+***Exercise 2.7.10 (Infinite Products).*** Review Exercise 2.4.10 about infinite products and then answer the following questions
+
+(a) Does $\frac{2}{1} \cdot \frac{3}{2} \cdot \frac{5}{4} \cdot $ converge?
+
+Proof: It is. Because it's
+
+$$
+\prod_{n=0}^{\infty} (1+\frac{1}{2^n}) < 3^{\sum(\frac{1}{2})^n} = 9
+$$
+
+(b) The infinite product $\frac{1}{2} \cdot \frac{3}{4} \cdot \frac{5}{6} \cdot $ certainly converges. Why? Does it converge to zero?
+
+Proof: Because it is monotonous decreasing. Need more time to think about the limit.
+
+$$
+(1- \frac{1}{2n})^n\\
+$$
+
+(c) Show the following sequence converges.
+
+$$
+(\frac{2\cdot2}{1\cdot3}) \cdot
+(\frac{4\cdot4}{3\cdot5}) \cdot
+(\frac{6\cdot6}{5\cdot7}) \cdot
+(\frac{8\cdot8}{7\cdot9}) \cdot
+$$
+
+Proof:
+
+$$
+\prod_{n=1}^{\infty} (1 + \frac{1}{(2n+1)(2n+3)}) \\
+\le 3^{\frac{1}{2}\sum \frac{2}{3} \frac{2}{15} \frac{2}{35}} \\
+\le 3 ^ \frac{1}{2}
+$$
+
+
+**Exercise 2.7.11.*** Find examples of two series $\sum a_{n}, \sum b_{n}$ both of which diverge but for which $\sum \min \{a_{n}, b_n\}$ converges. To make it more challenging, produce examples where $(a_{n}) , (b_{n})$ are strictly positive and decreasing.
+
+Solution:
+
+(a) Consider the following 2 sequences.
+
+$$
+1, \frac{1}{2^2}, \frac{1}{3}, \frac{1}{4^2}, \\
+1, \frac{1}{2}, \frac{1}{3^2}, \frac{1}{4}, \\
+$$
+(b) I need more time to think about the 2nd half.
+
+***Exercise 2.7.12 (Summation-by-parts).*** Let $(x_n)$ and $(y_n)$ be sequences, let $s_n = \sum_{k=1}^{n} x_k $ and set $s_0 = 0$. Use the observation that $x_j = s_j −s_{j−1}$ to verify the formula
+
+$$
+\sum_{j=m}^n x_j y_j = \\
+\sum_{j=m}^n (s_j −s_{j−1})y_j = \\
+\sum_{j=m}^n s_j y_j - s_jy_{j+1} + s_jy_{j+1} - s_{j−1}y_j
+$$
+Now, let's consider
+
+$$
+\sum_{j=m}^n s_jy_{j+1} - s_{j−1}y_j =\\
+(x_1 + \dots + x_m)y_{m+1} - (x_1 + \dots + x_{m-1})y_m + \\
+(x_1 + \dots + x_{m+1}) y_{m+2} - (x_1 + \dots + x_{m}) y_{m+1} + \\
+(x_1 + \dots + x_{m+2}) y_{m+3} - (x_1 + \dots + x_{m+1}) y_{m+2} + \\
++ \dots \\
+(x_1 + \dots + x_{n}) y_{n+1} - (x_1 + \dots + x_{n-1}) y_{n} \\
+= s_ny_{n+1} - s_{m-1}y_m
+$$
+
+***Exercise 2.7.13 (Abel’s Test).*** Abel’s Test for convergence states that if the $\sum_{k=1}^n x_k$ converges and if $(y_k)$ is a sequence satisfying
+
+$$
+y_1 \ge y_2 \ge y_3 \ge \cdots \ge 0,
+$$
+
+
+Proof:
+
+$$
+\sum_{k=1}^n |s_k (y_k - y_{k+1})| = \\
+\sum_{k=1}^n |s_k ||(y_k - y_{k+1})| \\
+= \sum_{k=1}^n |s_k | (y_k - y_{k+1}) \\
+\le \sum_{k=1}^n M (y_k - y_{k+1}) \le y_1M
+$$
+
+# Chapter 3 Basic Topology of R
+
+## 3.1 Discussion: The Cantor Set
+
+* Let
+
+$$
+C_0 = [0,1], \\
+C_1 = [0, \frac{1}{3}] \cup [\frac{2}{3}, 1], \\
+C_2 = [0, \frac{1}{9}] \cup [\frac{2}{9}, \frac{1}{3}]
+      \cup [\frac{2}{3}, \frac{7}{9}]
+      \cup [\frac{8}{9}, 1]
+$$
+
+* Then we define the Cantor set $C$ be 
+
+$$
+C = \cap_{n=0}^\infty C_n
+$$
+
+* First, we notice $C$ is not empty, because $0 \in C$ and $1 \in C$.
+* Second, we notice if $y$ is an endpoint in $C_n$, then $y \in C_n, \forall n$. Because endpoints are never removed.
+* Third, If we calculate the length that are removed from $[0,1]$, it's
+
+$$
+\frac{1}{3} + 2\left( \frac{1}{9} \right) + 4 \left( \frac{1}{27} \right) \cdots = \frac{\frac{1}{3}}{1 - \frac{2}{3}} = 1
+$$
+So the length of $C$ is 0!
+
+* Fourth, we can establish a 1-1 correspondence between $C$ and $\{0,1\}$
+sequence. So $C$ must be uncountable. The cardinality of $C$ is as large as
+$\mathbb{R}$.
+* Finally, what about $C$'s dimension? $2 = 3^x$, so $x = \log 2 / \log 3$.
+
+## 3.2 Open and Closed Sets
+
+* Given $a \in \mathbb{R}$ and $\epsilon > 0$, $\epsilon$-neighborhood of $a$
+is the set
+
+$$
+V_{\epsilon}(a) = \{
+x \in \mathbb{R} : |x-a| < \epsilon
+\}
+$$
+
+***Definition 3.2.1.*** A set $O \subseteq \mathbb{R}$ is open if for all
+points $a \in O$ there exists $\epsilon$-neighborhood $V_{\epsilon}(a) \subseteq O$.
+
+***Example 3.2.2.***
+
+(i). $\mathbb{R}$ is an open set.
+(ii). $(c,d) = \{x \in \mathbb{R} : c < x < d \}$
+
+***Theorem 3.2.3.***
+
+(i) The union of an arbitrary collection of open sets is open.
+(ii) The intersection of a finite collection of open sets is open.
+
+***Definition 3.2.4.*** A point $x$ is a *limit point* of a set $A$ if every ε-neighborhood $V_{\epsilon}(a)$ of $x$ intersects the set $A$ at some point other than $x$.
+
+***Theorem 3.2.5.*** A point $x$ is a limit point of a set $A$ if and only if
+$x = \lim a_n$ for some sequence $(a_n)$ contained in $A$ satisfying
+$a_n \ne x$ for all $n \in \mathbb{N}$.
+
+***Definition 3.2.6.*** A point $a ∈ A$ is an isolated point of $A$ if it is not a limit point of $A$.
+
+***Definition 3.2.7.*** A set $F ⊆ R$ is closed if it contains its limit points.
+
+***Theorem 3.2.8.*** A set $F ⊆ R$ is closed if and only if every Cauchy sequence contained in $F$ has a limit that is also an element of $F$.
+
+* Proof: See exercise 3.2.5.
+
+***Example 3.2.9.*** 
+
+(i) Consider
+
+$$
+A = \Biggl\{ \frac{1}{n} : n \in \mathbb{N} \Biggr\}
+$$
+Then each point of $A$ is isolated. $0$ is only limit point of $A$.
+Because $0 \notin A$, $A$ is not closed. The set $F = A \cup \{0\}$ is closed
+and is called closure of $A$.
+
+(ii) Let’s prove that a closed interval
+
+$$
+[c,d] = \{ x \in \mathbb{R} : c \le x \le d\}
+$$
+is a closed set. Assume $x$ is a limit point of $[c,d]$, then according Theorem 3.2.5 there exists $(x_{n}) \subseteq [c,d]$ with $(x_{n}) \rightarrow x$, we need to prove $x \in [c,d]$. We can use Order Limit Theorem, because
+$c \le x_n \le d$, then $c \le x \le d$.
+
+(iii) Consider the set $Q \subseteq R$ of rational numbers. Its set
+of limited points is $R$.
+
+Consider $y \in R$, and consider any neighborhood $V_{\epsilon}(y) = (y - ε, y + ε)$, Theorem 1.4.3 allows us to conclude that there exists a rational number $r \ne y$ that falls in this neighborhood. Thus, $y$ is a limit point of $Q$.
+
+***Theorem 3.2.10 (Density of Q in R).*** For every $y ∈ R$, there exists a
+sequence of rational numbers that converges to $y$.
+
+Proof. Combine the preceding discussion with Theorem 3.2.5.
+
+### Closure
+
+***Definition 3.2.11.*** Given a set $A ⊆ R$, let $L$ be the set of all limit points of $A$. The closure of $A$ is defined to be $\bar{A} = A ∪ L$.
+
+***Theorem 3.2.12.*** For any $A ⊆ R$, the closure $\bar{A}$ is a closed set and is the smallest closed set containing $A$.
+
+Proof. If $\bar{a}$ is a limit point of $\bar{A}$, then consider $V_{\epsilon}(\bar{a})$, there exist $a \in \bar{A}$, such that $a \in V_{\epsilon}(\bar{a})$. Becuase $V_{\epsilon}(\bar{a})$ is open, we can find
+$V_{\epsilon'}(a) \subset V_{\epsilon}(\bar{a})$. Since $a$ is either in $A$
+or is a limit point of $A$, we can find $a'' \in A$ and $a'' \in V_{\epsilon'}(a)$, and thus $a'' \in V_{\epsilon}(\bar{a})$.
+
+So $\bar{a}$ is also a limit point of $A$, so $\bar{a} \in \bar{A}$.
+
+For the 2nd part, $A'' \supseteq A$ is a closed set. Then $A'' \supseteq L$,
+so $A'' \supseteq \bar{A}$.
+
+### Complements
+
+***Theorem 3.2.13.*** A set $O$ is open if and only if $O^c$ is closed. Likewise, a set $F$ is closed if and only if $F^c$ is open.
 
 # Chapter -1 Commonly used symbols
 
 $$
 \mathbb{R}, \\
 ε \\
+V_{\epsilon}(a) = (a - ε, a + ε)\\
 \cap_{n=1}^{\infty} \\
 (a_{n}) , (b_{n}) n\in \mathbb{N} \\
+\sum a_{n}, \sum b_{n} \\
 \sum_{n=1}^{\infty} \\
 \prod_{n=1}^{\infty} \\
 \frac{1}{n}, \frac{1}{n^2} \\
-\forall n > N 
+\forall n > N \\
+±, ≥, ∈, ⊆ \\
+\bar{A} \\
 $$
 
 ## Solution manuals
