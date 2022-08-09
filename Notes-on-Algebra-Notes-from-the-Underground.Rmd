@@ -44,7 +44,20 @@ In fact, if $a$ and $b$ are not both 0, then $\gcd(a, b)$ is the smallest positi
 
 ***corollary 1.9*** Let $a, b$ be integers. Then $\gcd(a, b) = 1$ if and only if 1 may be expressed as a linear combination of $a$ and $b$.
 
+***definition 1.10***  We say that a and b are relatively prime if $\gcd(a, b) = 1$.
+
 ***corollary 1.11*** Let $a, b, c$ be integers. If $a | bc$ and $\gcd(a, b) = 1$, then $a | c$.
+
+***theorem 1.14 (Euclidean algorithm)*** Let $a, b$ be integers, with $b \ne 0$. Then, with notation as above, $\gcd(a, b)$ equals the last nonzero remainder $r_n$.
+
+***lemma 1.15*** Let $a, b, q, r$ be integers, with $b \ne 0$, and assume that $a = bq + r$. Then $\gcd (a, b) = \gcd (b,r)$.
+
+Proof. Assume $\gcd (a, b) = r'$, then $r' | r$. And assume $\gcd (b,r) = r''$, then $r'' | a$, so $r'' | r'$. On the other hand $r' | r''$, so $r' = r''$.
+
+The textbook's approach is also clean, it shows the $a,b$ and $b,r$ have
+the same set of common divisor.
+
+
 
 ## Exercises
 
