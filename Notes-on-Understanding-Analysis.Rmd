@@ -1399,6 +1399,44 @@ so $A'' \supseteq \bar{A}$.
 
 ***Theorem 3.2.13.*** A set $O$ is open if and only if $O^c$ is closed. Likewise, a set $F$ is closed if and only if $F^c$ is open.
 
+Proof. If $O$ is open, we need to prove $O^c$ is closed. Assume $a$ is a limited point of $O^c$. And if $a \in O$, then we can find
+$V_{\epsilon}(a) \subset O$, then $V_{\epsilon}(a) \cap O^c = \emptyset$.
+$a$ is not a limit point of $O^c$, we got a contradiction.
+
+On the other hand, assume $a \in O$, then $a$ is not a limit point of $O^c$.
+So there is $V_{\epsilon}(a)$ does not contain any point of $O^c$.
+Then $V_{\epsilon}(a) \subset O$. $O$ is open.
+
+***Theorem 3.2.14.***
+(i) The union of a finite collection of closed sets is closed.
+(ii) The intersection of an arbitrary collection of closed sets is closed.
+
+Proof. My proof for (i). Let $F = \cup_{k = 1}^n F_k$. Let $a_n \in F$ and
+$a_n \rightarrow a$. Since it's finite collection, then there must be
+a subsequence $a_{n_k} \in F_k$ and $a_{n_k} \rightarrow a$. So $a \in F_k \subset F$. Then $F$ is closed.
+
+Textbook's proof is based on De Morgan’s Laws.
+
+## Exercises
+
+***Exercise 3.2.15.*** A set $A$ is called an $F_σ$ set if it can be written as the countable union of closed sets. A set $B$ is called a $G_δ$ set if it can be written as the countable intersection of open sets.
+
+(a) Show that a closed interval $[a, b]$ is a $G_δ$ set.
+
+Proof. Let $B_n = (a-\frac{1}{n}, b+\frac{1}{n})$
+
+(b) Show that the half-open interval $(a, b]$ is both a $G_δ$ and an $F_σ$ set.
+
+Proof. Let $A_n = [a+\frac{1}{n}, b]$, then $(a, b]$ is $F_σ$.
+Let $B_n = (a, b+\frac{1}{n})$, then $(a, b]$ is $G_δ$.
+
+(c) Show that $Q$ is an $F_σ$ set, and the set of irrationals $I$ forms a $G_δ$ set.
+
+Proof. Let $A_q = \{q\}$. Then it's a closed set. Since $Q$ is countable,
+the union of them is $Q$.
+
+Let $B_q = R - \{q\}$, then $B_q$ is open. The intersection of them is $I$.
+
 # Chapter -1 Commonly used symbols
 
 $$
