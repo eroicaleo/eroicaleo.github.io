@@ -57,7 +57,24 @@ Proof. Assume $\gcd (a, b) = r'$, then $r' | r$. And assume $\gcd (b,r) = r''$, 
 The textbook's approach is also clean, it shows the $a,b$ and $b,r$ have
 the same set of common divisor.
 
+## 1.4 The Fundamental Theorem of Arithmetic
 
+***definition 1.17*** An integer $p$ is ‘irreducible’ if $p \neq ±1$ and the only divisors of $p$ are $±1, ±p$. An integer $ \neq 0$,  $\neq ±1$ is ‘reducible’ or ‘composite’ if it is not irreducible.
+
+***lemma 1.18*** Assume that $p$ is an irreducible integer and that $b$ is not a multiple of $p$. Then $b$ and $p$ are relatively prime, that is, $\gcd(p, b) = 1$.
+
+Proof. Assume $c | p$ and $c | b$, because $p$ is irreducible, then $c = ±1, ±p$. Since $p \nmid b$, then $c$ can only be 1.
+
+***definition 1.19*** An integer $p$ is ‘prime’ if $p \ne ±1$ and whenever $p$ divides the product $bc$ of two integers $b$, $c$, then $p$ divides $b$ or $p$ divides $c$.
+
+***theorem 1.21*** Let $p ∈ Z$, $p \ne 0$. Then $p$ is prime if and only if it is irreducible.
+
+Proof. Assume $p$ is prime and if $a | p$, so $p = ab$, then $p | a$ or $p | b$. Assume $p|a$, then $a = \pm p$. If $p | b$, then $a = \pm1$. So $p$ is
+irreducible.
+
+On the other hand, if $p$ is irreducible and assume $p | bc$. Consider
+$\gcd(p, b)$. If $\gcd(p, b) = 1$, then $p | c$. If $\gcd(p, b) = p$, then
+$p | b$.
 
 ## Exercises
 
@@ -123,3 +140,23 @@ Proof: From 1.12, we know $\gcd(a, b) = 1$, so $\gcd(a^2, b) = 1$.
 Then using induction, we can prove $\gcd(a^r, b) = 1$ for all $r$.
 Then using 1.12 again, we can prove $\gcd(a^r, b^2) = 1$.
 Then using induction again, we can prove $\gcd(a^r, b^s) = 1$
+
+***1.14*** Prove that if $c > 0$, then $\gcd(ca, cb) = c · \gcd(a, b)$.
+
+Proof. Assume $\gcd(ca, cb) = e$, $d = \gcd(a, b)$, then $cd | ca$ and $cd | cb$ so $cd | e$.
+Now it's clear $c | e$, then assume $e = cd'$, then $d' | a$ and $d' | b$,
+so $d' | d$. So $e = cd' | cd$, so $\gcd(ca, cb) = e = cd$.
+
+***1.15*** Prove that if $c | ab$ and $\gcd(a, c) = d$, then $c | db$.
+
+Proof. Assume $a = dm$ and $c = dn$ and $\gcd(m, n) = 1$.
+Then $n | mb$, so from corollary 1.11, we know $n | b$.
+So $c = dn | db$.
+
+***1.16*** Obvious, skip
+
+***1.17***  Prove that if $p$ is prime, and $p$ divides a product of integers $a_1 ··· a_s$, then
+$p$ divides one of the integers $a_i$. (Try induction, or another use of the well-ordering principle.)
+
+Proof. Let $m$ be the smallest integer such that $p | a_1 \cdots a_m$, but
+$p \nmid a_i$. Then $p | a_1 \cdots a_{m-1}$, then we have a contradiction.
