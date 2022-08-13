@@ -1419,6 +1419,92 @@ Textbook's proof is based on De Morgan’s Laws.
 
 ## Exercises
 
+***Exercise 3.2.8.*** Assume $A$ is an open set and $B$ is a closed set. Determine if
+the following sets are definitely open, definitely closed, both, or neither.
+
+***Exercise 3.2.10.*** Only one of the following three descriptions can be realized. Provide an example that illustrates the viable description, and explain why the other two cannot exist.
+
+(i) A countable set contained in $[0, 1]$ with no limit points.
+
+This is not possible because of Bolzano-Weierstrass Theorem
+
+(ii) A countable set contained in [0, 1] with no isolated points.
+
+This is possible for $\mathbb{Q} \cap [0, 1]$.
+
+(iii) A set with an uncountable number of isolated points.
+
+This is impossible. Assume A is such set,
+$x$ is an isolated points, and $V_{\epsilon}(x) \cap A = \emptyset$.
+We will show we can find 
+$V_{\epsilon_1}(x)$ does not intersect with any $V_{\epsilon_y}(y)$.
+
+Assume $V_{\epsilon}(x) \cap V_{\epsilon_y}(y) \ne \emptyset$ and
+$y > x$. First we will show $V_{\epsilon}(x) \cap V_{\epsilon_z}(z) = \emptyset, \forall z > x$.
+If this is not the case, and $y > z$, then $z \in V_{\epsilon_y}(y)$ or
+$z \in V_{\epsilon}(x)$. This is not possible.
+If $z > y$, then $y \in V_{\epsilon_z}(z)$. This is also not possible.
+
+The same argument holds for $y < x$. So we can shrink $V_{\epsilon}(x)$
+small enough. And this can be performed for any $x \in A$.
+
+That means we have an uncountable set of open set and any two of them
+does not intersect with each other. But that means we can have
+uncountable many rational numbers. We have a contradiction.
+
+***Exercise 3.2.11.*** (a) Prove that $\overline{A ∪ B} = \overline{A} ∪ \overline{B}$.
+
+Proof. $A \subset \overline{A} ∪ \overline{B}$ and
+$B \subset \overline{A} ∪ \overline{B}$, so
+$A ∪ B \subset \overline{A} ∪ \overline{B}$, so
+$\overline{A ∪ B} \subset \overline{A} ∪ \overline{B}$.
+
+On the other hand, $A \subset \overline{A ∪ B}$ so
+$\overline{A} \subset \overline{A ∪ B}$.
+For the same reason, $\overline{B} \subset \overline{A ∪ B}$.
+So $\overline{A} ∪ \overline{B} \subset \overline{A ∪ B}$
+So we have $\overline{A ∪ B} = \overline{A} ∪ \overline{B}$.
+
+(b) Does this result about closures extend to infinite unions of sets?
+
+No. Consider $A_1 = [1/2, 1], ..., A_n = [1/(n+1), 1/n]$.
+Then $\cup \overline{A_n} = (0, 1]$.
+
+However $\cup A_n = (0, 1]$, so $\overline{\cup A_n} = [0, 1]$.
+
+***Exercise 3.2.12.*** Let $A$ be an uncountable set and let $B$ be the set of real numbers that divides $A$ into two uncountable sets; that is, $s ∈ B$ if both $\{x : x∈A \text{ and } x<s\}$and $\{x:x∈A \text{ and } x>s\}$ are uncountable. Show $B$ is nonempty and open.
+
+Proof: 
+Let's define $C_s = \{x∈A \text{ and } x>s\}$ and
+$S = \{s : C_s \text{ is countable } \}$, we will show $S$ is closed.
+
+Let $a$ be a limit point of $S$, according to theorem 3.2.5, there is a
+sequence $(a_{n}) \rightarrow a$. If any $a_n < a$, then $C_a \subset C_{a_n}$, then $C_a$ is countable.
+So assume $a_n > a, \forall n$. We can show $C_a = \cup_n C_{a_n}$.
+Assume $x \in C_a$, then $x \in A$ and $x > a$, so we can fine $a_n$ such
+that $a < a_n < x$, thus $x \in C_{a_n}$.
+
+According to theorem 1.5.8, $C_a$ is also countable. So $a \in S$. Then
+$S$ is closed.
+
+Next we will show $S$ is lower bounded. If it's not, then we can find
+$\{x_n\} \rightarrow -\infty$. Then it's not hard to see $A = \cup_n C_{x_n}$. So $A$ is countable, we have a contradiction.
+
+So $S$ have a infimum $s^* = \inf S$. According to ex 3.2.4 $s^* \in S$.
+Furthermore, $x \in S, \forall x > s^*$. So $S = [s*, +\infty)$. 
+
+Similarly let's define $D_t = \{x∈A \text{ and } x<t\}$ and
+$T = \{t : D_t \text{ is countable } \}$.
+We can also show $T = (-\infty, t^*]$.
+
+Now we show $S \cap T = \emptyset$. If not, assume $x \in S \cap T$.
+Then $C_x$ and $D_x$ are all countable, but $A = C_x \cup D_x$, we have
+a contradiction.
+
+So $t^* < s^*$, then we have $B = (t^*, s^*)$, which is an open set.
+
+See stackoverflow [here](https://math.stackexchange.com/questions/1800147/a-is-uncountable-and-b-divides-a-in-two-uncountable-sets-show-that-b-is).
+
 ***Exercise 3.2.15.*** A set $A$ is called an $F_σ$ set if it can be written as the countable union of closed sets. A set $B$ is called a $G_δ$ set if it can be written as the countable intersection of open sets.
 
 (a) Show that a closed interval $[a, b]$ is a $G_δ$ set.
@@ -1443,6 +1529,7 @@ $$
 \mathbb{R}, \\
 ε \\
 V_{\epsilon}(a) = (a - ε, a + ε)\\
+V_{ε}(a) = (a - ε, a + ε)\\
 \cap_{n=1}^{\infty} \\
 (a_{n}) , (b_{n}) n\in \mathbb{N} \\
 \sum a_{n}, \sum b_{n} \\

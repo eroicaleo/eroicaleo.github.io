@@ -59,7 +59,7 @@ the same set of common divisor.
 
 ## 1.4 The Fundamental Theorem of Arithmetic
 
-***definition 1.17*** An integer $p$ is ‘irreducible’ if $p \neq ±1$ and the only divisors of $p$ are $±1, ±p$. An integer $ \neq 0$,  $\neq ±1$ is ‘reducible’ or ‘composite’ if it is not irreducible.
+***definition 1.17*** An integer $p$ is ‘irreducible’ if $p \neq ±1$ and the only divisors of $p$ are $±1, ±p$. An integer $\neq 0$,  $\neq ±1$ is ‘reducible’ or ‘composite’ if it is not irreducible.
 
 ***lemma 1.18*** Assume that $p$ is an irreducible integer and that $b$ is not a multiple of $p$. Then $b$ and $p$ are relatively prime, that is, $\gcd(p, b) = 1$.
 
@@ -75,6 +75,16 @@ irreducible.
 On the other hand, if $p$ is irreducible and assume $p | bc$. Consider
 $\gcd(p, b)$. If $\gcd(p, b) = 1$, then $p | c$. If $\gcd(p, b) = p$, then
 $p | b$.
+
+***theorem 1.22***  (Fundamental Theorem of Arithmetic) Every integer $n \ne 0,  ±1$ is
+a product of finitely many irreducible integers: $∀n ∈ Z, n \ne 0, n \ne ±1$, there exist
+irreducible integers $q_1,..., q_r$ such that
+
+$$
+n = q_1 ··· q_r
+$$
+Proof: The existence, use contradiction and well-ordering principle.
+Assume $n$ is the smallest integer that cannot be a product of irreducible integers. And $n$ cannot be irreducible itself. So assume $n = ab$
 
 ## Exercises
 
@@ -160,3 +170,11 @@ $p$ divides one of the integers $a_i$. (Try induction, or another use of the wel
 
 Proof. Let $m$ be the smallest integer such that $p | a_1 \cdots a_m$, but
 $p \nmid a_i$. Then $p | a_1 \cdots a_{m-1}$, then we have a contradiction.
+
+***1.18*** Let $p \ne 0, ±1$ be an integer. Prove that $p$ is prime if and only if for all $a ∈ Z$, either $p | a$ or $\gcd(a, p) = 1$.
+
+Proof. Assume $p$ is prime. And $\gcd(a, p) = b$, then $p = bq, a = ba'$.
+Then $p | qa=bqa'$. If $p | q$, then $b = 1$. Otherwise $p | a$.
+
+Conversely, assume $p | ab$, if $p \nmid a$, then $\gcd(a, p) = 1$.
+According to corollary 1.11, $p | b$. Then $p$ is prime.
