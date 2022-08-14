@@ -1419,8 +1419,52 @@ Textbook's proof is based on De Morgan’s Laws.
 
 ## Exercises
 
+***Exercise 3.2.6.*** Decide whether the following statements are true or false. Provide counterexamples for those that are false, and supply proofs for those that are true.
+
+(d) Every bounded infinite closed set contains a rational number.
+
+False. Consider $A = \{p : p \text{ is rational }, p \in[0, 1] \}$.
+Now consider $B = \{ p + \sqrt{2} : p \in A\}$.
+
+(e) The Cantor set is closed.
+
+True. By definition in section 3.1
+
+$$
+C = \cap_{n=0}^\infty C_n
+$$
+Each $C_n$ is the union of finite closed set so it is closed from Theorem 3.2.14. Then $C$ is the intersection of them, so it is also closed.
+
+
+
 ***Exercise 3.2.8.*** Assume $A$ is an open set and $B$ is a closed set. Determine if
 the following sets are definitely open, definitely closed, both, or neither.
+
+(a) $\overline{A∪B}$
+
+Definitely closed.
+
+(b) $A - B= \{x∈A:x \notin B\}$
+
+Definitely open. Assume $x \in A - B$, then $x \notin B$, so $x$ is not a limit point of $B$.
+Then we can find $V_{\epsilon_1}(x) \cap B = \emptyset$. Since $A$ is open,
+we can find $V_{\epsilon_2}(x) \subset A$. So we can find $\epsilon = \min(\epsilon_1, \epsilon_2)$ such that $V_{\epsilon}(x) \in A - B$.
+
+(c) $(A^c ∪ B)^c$
+
+$A^c$ is closed, then $(A^c ∪ B)$ is closed. Then $(A^c ∪ B)^c$ is open.
+
+(d) $(A∩B)∪(A^c ∩B)$
+
+It's equal to $B$, so closed.
+
+(e) $\overline{A}^c ∩ \overline{A^c}$
+
+We prove $\overline{A^c} \supset \overline{A}^c$. Assume $a \in \overline{A}^c$, then $a \notin \overline{A}$ so $a \notin A$, then
+$a \in A^c \subset \overline{A^c}$. So $\overline{A}^c \subset \overline{A^c}$.
+
+Then $\overline{A}^c ∩ \overline{A^c} = \overline{A^c}$. Then it is
+definitely closed.
 
 ***Exercise 3.2.10.*** Only one of the following three descriptions can be realized. Provide an example that illustrates the viable description, and explain why the other two cannot exist.
 
