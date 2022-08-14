@@ -84,7 +84,30 @@ $$
 n = q_1 ··· q_r
 $$
 Proof: The existence, use contradiction and well-ordering principle.
-Assume $n$ is the smallest integer that cannot be a product of irreducible integers. And $n$ cannot be irreducible itself. So assume $n = ab$
+Assume $n$ is the smallest integer that cannot be a product of irreducible integers. And $n$ cannot be irreducible itself. So assume $n = ab$, because
+$n$ is the smallest such integer, $a, b$ must be a product of irreducible integers. So we have a contradiction.
+
+The uniqueness, again use contradiction and well-ordering principle.
+Assume $n$ is the smallest integer such that it has two different
+factorization.
+$$
+n = q_1 ··· q_r = p_1 ... p_s
+$$
+Because $q_1$ is prime, so $q_1 | p_1$, but $p_1$ is irreducible, so
+$q_1 = p_1$. So
+
+$$
+n = q_1 ··· q_r = q_1 ... p_s
+$$
+And let
+
+$$
+m = q_2 ... q_r = p_2 ... p_s
+$$
+
+$m < n$ and it has two different factorization. We have a contradiction.
+
+* We will see later $\mathbb{Z}$ is a UFD (‘unique factorization domain’).
 
 ## Exercises
 
@@ -178,3 +201,25 @@ Then $p | qa=bqa'$. If $p | q$, then $b = 1$. Otherwise $p | a$.
 
 Conversely, assume $p | ab$, if $p \nmid a$, then $\gcd(a, p) = 1$.
 According to corollary 1.11, $p | b$. Then $p$ is prime.
+
+***1.19*** Prove that if $p$ is prime, $a, n ∈ Z$, with $n ≥ 0$, and $p | a^n$, then $p^n | a^n$.
+
+Proof. $p$ is prime, and $p| a^n$, then based onex 1.17 so $p | a$.
+Assume $a = pq$ then $a^n = (pq)^n$, so $p^n | a^n$.
+
+***1.21*** 
+
+$$
+n = 2^{v_2} 3^{v_3} 5^{v_5} 7^{v_7} 11^{v_{11}} ··· \\
+c = 2^{r_2} 3^{r_3} 5^{r_5} 7^{r_7} 11^{r_{11}} ···
+$$
+
+Proof. Assume $c | n$, and $r_p > v_p$ for some $p$.
+$$
+n = p^{v_p} n' \\
+c = p^{r_p} c' \\
+$$
+
+$p \nmid n'$, but $c | n$, we have $p^{r_p - v_p} | n'$ we have a contradiction.
+
+The solution is cleaner.
