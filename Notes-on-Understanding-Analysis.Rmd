@@ -1419,12 +1419,40 @@ Textbook's proof is based on De Morgan’s Laws.
 
 ## Exercises
 
+***Exercise 3.2.1.*** (a) Where in the proof of Theorem 3.2.3 part (ii) does the assumption that the collection of open sets be finite get used?
+
+It's used here letting $ \epsilon = \min \{ \epsilon_1,  . . . , \epsilon_N\}$. Otherwise there could be no minimum value.
+
+(b) Give an example of a countable collection of open sets $\{O1,O2,O3,...\}$ whose intersection $ \cap^\infty_{n=1} On$ is closed, not empty and not all of $R$.
+
+Let $O_n = (-1-1/n, 1+1/n)$. The intersection is $[-1, 1]$.
+
+Refer to [here](https://math.stackexchange.com/questions/339898/why-can-the-intersection-of-infinite-open-sets-be-closed).
+
 ***Exercise 3.2.6.*** Decide whether the following statements are true or false. Provide counterexamples for those that are false, and supply proofs for those that are true.
+
+(a) An open set that contains every rational number must necessarily be all of R.
+
+No. Consider $\mathbb{R} - \{\pi\}$.
+
+(b) The Nested Interval Property remains true if the term “closed interval” is replaced by “closed set.”
+
+False. Let $I_n = [n, \infty)$, which is closed. Then $\cap I_n = \emptyset$.
+
+See discussion [here](https://math.stackexchange.com/questions/489242/nested-sequence-of-closed-sets).
+
+But if the "closed set" is bounded. Then assume $a_n = \inf I_n, b_n = \sup I_n$. Then we have $a_n, b_n \in I_n$. Now let $a = \sup \{a_n\}$, because
+$a$ is a limit point of $I_n$. so $a \in I_n, \forall n$.
+
+(c) Every nonempty open set contains a rational number.
+
+True. $\mathbb{Q}$ is dense.
 
 (d) Every bounded infinite closed set contains a rational number.
 
-False. Consider $A = \{p : p \text{ is rational }, p \in[0, 1] \}$.
-Now consider $B = \{ p + \sqrt{2} : p \in A\}$.
+False. Consider $A = \{\pi + (1/n) : n\in \mathbb{N} \} \cup \pi$.
+
+Also see [here](https://math.stackexchange.com/questions/1440516/t-f-every-bounded-infinite-closed-set-contains-a-rational-number)
 
 (e) The Cantor set is closed.
 
@@ -1434,7 +1462,6 @@ $$
 C = \cap_{n=0}^\infty C_n
 $$
 Each $C_n$ is the union of finite closed set so it is closed from Theorem 3.2.14. Then $C$ is the intersection of them, so it is also closed.
-
 
 
 ***Exercise 3.2.8.*** Assume $A$ is an open set and $B$ is a closed set. Determine if
@@ -1496,6 +1523,9 @@ That means we have an uncountable set of open set and any two of them
 does not intersect with each other. But that means we can have
 uncountable many rational numbers. We have a contradiction.
 
+Also search this question in stack overflow, like
+[here](https://math.stackexchange.com/questions/1951645/does-there-exist-an-uncountable-number-of-isolated-points)
+
 ***Exercise 3.2.11.*** (a) Prove that $\overline{A ∪ B} = \overline{A} ∪ \overline{B}$.
 
 Proof. $A \subset \overline{A} ∪ \overline{B}$ and
@@ -1548,6 +1578,47 @@ a contradiction.
 So $t^* < s^*$, then we have $B = (t^*, s^*)$, which is an open set.
 
 See stackoverflow [here](https://math.stackexchange.com/questions/1800147/a-is-uncountable-and-b-divides-a-in-two-uncountable-sets-show-that-b-is).
+
+***Exercise 3.2.13.*** Prove that the only sets that are both open and closed are $R$ and the empty set $\emptyset$.
+
+Proof. Consider $a \in A \ne \emptyset$ and $b \in A^c \ne \emptyset$.
+Assume $a < b$. Consider all $A' = \{a \in A: a< b\}$. Let $s = \sup A'$. since $A$ is closed, $s \in A$. If $s = b$, we have contradiction.
+Then since $A$ is open, there exists
+$V_{\epsilon}(s) \subset A$, then $b > s + \epsilon \in A$. We again got
+contradiction.
+
+Also see [here](https://math.stackexchange.com/questions/751886/if-a-nonempty-set-of-real-numbers-is-open-and-closed-is-it-mathbbr-why-wh).
+
+***Exercise 3.2.14.*** A dual notion to the closure of a set is the interior of a set. The interior of $E$ is denoted $E^o$ and is defined as
+
+$$
+E^o = \{x \in E: \text{there exists } V_{\epsilon}(x)⊆E \}.
+$$
+
+(a) Show that $E$ is closed if and only if $E=\overline{E}$. Show that $E$ is open if and only if $E^o = E$.
+
+Proof. If $E^o = E$, then if $x \in E$, then $x \in E^o$, then there exists
+$V_{\epsilon}(x)⊆ E$, then $E$ is open.
+
+If $E$ is open, and $x \in E$, then $x \in E^o$, so $E^o \supseteq E$.
+$E^o = E$.
+
+(b) Show that $\overline{E}^c = (E^c)^o$, and similarly that
+$(E^o)^c = \overline{E^c}$.
+
+First statement. Assume $x \in \overline{E}^c$, then $x \notin \overline{E}$. Then $x \notin E$, so $x \in E^c$. Furthermore $x$ is not a
+limit point of $E$, so there exists $V_{\epsilon}(x)⊆ E^c$. Then
+$x \in (E^c)^o$.
+
+On the other hand if $x \in (E^c)^o$, then there exists $V_{\epsilon}(x)⊆ E^c$. So $x \notin \overline{E}$, so $x \in \overline{E}^c$.
+
+Second statement. Assume $x \in (E^o)^c$, then $x \notin E^o$. Then $x$
+is a limit point of $E^c$, so $x \in \overline{E^c}$.
+
+On the other hand, assume $x \in \overline{E^c}$. If $x \in E^c$, then
+$x \in (E^o)^c$. If $x \notin E^c$, $x$ is a limit point of $E^c$. So
+there doesn't exist $V_{\epsilon}(x)⊆ E$, then $x \notin E^o$.
+So $x \in (E^o)^c$.
 
 ***Exercise 3.2.15.*** A set $A$ is called an $F_σ$ set if it can be written as the countable union of closed sets. A set $B$ is called a $G_δ$ set if it can be written as the countable intersection of open sets.
 
