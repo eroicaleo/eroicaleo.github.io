@@ -287,3 +287,106 @@ a = 2^{\alpha_2} 3^{\alpha_3} \cdots p^{\alpha_p} \cdots \\
 b = 2^{\beta_2} 3^{\beta_3} \cdots p^{\beta_p} \cdots \\
 $$
 Then we have $2 \alpha_p = 1 + 2 \beta_p$, which is not possible.
+
+# 2 Modular Arithmetic
+
+pg 40 - 58
+
+## 2.1 Equivalence Relations and Quotients
+## 2.2 Congruence mod $n$
+
+***definition 2.1*** Let $n ≥ 0$ be an integer, and let $a, b ∈ Z$x. We say that '$a$ is congruent to $b$ modulo $n$', denoted $a ≡ b$ mod $n$, if $b − a ∈ nZ$.
+
+$$
+a \equiv b \mod n \iff n | b - a
+$$
+
+* For any nonnegative integer $n$ and any integer $a$,
+we denote by $[a]_n$ the equivalence class of $a$ with respect to the relation of congruence
+modulo $n$. Explicitly:
+
+$$
+[a]_n = \\
+\{b \in \mathbb{Z} | a \equiv b \mod n\} = \\
+\{b \in \mathbb{Z} | n \text{ divides } b - a\} = \\
+\{b = a + nk | k \in \mathbb{Z} \}
+$$
+
+# Appendix
+
+## A.8 Relations; Equivalence Relations and Quotient Sets
+
+* 'Functions' from a set $A$ to a set $B$ are certain subsets of the Cartesian
+product $A × B$. More generally, a ‘relation’ between elements of $A$ and elements of $B$ is
+any subset $R ⊆ A×B$. We say that $a ∈ A$ and $b ∈ B$ are ‘related by $R$’ if $(a, b) ∈ R$.
+
+* An 'order' relation $R$ satisfies the following three properties. Writing $aRb$ for $(a, b) ∈ R$, we have that $R$ is
+  * reflexive, i.e., $aRa$ for every $a ∈ A$;
+  * transitive, i.e., $aRb$ and $bRc$ imply $aRc$ for all $a, b, c ∈ A$;
+  * antisymmetric, i.e., $aRb$ and $bRa$ imply $a = b$, for all $a, b ∈ A$.
+
+***Example A.19*** The ordinary relation $≤$ on $Z$ is an order relation.
+
+* Of paramount importance in many constructions is the notion of equivalence relation.
+A relation $∼$ on a set $A$ is an ‘equivalence relation’ when it is reflexive, symmetric, and transitive, that is:
+  * $\forall a \in A, a \sim a$
+  * $\forall a, b \in A, a \sim b \implies b \sim a$
+  * $\forall a, b, c \in A, a \sim b \wedge b \sim c \implies a \sim c$.
+
+***Example A.20***  The ‘equality’ relation $=$ is an equivalence relation, on any set $A$.
+
+***Example A.21*** Another example may be given by letting $A = Z$ and defining $a \sim b$ to mean that $b − a$ is even.
+
+* If a set $A$ is endowed with an equivalence relation $\sim$, we can define an associated set $A/\sim$, which we call the ‘quotient of $A$ modulo ∼’.
+  * This is a prototype for all the ‘quotient’ constructions for rings, 
+  modules, groups, that are among the most important
+  notions developed in this text.
+* The elements of this set are the ‘equivalence classes’ of
+the elements of A ‘modulo ∼’, defined by
+
+$$
+[a]_{\sim} = \{b \in A  | b \sim a \}
+$$
+
+* With this notation, we define
+
+$$
+A / \sim = \{[a]_{\sim} | a \in A\}
+$$
+
+***Example A.22*** Consider the equivalence relation defined on $\mathbb{Z}$ in Example A.21, by
+setting $a \sim b$ if and only if $b − a$ is even. The equivalence class of $0$ is
+
+$$
+[0]_{\sim} = \{b \in \mathbb{Z}  | n - 0 \text{ is even } \} \\
+[1]_{\sim} = \{b \in \mathbb{Z}  | n - 1 \text{ is even } \} 
+$$
+
+* Using the terminology introduced above, the quotient set $Z/\sim$ consists of just two
+elements. Notice that the corresponding two subsets of $\mathbb{Z}$ (that is, the set of even integers
+and the set of odd integers) are not empty, they are disjoint, and their union is $\mathbb{Z}$.
+
+* It is easy to
+verify that the equivalence classes modulo an equivalence relation ∼ on a set $A$ always
+form a ‘partition’ of $A$: this means that the equivalence classes are
+  * nonempty
+  * disjoint
+  * their union is the whole set $A$.
+
+* Conversely, if $\mathcal{P}$ is a partition of a set $A$, that is, a collection of subsets of $A$ satisfy-
+ing the conditions listed in the previous paragraph, then we can define an equivalence relation $\sim_\mathcal{P}$ on $A$ by setting
+
+$$
+a \sim_\mathcal{P} b \iff
+\text{a and b belong to the same element of } \mathcal{P}
+$$
+
+* if the partition $\mathcal{P}$ arises
+from an equivalence relation ∼, i.e., it equals the quotient $A/\sim$, then
+
+$$
+a \sim_\mathcal{P} b \iff [a]_∼ = [b]_∼ \iff a ∼ b :
+$$
+
+* that is, the equivalence relation $\sim_\mathcal{P}$ corresponding to this partition is nothing but the
+equivalence relation ∼ we started from.

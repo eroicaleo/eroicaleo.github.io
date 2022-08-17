@@ -1429,6 +1429,79 @@ Let $O_n = (-1-1/n, 1+1/n)$. The intersection is $[-1, 1]$.
 
 Refer to [here](https://math.stackexchange.com/questions/339898/why-can-the-intersection-of-infinite-open-sets-be-closed).
 
+***Exercise 3.2.2.*** Let
+
+$$
+A = \bigl\{ (-1)^n + \frac{2}{n} : n = 1, 2, 3,...\bigr\} \\
+B = \{x \in Q : 0 < x < 1 \}
+$$
+Answer the following questions for each set:
+
+(a) What are the limit points?
+
+For $A$, it's $\{-1, 1\}$. For $B$, it's $[0, 1]$.
+
+(b) Is the set open? Closed?
+
+$A$ is neither open or closed. $B$ is neither open or closed.
+
+(c) Does the set contain any isolated points?
+
+Every point in $A$ are isolated points. There is no isolated points in $B$.
+
+(d) Find the closure of the set.
+
+$$
+\overline{A} = A \cup \{-1, 1\} \\
+\overline{B} = [0, 1]
+$$
+
+***Exercise 3.2.3.*** Decide whether the following sets are open, closed, or neither. If a set is not open, find a point in the set for which there is no ε-neighborhood contained in the set. If a set is not closed, find a limit point that is not contained in the set.
+
+(a) Q.
+
+Neither. Every point. $\sqrt{2}$.
+Also see [here](https://math.stackexchange.com/questions/116721/are-the-rationals-a-closed-or-open-set-in-mathbbr).
+
+(b) \mathbb{N}
+
+Closed. Every point.
+
+(c) $\{x \in R:x \ne 0\}$\
+
+Open. $0$.
+
+(d) $\{1+1/4+1/9+\cdots+1/n^2: n \in N\}$.
+
+Neither. Everypoint. It's limit.
+
+(e) $\{1 + 1/2 + 1/3 + \cdots + 1/n : n \in N\}$.
+
+Closed. Everypoint.
+
+***Exercise 3.2.4.*** Let $A$ be nonempty and bounded above so that $s = \sup A$ exists.
+
+(a) Show that $s ∈ \overline{A}$.
+
+Proof. According to Lemma 1.3.8., $s$ is a limited point of $A$. 
+So $s ∈ \overline{A}$.
+
+(b) Can an open set contain its supremum?
+
+Proof. No. If $V_{\epsilon}(s) = (s - \epsilon, s + \epsilon) \subset A$.
+Then $s < s + \epsilon/2 \in A$. Then $s$ is not the supremum. We got
+a contradiction.
+
+See also [here](https://math.stackexchange.com/questions/1727959/can-an-open-set-contain-its-supremum).
+
+***Exercise 3.2.5.*** A set $F \subset \mathbb{R}$ is closed if and only if every Cauchy sequence contained in $F$ has a limit that is also an element of $F$.
+
+Proof. Assume $F$ is closed. And assume $\{x_n\}$ is Cauchy sequence contained in $F$. Since it's Cauchy sequence, assume $\{x_n\} \rightarrow x$. Then $x$ is a limit point of $F$. So $x \in F$.
+
+The other direction, Assume $x$ is a limit point of F, we can find $\{x_n\} \rightarrow x$ from Theorem 3.2.5. So $\{x_n\}$ must be Cauchy sequence.
+So $x \in F$. Then $F$ is closed.
+
+
 ***Exercise 3.2.6.*** Decide whether the following statements are true or false. Provide counterexamples for those that are false, and supply proofs for those that are true.
 
 (a) An open set that contains every rational number must necessarily be all of R.
@@ -1463,6 +1536,20 @@ C = \cap_{n=0}^\infty C_n
 $$
 Each $C_n$ is the union of finite closed set so it is closed from Theorem 3.2.14. Then $C$ is the intersection of them, so it is also closed.
 
+***Exercise 3.2.7.*** Given $A ⊆ R$, let $L$ be the set of all limit points of $A$.
+
+(a) Show that the set $L$ is closed.
+
+Proof. Assume $x$ is limit point of L, then for every $V_{\epsilon}(x)$,
+we can find $x' \in L$ and $x' \in V_{\epsilon}(x)$. Then $x'$ is a limit
+point of $A$, so we can find $a \in A$, such that $a \in V_{\epsilon}(x)$.
+The $x$ itself is a limited point of $A$. So $x \in L$. So L is closed.
+
+(b) Argue that if $x$ is a limit point of $A \cup L$, then $x$ is a limit point of $A$. Use this observation to furnish a proof for Theorem 3.2.12.
+
+Proof. If $l \in L$ and $l \in V_{\epsilon}(x)$, then we can find
+$a \in V_{\epsilon'}(l) \subset V_{\epsilon}(x)$. So $l$ is a limit point
+of $A$. Then $l \in L \subseteq A \cup L$. Then $A \cup L$ is closed.
 
 ***Exercise 3.2.8.*** Assume $A$ is an open set and $B$ is a closed set. Determine if
 the following sets are definitely open, definitely closed, both, or neither.
@@ -1637,6 +1724,35 @@ Proof. Let $A_q = \{q\}$. Then it's a closed set. Since $Q$ is countable,
 the union of them is $Q$.
 
 Let $B_q = R - \{q\}$, then $B_q$ is open. The intersection of them is $I$.
+
+## 3.3 Compact Sets
+
+* Employing compact sets in a proof often has the effect of bringing a finite quality to the argument, thereby making it much more tractable.
+
+***Definition 3.3.1 (Compactness).*** A set $K \subseteq R$ is compact if every sequence in $K$ has a subsequence that converges to a limit that is also in $K$.
+
+***Example 3.3.2.*** The most basic example of a compact set is a closed interval.
+
+* What are the properties of closed intervals that we used in the preceding argument? The Bolzano–Weierstrass Theorem requires boundedness, and we used the fact that closed sets contain their limit points.
+
+***Definition 3.3.3.*** A set $A ⊆ R$ is bounded if there exists $M > 0$ such that $|a|≤M$ for all $a∈A$.
+
+***Theorem 3.3.4 (Characterization of Compactness in R).*** A set $K \subseteq R$ is compact if and only if it is closed and bounded.
+
+Proof.
+
+First we assume $K$ is compact. We will first prove it is closed.
+Assume $x$ is a limit point of $K$, then according to theorem 3.2.5, we
+can find a sequence $a_n \rightarrow x$. Since $K$ is compact, we can
+find a subsequence $a_{n_k} \rightarrow x' \in K$. According to 2.5.2, $x = x'$. So $K$ is closed.
+
+Next we will prove K is bounded. We can find a monotonous increasing sequence $a_n$. Then it has a subsequence that converges to $x$.
+So the origin sequence also converges to $x$.
+
+Conversely, if $K$ is closed and bounded. And $(a_n)$ is a sequence in $K$.
+Then since $(a_n)$ is bounded, according to Bolzano–Weierstrass Theorem,
+there is a subsequence $a_{n_k} \rightarrow x$. Then $x$ is a limit point
+of $K$, then $x \in K$.
 
 # Chapter -1 Commonly used symbols
 
