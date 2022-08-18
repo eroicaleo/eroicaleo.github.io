@@ -312,6 +312,42 @@ $$
 \{b = a + nk | k \in \mathbb{Z} \}
 $$
 
+***definition 2.5*** For any integer $n ≥ 0$ we denote by $\mathbb{Z}/n\mathbb{Z}$ the set of congruence classes
+mod $n$ in $\mathbb{Z}$. This set is called the ‘quotient of $\mathbb{Z}$ modulo $n\mathbb{Z}$’, or simply ‘$\mathbb{Z}$ mod n’.
+
+***lemma 2.6***  Let $n$ be a positive integer.
+
+* Let $a \in \mathbb{Z}$, and let $r$ be the remainder after division of $a$ by $n$. Then $[a]_n = [r]_n$.
+* The classes $[0]_n, \dots, [n-1]_n$ are all distinct.
+
+Proof. Assume $a = qn + r$, then $a - r = nq$, so $n | a - r$. Then
+$a \equiv r \mod n$. So $[a]_n = [r]_n$.
+
+Assume $[i]_n = [j]_n$ and $0 \le i, j \le n-1$, then $n | i - j$.
+Then we have $i = j$.
+
+***theorem 2.7*** For all positive integers n, the set Z/nZ consists of exactly n elements: $[0]_n, \dots, [n-1]_n$.
+
+***Remark 2.8***  If $n = 0$, we can still make sense of the quotient, i.e., of $\mathbb{Z}/0\mathbb{Z}$. the equivalence class $[a]_0$ of
+an integer $a$ consists of the single element $a$: $[a]_0 = \{a\}$.
+Therefore, the set $\mathbb{Z}/0\mathbb{Z}$ is just a copy of $\mathbb{Z}$ itself.
+
+## Exercise
+
+2.1 Prove that if $a ≡ b \mod n$ and $k | n$, then $a ≡ b \mod k$.
+
+Proof. $n | a - b$ and $k | n$, then $k | a - b$. Then $a ≡ b \mod k$.
+
+2.2 Prove that if $a ≡ b \mod q$ for all positive irreducible integers $q$, then $a = b$.
+
+Proof. consider $n = a - b$, since there exists infinit many irreducible integers, we can find $q > n$ and $q$ is irreducible. Since $q | n$, then
+$n = 0$, and $a = b$.
+
+2.3 Prove that if $q ≥ 5$ and $q$ is irreducible, then $[q]_6 = [1]_6$ or $[q]_6 = [5]_6$.
+
+Proof. Because it cannot be $[0]_6, [2]_6, [3]_6$. Then would mean $6 | q$
+or $2 | q$ or $3 | q$.
+
 # Appendix
 
 ## A.8 Relations; Equivalence Relations and Quotient Sets
