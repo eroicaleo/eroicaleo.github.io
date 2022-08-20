@@ -332,6 +332,32 @@ Then we have $i = j$.
 an integer $a$ consists of the single element $a$: $[a]_0 = \{a\}$.
 Therefore, the set $\mathbb{Z}/0\mathbb{Z}$ is just a copy of $\mathbb{Z}$ itself.
 
+## 2.3 Algebra in $\mathbb{Z}/n\mathbb{Z}$
+
+***lemma 2.9*** Let $n ≥ 0$ be an integer, and let $a, a', b, b'$ be integers.
+
+(i) $a+b \equiv a'+b' \mod n$
+(ii) $a\cdot b \equiv a' \cdot b' \mod n$
+
+***definition 2.10*** Let $n ≥ 0$ be an integer, and let $[a]_n, [b]_n$ be elements of $\mathbb{Z}/n\mathbb{Z}$. We define
+
+$$
+[a]_n + [b]_n := [a + b]_n , \\
+[a]_n · [b]_n := [a · b]_n .
+$$
+
+* What do we learn from this example (example 2.11)?
+    * We would say that the operation we just tried to define on our     
+    equivalence classes $[a]_∼$ is not well-defined.
+    * It is not a viable 
+    definition, because the outcome of the operation depends on how we choose
+    to write our elements.
+    * Whether you decide to call the first class
+    $[0]_∼$ or $[−2]_∼$ cannot affect the result of an
+    operation depending on this class: the operation should depend on the
+    class itself, not on your mood of the moment on how you decide to call 
+    the class.
+
 ## Exercise
 
 2.1 Prove that if $a ≡ b \mod n$ and $k | n$, then $a ≡ b \mod k$.
@@ -347,6 +373,41 @@ $n = 0$, and $a = b$.
 
 Proof. Because it cannot be $[0]_6, [2]_6, [3]_6$. Then would mean $6 | q$
 or $2 | q$ or $3 | q$.
+
+2.4  Find a proof or a counterexample of the following statement: If 
+$[a]_n \ne [0]_n$, and
+$[a]_n[b]_n = [a]_n[c]_n$, then $[b]_n = [c]_n$.
+
+counterexample: Let
+$$
+[a]_n = [2]_6 \\
+[b]_n = [1]_6 \\
+[c]_n = [4]_6 \\
+$$
+
+2.5 Find a class $[a]_{99} \ne [0]_{99}$ in $\mathbb{Z}/99\mathbb{Z}$ such that there is no integer $b$ for which
+$[a]_{99}[b]_{99} = [1]_{99}$.
+
+Solution: for example let $a = 3$. Because $3 | 3b - 99q$, $3b \not\equiv 1 \mod 99$.
+
+2.6 Assume that $[a]_n = [1]_n$. Prove that $\gcd(a, n) = 1$.
+Find an example showing that the converse is not true.
+
+Proof. $a - 1 = kn$, then $1 = a - kn$. Assume $\gcd(a, n) = b$,
+then $b | a$, $b | n$, then $b | a - kn = 1$. So $b = 1$.
+
+Conversely, let $a = 2, n = 5$, $[2]_5 \ne [1]_5$, but $\gcd(2,5) = 1$.
+
+2.7 Prove that every positive integer is congruent modulo 9 to the sum of its digits.
+
+Proof. 
+
+$$
+a_n\cdots a_1 a_0 = 10^na_n + \cdots + 10 a_1 + a_0 \\
+= (9+1)^na_n + \cdots (9+1)a_1 + a_0 \\
+= (9b_n+1)a_n + \cdots (9+1)a_1 + a_0 \\
+= 9K + (a_n + \dots + a_1 + a_0)
+$$
 
 # Appendix
 
