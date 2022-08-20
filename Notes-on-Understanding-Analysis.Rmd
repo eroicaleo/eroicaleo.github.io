@@ -1417,7 +1417,7 @@ a subsequence $a_{n_k} \in F_k$ and $a_{n_k} \rightarrow a$. So $a \in F_k \subs
 
 Textbook's proof is based on De Morgan’s Laws.
 
-## Exercises
+### Exercises
 
 ***Exercise 3.2.1.*** (a) Where in the proof of Theorem 3.2.3 part (ii) does the assumption that the collection of open sets be finite get used?
 
@@ -1753,6 +1753,84 @@ Conversely, if $K$ is closed and bounded. And $(a_n)$ is a sequence in $K$.
 Then since $(a_n)$ is bounded, according to Bolzano–Weierstrass Theorem,
 there is a subsequence $a_{n_k} \rightarrow x$. Then $x$ is a limit point
 of $K$, then $x \in K$.
+
+***Theorem 3.3.5*** (Nested Compact Set Property). If
+
+$$
+K_1 \supseteq K_2 \supseteq \cdots
+$$
+
+is a nested sequence of nonempty compact sets, then the intersection $\cap_{n=1}^\infty K_n$ is not empty.
+
+Proof. We pick $x_1 \in K_1, x_2 \in K_2, \cdots$. Then we can find a
+subsequence $x_{n_k} \rightarrow x$. Then $x \in K_1$.
+For any $n$, we construct a new sequence:
+
+$$
+x'_{n_k'} =
+\begin{cases}
+x_n,    & n_k' \le n \\
+x_{n_k} & n_k'\ > n \\
+\end{cases}
+$$
+So this sequence also converges to $x$. os $x \in K_n$.
+
+***Definition 3.3.6.*** Let $A ⊆ R$. An open cover for $A$ is a (possibly infinite) collection of open sets $\{O_λ : λ ∈ Λ\}$ whose union contains the set $A$; that is,
+$A \subseteq \cup_{\lambda \in \Lambda} O_λ$.
+Given an open cover for $A$, a finite subcover is a finite sub-collection of open sets from the original open cover whose union still manages to completely contain $A$.
+
+***Theorem 3.3.8 (Heine–Borel Theorem).***  Let K be a subset of $\mathbb{R}$. All of the following statements are equivalent in the sense that any one of them implies the two others:
+
+(i) $K$ is compact.
+(ii) $K$ is closed and bounded.
+(iii) Every open cover for $K$ has a finite subcover.
+
+Proof. Use (iii) to prove $K$ is bounded.
+Assume $K$ is not, we can find $x_n > n, \forall n$. Now consider
+$V_{\epsilon}(x_n) = (x_n - ε, x_n + ε)$ is an
+open cover $\{x_n\}$. There is no finite subcover to cover $\{x_n\}$.
+So $K$ is bounded.
+
+Use (iii) to prove $K$ is closed. We can proof if $x \in K^c$, then
+$x$ is not a limit point of $K$. If $x \notin K$, then for every
+$a \in K$, we can find $V_{\epsilon}(a) \subset K \cap K^c = \emptyset$.
+Apparently, $V_{\epsilon}(a)$ is an open cover of $K$.
+Then we can find a finite subcover $V_{\epsilon_1}(a_1), \dots, V_{\epsilon_n}(a_n)$. Then we can find $V_{\epsilon_x}(a_x)$
+doesn't intersect with this subcover. Then $V_{\epsilon_x}(a_x) \cap K = \emptyset$. So $x$ is not a limit point of $K$.
+
+Use (ii) to prove (iii). Assume $O_{\Lambda}$ is an open cover of $K$ and
+we cannot find a finite subcover. We will the similar way in the Bolzano–Weierstrass Theorem to reach a contradiction.
+Since $K$ is bounded, one of the $[-a, 0]$ and $[0, a]$ cannot be
+finitely covered. Let it be $K_1$. $K_1$ is bounded and closed.
+In the same way, we can get a sequence of sets
+
+$$
+K_1 \supseteq K_2 \supseteq \cdots
+$$
+
+Each of them is is bounded and closed and cannot be finitely covered.
+Based on Theorem 3.3.5, there is $x$ exists in all $K_n$. Since $x \in K$,
+We can find $V_{\epsilon}(x) \subset O_{\lambda}$.
+And we can find $K_n$, such that $K_n \subset V_{\epsilon}(x) \subset O_{\lambda}$. We have a contradiction.
+
+### Exercises
+
+***Exercise 3.3.1.*** Show that if $K$ is compact and nonempty, then $\sup K$ and $\inf K$ both exist and are elements of $K$.
+
+Proof. Since $K$ is compact, then it's bounded and closed.
+So $\sup K$ and $\inf K$ both exist. Because it's closed. According to Exercise 3.2.4., $\sup K \in S, \inf K \in S$.
+
+***Exercise 3.3.3.*** Prove the converse of Theorem 3.3.4 by showing that if a set
+$K ⊆ R$ is closed and bounded, then it is compact.
+
+Proof. See above.
+
+***Exercise 3.3.4.*** Assume K is compact and F is closed. Decide if the following
+sets are definitely compact, definitely closed, both, or neither.
+
+(a) $K∩F$
+
+Definitely compact.
 
 # Chapter -1 Commonly used symbols
 
