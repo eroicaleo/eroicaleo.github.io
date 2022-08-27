@@ -380,7 +380,7 @@ There must be some $b$, such that $ab=1$.
 (iii) $\implies$ (i). Assume $a | n$, and $ab = 1$. Then. $n | ab-1$, then
 $a | ab - 1$, then $a | 1$. So $a = 1$. Then $n$ is irreducible and thus prime.
 
-(i) $\implies$ (iii). If $n$ is prime, then $\gcd(1, n) = 1$. So
+(i) $\implies$ (iii). If $n$ is prime, then $\gcd(a, n) = 1$. So
 $ab + nq = 1$. So $n | nq = ab - 1$. So $ab = 1$.
 
 (iii) $\implies$ (ii). $n | ab$, $n \nmid a$. Let $a' = \gcd(a, n)$, since $a'b' = 1$,
@@ -389,9 +389,65 @@ Then $n | b$.
 
 (ii) $\implies$ (i) This is the definition of prime.
 
+***proposition 2.16*** Let $n > 1$ be an integer. Then a class $[\mathcal{l}]_n$ has a multiplicative
+inverse in $\mathbb{Z}/n\mathbb{Z}$ if and only if $\gcd(n, l) = 1$.
+
+Proof.
+If $[l]_n$ has a multiplicative inverse, then assume $al = 1$.
+So if $\gcd(n, l) = b$, then $b | n$, so $b | n | al - 1$, and $b | l$,
+so $b | 1$. So $b = 1$.
+
+We can also use corollary 1.9
+
+Conversely, if $\gcd(n, l) = 1$, we can find $an + bl = 1$, so $[b]_n[l]_n = 1$. Then $[l]_n$ has a multiplicative inverse.
+
+* So in theorem 2.15, why do we need to have make sure $n \ne 0$. Because
+when we prove (i) $\implies$ (iii), we use such argument:
+If $n$ is prime, then $\gcd(a, n) = 1$. It's not true when $n=0$.
+
+## 2.5 Fermat’s Little Theorem, and the RSA Encryption System
+
+***theorem 2.18 (Fermat’s little theorem)*** Let $a, p$ be integers, with $p$ positive and prime. Then $[a]_p^p = [a]_p$ or $a^{p-1} \equiv 1 \mod p$.
+
+Proof.
+
+$$
+[a]_p, [2a]_p, \cdots, [(p-1)a]_p
+$$
+
+are all different. Then
+
+$$
+[a]_p \cdot [2a]_p \cdot [(p-1)a]_p = [1]_p [2]_p \cdots [p-1]_p
+$$
+
+So $a^{p-1} = 1$.
+
+***theorem 2.19 (RSA algorithm)*** Let $p, q$ be positive prime integers, and let 
+
+$$
+n = pq \\
+k = (p-1)(q-1) \\
+\gcd(e, k) = 1 \\
+de \equiv 1 \mod k \\
+a \\
+b \in [a]_n^e 
+$$
+
+We have $a \equiv b^d \mod n$.
+
+Proof. Since $b^d \equiv a^{ed} \mod n$, we just need to prove $a \equiv a^{ed} \mod n$. Since $ed = kr + 1$, we just need to show
+$a^{kr} \equiv 1 \mod n$.
+
+We first will show $a ^{kr} \equiv 1 \mod p$, this is because
+$a^{p-1} \equiv 1 \mod p$, then $a^{(p-1)(q-1)r} \equiv 1 \mod p$.
+Similarly, we can prove $a ^{kr} \equiv 1 \mod q$.
+
+And therefore $a ^{kr} \equiv 1 \mod n$.
+
 ## Exercise
 
-pg 422
+Solution is in pg 422
 
 2.1 Prove that if $a ≡ b \mod n$ and $k | n$, then $a ≡ b \mod k$.
 
@@ -468,6 +524,77 @@ $$
 2.11  Prove that for all $a ∈ \mathbb{Z}/n\mathbb{Z}$, $a · 0 = 0$ (where 0 stands for $[0]_n$).
 
 Proof: $a \cdot n \cdot q \equiv 0 \mod n$.
+
+2.12 Let $p > 0$ be a prime integer, and let $a ∈ \mathbb{Z}/p\mathbb{Z}$,
+$a \ne 0$. Prove that the multiplica-
+tive inverse of a, whose existence is guaranteed by Theorem 2.15, is unique.
+
+Proof:
+
+$b = (b'a)b = b'(ab) = b'$.
+
+2.14 Let $a, b, n$ be integers, with $n > 0$, and assume $\gcd(a, n) = 1$. Prove that the equation $[a]_n x = [b]_n$ has a unique solution in $\mathbb{Z}/n\mathbb{Z}$.
+
+Proof. $\gcd(a, n) = 1$, then $ac+ny=1$, then we have $acb+nyb=b$.
+So $acb \equiv b \mod n$. So let $x = [cb]_n$.
+
+Now assume $[a]_n x' = [b]_n$, then we have $[a]_n (x - x') = 0$.
+Then we have $n | a (x- x')$, and we have $n | x - x'$.
+So $x \equiv x' \mod n$.
+
+2.15 Let $p > 0$ be a prime integer. Prove that the equation $x^2 + x = 0$ has exactly two solutions in $\mathbb{Z}/p\mathbb{Z}$, and find those solutions.
+
+Proof. the two solutions are $0, p-1$.
+
+2.16 Let $n > 0$ be an integer, and let $a, b ∈ \mathbb{Z}/n\mathbb{Z}$. Assume that both $a$ and $b$ have
+multiplicative inverses. Prove that $ab$ has a multiplicative inverse.
+
+Proof. It's $b^{-1}a^{-1}$.
+
+2.17 Let $n > 0$ be an integer, and let $a ∈ \mathbb{Z}/n\mathbb{Z}$.
+Prove $a$ has a multiplicative inverses or there exists a
+$b∈\mathbb{Z}/n\mathbb{Z}$, $b \ne 0$, such that $ab = 0$.
+
+Proof. Consider $1 \cdot a, 2 \cdot a, \cdots, (n-1)a$. Then two of them
+must be equal.
+
+2.18  Prove that the two formulations of Fermat’s little theorem are equivalent.
+
+Proof. If $a^p \equiv a \mod p$, then $a^p-a = a(a^{p-1} - 1) = 0$.
+Since $a\ne 0$, then $a^{p-1} \equiv 1 \mod p$.
+
+If $a^{p-1} = 1$, then $a \cdot a^{p-1} = a$, then $a^p = a$.
+
+2.20  Let $n, a, b_1,..., b_r$ be integers, with $n > 1$ and $1 < a < n$, $1 < b_i < n$. Assume that $a$ is a witness to the fact that $n$ is composite
+(that is, $a^{n−1} \not\equiv 1 \mod n$) and that
+$\gcd(a, n) = 1$.
+
+Prove that if $b_i$ is not a witness, then $ab_i$is a witness.
+
+Proof. $(ab_i)^n \equiv a^n b_i^n \equiv a^n \not\equiv 1 \mod n$.
+
+Prove. Prove that if $[b_1]_n,..., [b_r]_n$ are all different, then so are $[ab_1]_n,..., [ab_r]_n$.
+
+Proof. Assume $a(b_1 - b_2) = 0$, then $n | a(b_1 - b_2)$. Since
+$\gcd(a, n) = 1$, then $b_1 = b2$. So $[ab_1]_n,..., [ab_r]_n$ are all different.
+
+Deduce that in this case $n$ has fewer than $n/2$ non-witnesses.
+
+Proof. Assume $[b_1]_n,..., [b_r]_n$ are all non-witnesses and they
+are all different.
+$[a]_n, [ab_1]_n,..., [ab_r]_n$ are all different. So the $r < n/2$.
+
+2.21 A composite number $n$ is a Carmichael number if $a^{n−1} ≡ 1$ modulo $n$ for all $a$ relatively prime to $n$.
+
+Prove that if $n$ is a square-free integer (that is, $n$ is not a multiple of a perfect square)
+such that $p − 1$ divides $n − 1$ for all prime factors $p$ of $n$, then $n$ is a Carmichael number.
+
+Proof. 
+
+Since $n$ is a square-free integer, then $n = p_1\cdots p_k$.
+Assume $p_1 | n$ and is a prime number. We prove $p_1 | a^{n-1} - 1$.
+This is because $a^{p_1-1} \equiv 1 \mod p_1$, and $p_1-1 | n-1$.
+So $a^{n_1-1} \equiv 1 \mod p_1$. We are done.
 
 # Appendix
 
