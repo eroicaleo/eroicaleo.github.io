@@ -596,6 +596,48 @@ Assume $p_1 | n$ and is a prime number. We prove $p_1 | a^{n-1} - 1$.
 This is because $a^{p_1-1} \equiv 1 \mod p_1$, and $p_1-1 | n-1$.
 So $a^{n_1-1} \equiv 1 \mod p_1$. We are done.
 
+# 3 Rings
+
+## 3.1 Definition and Examples
+
+***definition 3.1*** A ‘ring’ $(R, +, ·)$ consists of a set $R$ along with two binary operations
+$+$ and $·$ (called ‘addition’ and ‘multiplication’), satisfying the following properties.
+
+(i) Associativity for addition: $\forall a,b,c \in R, (a+b)+c = a+(b+c)$ 
+(ii) Existence of additive identity:
+(iii) Existence of additive inverses:
+(iv) Commutativity for addition:
+(v) Associativity for multiplication: $\forall a,b,c \in R, (a \cdot b) \cdot c = a \cdot (b \cdot c)$
+(vi) Existence of multiplicative identity:
+$∃1_R ∈ R, ∀a ∈ R, a · 1_R = 1_R · a = a$
+
+(vii) Distributivity:
+
+***Example 3.2*** $\mathbb{Z}$ is a ring.
+
+***Example 3.3*** The sets $\mathbb{Q}$, $\mathbb{R}$, and $\mathbb{C}$ of rational, real, and complex numbers form rings
+with the usual operations.
+
+***Example 3.4*** For every nonnegative integer $n, \mathbb{Z}/n\mathbb{Z}$ is a ring.
+
+***Example 3.6*** Another non-example, for more serious reasons: Consider the set
+$\mathbb{N} = Z^{≥0}$ of natural numbers. With the usual operations +, ·, N satisfies all the ring axioms
+with the exception of the existence of additive inverses, axiom (iii): for instance, there
+is no $a ∈ \mathbb{N}$ such that $1 + a = 0$. (Such a would be −1, and −1 is not an element of $\mathbb{N}$.)
+Thus, $\mathbb{N}$ is not a ring. As it happens, axiom (iii) is so fundamental that nobody on this
+planet calls $\mathbb{N}$ a ring.
+
+***Example 3.7*** Another non-example! The set $Z≤0$ of ‘nonpositive numbers’ is even
+worse off than $\mathbb{N}$, since (−1) · (−1) = 1  $Z≤0$: the set $Z≤0$ is not closed with respect
+to (ordinary) multiplication. Thus, we do not even know how to interpret the last three
+axioms in the list, for this set (at least if we stick to the ordinary operations).
+
+## Exercises
+
+
+***5.1*** Proof. let $a = 5m, b=5m$, $a\odot b = (5a)(5b)/5= 5ab \in 5 \mathbb{Z}$. So it's closed. And the multipliy inverse is $5$ it self.
+
+
 # Appendix
 
 ## A.8 Relations; Equivalence Relations and Quotient Sets
