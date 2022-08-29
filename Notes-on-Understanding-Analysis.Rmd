@@ -1820,6 +1820,28 @@ And we can find $K_n$, such that $K_n \subset V_{\epsilon}(x) \subset O_{\lambda
 Proof. Since $K$ is compact, then it's bounded and closed.
 So $\sup K$ and $\inf K$ both exist. Because it's closed. According to Exercise 3.2.4., $\sup K \in S, \inf K \in S$.
 
+***Exercise 3.3.2.*** Decide which of the following sets are compact. For those that are not compact, show how Definition 3.3.1 breaks down. In other words, give an example of a sequence contained in the given set that does not possess a subsequence converging to a limit in the set.
+
+(a) N.
+
+Not compact. Itself.
+
+(b) $Q \cap [0,1]$
+
+Not compact. A sequence converges to $\sqrt{2}/2$.
+
+(c) The Cantor set.
+
+Compace. Close and bounded.
+
+(d) $\{1+1/2^2 +1/3^2 +···+1/n^2 :n∈N\}$.
+
+Not closed. Itself.
+
+(e) $\{1,1/2,2/3,3/4,4/5,...\}.$
+
+Compact. Closed and bounded.
+
 ***Exercise 3.3.3.*** Prove the converse of Theorem 3.3.4 by showing that if a set
 $K ⊆ R$ is closed and bounded, then it is compact.
 
@@ -1828,9 +1850,230 @@ Proof. See above.
 ***Exercise 3.3.4.*** Assume K is compact and F is closed. Decide if the following
 sets are definitely compact, definitely closed, both, or neither.
 
-(a) $K∩F$
+(a) $K \cap F$
 
-Definitely compact.
+Proof. definitely compact. Because it's closed and bounded.
+
+(b) $\overline{F^c \cup K^c}$
+
+Proof. Definitely closed. $F^c$ and $K^c$ are open. So their union is open.
+Then the closure is closed. Let $F = K = [0, 1]$.
+Then $\overline{F^c \cup K^c} = (-\infty , 0] \cup [1, +\infty)$.
+So not bounded.
+
+(c) $K \backslash F = { x ∈ K : x \notin F }$
+
+Proof. Neither. Let $K = [0,2], L = [1, \infty]$. $K \backslash F = [0, 1)$.
+
+(d) $\overline{K \cap F^c}$
+
+Proof. Compact. $K \cap F^c \subseteq K$, so $\overline{K \cap F^c} \subseteq K$. So it's bounded closed set.
+
+***Exercise 3.3.5.*** Decide whether the following propositions are true or false. If the claim is valid, supply a short proof, and if the claim is false, provide a counterexample.
+
+(a) The arbitrary intersection of compact sets is compact.
+
+True. compact set is closed and bounded.
+The arbitrary intersection of closed set is closed.
+The arbitrary intersection of bounded set is bounded.
+So it's closed and bounded. As long as it's not empty, then it's compact.
+
+(b) The arbitrary union of compact sets is compact.
+
+False. counterexample. Let $A_n = [n, n+1]$.
+
+(c) Let $A$ be arbitrary, and let K be compact. Then, the intersection $A ∩ K$ is compact.
+
+False. Let $A = (0, 1), K = [0, 1]$.
+
+(d) If $F1 ⊇ F2 ⊇ F3 ⊇ F4 ⊇ ···$ is a nested sequence of nonempty closed sets, then the intersection $\cap_{n=1}^{\infty} F_n \not= \emptyset$.
+
+False. Let $F_n = [n, \infty)$.
+
+***Exercise 3.3.6.*** This exercise is meant to illustrate the point made in the opening paragraph to Section 3.3. Verify that the following three statements are true if every blank is filled in with the word “finite.” Which are true if every blank is filled in with the word “compact”? Which are true if every blank is filled in with the word “closed”?
+
+(a) 
+
+Every finite set has a maximum. True.
+
+Every compact set has a maximum. True. Bounded and closed.
+
+Every closed set has a maximum. False. $[0, \infty)$
+
+(b)
+
+If $A$ and $B$ are finite, then $A+B={a+b:a∈A,b∈B}$ is also finite. True.
+If $A$ and $B$ are compact, then $A+B={a+b:a∈A,b∈B}$ is also compact. True.
+
+Assume $c$ is a limit point of $A+B$, we can find a sequence $\{a_n + b_n\} \rightarrow c$. For $\{a_n\}$, since $A$ is compact, we can find a subsequence
+$\{a_{n_k}\} \rightarrow a \in A$. Again $\{a_{n_k} + b_{n_k}\} \rightarrow c$. We can find a subsequence $b_{n_{k_l}} \rightarrow b$. So $a_{n_{k_l}} + b_{n_{k_l}} \rightarrow c$ and $a_{n_{k_l}} + b_{n_{k_l}} \rightarrow a + b$.
+So $c = a + b$. So $c \in A+B$.
+
+See also [here](https://math.stackexchange.com/questions/2432845/prove-that-the-sum-of-two-compact-sets-in-mathbb-rn-is-compact)
+
+If $A$ and $B$ are closed, then $A+B={a+b:a∈A,b∈B}$ is also closed. False.
+
+Consdier
+
+$$
+A = \{n + \frac{1}{10^n}: n = 1, 2, \cdots\} \\
+B = \{-n : n = 1, 2, \cdots\}
+$$
+Both sets are closed. And $0$ is a limit point of $A+B$. And $0 \notin A+B$.
+
+See also [here](https://math.stackexchange.com/questions/124130/sum-of-two-closed-sets-in-mathbb-r-is-closed).
+
+(c)
+
+If $\{A_n: n \in \mathbb{N}\}$ is a collection of ***finite*** sets with the property that every finite subcollection has a nonempty intersection,
+the $\cap A_n \ne \emptyset$.
+
+Proof: This is true. Consider
+
+$$
+B_n = \cap_{i=1}^n A_n
+$$
+
+Consider $a \in A_1$, then if $a \notin \cap A_n$, we can find $N$, such
+that $a \notin B_n, \forall n > N$.
+We can check for all elements in $A_1$. Then at least there is one elements
+exist in all $A_n$.
+
+If $\{A_n: n \in \mathbb{N}\}$ is a collection of ***compact*** sets with the property that every finite subcollection has a nonempty intersection,
+the $\cap A_n \ne \emptyset$.
+
+Proof: This is true. Again consider
+
+$$
+B_n = \cap_{i=1}^n A_n
+$$
+
+Then we have
+
+$$
+B_1 \supseteq B_2 \supseteq \dots
+$$
+
+They are all compact. So from Theorem 3.3.5 (Nested Compact Set Property),
+$A$ is not empty.
+
+If $\{A_n: n \in \mathbb{N}\}$ is a collection of ***closed*** sets with the property that every finite subcollection has a nonempty intersection,
+then $\cap A_n \ne \emptyset$.
+
+False. Consider $A_n = [n, \infty)$.
+
+***Exercise 3.3.7.*** As some more evidence of the surprising nature of the Cantor set, follow these steps to show that the sum $C +C = \{x+y : x,y ∈ C\}$ is equal to the closed interval $[0, 2]$. (Keep in mind that C has zero length and contains no intervals.)
+
+Because $C ⊆ [0,1], C + C ⊆ [0,2]$, so we only need to prove the reverse inclusion $[0,2] ⊆ \{x + y : x,y ∈ C\}$. Thus, given $s ∈ [0,2]$, we must find two elements $x,y∈C$ satisfying $x+y=s$.
+
+(a) Show that there exist $x_1 , y_1 ∈ C1$ for which $x_1 + y_1 = s$. Show in general that, for an arbitrary $n ∈ N$, we can always find $x_n,y_n ∈ C_n$ for which $x_n + y_n = s$.
+
+Proof.
+
+Assume $x_n + y_n = s$, and if one of them is not in the left and right $\frac{1}{3}$ region. We can move the points together until they
+line up. If they are in the $\frac{1}{3}$ region, we are done for $n+1$.
+Otherwise, we keep moving them in the same direction until both of them
+are in the $\frac{1}{3}$ region.
+
+(b) Keeping in mind that the sequences $(x_n)$ and $(y_n)$ do not necessarily converge, show how they can nevertheless be used to produce the desired $x$ and $y$ in $C$ satisfying $x + y = s$.
+
+Consider the $I_n$ is the $\frac{1}{3}$ region $(x_n)$ is in. Then
+we produce $I_1 \supset I_2 \supset \dots$. According to NIP, there exists
+$x$ in all of them, that's the $x$ we need. It's also in $C$, because it's
+in all $I_n$. Simiarly, we can find the $y$ we need.
+
+***Exercise 3.3.8.*** Let $K$ and $L$ be nonempty compact sets, and define
+
+$$
+d = \inf \{ |x − y| : x ∈ K \text{ and } y ∈ L \}.
+$$
+
+This turns out to be a reasonable definition for the distance between $K$ and $L$.
+
+(a) If $K$ and $L$ are disjoint,show $d>0$ and that $d=|x_0−y_0|$ for some $x_0 ∈K$ and $y_0 ∈ L$.
+
+Consider sequence $x_n - y_n \rightarrow d$, we can find subsequence
+$\{x_{n_k}\} \rightarrow x$, from there we can find another subsequence
+$\{y_{n_{k_{l}} }\} \rightarrow y$, then $x - y = d$. Since $x \in X$ and
+$y \in Y$, then $x - y \ne 0$.
+
+(b) Show that it’s possible to have $d = 0$ if we assume only that the disjoint sets $K$ and $L$ are closed.
+
+Consider
+
+$$
+K = \{1-\frac{1}{10}, 2-\frac{1}{100},\dots\} \\
+L = \{1, 2, \dots\}
+$$
+Then the distance can be 0.
+
+See also [here](https://math.stackexchange.com/questions/48714/a-and-b-disjoint-a-compact-and-b-closed-implies-there-is-positive-distance-bet) and [here](https://math.stackexchange.com/questions/391396/for-two-disjoint-compact-subsets-a-and-b-of-a-metric-space-x-d-show-that).
+
+***Exercise 3.3.9.*** Follow these steps to prove the final implication in Theorem 3.3.8.
+
+Proof. See above.
+
+***Exercise 3.3.10.*** Here is an alternate proof to the one given in Exercise 3.3.9 for the final implication in the Heine–Borel Theorem.
+
+Consider the special case where $K$ is a closed interval. Let $\{O_λ : λ ∈ Λ\}$ be an open cover for $[a,b]$ and define $S$ to be the set of all $x ∈ [a,b]$ such that $[a,x]$ has a finite subcover from $\{O_λ : λ ∈ Λ\}$.
+
+(a) Argue that $S$ is nonempty and bounded, and thus $s = \sup S$ exists.
+
+Proof. Consider $a$ is cover by $O_a$, then we can find $V_{\epsilon}(a) \subset O_a$, then $[a, a+\epsilon/2] \subset V_{\epsilon}(a)$. So $S$ is
+nonempty.
+
+Furthermore, we will prove $s \in S$. Assume $O_s$ covers $s$. Then we can find $V_{\epsilon}(s) \subset O_s$, the $[s, s-\epsilon/2] \subset V_{\epsilon}(s)$. And $[a, s-\epsilon/2]$ has a finite subcover.
+So $[a, s]$ has a finite subcover.
+
+(b) Now show $s = b$, which implies $[a, b]$ has a finite subcover.
+
+Proof. Assume $s = c < b$. Then $c$ is covered by $O_c$. Since $O_c$ is
+open, then we can find $c < c' \in O_c$, then $[a, c']$ has a finite subcover. We have a contradiction.
+
+(c) Finally, prove the theorem for an arbitrary closed and bounded set $K$.
+
+Proof. Since $K$ is bounded, then we can assume $K \subseteq [a,b]$.
+Assume $O_\lambda$ is an open cover of $K$. And assume $c \notin K, c \in [a,b]$. Since $K$ is closed, we know $c$ is not a limit point of $K$.
+Then we can find $V_{\epsilon}(c) \cap K = \emptyset$.
+They way, we can construct an open cover of $[a, b]$, i.e 
+$O_\lambda \cup V_{\epsilon}(c)$.
+Then we can find a finite cover. From that finite cover, we can find
+a sub finite cover which is in $O_\lambda$.
+
+***Exercise 3.3.11.*** Consider each of the sets listed in Exercise 3.3.2. For each
+one that is not compact, find an open cover for which there is no finite subcover.
+
+(a) N.
+
+$(n-1/2, n+1/2)$
+
+(b) $Q \cap [0,1]$
+
+$(q-\epsilon/2, q+\epsilon/2)$ where $\epsilon$ is distance
+between $q$ and $\sqrt{2}/2$.
+
+(d) $\{1+1/2^2 +1/3^2 +···+1/n^2 :n∈N\}$.
+
+Let $a_n = 1+1/2^2 +1/3^2 +···+1/n^2$ and let $O_n = (a-1/2(n+1)^2, a+ 1/2(n+1)^2)$
+
+
+***Exercise 3.3.12.*** Using the concept of open covers (and explicitly avoiding the Bolzano–Weierstrass Theorem), prove that every bounded infinite set has a limit point.
+
+Proof. Assume $K$ is a bounded infinite set, and $K \subset [a, b]$.
+Since none of the point in $[a,b]$ is a limit point of $K$. Then for
+any $x \in [a,b]$, we can find $V_{ε}(x) \cap K = \{x\}$. Then we can
+find a finite cover of $[a,b]$, which is also a finite cover of $K$.
+So $K$ is finite.
+
+See also [here](https://math.stackexchange.com/questions/1718788/proving-every-bounded-infinite-set-has-a-limit-point-without-using-bolzano-weier)
+
+
+***Exercise 3.3.13.*** Let’s call a set clompact if it has the property that every closed cover (i.e., a cover consisting of closed sets) admits a finite subcover. Describe all of the clompact subsets of $R$.
+
+Solution. all clompact are finite set. Because one point set $\{x\}$ is a
+closed set.
+
+See also [here](https://math.stackexchange.com/questions/2989359/which-sets-are-clompact)
 
 # Chapter -1 Commonly used symbols
 
