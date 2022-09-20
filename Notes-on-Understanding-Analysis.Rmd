@@ -1773,7 +1773,7 @@ x_n,    & n_k' \le n \\
 x_{n_k} & n_k'\ > n \\
 \end{cases}
 $$
-So this sequence also converges to $x$. os $x \in K_n$.
+So this sequence also converges to $x$. so $x \in K_n$.
 
 ***Definition 3.3.6.*** Let $A ⊆ R$. An open cover for $A$ is a (possibly infinite) collection of open sets $\{O_λ : λ ∈ Λ\}$ whose union contains the set $A$; that is,
 $A \subseteq \cup_{\lambda \in \Lambda} O_λ$.
@@ -2075,6 +2075,202 @@ closed set.
 
 See also [here](https://math.stackexchange.com/questions/2989359/which-sets-are-clompact)
 
+## 3.4 Perfect Sets and Connected Sets
+
+***Definition 3.4.1.*** A set $P ⊆ \mathbb{R}$ is perfect if it is closed and contains no isolated points.
+
+***Example 3.4.2 (Cantor Set).*** It is not too hard to see that the Cantor set is perfect. See exercise  3.4.3.
+
+***Theorem 3.4.3.*** A nonempty perfect set is uncountable.
+
+Proof. Assume $P$ is countable, and $P = \{x_1, x_2, \dots\}$. Let $I_1$ be
+an interval such that $x_1$ in the interior of $I_1$. Since $x_1$ is not
+isolated, we can find $x_2$ in the interior of $I_1$. Then we construct
+$I_2 \subset I_1$ and $x_1 \notin I_1$.
+
+We can continue this process. We have
+
+(i) $I_{n+1} \subseteq I_n$
+(ii) $x_n \notin I_{n+1}$
+(iii) $I_n \cap P \neq \emptyset$.
+
+And let $K_n = I_n \cap P$. Then based on Nested Compact Set Property,
+$\cap K_n$ is not empty. However, since $x_n \notin K_{n+1}$, $\cap K_n = \emptyset$. We got a contradiction.
+
+### Connected Sets
+
+***Definition 3.4.4.*** Two nonempty sets $A, B ⊆ R$ are separated if $\overline{A} ∩ B$ and $A ∩ \overline{B}$ are both empty. A set $E ⊆ R$ is disconnected if it can be written as $E = A ∪ B$, where $A$ and $B$ are nonempty separated sets.
+
+A set that is not disconnected is called a connected set.
+
+***Example 3.4.5.*** the set of rational numbers is disconnected. Just need
+to consider $A = (-\infty, \sqrt{2})$ and $B = (\sqrt{2}, \infty)$.
+
+***Theorem 3.4.6.*** A set $E ⊆ R$ is connected if and only if, for all nonempty disjoint sets $A$ and $B$ satisfying $E = A ∪ B$, there always exists a convergent sequence $(x_n) → x$ with $(x_n)$ contained in one of $A$ or $B$, and $x$ an element of the other.
+
+Proof. Assume $E ⊆ R$ is connected. And assume if for all $(x_n) \rightarrow x$ is contained in $A$, $x \notin B$. Then we have $\overline{A} \cap B = \emptyset$, since $A \cap B = \emptyset$. Similarly if for all $(x_n) \rightarrow x$ is contained in $B$, $x \notin A$, then we have $\overline{B} \cap A = \emptyset$. Then we must have $E$ is disconnected. We have a contradiction.
+
+Conversely, assume $E ⊆ R$ is disconnected. Then we can find two separated sets $A, B$. Then assume $(x_n) → x$ with $(x_n)$ contained in $A$, then $x \in \bar{A}$. But $x \in B$, so $\overline{A} \cap B \neq \emptyset$. We have a
+contradiction.
+
+***Theorem 3.4.7.*** A set $E ⊆ R$ is connected if and only if whenever $a < c < b$ with $a, b ∈ E$, it follows that $c ∈ E$ as well.
+
+Proof. Assume $E \subseteq R$ is connected. Given $a < c < b$ with $a, b ∈ E$,
+and assume $c \notin E$. Consider $A = \{a \in E | a < c\}$, $B = \{b \in E | b > c\}$. For any $(x_n) \in A$, since $x_n < c$, then $(x_n) \rightarrow x \le c$. So $x \notin B$. Similarly, if $(x_n) \rightarrow x \in B$ ,then $x \notin A$. Then from Theorem 3.4.6, $E$ is not connected.
+
+Conversely assume $a < c < b$ with $a, b ∈ E$, it follows that $c ∈ E$ and
+$E ⊆ R$ is disconnected. Then we can find two separated sets $A, B$.
+Then assume $a = \sup A$ and $b = \inf B$, without loss of generality,
+assume $a \le b$. Since $a \in \bar{A}$, then $a \notin B$. Similarly, $b \notin A$. So $a \ne b$, $\forall a< c < b, c \notin A \cup B = E$. We have
+a contradiction.
+
+### Exercise
+
+***Exercise 3.4.1.*** If $P$ is a perfect set and $K$ is compact, is the intersection $P \cap K$ always compact? Always perfect?
+
+Proof. Always compact, because it's closed and bounded.
+Not always perfect. Let $P = R$ and $K = \{0, 1\}$.
+
+***Exercise 3.4.2.*** Does there exist a perfect set consisting of only rational num- bers?
+
+Proof. No. nonempty perfect set is uncountable.
+
+***Exercise 3.4.3.*** Review the portion of the proof given in Example 3.4.2 and follow these steps to complete the argument.
+
+(a) Because $x ∈ C_1$, argue that there exists an $x_1 ∈ C \cap C_1$ with $x_1 \ne x$ satisfying $|x − x_1| ≤ 1/3$.
+
+Proof. either 0 or 1.
+
+(b) Finish the proof by showing that for each $n ∈ N$, there exists $x_n ∈ C \cap C_n$, different from $x$, satisfying $|x − x_n| ≤ 1/3^n$.
+
+Proof. pick either boundary.
+
+***Exercise 3.4.4.*** Repeat the Cantor construction from Section 3.1 starting with the interval $[0, 1]$. This time, however, remove the open middle fourth from each component.
+
+(a) Is the resulting set compact? Perfect?
+
+Proof. It's compact. Since it's closed and bounded.
+
+***Exercise 3.4.5.***  Let $A$ and $B$ be nonempty subsets of R. Show that if there exist disjoint open sets $U$ and $V$  with $A⊆U$ and $B⊆V$,then $A$ and $B$ are separated.
+
+Proof. If $a \in \bar{A}$, then $a \notin V$. Because if $a \in V$, we can find
+$V_{\epsilon}(a) \subseteq V \cap U = \emptyset$. So $a \notin \bar{A}$, we
+have a contradiction. So $\bar{A} \cap B = \emptyset$. For the same reason,
+$A \cap \bar{B} = \emptyset$.
+
+***Exercise 3.4.6.*** Prove Theorem 3.4.6.
+
+Proof. See above.
+
+***Exercise 3.4.7.*** A set $E$ is totally disconnected if, given any two distinct points
+$x,y ∈ E$, there exist separated sets $A$ and $B$ with $x ∈ A$, $y ∈ B$, and $E = A∪B$.
+
+(a) Show that Q is totally disconnected.
+
+Proof. Assume $a, b \in Q$ and $a < b$. Then we can find $a < r < b$, so
+let $A = (-\infty, r) \cap Q$ and $B = (r, \infty) \cap Q$.
+
+(b) Is the set of irrational numbers totally disconnected?
+
+Proof. Yes. The same argument in (a) can also be applied here.
+
+See also [here](https://math.stackexchange.com/questions/3431757/is-irrational-number-set-on-mathbbr-disconnected).
+
+***Exercise 3.4.8.*** Exercise 3.4.8. Follow these steps to show that the Cantor set is totally disconnected in the sense described in Exercise 3.4.7.
+
+Let $C = \cap^∞_{n=0} C_n$, as defined in Section 3.1.
+
+(a) Givenx,$y∈C$,with $x<y$, set $\epsilon = y−x$. For each $n=0,1,2,...,$
+the set $C_n$ consists of a finite number of closed intervals. Explain why there must exist an $N$ large enough so that it is impossible for $x$ and $y$ both to belong to the same closed interval of $C_N$.
+
+Proof. This is because the length of the internals $C_n$ is $1/3^n$.
+
+***Exercise 3.4.9.*** Let $\{r1, r2, r3, . . .\}$ be an enumeration of the rational numbers, and for each $n \in N$, set $\epsilon_n = 1/2^n$.
+Define $O = \cup_{n=1}^\infty V_{\epsilon_n}(r_n)$ and let $F = O^c$.
+
+(a) Argue that F is a closed, nonempty set consisting only of irrational
+numbers.
+
+Proof: $O$ is an union of open set, so it's open. Then $F$ is closed.
+$O$ contains all rational numbers, so $F$ only contains irrational numbers.
+Now we need to prove $F$ is not empty.
+
+Assume $F$ is empty. Then consider $[0, 1]$ and $O$ is an open cover of it.
+Since it's compact, then we can find an finite sub cover of it.
+Then the total length of subcover is strictly less than $1$, then we
+must have some points not covered by this subcover. We got a contradiction.
+
+(b) Does F contain any nonempty open intervals? Is F totally disconnected?
+
+Proof. It's not possible. Because $\mathbb{Q}$ is dense. It's totally disconnected.
+
+(c) Is it possible to know whether F is perfect? If not, can we modify this
+construction to produce a nonempty perfect set of irrational numbers?
+
+Proof: I am inclined to think $F$ is not perfect. But I cannot prove it for now.
+
+## Baire’s Theorem
+
+***Definition 3.5.1.*** A set $A ⊆ R$ is called an $F_σ$ set if it can be written as the countable union of closed sets. A set $B ⊆ R$ is called a $G_δ$ set if it can be written as the countable intersection of open sets.
+
+***Exercise 3.5.1.***  Argue that a set A is a $G_δ$ set if and only if its complement is an $F_σ$ set.
+
+Proof. Use De Morgan’s Laws.
+
+***Exercise 3.5.2.*** Replace each underscore with the word finite or countable, depending on which is more appropriate.
+
+(a) The finite/countable union of $F_σ$ sets is an $F_σ$ set.
+
+Both are correct. See also [here](https://math.stackexchange.com/questions/2255466/proof-the-countable-union-of-f-sigma-sets-is-an-f-sigma-set)
+
+(b) The finite/countable intersection of $F_σ$ sets is an $F_σ$ set.
+
+### Nowhere-Dense Sets
+
+* $G$ is dense in $R$ if and only if $\overline{G} = R$.
+
+***Definition 3.5.3.*** A set $E$ is nowhere-dense if $\overline{E}$ contains no nonempty open intervals.
+
+***Exercise 3.5.8.*** Show that a set $E$ is nowhere-dense in $\mathbb{R}$ if and only if the complement of $\overline{E}$ is dense in R.
+
+Proof. Assume the complement of $\overline{E}$ is dense in $\mathbb{R}$, also assume
+$(a, b) \subset \overline{E}$. Further assume $a < c < b$. Since $(a, b) \cap \overline{E}^c = \emptyset$. $c$ cannot be a limit point of $\overline{E}^c$, so
+$\overline{\overline{E}^c} \ne \mathbb{R}$, so it's not dense, we have a contradiction.
+
+Conversely, assume $a \in \overline{E}$, because $\overline{E}$ does not contain
+open interval, in every $V_{\epsilon}(a)$, we can find $b \in \overline{E}^c$, it means
+$a$ is a limit point of $\overline{E}^c$. So the complement of $\overline{E}$ is dense in $\mathbb{R}$.
+
+***Exercise 3.5.9.*** Decide whether the following sets are dense in $\mathbb{R}$, nowhere-dense in $\mathbb{R}$, or somewhere in between.
+
+(a) $A=Q∩[0,5]$.
+
+Some where is between. Apparently, $\overline{A} = [0,5]$ which contains open interval.
+So it's not nowhere-dense. But it's not $\mathbb{R}$, so it's not dense.
+
+(b) $B =\{1/n:n∈N\}$.
+
+nowhere-dense.
+
+(c) the set of irrationals.
+
+dense, since it's closure is $\mathbb{R}$
+
+(d) the Cantor set.
+
+nowhere-dense. Since itself is a closed set. And it does not contain open interval.
+See exercise 3.4.8.
+
+***Theorem 3.5.4 (Baire’s Theorem).*** The set of real numbers R cannot be written as the countable union of nowhere-dense sets.
+
+Proof. For contradiction, assume that $E_1,E_2,E_3,...$ are each nowhere-dense and satisfy $\mathbb{R} = \cup^{∞}_{n=1} E_n$.
+
+***Exercise 3.5.10.*** Finish the proof by finding a contradiction to the results in this section.
+
+Proof. We consider $\cup^{∞}_{n=1} \overline{E_n}$, then diretly apply 
+Exercise 3.5.5. We can prove it. Since the closure of them cannot cover $R$, let alone
+themselves.
+
 # Chapter -1 Commonly used symbols
 
 $$
@@ -2098,4 +2294,9 @@ $$
 * [linearalgebras.com](https://linearalgebras.com/solution-understanding-analysis.html)
 * [github](https://github.com/mikinty/Understanding-Analysis-Abbott-Solutions)
 * [github UlisseMini](https://github.com/UlisseMini/understanding-analysis-solutions)
+
+## Problems I cannot solve
+
+* 3.4.9(c)
+* 3.5.7
 
