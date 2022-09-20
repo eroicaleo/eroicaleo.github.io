@@ -613,6 +613,11 @@ $∃1_R ∈ R, ∀a ∈ R, a · 1_R = 1_R · a = a$
 
 (vii) Distributivity:
 
+$$
+∀a, b, c ∈ R \\
+a\cdot(b + c) = a \cdot b + a \cdot c \\
+$$
+
 ***Example 3.2*** $\mathbb{Z}$ is a ring.
 
 ***Example 3.3*** The sets $\mathbb{Q}$, $\mathbb{R}$, and $\mathbb{C}$ of rational, real, and complex numbers form rings
@@ -632,11 +637,242 @@ worse off than $\mathbb{N}$, since (−1) · (−1) = 1  $Z≤0$: the set $Z≤0
 to (ordinary) multiplication. Thus, we do not even know how to interpret the last three
 axioms in the list, for this set (at least if we stick to the ordinary operations).
 
+***Example 3.8*** A ring $R$ cannot be empty: axioms (ii) and (vi) prescribe the existence of
+some elements in $R$, so $R = ∅$ is not an option. How small can $R$ be?
+In the trivial ring $0_R$ and $1_R$
+both equal $r$: there is no room for anything else. So $0 = 1$ in the trivial ring.
+
+***Example 3.9*** Consider the set $M_{2,2}(\mathbb{R})$ of 2 × 2 matrices with entries in $\mathbb{R}$. Also  $M_{2,2}(\mathbb{Z}/2\mathbb{Z})$.
+Also $M_{2,2}(M_{2,2}(\mathbb{Z}))$
+
+***Example 3.10***  Another class of examples with which you are already familiar is given by polynomials.
+(i) $R[x]$
+(ii) $\mathbb{R}[x]$
+(iii) $R[x_1, \dots, x_n]$
+
+## 3.2 Basic Properties
+
+***proposition 3.14*** Let $R$ be a ring. Then $1$ and $0$ are unique.
+
+***proposition 3.15*** Let $R$ be a ring, and let $a$ be an element of $R$. Then the additive inverse of $a$ is unique.
+
+***proposition 3.17*** Let $R$ be a ring, and let $a, b, c ∈ R$. Assume that $a + b = a + c$. Then $b = c$.
+
+Proof. 
+
+$$
+b = b + (a + (-a)) = (b + a) + (-a) = (c + a) + (-a) = c 
+$$
+
+***corollary 3.18*** Let $R$ be a ring, and let $a ∈ R$. Then $0 · a = a · 0 = 0$.
+
+Proof.
+
+$$
+0 \cdot a + 0 \cdot a = (0 + 0) \cdot a = 0 \cdot a + 0
+$$
+
+So $0 \cdot a = 0$.
+
+
 ## Exercises
 
+pg 75 solution pg 424
 
-***5.1*** Proof. let $a = 5m, b=5m$, $a\odot b = (5a)(5b)/5= 5ab \in 5 \mathbb{Z}$. So it's closed. And the multipliy inverse is $5$ it self.
+***3.1*** Proof. let $a = 5m, b=5m$, $a\odot b = (5a)(5b)/5= 5ab \in 5 \mathbb{Z}$. So it's closed. And the multipliy inverse is $5$ it self.
 
+***3.2*** Define a new ‘multiplication’ operation on $\mathbb{Z}$, by setting $a \odot b = −ab$. Is $(\mathbb{Z}, +, \odot)$
+a ring according to Definition 3.1? (Prove it is, or explain why it is not.)
+
+Proof. Yes, it is!
+
+Associativity for multiplication:
+$\forall a,b,c \in R, (a \cdot b) \cdot c = a \cdot (b \cdot c)$
+
+
+$$
+(a \odot b) \odot c = (-ab) \odot c = abc \\
+a \odot (b \odot c) = a \odot (-bc) = abc
+$$
+
+Existence of multiplicative identity:
+$∃1_R ∈ R, ∀a ∈ R, a · 1_R = 1_R · a = a$
+
+$$
+a \odot (-1) = -(a\cdot-1)=a \\
+(-1) \odot a = -(-1\cdot a) = a
+$$
+
+(vii) Distributivity:
+
+$$
+∀a, b, c ∈ R \\
+a\cdot(b + c) = a \cdot b + a \cdot c \\
+$$
+
+$$
+a \odot (b+c) = -a(b+c) = -ab -ac = a \odot b + a \odot c
+$$
+
+***3.3*** Define new operations $\oplus, \odot$ on $\mathbb{Z}$, by setting
+
+$$
+a \oplus b = a + b -1, a \odot b  = a + b - ab
+$$
+
+Prove that $(\mathbb{Z}, \oplus, \odot)$ is a ring. What are 0 and 1 in this new ring?
+
+Proof.
+
+(i) Associativity for addition: $\forall a,b,c \in R, (a+b)+c = a+(b+c)$ 
+
+$$
+(a \oplus b) \oplus c = (a + b - 1) \oplus c = (a + b - 1) + c - 1 = a + b + c - 2 \\
+a \oplus (b \oplus c) = a \oplus (b + c - 1) = a + (b + c - 1) - 1 = a + b + c - 2
+$$
+(ii) Existence of additive identity:
+
+$$
+a \oplus 1 = a + 1 - 1 = a
+$$
+
+(iii) Existence of additive inverses:
+
+$$
+a \oplus b = a + b - 1 = 1 \\
+b = 2 - a
+$$
+
+(iv) Commutativity for addition:
+
+$$
+a \oplus b = a + b - 1 \\
+b \oplus a = b + a - 1 \\
+$$
+(v) Associativity for multiplication: $\forall a,b,c \in R, (a \cdot b) \cdot c = a \cdot (b \cdot c)$
+
+$$
+(a \odot b) \odot c = (a + b - ab) \odot c = (a + b - ab) + c - (a + b - ab)c \\
+= a + b - ab + c - ac -bc + abc \\
+a \odot (b \odot c) = a \odot (b + c - bc) = \\
+a + (b + c - bc) - a(b + c - bc) = \\
+a + b+ c - bc - ab - ac + abc
+$$
+
+(vi) Existence of multiplicative identity:
+$∃1_R ∈ R, ∀a ∈ R, a · 1_R = 1_R · a = a$
+
+$$
+a \odot b = a + b - ab = a \\
+b = 0
+$$
+
+(vii) Distributivity:
+
+$$
+∀a, b, c ∈ R \\
+a\cdot(b + c) = a \cdot b + a \cdot c \\
+$$
+
+$$
+a \odot (b \oplus c) = a \odot (b + c - 1) = a + (b + c - 1) - a(b + c -1) = \\
+a + b + c - 1 - ab - ac + a \\
+(a \odot b) \oplus (a \odot c) = (a + b - ab) \oplus (a + c - ac) = \\
+(a + b - ab) + (a + c - ac) - 1 = \\
+2a + b + c - ab - ac - 1
+$$
+
+So this is a ring.
+
+3.4 Let $R = \mathcal{P}(S)$ denote the set of subsets of a set $S$. Define two operations on $R$: for all $A, B ⊆ S$, set
+
+$$
+A + B := (A \backslash B) \cup (B \backslash A) \\
+A \cdot B := A \cap B
+$$
+Prove $(R, +, \cdot)$ is a ring.
+
+Proof.
+
+(i) Associativity for addition: $\forall a,b,c \in R, (a+b)+c = a+(b+c)$ 
+
+$$
+(A + B) + C = ((A \backslash B) \cup (B \backslash A)) + C = \\
+((A\cup B)\backslash (A \cap B)) + C = \\
+(((A\cup B)\backslash (A \cap B)) \cup C) \backslash
+(((A\cup B)\backslash (A \cap B)) \cap C) \\
+= (A \backslash (B \cup C)) \cup
+(B \backslash (C \cup A)) \cup
+(C \backslash (A \cup B))
+$$
+
+(ii) Existence of additive identity:
+
+$$
+A + \emptyset = (A \backslash \emptyset) \cup (\emptyset \backslash A)
+= A \cup \emptyset = A
+$$
+
+(iii) Existence of additive inverses:
+
+$$
+A + A = (A \backslash A) \cup (A \backslash A) =
+\emptyset \cup \emptyset = \emptyset
+$$
+
+(iv) Commutativity for addition: obvious.
+
+(v) Associativity for multiplication:
+
+$$
+(A \cap B) \cap C = A \cap (B \cap C)
+$$
+
+(vi) Existence of multiplicative identity:
+
+$$
+A \cap S = A
+$$
+
+(vii) Distributivity:
+
+$$
+∀a, b, c ∈ R \\
+a\cdot(b + c) = a \cdot b + a \cdot c \\
+$$
+
+$$
+A \cap (B \backslash C \cup C \backslash B)=
+(A \cap B) \backslash (A \cap C) \cup
+(A \cap C) \backslash (A \cap B) 
+$$
+
+***3.5***  Let $R$ be a ring, and assume that $0 = 1$ in $R$. Prove that $R$ consists of a single element.
+
+Proof. 
+
+$$
+a \cdot 0 + a = a \cdot (0 + 1) = a \cdot 1 = a + 0 \\
+\text{so } a\cdot 0 = 0
+$$
+
+Assume $a \in R$. Then $a \cdot 1 = a \cdot 0 = 0$.
+
+***3.6***  Let R be a ring. Prove that $∀a ∈ R, (−1) · a = −a$.
+
+$$
+a + (−1) · a = (1 + (-1)) \cdot a = 0 \cdot a = 0
+$$
+
+***3.7*** Let $R$ be a ring, and $a, b ∈ R$. Prove that $−(a + b) = (−a) + (−b)$. Deduce that $(−n)a = −(na)$ equals $n(−a)$ for every nonnegative integer $n$.
+
+Proof. 
+
+$$
+(a+b) + ( (−a) + (−b) ) = \\
+(a+b + (-a)) + (-b) = \\
+b + (-b) = 0
+$$
 
 # Appendix
 
