@@ -2231,6 +2231,37 @@ Both are correct. See also [here](https://math.stackexchange.com/questions/22554
 
 ***Definition 3.5.3.*** A set $E$ is nowhere-dense if $\overline{E}$ contains no nonempty open intervals.
 
+***Exercise 3.5.5.*** Show that it is impossible to write
+
+$$
+R = \cup_{n=1}^{\infty} F_n
+$$
+
+where for each $n ∈ N$, $F_n$ is a closed set containing no nonempty open intervals.
+
+Proof: Consider $G_n = (F_n)^c$, so $G_n$ is open, and it's also dense.
+Then from 3.5.4, the intersection of $G_n$ is not empty. So the union of $F_n$
+cannot be the whole $R$.
+
+***Exercise 3.5.6.*** Show how the previous exercise implies that the set $I$ of irrationals cannot be an $F_σ$ set, and $Q$ cannot be a $G_δ$ set.
+
+Proof: Assume $I$ is an $F_{\sigma}$ set.
+
+$$
+I = \cup_{n=1}^{\infty} F_n
+$$
+
+$F_n$ is a closed set containing no nonempty open intervals. And $Q$ can be
+written as
+
+$$
+Q = \cup_{n=1}^{\infty} \{q_n | q_n \in Q\}
+$$
+
+$Q_n$ is a closed set containing no nonempty open intervals.
+
+And $R = I \cup Q$. We have a contradiction.
+
 ***Exercise 3.5.8.*** Show that a set $E$ is nowhere-dense in $\mathbb{R}$ if and only if the complement of $\overline{E}$ is dense in R.
 
 Proof. Assume the complement of $\overline{E}$ is dense in $\mathbb{R}$, also assume
@@ -2270,6 +2301,46 @@ Proof. For contradiction, assume that $E_1,E_2,E_3,...$ are each nowhere-dense a
 Proof. We consider $\cup^{∞}_{n=1} \overline{E_n}$, then diretly apply 
 Exercise 3.5.5. We can prove it. Since the closure of them cannot cover $R$, let alone
 themselves.
+
+# Chapter 4 Functional Limits and Continuity
+
+## 4.1 Discussion: Examples of Dirichlet and Thomae
+
+* We consider the following function
+
+$$
+g(x) =
+  \begin{cases}
+    1 & \quad \text{if } x \in \mathbb{Q} \\
+    0 & \quad \text{if } x \notin \mathbb{Q}
+  \end{cases}
+$$
+Note if $x$ is rational, then
+
+$$
+\lim_{n \rightarrow \infty} g(x_n) = 1
+$$
+
+if $x$ is irrational, then
+
+$$
+\lim_{n \rightarrow \infty} g(x_n) = 0
+$$
+
+* Dirichlet’s function is a nowhere-continuous function on $\mathbb{R}$.
+* Now consider Thomae function
+
+$$
+t(x) =
+  \begin{cases}
+    1 & \quad \text{if } x = 0\\
+    1/n & \quad \text{if } x = m/n \in \mathbb{Q} \text{ is the lowest
+terms with } n > 0\\
+    0 & \quad \text{ if } x \notin \mathbb{Q}
+  \end{cases}
+$$
+
+* This function is continuous at every irrational point on $\mathbb{R}$ and discontinuous at every rational point.
 
 # Chapter -1 Commonly used symbols
 
