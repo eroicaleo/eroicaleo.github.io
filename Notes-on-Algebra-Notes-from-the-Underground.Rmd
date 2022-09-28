@@ -674,6 +674,61 @@ $$
 
 So $0 \cdot a = 0$.
 
+## 3.3 Special Types of Rings
+
+***definition 3.20*** A ‘commutative ring’ is a ring $R$ in which multiplication is commutative, that is, in which the property
+
+$$
+∀a, b ∈ R, ab = ba
+$$
+
+holds.
+
+***Example 3.21*** In the ring $\mathbb{Z}/10\mathbb{Z}$, $[2]_{10} · [5]_{10} = [0]_{10}$ even though $[2]_{10} \ne [0]_{10}$ and
+$[5]_{10} \ne [0]_{10}$.
+
+***definition 3.22*** Let $R$ be a ring. We say that $a ∈ R$ is a ‘zero-divisor’ if there exists a nonzero $b ∈ R$ such that $ab = 0$ or $ba = 0$.
+
+***definition 3.23*** Let $R$ be a commutative ring. Then $R$ is an ‘integral domain’ if
+
+$$
+∀a, b ∈ R ab = 0 \implies a = 0 \text{ or } b = 0
+$$
+
+and $0 \ne 1$ in $R$.
+
+***Example 3.24*** In fact, we have seen an inkling of this relation already. We have proved that (3.7) holds for the ring $\mathbb{Z}/n\mathbb{Z}$ if and only if $n$ is a prime integer: see Theorem 2.15 for $n > 1$; and $\mathbb{Z}/0\mathbb{Z}$ is an integral domain because $\mathbb{Z}$ is.
+
+***proposition 3.26*** Let $R$ be a ring, and let $a ∈ R$. If $a$ is a non-zero-divisor, then
+multiplicative cancellation holds for $a$, in the sense that
+
+$$
+∀b, c ∈ R, ab = ac \implies b = c \text{ and } ba = ca \implies b = c .
+$$
+
+In particular, if $R$ is an integral domain, then multiplicative cancellation holds for
+every nonzero element of $R$.
+
+Proof.
+
+$$
+0 = ab - ac = a(b - c) \\
+b - c = 0 \\
+b = c
+$$
+***definition 3.27*** An element $b$ of a ring $R$ is a ‘multiplicative inverse’ of an element
+$a ∈ R$ if $ab = ba = 1_R$. If $a ∈ R$ has a multiplicative inverse (in $R$), then it is said to be
+‘invertible’, or a ‘unit’. The set of units in a ring $R$ is denoted $R^∗$.
+
+***proposition 3.28*** Let $n > 0$ be an integer. Then
+
+$$
+(\mathbb{Z}/n\mathbb{Z})∗ =
+\{[a]_n ∈ \mathbb{Z}/n\mathbb{Z} | \gcd(a, n) = 1\} .
+$$
+
+Proof: Proposition see 2.16.
+
 
 ## Exercises
 
@@ -952,3 +1007,10 @@ $$
 
 * that is, the equivalence relation $\sim_\mathcal{P}$ corresponding to this partition is nothing but the
 equivalence relation ∼ we started from.
+
+# Humor in this book
+
+## section 3.3
+
+Most of the examples we will use in this text will be commutative,
+mostly because I earn a living by (teaching and) doing research in algebraic geometry.
