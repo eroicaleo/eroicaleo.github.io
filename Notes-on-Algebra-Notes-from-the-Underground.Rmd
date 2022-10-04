@@ -709,13 +709,6 @@ $$
 In particular, if $R$ is an integral domain, then multiplicative cancellation holds for
 every nonzero element of $R$.
 
-Proof.
-
-$$
-0 = ab - ac = a(b - c) \\
-b - c = 0 \\
-b = c
-$$
 ***definition 3.27*** An element $b$ of a ring $R$ is a ‘multiplicative inverse’ of an element
 $a ∈ R$ if $ab = ba = 1_R$. If $a ∈ R$ has a multiplicative inverse (in $R$), then it is said to be
 ‘invertible’, or a ‘unit’. The set of units in a ring $R$ is denoted $R^∗$.
@@ -729,6 +722,39 @@ $$
 
 Proof: Proposition see 2.16.
 
+***definition 3.29*** A ‘field’ is a nontrivial commutative ring $R$ in which every nonzero element of $R$ is invertible, that is:
+
+$$
+\forall a \in R, a\ne 0 \implies (\exists b \in R ,  ab = ba = 1)
+$$
+
+***Example 3.30*** The reader knows many examples already: $\mathbb{Q}, \mathbb{R}, \mathbb{C}$ are all fields, and
+we have proved (Theorem 2.15) that $\mathbb{Z}/p\mathbb{Z}$ is a field whenever p is a positive prime
+integer, that is, a positive irreducible number.
+
+***proposition 3.31*** Fields are integral domains.
+
+Proof.
+
+$$
+ab = 0, a \ne 0,
+a^{-1}ab = 1 b = b = 0
+$$
+
+* $\mathbb{Z}$ is not a field.
+* $\mathbb{Q}[x]$ is not a field.
+
+***proposition 3.33*** Let $R$ be a finite integral domain. Then $R$ is a field.
+
+Proof. Assume $R = \{ r_1, \dots  r_n \}$, consider
+
+
+$$
+r_1r_1, \dots r_1r_n
+$$
+
+if none of them is 1, then $r_1 (r_k - r_j) = 0$, since $r_k - r_j \ne 0$,
+then $r_1 = 0$.
 
 ## Exercises
 
@@ -928,6 +954,35 @@ $$
 (a+b + (-a)) + (-b) = \\
 b + (-b) = 0
 $$
+
+***3.20***  An element $a$ in a ring $R$ is nilpotent if $a^k = 0$ for some $k ≥ 1$.
+
+Prove that if $a$ is nilpotent, then it is a zero-divisor.
+
+Proof: consider the smallest $k$ such that $a^{k} = 0$. Then 
+$a^{k-1} \ne 0$ and $a \cdot a^{k-1} = 0$.
+
+Find an example of a nonzero nilpotent element, in one of the rings $\mathbb{Z}/n\mathbb{Z}$.
+
+Proof: $[2]_8$.
+
+Prove that if a is nilpotent, then 1 + a is invertible.
+
+Proof:
+
+$$
+(1 + a) (1 - a) = 1 - a^2 \\
+(1 + a) (1 - a + a^2) = 1 + a^3 \\
+(1 + a) (1 - a + a^2 - a^3) = 1 - a^4 \\
+$$
+
+***3.21*** Let $n > 0$ be an integer and $R = \mathbb{Z}/n\mathbb{Z}$. Prove that every element of $R$ is either
+invertible or a zero-divisor. Find a ring $R$ for which this is not true.
+
+Proof. Give $a \in R$, assume $\gcd(a, n) = b > 1$. See exercise 2.17.
+Assume $n = br, a = bq$, then $ar = bqr = 0$.
+
+$\gcd(a, n) = b = 1$, so $ab + nr = 1$, so $ab = 1$.
 
 # Appendix
 
