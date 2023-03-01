@@ -16,4 +16,19 @@ output:
 * **_Axiom 2.2_** If $n$ is a natural number, then $n++$ is also a natural number.
 * **_Axiom 2.3_** $0$ is not the successor of any natural number; i.e. we have $n++ \ne 0$
   for any $n$.
-* **_Axiom 2.4_**  
+* **_Axiom 2.4_**
+
+# Chapter 5. The real numbers
+
+## 5.4. Ordering the reals
+
+***Exercise 5.4.8.*** Let
+$(a_n)^{\infty}_{n=1}$ be a Cauchy sequence of rationals, and let $x$ be
+a real number. Show that if $a_n ≤ x$ for all $n ≥ 1$, then $LIM_{n→∞} a_n ≤ x$.
+Similarly, show that if $a_n ≥ x$ for all $n ≥ 1$, then $LIM_{n→∞} a_n \ge x$. 
+(Hint: prove by contradiction. Use Proposition 5.4.14 to find a rational between $LIM_{n→∞} a_n$ and $x$, and then use Proposition 5.4.9 or Corollary 5.4.10.)
+
+Proof. Use contradiction. Assume $LIM_{n→∞} a_n > x$, then we can find
+$LIM_{n→∞} (a_n - b_n) > 0$. Then we can find a positive $q$, such that
+$a_n - b_n > q, \forall n \gt N$.
+We can find another $(c_n)$ which satisfys $c_n - a_n \ge 0, \forall n \ge 1$.
