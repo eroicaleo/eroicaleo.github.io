@@ -1,12 +1,16 @@
----
-# kramdown:
-#   input: GFM
+title: Study notes
+description: Study notes on mathematics, coding theory, and the ideas that connect them.
+url: https://eroicaleo.github.io
+baseurl: ""
 
-# Build settings
-markdown: redcarpet
-markdown_ext:  markdown,mkdown,mkdn,mkd,md
+markdown: kramdown
+markdown_ext: markdown,mkdown,mkdn,mkd,md
+kramdown:
+  input: GFM
 
-redcarpet:
-  extensions: ["tables", "autolink", "strikethrough", "space_after_headers", "with_toc_data", "fenced_code_blocks"]
-
----
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - _design-preview

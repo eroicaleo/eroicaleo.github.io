@@ -1,0 +1,96 @@
+---
+layout: null
+title: Study notes · Mathematics & information
+---
+<!doctype html>
+<html lang="en" data-theme="warm">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ page.title | escape }}</title>
+  <meta name="description" content="{{ site.description | escape }}">
+  <meta name="theme-color" content="#f6f3ec">
+  <link rel="canonical" href="{{ page.url | absolute_url }}">
+  <link rel="icon" type="image/svg+xml" href="{{ "/assets/favicon.svg" | relative_url }}">
+  <script src="{{ "/assets/js/theme.js" | relative_url }}"></script>
+  <link rel="stylesheet" href="{{ "/assets/css/site.css" | relative_url }}">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="theme-bar" hidden id="theme-controls">
+    <span id="theme-label">Appearance</span>
+    <div class="choices" role="group" aria-labelledby="theme-label">
+      <button type="button" data-style="warm" aria-pressed="true"><span class="swatch" style="background:#f6f3ec" aria-hidden="true"></span>Warm</button>
+      <button type="button" data-style="minimal" aria-pressed="false"><span class="swatch" style="background:#fff" aria-hidden="true"></span>Minimal</button>
+      <button type="button" data-style="dark" aria-pressed="false"><span class="swatch" style="background:#26352e" aria-hidden="true"></span>Dark</button>
+    </div>
+    <span class="sr-only" id="theme-status" role="status"></span>
+  </div>
+  <div class="wrap">
+    <header class="masthead">
+      <div class="wordmark"><span class="mark" aria-hidden="true"></span>Study notes</div>
+      <a href="#collections">Explore the collection ↓</a>
+    </header>
+    <main id="main">
+      <section class="hero" aria-labelledby="hero-title">
+        <div>
+          <p class="eyebrow">Mathematics &amp; information</p>
+          <h1 id="hero-title">A place for<br><em>understanding.</em></h1>
+          <p class="intro">Study notes on mathematics, coding theory, and the ideas that connect them. One concept at a time.</p>
+        </div>
+        <svg class="hero-art" viewBox="0 0 220 190" aria-hidden="true">
+          <path d="M20 155H205M48 178V18" opacity=".25"/>
+          <path d="M26 125C55 125 56 43 90 43S125 148 159 148S188 83 207 78" stroke-width="1.6"/>
+          <ellipse cx="119" cy="99" rx="64" ry="64" opacity=".2"/>
+          <ellipse cx="119" cy="99" rx="64" ry="26" transform="rotate(-35 119 99)" opacity=".5"/>
+          <path d="M48 155L167 42M48 155L181 125M167 42L181 125" opacity=".4"/>
+          <circle cx="90" cy="43" r="3" fill="currentColor" stroke="none"/>
+          <circle cx="159" cy="148" r="3" fill="currentColor" stroke="none"/>
+        </svg>
+      </section>
+      <section id="collections" aria-labelledby="collection-title">
+        <div class="section-label"><h2 id="collection-title">The collection</h2><span>{{ site.data.notes | size }} / STUDY NOTEBOOKS</span></div>
+        <div class="grid">
+          {% for note in site.data.notes %}
+          <a class="card" href="{{ note.url | escape }}">
+            <div class="card-top">
+              <span class="tag">{{ note.subject | escape }}</span>
+              <span class="number" aria-hidden="true">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</span>
+            </div>
+            <div class="card-content">
+              <h3>{{ note.title | escape }}</h3>
+              <p>{{ note.description | escape }}</p>
+              <svg class="card-art" viewBox="0 0 65 65" aria-hidden="true" focusable="false">
+                {% case note.icon %}
+                {% when 'algebra' %}
+                <path d="M10 53V9M10 53H58M10 53L47 16M18 31L47 16L39 39Z"/><path d="M39 39L10 53M47 16V44" opacity=".3"/>
+                {% when 'coding' %}
+                <path d="M12 14L50 23L16 48L51 51M12 14L51 51M16 48L50 23" opacity=".5"/><g fill="var(--surface)"><circle cx="12" cy="14" r="5"/><circle cx="50" cy="23" r="5"/><circle cx="16" cy="48" r="5"/><circle cx="51" cy="51" r="5"/></g>
+                {% when 'analysis' %}
+                <path d="M5 51H60M13 58V7" opacity=".3"/><path d="M17 45Q22 12 56 13"/><path d="M17 22H57M17 32H57" stroke-dasharray="2 3" opacity=".5"/><circle cx="34" cy="20" r="3" fill="var(--surface)"/>
+                {% when 'fourier' %}
+                <path d="M3 33H62" opacity=".3"/><path d="M3 33C9 3 15 3 21 33S33 63 39 33S51 3 57 33"/><path d="M3 33Q30 10 58 33" opacity=".4"/>
+                {% when 'calculus' %}
+                <g stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M32 51V5M32 51L59 59M32 51L7 60M29 8L32 5L35 8M56 55L59 59L54 60M9 56L7 60L12 61" opacity=".3"/>
+                  <path d="M6 32Q20 59 34 46M30 16Q44 43 58 30M6 32Q18 4 30 16M34 46Q46 18 58 30"/>
+                  <path d="M12 20.5Q26 47.5 40 34.5M18 14Q32 41 46 28M24 12.5Q38 39.5 52 26.5M13 43Q25 15 37 27M20 49Q32 21 44 33M27 50Q39 22 51 34" opacity=".55"/>
+                </g>
+                {% else %}
+                <rect x="13" y="9" width="39" height="48" rx="2"/><path d="M22 9V57M29 22H44M29 31H44M29 40H40"/>
+                {% endcase %}
+              </svg>
+            </div>
+            <div class="card-bottom">
+              <span class="edition">{{ note.detail | escape }}</span>
+              <span class="action">{{ note.action | default: 'Read notes' | escape }} <span aria-hidden="true">↗</span></span>
+            </div>
+          </a>
+          {% endfor %}
+        </div>
+      </section>
+    </main>
+    <footer><span>Notes for a continuing education.</span><a class="footer-link" href="#collections">Back to the collection ↑</a></footer>
+  </div>
+</body>
+</html>

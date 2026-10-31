@@ -1,0 +1,40 @@
+# Display order follows this list. Add a new entry to publish another collection.
+- title: Linear Algebra Done Right
+  subject: Linear algebra
+  description: Notes alongside a study of linear algebra.
+  detail: 4th edition
+  url: https://eroicaleo.github.io/liner-algebra-done-right-4th/
+  action: Read notes
+  icon: algebra
+
+- title: Error Correction Coding
+  subject: Coding theory
+  description: Notes on Moon’s text on error correction.
+  detail: Moon
+  url: https://eroicaleo.github.io/moon-error-correction-coding/
+  action: Read notes
+  icon: coding
+
+- title: Understanding Analysis
+  subject: Real analysis
+  description: A notebook for the study of real analysis.
+  detail: 2nd edition
+  url: https://eroicaleo.github.io/abbot-analysis-2nd/
+  action: Read notes
+  icon: analysis
+
+- title: Fourier Transform
+  subject: Fourier analysis
+  description: Notes exploring the Fourier transform.
+  detail: Topic notebook
+  url: https://eroicaleo.github.io/fourier-transform/
+  action: Read notes
+  icon: fourier
+
+- title: Calculus and Analysis in Euclidean Space
+  subject: Multivariable calculus
+  description: Notes on Shurman’s text on calculus and analysis in Euclidean space.
+  detail: Shurman
+  url: https://eroicaleo.github.io/shurman-calculus-euclidean-space/
+  action: Read notes
+  icon: calculus
