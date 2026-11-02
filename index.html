@@ -52,6 +52,9 @@ title: Study notes · Mathematics & information
         <div class="section-label"><h2 id="collection-title">The collection</h2><span>{{ site.data.notes | size }} / STUDY NOTEBOOKS</span></div>
         <div class="grid">
           {% for note in site.data.notes %}
+          {% assign progress = note.progress | default: 0 | plus: 0 | at_least: 0 | at_most: 100 | round: 1 %}
+          {% assign progress_hue = progress | times: 1.25 | plus: 10 %}
+          {% assign progress_lightness = progress | times: -0.15 | plus: 70 %}
           <a class="card" href="{{ note.url | escape }}">
             <div class="card-top">
               <span class="tag">{{ note.subject | escape }}</span>
@@ -62,6 +65,14 @@ title: Study notes · Mathematics & information
               <p>{{ note.description | escape }}</p>
               <svg class="card-art" viewBox="0 0 65 65" aria-hidden="true" focusable="false">
                 {% case note.icon %}
+                {% when 'roadmap' %}
+                <g stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M7 17L23 11L40 18L57 12V48L40 54L23 47L7 53ZM23 11V47M40 18V54" opacity=".25"/>
+                  <path d="M14 44C18 30 25 43 30 31S45 34 50 23" stroke-width="1.6"/>
+                  <circle cx="14" cy="44" r="3" fill="var(--surface)"/>
+                  <circle cx="30" cy="31" r="3" fill="var(--surface)"/>
+                  <path d="M50 23V7L59 11L50 15"/>
+                </g>
                 {% when 'algebra' %}
                 <path d="M10 53V9M10 53H58M10 53L47 16M18 31L47 16L39 39Z"/><path d="M39 39L10 53M47 16V44" opacity=".3"/>
                 {% when 'coding' %}
@@ -80,6 +91,13 @@ title: Study notes · Mathematics & information
                 <rect x="13" y="9" width="39" height="48" rx="2"/><path d="M22 9V57M29 22H44M29 31H44M29 40H40"/>
                 {% endcase %}
               </svg>
+            </div>
+            <div class="card-progress" style="--progress-hue: {{ progress_hue }}; --progress-lightness: {{ progress_lightness }}%">
+              <div class="progress-label" aria-hidden="true">
+                <span>{% if progress == 100 %}Completed{% else %}Progress{% endif %}</span>
+                <span class="progress-value">{{ progress }}%</span>
+              </div>
+              <progress class="progress-bar" max="100" value="{{ progress }}" aria-label="{{ note.title | escape }} completion">{{ progress }}%</progress>
             </div>
             <div class="card-bottom">
               <span class="edition">{{ note.detail | escape }}</span>

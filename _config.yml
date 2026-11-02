@@ -12,5 +12,6 @@ exclude:
   - README.md
   - Gemfile
   - Gemfile.lock
+  - bin
   - vendor
   - _design-preview

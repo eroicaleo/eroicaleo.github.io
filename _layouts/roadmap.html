@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en" data-theme="warm">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f3ec">
+  <meta name="description" content="{{ page.description | escape }}">
+  <title>{{ page.title | escape }}</title>
+  <link rel="canonical" href="{{ page.url | absolute_url }}">
+  <link rel="icon" type="image/svg+xml" href="{{ '/assets/favicon.svg' | relative_url }}">
+  <script src="{{ '/assets/js/theme.js' | relative_url }}"></script>
+  <link rel="stylesheet" href="{{ '/assets/css/site.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/assets/css/roadmap.css' | relative_url }}">
+  <script src="{{ '/assets/js/roadmap.js' | relative_url }}" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="theme-bar" hidden id="theme-controls">
+    <span id="theme-label">Appearance</span>
+    <div class="choices" role="group" aria-labelledby="theme-label">
+      <button type="button" data-style="warm" aria-pressed="true"><span class="swatch" style="background:#f6f3ec" aria-hidden="true"></span>Warm</button>
+      <button type="button" data-style="minimal" aria-pressed="false"><span class="swatch" style="background:#fff" aria-hidden="true"></span>Minimal</button>
+      <button type="button" data-style="dark" aria-pressed="false"><span class="swatch" style="background:#26352e" aria-hidden="true"></span>Dark</button>
+    </div>
+    <span class="sr-only" id="theme-status" role="status"></span>
+  </div>
+  <div class="wrap">
+    <header class="masthead">
+      <div class="wordmark"><span class="mark" aria-hidden="true"></span>Study notes</div>
+      <a href="{{ '/' | relative_url }}">&#8592; Back to the collection</a>
+    </header>
+    <main id="main">
+      <section class="roadmap-intro" aria-labelledby="page-title">
+        <p class="eyebrow">{{ page.eyebrow | escape }}</p>
+        <h1 id="page-title">{{ page.heading | escape }} <em>{{ page.heading_accent | escape }}</em></h1>
+        <div class="roadmap-intro-copy">{{ content }}</div>
+        <p class="roadmap-kicker">{{ page.kicker | escape }}</p>
+        <nav class="roadmap-nav" aria-label="Roadmap chapters">
+          {% for section in site.data.roadmap.sections %}
+          <a href="#{{ section.id | escape }}">{{ section.nav | default: section.title | escape }}</a>
+          {% endfor %}
+        </nav>
+      </section>
+      {% for section in site.data.roadmap.sections %}
+      <section class="roadmap-section" id="{{ section.id | escape }}" aria-labelledby="heading-{{ section.id | escape }}">
+        <div class="roadmap-stage-head">
+          <h2 id="heading-{{ section.id | escape }}">{{ section.title | escape }}</h2>
+          {% if section.timeframe %}<span>{{ section.timeframe | escape }}</span>{% endif %}
+        </div>
+        {% if section.intro %}<div class="roadmap-prose">{{ section.intro | markdownify }}</div>{% endif %}
+        {% if section.status %}
+        <div class="roadmap-status">
+          {% for status in section.status %}
+          <div class="roadmap-stat">
+            <p class="roadmap-tag">{{ status.label | escape }}</p>
+            {% include roadmap-book.html entry=status compact=true %}
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %}
+        {% if section.note %}<div class="roadmap-note">{{ section.note | markdownify }}</div>{% endif %}
+        {% if section.tracker %}
+        <div class="roadmap-progress" id="roadmap-tracker" style="--progress-hue: 10; --progress-lightness: 70%">
+          <div>
+            <strong id="progress-label" role="status">0 reading goals marked completed</strong>
+            <p id="tracker-storage-note">Optional personal reading tracker · saved locally on this device</p>
+          </div>
+          <progress class="progress-bar" max="100" value="0" aria-label="Recommended reading completed" id="progress-track">0%</progress>
+        </div>
+        {% endif %}
+        {% if section.cards %}
+        <div class="roadmap-cards">
+          {% for card in section.cards %}
+          <article class="roadmap-card{% if card.wide %} wide{% endif %}">
+            {% if card.tag %}<p class="roadmap-tag">{{ card.tag | escape }}</p>{% endif %}
+            <h3>{{ card.title | escape }}</h3>
+            {% for reading in card.books %}
+              {% include roadmap-book.html entry=reading %}
+            {% endfor %}
+            {% if card.body %}<div class="roadmap-prose">{{ card.body | markdownify }}</div>{% endif %}
+          </article>
+          {% endfor %}
+        </div>
+        {% endif %}
+        {% if section.table %}
+        <table class="roadmap-table">
+          <thead><tr>{% for column in section.table.columns %}<th scope="col">{{ column.label | escape }}</th>{% endfor %}</tr></thead>
+          <tbody>
+            {% for row in section.table.rows %}
+            <tr>
+              {% for column in section.table.columns %}
+              <td data-label="{{ column.label | escape }}">
+                {% if column.key == 'books' %}
+                  {% for reading in row.books %}{% include roadmap-book.html entry=reading compact=true %}{% endfor %}
+                {% else %}
+                  {{ row[column.key] | markdownify }}
+                {% endif %}
+              </td>
+              {% endfor %}
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% endif %}
+        {% if section.outro %}<div class="roadmap-prose">{{ section.outro | markdownify }}</div>{% endif %}
+        {% if section.quote %}<blockquote class="roadmap-quote">{{ section.quote | escape }}</blockquote>{% endif %}
+      </section>
+      {% endfor %}
+    </main>
+    <footer class="roadmap-footer">
+      <span>{{ site.data.roadmap.footer | escape }}<br>Book covers: <a href="https://openlibrary.org/">Open Library</a> and linked book pages.</span>
+      <a class="footer-link" href="{{ '/' | relative_url }}">Back to study notes ↑</a>
+    </footer>
+  </div>
+</body>
+</html>

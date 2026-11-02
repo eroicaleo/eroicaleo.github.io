@@ -1,0 +1,300 @@
+# Edit roadmap sections here. Text fields accept Markdown.
+# Book references point to IDs in books.yml. Keep existing goal IDs to retain saved checkbox progress.
+sections:
+- id: where-i-am
+  nav: Current position
+  title: Where I begin
+  intro: 'My starting point is already proof-based: real analysis through Abbott, abstract linear algebra through
+    Axler, and multivariable analysis through Shurman.'
+  status:
+  - label: Completed
+    book: abbott
+    note: 2nd edition
+  - label: In progress
+    book: axler
+    note: 4th edition
+  - label: In progress
+    book: shurman
+  note: 'Starting snapshot: Axler chapters 1–5 completed; approximately one third of Shurman completed. The
+    checkboxes below mark future reading goals and are saved only in this browser; they do not update public
+    GitHub content.'
+  tracker: true
+- id: foundations
+  nav: Foundations
+  title: Stage 0 · Complete the foundations
+  timeframe: Roughly 6–12 months
+  cards:
+  - tag: Core · Algebra
+    title: Finish abstract linear algebra
+    books:
+    - book: axler
+      goal: axler
+      note: 'Chapters 6–9: inner product spaces, spectral theorem, operators, determinants.'
+    body: |-
+      Think of the spectral theorem as the point where algebra and geometry become a single language.
+
+      [Official free edition](https://linear.axler.net/)
+  - tag: Core · Analysis
+    title: Finish multivariable analysis
+    books:
+    - book: shurman
+      goal: shurman
+      note: Differentiation, inverse/implicit function theorems, integration, differential forms.
+    body: The inverse function theorem and generalized Stokes' theorem will pay dividends throughout geometry
+      and analysis.
+- id: undergraduate
+  nav: Undergraduate
+  title: Stage 1 · The undergraduate core
+  timeframe: Roughly 1–2 years
+  cards:
+  - tag: Core · Structure and symmetry
+    title: Abstract algebra
+    books:
+    - book: artin
+      goal: artin
+      note: Groups, actions, rings, fields, quotients, Galois theory.
+    - book: pinter
+      note: Alternative gentle start.
+    body: |-
+      Use Artin for its geometric viewpoint.
+
+      [MIT 18.701 · Algebra I](https://ocw.mit.edu/courses/18-701-algebra-i-fall-2010/)
+  - tag: Core · Spaces and continuity
+    title: Point-set topology
+    books:
+    - book: topology
+      goal: topology
+      note: Compactness, connectedness, continuity, product spaces, covering spaces.
+    - book: munkres
+      note: 'Alternative: a comprehensive, systematic treatment.'
+    body: '[MIT 18.901 · Introduction to Topology](https://ocw.mit.edu/courses/18-901-introduction-to-topology-fall-2004/)'
+  - tag: Core · Analysis and geometry
+    title: Complex analysis
+    books:
+    - book: needham
+      goal: needham
+      note: Geometric intuition for holomorphic functions, integration and conformal maps.
+    - book: steincomplex
+      goal: steincomplex
+      note: Rigorous companion for major theorems and exercises.
+    body: The remarkable rigidity of complex differentiability makes this a particularly rewarding subject.
+  - tag: Core · Change over time
+    title: Differential equations
+    books:
+    - book: teschl
+      goal: teschl
+      note: Existence and uniqueness, phase portraits, stability and nonlinear dynamics.
+    body: |-
+      Think of an ODE as defining a flow, not just something that must be solved.
+
+      [MIT 18.03SC · Differential Equations](https://ocw.mit.edu/courses/18-03sc-differential-equations-fall-2011/)
+  - tag: Companion · Arithmetic
+    title: Number theory
+    books:
+    - book: silverman
+      goal: silverman
+      note: Primes, congruences and Diophantine equations.
+    body: Excellent alongside abstract algebra and often full of pleasant surprises.
+  - tag: Companion · Randomness
+    title: Probability
+    books:
+    - book: prob
+      goal: prob
+      note: Counting, conditional probability, random variables and distributions.
+    body: '[Harvard Stat 110](https://stat110.hsites.harvard.edu/) has lectures and extensive self-study resources.'
+- id: bridge
+  nav: Graduate bridge
+  title: Stage 2 · The graduate bridge
+  timeframe: Roughly 1–2 years
+  cards:
+  - tag: Analysis
+    title: Measure and integration
+    books:
+    - book: measure
+      goal: measure
+      note: Measures, Lebesgue integration, convergence, product measures, Lᵖ spaces.
+    body: |-
+      Return to Axler's lucid style, this time with graduate-level analysis.
+
+      [Official free textbook](https://measure.axler.net/)
+  - tag: Geometry
+    title: Manifolds and forms
+    books:
+    - book: vdg
+      goal: vdg
+      note: Curvature, surfaces and forms, explained geometrically.
+    - book: tu
+      goal: tu
+      note: Smooth structures, tangent spaces, vector fields and Stokes' theorem.
+  - tag: Analysis
+    title: Functional analysis
+    books:
+    - book: conway
+      goal: conway
+      note: Banach and Hilbert spaces, duality, operator theory and spectral methods.
+    body: Finite-dimensional linear algebra grows into infinite-dimensional geometry.
+  - tag: Topology
+    title: Algebraic topology
+    books:
+    - book: hatcher
+      goal: hatcher
+      note: Fundamental groups, covering spaces, homology and cohomology.
+    body: |-
+      Use algebraic invariants to distinguish spaces.
+
+      [Author's free textbook](https://pi.math.cornell.edu/~hatcher/AT/ATpage.html)
+  - tag: Analysis and mathematical physics
+    title: Fourier analysis and PDEs
+    wide: true
+    books:
+    - book: fourier
+      goal: fourier
+      note: Fourier series, transforms and oscillatory methods.
+    - book: strauss
+      goal: strauss
+      note: Heat, wave and Laplace equations, introductory PDE methods.
+    - book: evans
+      note: Later reference for deeper PDE theory.
+- id: graduate
+  nav: Graduate core
+  title: Stage 3 · The graduate core
+  timeframe: Roughly 1.5–3 years
+  intro: At this level, textbooks overlap and the subject boundaries start to dissolve. Use one main book per
+    area; keep the denser texts for problem sets and reference.
+  cards:
+  - tag: Abstract algebra
+    title: Graduate algebra
+    body: Groups, fields, modules, representations and commutative algebra.
+    books:
+    - book: dummitfoote
+      note: A deep reference.
+    - book: atiyah
+      note: After modules and ideals.
+  - tag: Real analysis
+    title: Graduate analysis
+    body: Continue into advanced integration, Hilbert spaces and functional analysis.
+    books:
+    - book: folland
+      note: Following Axler.
+  - tag: Complex analysis
+    title: Advanced function theory
+    body: Build fluency in analytic continuation, normal families, conformal mapping and residues.
+    books:
+    - book: ahlfors
+  - tag: Differential geometry
+    title: Modern manifolds
+    books:
+    - book: smooth
+      note: Read first.
+    - book: riemann
+      note: Continue here after smooth manifolds.
+  - tag: Topology
+    title: Advanced algebraic topology
+    body: Continue through homology, cohomology, duality and CW complexes.
+    books:
+    - book: hatcher
+  - tag: Algebraic geometry
+    title: Polynomial geometry
+    books:
+    - book: cox
+      note: Read first.
+    - book: harris
+      note: Continue here.
+- id: garden
+  nav: Side paths
+  title: The mathematics garden
+  intro: These side paths are not distractions. They keep the larger education playful, broad and full of connections.
+    Begin them when the necessary foundations are in place.
+  table:
+    columns:
+    - key: subject
+      label: Subject
+    - key: books
+      label: Beautiful introduction
+    - key: when
+      label: When
+    rows:
+    - subject: Combinatorics
+      books:
+      - book: wilf
+      when: Anytime
+    - subject: Set theory and logic
+      books:
+      - book: halmos
+      - book: enderton
+      when: Anytime
+    - subject: Numerical analysis
+      books:
+      - book: trefethen
+      when: After Axler
+    - subject: Graph theory
+      books:
+      - book: diestel
+      when: After proof foundations
+    - subject: Algebraic number theory
+      books:
+      - book: marcus
+      when: After Galois theory
+    - subject: Optimization
+      books:
+      - book: boyd
+      when: After multivariable calculus
+    - subject: Category theory
+      books:
+      - book: leinster
+      when: After algebra and topology
+    - subject: Mathematical physics
+      books:
+      - book: arnold
+      when: After ODEs and geometry
+- id: exams
+  nav: Exam readiness
+  title: Stage 4 · Qualifying-exam readiness
+  timeframe: Final 6–12 months, overlapping Stage 3
+  intro: There is no single universal American mathematics PhD entrance exam. Preliminary and qualifying exam
+    syllabi differ by university. Build depth first; use old examinations later to diagnose gaps and practice
+    constructing proofs under constraints.
+  cards:
+  - tag: First benchmark
+    title: Undergraduate preliminary exams
+    body: Use [Berkeley's mathematics preliminary exam resources](https://math.berkeley.edu/graduate/phd-program/preliminary-exam)
+      to test the analysis and algebra foundations.
+  - tag: Advanced benchmark
+    title: Graduate qualifying exams
+    body: Use [Stanford's qualifying exam information](https://mathematics.stanford.edu/academics/graduate-students/phd-program/phd-qualifying-exams)
+      and [Harvard's graduate qualifying exams](https://www.math.harvard.edu/graduate/study-the-qualifying-exam/some-old-qualifying-exams/)
+      as broad targets. Check each department's current syllabus and links before planning exam-style drills.
+  outro: '**Sequence:** Try selected problems untimed, identify missing theory, return to textbook exercises,
+    and only then attempt full timed papers. The aim is understanding—not just speed.'
+- id: rhythm
+  nav: Study rhythm
+  title: A sustainable study rhythm
+  intro: At a hobbyist pace of approximately 8–10 hours per week, this roadmap is a multi-year project. A reasonable
+    planning horizon is five to eight years or longer; the exact pace is less important than steady, joyful
+    work.
+  table:
+    columns:
+    - key: activity
+      label: Activity
+    - key: time
+      label: Weekly time
+    - key: why
+      label: Why
+    rows:
+    - activity: Read and reconstruct proofs
+      time: 3 hours
+      why: Develop insight and mathematical taste.
+    - activity: Solve exercises
+      time: 4 hours
+      why: Turn passive understanding into real skill.
+    - activity: Review earlier subjects
+      time: 1 hour
+      why: Strengthen long-term recall and connections.
+    - activity: Explore a side subject
+      time: 1 hour
+      why: Keep the journey broad and enjoyable.
+  outro: For each important theorem, ask what its assumptions mean, find an example and a counterexample, and
+    try to recover the proof several days later.
+  quote: The most rewarding mathematical moments are often the ones where two ideas, once thought unrelated,
+    suddenly turn out to be the same idea in different languages.
+footer: A personal plan, always open to revision.

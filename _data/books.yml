@@ -1,0 +1,187 @@
+# Book catalog: define a book once, then reference its ID from roadmap.yml.
+# cover can be an image URL or a local /assets/... path; source is the book information link.
+abbott:
+  title: Understanding Analysis
+  author: Stephen Abbott
+  cover: https://media.springernature.com/w316/springer-static/cover/book/978-1-4939-2712-8.jpg?as=webp
+  source: https://link.springer.com/book/10.1007/978-1-4939-2712-8
+axler:
+  title: Linear Algebra Done Right
+  author: Sheldon Axler
+  cover: https://media.springernature.com/w316/springer-static/cover/book/978-3-031-41026-0.jpg?as=webp
+  source: https://link.springer.com/book/10.1007/978-3-031-41026-0
+shurman:
+  title: Calculus and Analysis in Euclidean Space
+  author: Jerry Shurman
+  cover: https://media.springernature.com/w316/springer-static/cover/book/978-3-319-49314-5.jpg?as=webp
+  source: https://link.springer.com/book/10.1007/978-3-319-49314-5
+artin:
+  title: Algebra
+  author: Michael Artin
+  cover: https://covers.openlibrary.org/b/id/8616136-M.jpg?default=false
+  source: https://openlibrary.org/works/OL19825343W
+pinter:
+  title: A Book of Abstract Algebra
+  author: Charles Pinter
+  cover: https://covers.openlibrary.org/b/id/10512334-M.jpg?default=false
+  source: https://openlibrary.org/works/OL283950W
+topology:
+  title: Introduction to Topological Manifolds
+  author: John Lee
+  cover: https://covers.openlibrary.org/b/id/9342412-M.jpg?default=false
+  source: https://openlibrary.org/works/OL20673033W
+munkres:
+  title: Topology
+  author: James Munkres
+  cover: https://covers.openlibrary.org/b/id/88212-M.jpg?default=false
+  source: https://openlibrary.org/works/OL113948W
+needham:
+  title: Visual Complex Analysis
+  author: Tristan Needham
+  cover: https://covers.openlibrary.org/b/id/131135-M.jpg?default=false
+  source: https://openlibrary.org/works/OL2882085W
+steincomplex:
+  title: Complex Analysis
+  author: Elias Stein & Rami Shakarchi
+  cover: https://covers.openlibrary.org/b/id/443182-M.jpg?default=false
+  source: https://openlibrary.org/works/OL16972759W
+teschl:
+  title: Ordinary Differential Equations and Dynamical Systems
+  author: Gerald Teschl
+  cover: https://www.mat.univie.ac.at/~gerald/ftp/book-ode/gsm-140.gif
+  source: https://www.mat.univie.ac.at/~gerald/ftp/book-ode/
+silverman:
+  title: A Friendly Introduction to Number Theory
+  author: Joseph Silverman
+  cover: https://covers.openlibrary.org/b/id/88649-M.jpg?default=false
+  source: https://openlibrary.org/works/OL3275858W
+prob:
+  title: Introduction to Probability
+  author: Joseph Blitzstein & Jessica Hwang
+  cover: https://covers.openlibrary.org/b/id/10453053-M.jpg?default=false
+  source: https://openlibrary.org/works/OL22320351W
+measure:
+  title: Measure, Integration & Real Analysis
+  author: Sheldon Axler
+  cover: https://covers.openlibrary.org/b/id/10329703-M.jpg?default=false
+  source: https://openlibrary.org/works/OL21163464W
+vdg:
+  title: Visual Differential Geometry and Forms
+  author: Tristan Needham
+  cover: https://covers.openlibrary.org/b/id/13149949-M.jpg?default=false
+  source: https://openlibrary.org/works/OL25464362W
+tu:
+  title: An Introduction to Manifolds
+  author: Loring Tu
+  cover: https://covers.openlibrary.org/b/id/8665185-M.jpg?default=false
+  source: https://openlibrary.org/works/OL16307737W
+conway:
+  title: A Course in Functional Analysis
+  author: John Conway
+  cover: https://covers.openlibrary.org/b/id/245917-M.jpg?default=false
+  source: https://openlibrary.org/works/OL2816401W
+hatcher:
+  title: Algebraic Topology
+  author: Allen Hatcher
+  cover: https://covers.openlibrary.org/b/id/5312603-M.jpg?default=false
+  source: https://openlibrary.org/works/OL6857978W
+fourier:
+  title: 'Fourier Analysis: An Introduction'
+  author: Elias Stein & Rami Shakarchi
+  cover: https://covers.openlibrary.org/b/id/443181-M.jpg?default=false
+  source: https://openlibrary.org/works/OL2273039W
+strauss:
+  title: 'Partial Differential Equations: An Introduction'
+  author: Walter Strauss
+  cover: https://covers.openlibrary.org/b/id/305630-M.jpg?default=false
+  source: https://openlibrary.org/works/OL4121443W
+evans:
+  title: Partial Differential Equations
+  author: Lawrence Evans
+  cover: https://covers.openlibrary.org/b/id/621450-M.jpg?default=false
+  source: https://openlibrary.org/works/OL1982861W
+dummitfoote:
+  title: Abstract Algebra
+  author: David Dummit & Richard Foote
+  cover: https://covers.openlibrary.org/b/id/304744-M.jpg?default=false
+  source: https://openlibrary.org/works/OL1968605W
+atiyah:
+  title: Introduction to Commutative Algebra
+  author: Michael Atiyah & Ian Macdonald
+  cover: https://covers.openlibrary.org/b/id/9566324-M.jpg?default=false
+  source: https://openlibrary.org/works/OL4475224W
+folland:
+  title: Real Analysis
+  author: Gerald Folland
+  cover: https://covers.openlibrary.org/b/id/307141-M.jpg?default=false
+  source: https://openlibrary.org/works/OL1953434W
+ahlfors:
+  title: Complex Analysis
+  author: Lars Ahlfors
+  cover: https://covers.openlibrary.org/b/id/53190-M.jpg?default=false
+  source: https://openlibrary.org/works/OL281679W
+smooth:
+  title: Introduction to Smooth Manifolds
+  author: John Lee
+  cover: https://covers.openlibrary.org/b/id/9353915-M.jpg?default=false
+  source: https://openlibrary.org/works/OL20682211W
+riemann:
+  title: Introduction to Riemannian Manifolds
+  author: John Lee
+  cover: https://covers.openlibrary.org/b/id/10155794-M.jpg?default=false
+  source: https://openlibrary.org/works/OL20845823W
+cox:
+  title: Ideals, Varieties, and Algorithms
+  author: David Cox, John Little & Donal O’Shea
+  cover: https://covers.openlibrary.org/b/id/245481-M.jpg?default=false
+  source: https://openlibrary.org/works/OL1849157W
+harris:
+  title: 'Algebraic Geometry: A First Course'
+  author: Joe Harris
+  cover: https://covers.openlibrary.org/b/id/245994-M.jpg?default=false
+  source: https://openlibrary.org/works/OL1853847W
+wilf:
+  title: generatingfunctionology
+  author: Herbert Wilf
+  cover: https://covers.openlibrary.org/b/id/80608-M.jpg?default=false
+  source: https://openlibrary.org/works/OL3414328W
+halmos:
+  title: Naive Set Theory
+  author: Paul Halmos
+  cover: https://covers.openlibrary.org/b/id/245169-M.jpg?default=false
+  source: https://openlibrary.org/works/OL2776836W
+enderton:
+  title: A Mathematical Introduction to Logic
+  author: Herbert Enderton
+  cover: https://covers.openlibrary.org/b/id/79702-M.jpg?default=false
+  source: https://openlibrary.org/works/OL6835516W
+trefethen:
+  title: Numerical Linear Algebra
+  author: Lloyd Trefethen & David Bau
+  cover: https://covers.openlibrary.org/b/id/698658-M.jpg?default=false
+  source: https://openlibrary.org/works/OL3357483W
+diestel:
+  title: Graph Theory
+  author: Reinhard Diestel
+  cover: https://covers.openlibrary.org/b/id/8655221-M.jpg?default=false
+  source: https://openlibrary.org/works/OL16651970W
+marcus:
+  title: Number Fields
+  author: Daniel Marcus
+  cover: https://covers.openlibrary.org/b/id/245198-M.jpg?default=false
+  source: https://openlibrary.org/works/OL2035414W
+boyd:
+  title: Convex Optimization
+  author: Stephen Boyd & Lieven Vandenberghe
+  cover: https://covers.openlibrary.org/b/id/8633062-M.jpg?default=false
+  source: https://openlibrary.org/works/OL4472195W
+leinster:
+  title: Basic Category Theory
+  author: Tom Leinster
+  cover: https://covers.openlibrary.org/b/id/7646746-M.jpg?default=false
+  source: https://openlibrary.org/works/OL17472285W
+arnold:
+  title: Mathematical Methods of Classical Mechanics
+  author: V. I. Arnold
+  cover: https://covers.openlibrary.org/b/id/8438105-M.jpg?default=false
+  source: https://openlibrary.org/works/OL19326827W

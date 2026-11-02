@@ -1,0 +1,24 @@
+{% assign book = site.data.books[include.entry.book] %}
+{% if book %}
+<div class="roadmap-book{% if include.entry.goal %} has-goal{% endif %}{% if include.compact %} compact{% endif %}">
+  {% if include.entry.goal %}
+  <input type="checkbox" id="book-{{ include.entry.goal | escape }}" data-book="{{ include.entry.goal | escape }}">
+  {% endif %}
+  <a class="book-cover" href="{{ book.source | default: 'https://openlibrary.org/' | escape }}" aria-label="Book information: {{ book.title | escape }}">
+    <span class="book-cover-placeholder" aria-hidden="true"><svg viewBox="0 0 40 54" focusable="false"><path d="M7 4H33V50H7Z M12 4V50 M18 16H27 M18 22H27 M18 28H24"/></svg></span>
+    {% if book.cover %}
+      {% assign cover_start = book.cover | slice: 0, 1 %}
+      <img data-book-cover src="{% if cover_start == '/' %}{{ book.cover | relative_url }}{% else %}{{ book.cover | escape }}{% endif %}" alt="" width="56" height="84" loading="lazy" decoding="async">
+    {% endif %}
+  </a>
+  <div class="book-copy">
+    {% if include.entry.goal %}
+    <label class="book-title" for="book-{{ include.entry.goal | escape }}">{{ book.title | escape }}</label>
+    {% else %}
+    <p class="book-title">{{ book.title | escape }}</p>
+    {% endif %}
+    <span class="book-author">{{ book.author | escape }}</span>
+    {% if include.entry.note %}<div class="book-note">{{ include.entry.note | markdownify }}</div>{% endif %}
+  </div>
+</div>
+{% endif %}

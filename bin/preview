@@ -1,0 +1,31 @@
+#!/bin/sh
+set -eu
+
+project_dir=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+cd "$project_dir"
+
+# Use the project's supported Ruby without changing the user's shell settings.
+if command -v brew >/dev/null 2>&1; then
+  ruby_prefix=$(brew --prefix ruby@3.3 2>/dev/null || true)
+  if [ -x "$ruby_prefix/bin/ruby" ]; then
+    PATH="$ruby_prefix/bin:$PATH"
+    export PATH
+  fi
+fi
+
+if ! command -v ruby >/dev/null 2>&1 || ! ruby -e 'exit(RUBY_VERSION.start_with?("3.3.") ? 0 : 1)'; then
+  printf '%s\n' 'This preview needs Ruby 3.3. On macOS, run: brew install ruby@3.3' >&2
+  exit 1
+fi
+
+if ! command -v bundle >/dev/null 2>&1; then
+  printf '%s\n' 'Bundler is missing. Install Bundler using your Ruby 3.3 installation.' >&2
+  exit 1
+fi
+
+bundle config set --local path vendor/bundle
+if ! bundle check >/dev/null 2>&1; then
+  bundle install
+fi
+
+exec bundle exec jekyll serve --livereload "$@"

@@ -9,6 +9,8 @@ Notes-on-combining-predictive-features_cache/html/__packages
 
 *.html
 !/index.html
+!/_layouts/*.html
+!/_includes/*.html
 
 /_site/
 /_design-preview/

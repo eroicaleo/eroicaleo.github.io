@@ -1,4 +1,15 @@
 # Display order follows this list. Add a new entry to publish another collection.
+# Set progress from 0 to 100. Initial zeros are placeholders for you to update.
+
+- title: My Mathematics Journey
+  subject: Mathematics
+  description: An undergraduate-to-graduate mathematics roadmap, with textbooks, courses, and reading progress.
+  detail: Personal learning roadmap
+  url: /math-roadmap.html
+  action: View roadmap
+  icon: roadmap
+  progress: 0
+
 - title: Linear Algebra Done Right
   subject: Linear algebra
   description: Notes alongside a study of linear algebra.
@@ -6,6 +17,7 @@
   url: https://eroicaleo.github.io/liner-algebra-done-right-4th/
   action: Read notes
   icon: algebra
+  progress: 0
 
 - title: Error Correction Coding
   subject: Coding theory
@@ -14,6 +26,7 @@
   url: https://eroicaleo.github.io/moon-error-correction-coding/
   action: Read notes
   icon: coding
+  progress: 0
 
 - title: Understanding Analysis
   subject: Real analysis
@@ -22,6 +35,7 @@
   url: https://eroicaleo.github.io/abbot-analysis-2nd/
   action: Read notes
   icon: analysis
+  progress: 0
 
 - title: Fourier Transform
   subject: Fourier analysis
@@ -30,6 +44,7 @@
   url: https://eroicaleo.github.io/fourier-transform/
   action: Read notes
   icon: fourier
+  progress: 0
 
 - title: Calculus and Analysis in Euclidean Space
   subject: Multivariable calculus
@@ -38,3 +53,4 @@
   url: https://eroicaleo.github.io/shurman-calculus-euclidean-space/
   action: Read notes
   icon: calculus
+  progress: 0
